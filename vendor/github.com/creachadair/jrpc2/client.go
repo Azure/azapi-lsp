@@ -1,3 +1,5 @@
+// Copyright (C) 2017 Michael J. Fromberger. All Rights Reserved.
+
 package jrpc2
 
 import (
@@ -381,7 +383,7 @@ func (c *Client) Notify(ctx context.Context, method string, params interface{}) 
 	return err
 }
 
-// Close shuts down the client, abandoning any pending in-flight requests.
+// Close shuts down the client, terminating any pending in-flight requests.
 func (c *Client) Close() error {
 	c.mu.Lock()
 	c.stop(errClientStopped)
