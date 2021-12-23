@@ -1,0 +1,78 @@
+package handlers
+
+import (
+	"context"
+	"io/ioutil"
+	"log"
+	"os"
+	"sync"
+	"testing"
+
+	"github.com/creachadair/jrpc2/handler"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/filesystem"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/session"
+)
+
+type MockSessionInput struct {
+	AdditionalHandlers map[string]handler.Func
+}
+
+type mockSession struct {
+	mockInput *MockSessionInput
+
+	stopFunc     func()
+	stopCalled   bool
+	stopCalledMu *sync.RWMutex
+}
+
+func testLogger() *log.Logger {
+	if testing.Verbose() {
+		return log.New(os.Stdout, "", log.LstdFlags|log.Lshortfile)
+	}
+
+	return log.New(ioutil.Discard, "", 0)
+}
+
+func (ms *mockSession) new(srvCtx context.Context) session.Session {
+	sessCtx, stopSession := context.WithCancel(srvCtx)
+	ms.stopFunc = stopSession
+
+	var fs filesystem.Filesystem
+	fs = filesystem.NewFilesystem()
+
+	svc := &service{
+		logger:      testLogger(),
+		srvCtx:      srvCtx,
+		sessCtx:     sessCtx,
+		stopSession: ms.stop,
+		fs:          fs,
+	}
+
+	return svc
+}
+
+func (ms *mockSession) stop() {
+	ms.stopCalledMu.Lock()
+	defer ms.stopCalledMu.Unlock()
+
+	ms.stopFunc()
+	ms.stopCalled = true
+}
+
+func (ms *mockSession) StopFuncCalled() bool {
+	ms.stopCalledMu.RLock()
+	defer ms.stopCalledMu.RUnlock()
+
+	return ms.stopCalled
+}
+
+func newMockSession(input *MockSessionInput) *mockSession {
+	return &mockSession{
+		mockInput:    input,
+		stopCalledMu: &sync.RWMutex{},
+	}
+}
+
+func NewMockSession(input *MockSessionInput) session.SessionFactory {
+	return newMockSession(input).new
+}
