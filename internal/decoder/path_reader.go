@@ -6,9 +6,9 @@ import (
 
 	"github.com/hashicorp/hcl-lang/decoder"
 	"github.com/hashicorp/hcl-lang/lang"
+	tfmod "github.com/hashicorp/terraform-schema/module"
 	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/state"
-	tfmod "github.com/hashicorp/terraform-schema/module"
 )
 
 type ModuleReader interface {

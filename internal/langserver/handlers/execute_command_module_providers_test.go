@@ -6,13 +6,13 @@ import (
 
 	"github.com/creachadair/jrpc2/code"
 	"github.com/hashicorp/go-version"
+	tfaddr "github.com/hashicorp/terraform-registry-address"
+	tfmod "github.com/hashicorp/terraform-schema/module"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/cmd"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/state"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/terraform/exec"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/uri"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
-	tfmod "github.com/hashicorp/terraform-schema/module"
 	"github.com/stretchr/testify/mock"
 )
 

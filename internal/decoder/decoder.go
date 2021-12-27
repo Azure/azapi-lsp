@@ -6,12 +6,12 @@ import (
 	"github.com/hashicorp/hcl-lang/decoder"
 	"github.com/hashicorp/hcl-lang/reference"
 	"github.com/hashicorp/hcl/v2"
+	tfschema "github.com/hashicorp/terraform-schema/schema"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/codelens"
 	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
 	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/state"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/terraform/ast"
-	tfschema "github.com/hashicorp/terraform-schema/schema"
 )
 
 func NewDecoder(ctx context.Context, pathReader decoder.PathReader) *decoder.Decoder {

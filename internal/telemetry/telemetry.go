@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 	tfaddr "github.com/hashicorp/terraform-registry-address"
+	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
 type Telemetry struct {

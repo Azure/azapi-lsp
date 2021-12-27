@@ -5,11 +5,11 @@ import (
 	"fmt"
 
 	"github.com/creachadair/jrpc2/code"
+	tfaddr "github.com/hashicorp/terraform-registry-address"
 	lsctx "github.com/ms-henglu/azurerm-restapi-lsp/internal/context"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/cmd"
 	op "github.com/ms-henglu/azurerm-restapi-lsp/internal/terraform/module/operation"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/uri"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
 )
 
 const moduleProvidersVersion = 0

@@ -3,9 +3,9 @@ package decoder
 import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/state"
 	tfmodule "github.com/hashicorp/terraform-schema/module"
 	tfschema "github.com/hashicorp/terraform-schema/schema"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/state"
 )
 
 func schemaForModule(mod *state.Module, schemaReader state.SchemaReader, modReader state.ModuleCallReader) (*schema.BodySchema, error) {

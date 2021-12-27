@@ -240,136 +240,136 @@ func (svc *service) Assigner() (jrpc2.Assigner, error) {
 			return handle(ctx, req, CancelRequest)
 		},
 		/*
-		"textDocument/documentSymbol": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
-			err := session.CheckInitializationIsConfirmed()
-			if err != nil {
-				return nil, err
-			}
+			"textDocument/documentSymbol": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
+				err := session.CheckInitializationIsConfirmed()
+				if err != nil {
+					return nil, err
+				}
 
-			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
-			ctx = ilsp.WithClientCapabilities(ctx, cc)
+				ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
+				ctx = ilsp.WithClientCapabilities(ctx, cc)
 
-			return handle(ctx, req, svc.TextDocumentSymbol)
-		},
-		"textDocument/documentLink": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
-			err := session.CheckInitializationIsConfirmed()
-			if err != nil {
-				return nil, err
-			}
+				return handle(ctx, req, svc.TextDocumentSymbol)
+			},
+			"textDocument/documentLink": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
+				err := session.CheckInitializationIsConfirmed()
+				if err != nil {
+					return nil, err
+				}
 
-			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
-			ctx = ilsp.WithClientCapabilities(ctx, cc)
-			ctx = ilsp.ContextWithClientName(ctx, &clientName)
+				ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
+				ctx = ilsp.WithClientCapabilities(ctx, cc)
+				ctx = ilsp.ContextWithClientName(ctx, &clientName)
 
-			return handle(ctx, req, svc.TextDocumentLink)
-		},
-		"textDocument/declaration": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
-			err := session.CheckInitializationIsConfirmed()
-			if err != nil {
-				return nil, err
-			}
+				return handle(ctx, req, svc.TextDocumentLink)
+			},
+			"textDocument/declaration": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
+				err := session.CheckInitializationIsConfirmed()
+				if err != nil {
+					return nil, err
+				}
 
-			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
-			ctx = ilsp.WithClientCapabilities(ctx, cc)
+				ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
+				ctx = ilsp.WithClientCapabilities(ctx, cc)
 
-			return handle(ctx, req, svc.GoToReferenceTarget)
-		},
-		"textDocument/definition": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
-			err := session.CheckInitializationIsConfirmed()
-			if err != nil {
-				return nil, err
-			}
+				return handle(ctx, req, svc.GoToReferenceTarget)
+			},
+			"textDocument/definition": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
+				err := session.CheckInitializationIsConfirmed()
+				if err != nil {
+					return nil, err
+				}
 
-			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
-			ctx = ilsp.WithClientCapabilities(ctx, cc)
+				ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
+				ctx = ilsp.WithClientCapabilities(ctx, cc)
 
-			return handle(ctx, req, svc.GoToReferenceTarget)
-		},
-		"textDocument/codeLens": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
-			err := session.CheckInitializationIsConfirmed()
-			if err != nil {
-				return nil, err
-			}
+				return handle(ctx, req, svc.GoToReferenceTarget)
+			},
+			"textDocument/codeLens": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
+				err := session.CheckInitializationIsConfirmed()
+				if err != nil {
+					return nil, err
+				}
 
-			ctx = ilsp.WithClientCapabilities(ctx, cc)
-			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
+				ctx = ilsp.WithClientCapabilities(ctx, cc)
+				ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
 
-			return handle(ctx, req, svc.TextDocumentCodeLens)
-		},
-		"textDocument/formatting": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
-			err := session.CheckInitializationIsConfirmed()
-			if err != nil {
-				return nil, err
-			}
+				return handle(ctx, req, svc.TextDocumentCodeLens)
+			},
+			"textDocument/formatting": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
+				err := session.CheckInitializationIsConfirmed()
+				if err != nil {
+					return nil, err
+				}
 
-			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
-			ctx = exec.WithExecutorOpts(ctx, svc.tfExecOpts)
-			ctx = exec.WithExecutorFactory(ctx, svc.tfExecFactory)
+				ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
+				ctx = exec.WithExecutorOpts(ctx, svc.tfExecOpts)
+				ctx = exec.WithExecutorFactory(ctx, svc.tfExecFactory)
 
-			return handle(ctx, req, lh.TextDocumentFormatting)
-		},
-		"textDocument/semanticTokens/full": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
-			err := session.CheckInitializationIsConfirmed()
-			if err != nil {
-				return nil, err
-			}
+				return handle(ctx, req, lh.TextDocumentFormatting)
+			},
+			"textDocument/semanticTokens/full": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
+				err := session.CheckInitializationIsConfirmed()
+				if err != nil {
+					return nil, err
+				}
 
-			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
-			ctx = ilsp.WithClientCapabilities(ctx, cc)
+				ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
+				ctx = ilsp.WithClientCapabilities(ctx, cc)
 
-			return handle(ctx, req, svc.TextDocumentSemanticTokensFull)
-		},
-		"workspace/didChangeWorkspaceFolders": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
-			err := session.CheckInitializationIsConfirmed()
-			if err != nil {
-				return nil, err
-			}
+				return handle(ctx, req, svc.TextDocumentSemanticTokensFull)
+			},
+			"workspace/didChangeWorkspaceFolders": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
+				err := session.CheckInitializationIsConfirmed()
+				if err != nil {
+					return nil, err
+				}
 
-			ctx = lsctx.WithModuleWalker(ctx, svc.walker)
-			ctx = lsctx.WithModuleManager(ctx, svc.modMgr)
-			ctx = lsctx.WithWatcher(ctx, svc.watcher)
+				ctx = lsctx.WithModuleWalker(ctx, svc.walker)
+				ctx = lsctx.WithModuleManager(ctx, svc.modMgr)
+				ctx = lsctx.WithWatcher(ctx, svc.watcher)
 
-			return handle(ctx, req, lh.DidChangeWorkspaceFolders)
-		},
-		"textDocument/references": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
-			err := session.CheckInitializationIsConfirmed()
-			if err != nil {
-				return nil, err
-			}
+				return handle(ctx, req, lh.DidChangeWorkspaceFolders)
+			},
+			"textDocument/references": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
+				err := session.CheckInitializationIsConfirmed()
+				if err != nil {
+					return nil, err
+				}
 
-			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
+				ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
 
-			return handle(ctx, req, svc.References)
-		},
-		"workspace/executeCommand": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
-			err := session.CheckInitializationIsConfirmed()
-			if err != nil {
-				return nil, err
-			}
+				return handle(ctx, req, svc.References)
+			},
+			"workspace/executeCommand": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
+				err := session.CheckInitializationIsConfirmed()
+				if err != nil {
+					return nil, err
+				}
 
-			ctx = lsctx.WithCommandPrefix(ctx, &commandPrefix)
-			ctx = lsctx.WithModuleManager(ctx, svc.modMgr)
-			ctx = lsctx.WithModuleFinder(ctx, svc.modMgr)
-			ctx = lsctx.WithModuleWalker(ctx, svc.walker)
-			ctx = lsctx.WithWatcher(ctx, svc.watcher)
-			ctx = lsctx.WithRootDirectory(ctx, &rootDir)
-			ctx = lsctx.WithDiagnosticsNotifier(ctx, svc.diagsNotifier)
-			ctx = exec.WithExecutorOpts(ctx, svc.tfExecOpts)
-			ctx = exec.WithExecutorFactory(ctx, svc.tfExecFactory)
+				ctx = lsctx.WithCommandPrefix(ctx, &commandPrefix)
+				ctx = lsctx.WithModuleManager(ctx, svc.modMgr)
+				ctx = lsctx.WithModuleFinder(ctx, svc.modMgr)
+				ctx = lsctx.WithModuleWalker(ctx, svc.walker)
+				ctx = lsctx.WithWatcher(ctx, svc.watcher)
+				ctx = lsctx.WithRootDirectory(ctx, &rootDir)
+				ctx = lsctx.WithDiagnosticsNotifier(ctx, svc.diagsNotifier)
+				ctx = exec.WithExecutorOpts(ctx, svc.tfExecOpts)
+				ctx = exec.WithExecutorFactory(ctx, svc.tfExecFactory)
 
-			return handle(ctx, req, lh.WorkspaceExecuteCommand)
-		},
-		"workspace/symbol": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
-			err := session.CheckInitializationIsConfirmed()
-			if err != nil {
-				return nil, err
-			}
+				return handle(ctx, req, lh.WorkspaceExecuteCommand)
+			},
+			"workspace/symbol": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
+				err := session.CheckInitializationIsConfirmed()
+				if err != nil {
+					return nil, err
+				}
 
-			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
-			ctx = ilsp.WithClientCapabilities(ctx, cc)
+				ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
+				ctx = ilsp.WithClientCapabilities(ctx, cc)
 
-			return handle(ctx, req, svc.WorkspaceSymbol)
-		},
+				return handle(ctx, req, svc.WorkspaceSymbol)
+			},
 		*/
 	}
 

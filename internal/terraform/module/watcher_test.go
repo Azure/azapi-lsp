@@ -12,11 +12,11 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/schema"
 	"github.com/hashicorp/terraform-json"
+	tfaddr "github.com/hashicorp/terraform-registry-address"
+	tfschema "github.com/hashicorp/terraform-schema/schema"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/filesystem"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/state"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/terraform/exec"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
-	tfschema "github.com/hashicorp/terraform-schema/schema"
 	"github.com/stretchr/testify/mock"
 )
 

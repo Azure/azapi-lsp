@@ -4,10 +4,10 @@ import (
 	"context"
 	"log"
 
+	tfmodule "github.com/hashicorp/terraform-schema/module"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/filesystem"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/state"
 	op "github.com/ms-henglu/azurerm-restapi-lsp/internal/terraform/module/operation"
-	tfmodule "github.com/hashicorp/terraform-schema/module"
 )
 
 type File interface {

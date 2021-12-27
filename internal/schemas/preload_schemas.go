@@ -1,9 +1,9 @@
 package schemas
 
 import (
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/state"
 	"github.com/hashicorp/terraform-registry-address"
 	tfschema "github.com/hashicorp/terraform-schema/schema"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/state"
 )
 
 func PreloadSchemasToStore(pss *state.ProviderSchemaStore) error {

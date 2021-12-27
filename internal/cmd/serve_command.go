@@ -13,12 +13,12 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/mitchellh/cli"
 	lsctx "github.com/ms-henglu/azurerm-restapi-lsp/internal/context"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/logging"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/pathtpl"
-	"github.com/mitchellh/cli"
 )
 
 type ServeCommand struct {

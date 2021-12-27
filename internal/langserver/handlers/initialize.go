@@ -23,13 +23,13 @@ func (svc *service) Initialize(ctx context.Context, params lsp.InitializeParams)
 			},
 			CompletionProvider: lsp.CompletionOptions{
 				ResolveProvider:   false,
-				TriggerCharacters: []string{".", "["},
+				TriggerCharacters: []string{".", "[", "\"", " "},
 			},
 			CodeActionProvider: lsp.CodeActionOptions{
 				CodeActionKinds: ilsp.SupportedCodeActions.AsSlice(),
 				ResolveProvider: false,
 			},
-			HoverProvider:              true,
+			HoverProvider: true,
 
 			DeclarationProvider:        false,
 			DefinitionProvider:         false,
@@ -103,13 +103,13 @@ func (svc *service) Initialize(ctx context.Context, params lsp.InitializeParams)
 	}
 
 	/*
-	if _, ok = expClientCaps.ShowReferencesCommandId(); ok {
-		serverCaps.Capabilities.Experimental = lsp.ExperimentalServerCapabilities{
-			ReferenceCountCodeLens: true,
+		if _, ok = expClientCaps.ShowReferencesCommandId(); ok {
+			serverCaps.Capabilities.Experimental = lsp.ExperimentalServerCapabilities{
+				ReferenceCountCodeLens: true,
+			}
+			properties["experimentalCapabilities.referenceCountCodeLens"] = true
 		}
-		properties["experimentalCapabilities.referenceCountCodeLens"] = true
-	}
-    */
+	*/
 	err = ilsp.SetClientCapabilities(ctx, &clientCaps)
 	if err != nil {
 		return serverCaps, err
@@ -141,31 +141,31 @@ func (svc *service) Initialize(ctx context.Context, params lsp.InitializeParams)
 	}
 
 	/*
-	stCaps := clientCaps.TextDocument.SemanticTokens
-	caps := ilsp.SemanticTokensClientCapabilities{
-		SemanticTokensClientCapabilities: clientCaps.TextDocument.SemanticTokens,
-	}
-	semanticTokensOpts := lsp.SemanticTokensOptions{
-		Legend: lsp.SemanticTokensLegend{
-			TokenTypes:     ilsp.TokenTypesLegend(stCaps.TokenTypes).AsStrings(),
-			TokenModifiers: ilsp.TokenModifiersLegend(stCaps.TokenModifiers).AsStrings(),
-		},
-		Full: caps.FullRequest(),
-	}
+		stCaps := clientCaps.TextDocument.SemanticTokens
+		caps := ilsp.SemanticTokensClientCapabilities{
+			SemanticTokensClientCapabilities: clientCaps.TextDocument.SemanticTokens,
+		}
+		semanticTokensOpts := lsp.SemanticTokensOptions{
+			Legend: lsp.SemanticTokensLegend{
+				TokenTypes:     ilsp.TokenTypesLegend(stCaps.TokenTypes).AsStrings(),
+				TokenModifiers: ilsp.TokenModifiersLegend(stCaps.TokenModifiers).AsStrings(),
+			},
+			Full: caps.FullRequest(),
+		}
 
-	serverCaps.Capabilities.SemanticTokensProvider = semanticTokensOpts
+		serverCaps.Capabilities.SemanticTokensProvider = semanticTokensOpts
 	*/
 	// set commandPrefix for session
 	lsctx.SetCommandPrefix(ctx, out.Options.CommandPrefix)
 	// apply prefix to executeCommand handler names
 	/*
-	serverCaps.Capabilities.ExecuteCommandProvider = lsp.ExecuteCommandOptions{
-		Commands: handlers.Names(out.Options.CommandPrefix),
-		WorkDoneProgressOptions: lsp.WorkDoneProgressOptions{
-			WorkDoneProgress: true,
-		},
-	}
-    */
+		serverCaps.Capabilities.ExecuteCommandProvider = lsp.ExecuteCommandOptions{
+			Commands: handlers.Names(out.Options.CommandPrefix),
+			WorkDoneProgressOptions: lsp.WorkDoneProgressOptions{
+				WorkDoneProgress: true,
+			},
+		}
+	*/
 	// set experimental feature flags
 	lsctx.SetExperimentalFeatures(ctx, out.Options.ExperimentalFeatures)
 

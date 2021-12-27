@@ -6,6 +6,10 @@ import (
 
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl-lang/lang"
+	tfaddr "github.com/hashicorp/terraform-registry-address"
+	"github.com/hashicorp/terraform-schema/earlydecoder"
+	"github.com/hashicorp/terraform-schema/module"
+	tfschema "github.com/hashicorp/terraform-schema/schema"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/decoder"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/filesystem"
 	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
@@ -13,10 +17,6 @@ import (
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/terraform/datadir"
 	op "github.com/ms-henglu/azurerm-restapi-lsp/internal/terraform/module/operation"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/terraform/parser"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
-	"github.com/hashicorp/terraform-schema/earlydecoder"
-	"github.com/hashicorp/terraform-schema/module"
-	tfschema "github.com/hashicorp/terraform-schema/schema"
 )
 
 type DeferFunc func(opError error)

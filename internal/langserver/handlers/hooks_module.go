@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/hashicorp/terraform-schema/backend"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/diagnostics"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/session"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/state"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/telemetry"
-	"github.com/hashicorp/terraform-schema/backend"
 )
 
 func sendModuleTelemetry(ctx context.Context, store *state.StateStore, telemetrySender telemetry.Sender) state.ModuleChangeHook {

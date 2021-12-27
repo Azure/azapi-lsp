@@ -178,7 +178,7 @@ func TestName(t *testing.T) {
 				CodeActionKinds: ilsp.SupportedCodeActions.AsSlice(),
 				ResolveProvider: false,
 			},
-			HoverProvider:              true,
+			HoverProvider: true,
 
 			DeclarationProvider:        false,
 			DefinitionProvider:         false,

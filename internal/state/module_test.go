@@ -10,11 +10,11 @@ import (
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclparse"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
+	tfaddr "github.com/hashicorp/terraform-registry-address"
+	tfmod "github.com/hashicorp/terraform-schema/module"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/terraform/ast"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/terraform/datadir"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/terraform/module/operation"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
-	tfmod "github.com/hashicorp/terraform-schema/module"
 )
 
 func TestModuleStore_Add_duplicate(t *testing.T) {
