@@ -6,6 +6,7 @@ import (
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/zclconf/go-cty/cty"
+	"log"
 	"strings"
 	"testing"
 )
@@ -14,7 +15,7 @@ func TestName(t *testing.T) {
 	file, dialog := hclsyntax.ParseConfig([]byte(config), "", hcl.InitialPos)
 
 
-	pos := hcl.Pos{Line: 92, Column: 10, Byte: 1910}
+	pos := hcl.Pos{Line: 91, Column: 23, Byte: 1910}
 
 	block, err := blockAtPos(file, pos)
 
@@ -43,11 +44,13 @@ func TestName(t *testing.T) {
 				case "body":
 					typeAttr := attributeWithName(block, "type")
 					_ = typeAttr.Name
-					attributePathOfBodyAtPos(attribute.Expr, pos)
-					//r := attribute.Expr.Range()
-					temp := ([]byte(config))[1860:1949]
-					tokens, dialog1 := hclsyntax.LexExpression(temp, "", attribute.Expr.Range().Start)
-					_, _ = tokens, dialog1
+					if r, err := rangeOfJsonEncodeBody(attribute.Expr); err == nil {
+						temp := ([]byte(config))[r.Start.Byte:r.End.Byte]
+						tokens, dialog1 := hclsyntax.LexExpression(temp, "", r.Start)
+						path := buildRangeMap(tokens)
+						_, _ = path, dialog1
+					}
+
 					fmt.Println("")
 					break
 				}
@@ -137,25 +140,184 @@ func attributeAtPos(block *hclsyntax.Block, pos hcl.Pos) (*hclsyntax.Attribute, 
 	return nil, nil
 }
 
-func attributePathOfBodyAtPos(expression hclsyntax.Expression, pos hcl.Pos) (string, error) {
+func rangeOfJsonEncodeBody(expression hclsyntax.Expression) (*hcl.Range, error) {
 	if expression == nil {
-		return "", nil
+		return nil, nil
 	}
 	if funcCallExpr, ok := expression.(*hclsyntax.FunctionCallExpr); ok {
 		if funcCallExpr.Name != "jsonencode" {
-			return "", fmt.Errorf("expression is not funcation jsonencode")
+			return nil, fmt.Errorf("expression is not funcation jsonencode")
 		}
 		if len(funcCallExpr.Args) != 1 {
-			return "", fmt.Errorf("invalid args length for jsonencode")
+			return nil, fmt.Errorf("invalid args length for jsonencode")
 		}
-
+		r := funcCallExpr.Args[0].Range()
+		return &r, nil
 	} else {
-		return "", fmt.Errorf("expression is not funcation call expression")
+		return nil, fmt.Errorf("expression is not funcation call expression")
 	}
-	return "", nil
 }
 
-//func attributePathAtPos()
+type RangeMap struct {
+	Children map[string]*RangeMap
+	Range hcl.Range
+	Value interface{}
+	Key interface{}
+}
+
+func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
+	stack := make([]*RangeMap, 0)
+	dummy := &RangeMap{
+		Children: make(map[string]*RangeMap),
+	}
+	stack = append(stack, dummy)
+
+	keyStack := make([]string, 0)
+	indexStack := make([]int, 0)
+	keyStack = append(keyStack, "dummy")
+	indexStack = append(indexStack, -1)
+
+	isKey := false
+	var value *string
+	for _, token := range tokens {
+		switch token.Type {
+		case hclsyntax.TokenOBrace:
+			key := "key_placeholder"
+			if isKey {
+				log.Printf("[WARN] key is empty")
+			} else {
+				key = getKey(keyStack, indexStack)
+			}
+			rangeMap := &RangeMap{
+				Key: key,
+				Children: make(map[string]*RangeMap),
+			}
+			stack[len(stack) - 1].Children[key] = rangeMap
+			stack = append(stack, rangeMap)
+			isKey = true
+			break
+		case hclsyntax.TokenCBrace:
+			// waiting for value, but got none
+			if !isKey {
+				key := getKey(keyStack, indexStack)
+				stack[len(stack) - 1].Children[key] = &RangeMap{
+					Key: key,
+					Value: nil,
+				}
+				keyStack = keyStack[0: len(keyStack) - 1]
+				indexStack = indexStack[0: len(indexStack) - 1]
+				isKey = true
+			}
+			stack = stack[0: len(stack) - 1]
+			keyStack = keyStack[0: len(keyStack) - 1]
+			indexStack = indexStack[0: len(indexStack) - 1]
+			break
+		case hclsyntax.TokenOBrack:
+			if len(keyStack) == 0 {
+				log.Printf("[WARN] key is empty")
+				keyStack = append(keyStack, "key_placeholder")
+				indexStack = append(indexStack, -1)
+			}
+			key := keyStack[len(keyStack) - 1]
+			keyStack = append(keyStack, key)
+			indexStack = append(indexStack, 0)
+			break
+		case hclsyntax.TokenCBrack:
+			if !isKey && value != nil {
+				key := getKey(keyStack, indexStack)
+				stack[len(stack) - 1].Children[key] = &RangeMap{
+					Key: key,
+					Value: value,
+				}
+				value = nil
+				isKey = true
+			}
+			keyStack = keyStack[0: len(keyStack) - 2]
+			indexStack = indexStack[0: len(indexStack) - 2]
+			break
+		case hclsyntax.TokenIdent:
+			if !isKey {
+				key := getKey(keyStack, indexStack)
+				stack[len(stack) - 1].Children[key] = &RangeMap{
+					Key: key,
+					Value: value,
+				}
+				keyStack = keyStack[0: len(keyStack) - 1]
+				indexStack = indexStack[0: len(indexStack) - 1]
+				isKey = true
+				value = nil
+			}
+			if isKey {
+				keyStack = append(keyStack, string(token.Bytes))
+				indexStack = append(indexStack, -1)
+				isKey = false
+			} else {
+				log.Println("[WARN] expect value but got key")
+			}
+			break
+		case hclsyntax.TokenEqual:
+			if isKey {
+				log.Printf("[WARN] key is empty")
+			}
+			break
+		case hclsyntax.TokenNewline:
+			break
+		case hclsyntax.TokenComma:
+			if !isKey {
+				key := getKey(keyStack, indexStack)
+				stack[len(stack) - 1].Children[key] = &RangeMap{
+					Key: key,
+					Value: value,
+				}
+				indexStack[len(indexStack) - 1] ++
+				value = nil
+			}
+			break
+		default:
+			if !isKey {
+				if value == nil {
+					value = pointerString(string(token.Bytes))
+				} else {
+					*value = *value + string(token.Bytes)
+				}
+			}
+			break
+		}
+	}
+
+	if len(stack) == 0 {
+		return nil
+	}
+	return stack[0]
+}
+
+func pointerString(input string) *string{
+	return &input
+}
+
+func getNextIndex(key string, rangeMap *RangeMap) int {
+	index := 0
+	for _ = range rangeMap.Children {
+		if _, ok := rangeMap.Children[fmt.Sprintf("%s.%d", key, index)]; ok {
+			return index
+		}
+		index++
+	}
+	return index
+}
+
+func getKey(keyStack []string, indexStack []int) string {
+	key := "missing_key_placeholder"
+	if len(keyStack) == 0 {
+		log.Printf("[WARN] key is empty")
+	} else {
+		key = keyStack[len(keyStack) - 1]
+	}
+	if len(indexStack) != 0 && indexStack[len(indexStack) - 1] != -1 {
+		key = fmt.Sprintf("%s.%d", key, indexStack[len(indexStack) - 1])
+	}
+	return key
+}
 
 func ContainsPos(r hcl.Range, pos hcl.Pos) bool {
 	afterStart := pos.Line > r.Start.Line || pos.Line == r.Start.Line && pos.Column >= r.Start.Column
@@ -242,7 +404,7 @@ resource "azurerm-restapi_resource" "test" {
 
 }
 resource "azurerm-restapi_resource" "test3" {
-  type = "Microsoft.MachineLearningServices/workspaces@2021-07-01"
+  type  = "Microsoft.MachineLearningServices/workspaces@2021-07-01"
   body1 = <<BODY
   {
     "p1": "value1",
@@ -250,13 +412,15 @@ resource "azurerm-restapi_resource" "test3" {
   }
   BODY
   body = jsonencode({
-    p1 = "value1"
-    p2 = {
-      p3 = {
-        p4 = "v4"
-        p
+    p1 = ["p1.0", "p1.1"]
+    p2 = [
+      {
+        p3 = "p2.0.p3"
+      },
+      {
+        p3 = "p2.0.p3"
       }
-    }
+    ]
   })
 }
 
