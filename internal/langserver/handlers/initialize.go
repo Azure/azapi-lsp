@@ -22,8 +22,15 @@ func (svc *service) Initialize(ctx context.Context, params lsp.InitializeParams)
 				Change:    lsp.Incremental,
 			},
 			CompletionProvider: lsp.CompletionOptions{
-				ResolveProvider:   false,
-				TriggerCharacters: []string{".", "[", "\"", " "},
+				ResolveProvider: false,
+				TriggerCharacters: []string{
+					` `,
+					`.`,
+					`/`,
+					`@`,
+					`{`,
+					`"`,
+				},
 			},
 			CodeActionProvider: lsp.CodeActionOptions{
 				CodeActionKinds: ilsp.SupportedCodeActions.AsSlice(),

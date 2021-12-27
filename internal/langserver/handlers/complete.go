@@ -3,12 +3,12 @@ package handlers
 import (
 	"context"
 	"fmt"
-	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	lsctx "github.com/ms-henglu/azurerm-restapi-lsp/internal/context"
 	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
 	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
+	"github.com/zclconf/go-cty/cty"
 	"strings"
 )
 
@@ -59,63 +59,104 @@ func (svc *service) TextDocumentComplete(ctx context.Context, params lsp.Complet
 	file, _ := hclsyntax.ParseConfig(data, doc.Filename(), hcl.InitialPos)
 	block, err := blockAtPos(file, fPos.Position())
 
-	candidateList := make([]lang.Candidate, 0)
-	if err == nil && block != nil {
-		if len(block.Labels) != 0 && strings.HasPrefix(block.Labels[0], "azurerm-restapi") {
-			attribute, err := attributeAtPos(block, fPos.Position())
-			if err == nil && attribute != nil {
-				switch attribute.Name {
-				case "type":
-					candidateList = typeCandidates()
-					for i, _ := range candidateList {
-						candidateList[i].TextEdit.Range = hcl.Range{
-							Filename: doc.Filename(),
-							End: fPos.Position(),
-							Start: attribute.Expr.Range().Start,
-						}
-					}
-					break
-				case "body":
-					break
+	candidateList := make([]lsp.CompletionItem, 0)
+	if err == nil && block != nil && len(block.Labels) != 0 && strings.HasPrefix(block.Labels[0], "azurerm-restapi") {
+		if attribute := attributeAtPos(block, fPos.Position()); attribute != nil {
+			switch attribute.Name {
+			case "type":
+				expRange := attribute.Expr.Range()
+				if expRange.Start.Line != expRange.End.Line && expRange.End.Column == 1 && expRange.End.Line-1 == fPos.Position().Line {
+					expRange.End = fPos.Position()
 				}
+				r := ilsp.HCLRangeToLSP(expRange)
+				prefix := toLiteral(attribute.Expr)
+				candidateList = typeCandidates(prefix, r)
+				break
+			case "body":
+				break
 			}
 		}
 	}
 
-
-	candidates := lang.Candidates{
-		List:candidateList,
-		IsComplete: true,
+	candidates := lsp.CompletionList{
+		IsIncomplete: false,
+		Items:        candidateList,
 	}
 	svc.logger.Printf("received candidates: %#v", candidates)
-	return ilsp.ToCompletionList(candidates, cc.TextDocument), err
+	_ = cc
+	return candidates, err
 }
 
-
-func typeCandidates() []lang.Candidate {
-	types := []string{
-		"Microsoft.MachineLearningServices/workspaces@2021-07-01",
-		"Microsoft.MachineLearningServices/workspaces/computes@2021-07-1",
+func typeCandidates(prefix *string, r lsp.Range) []lsp.CompletionItem {
+	types := map[string][]string{
+		"Microsoft.MachineLearningServices/workspaces": {
+			"2021-05-01",
+			"2021-07-01",
+		},
+		"Microsoft.MachineLearningServices/workspaces/computes": {
+			"2021-05-01",
+			"2021-07-01",
+		},
 	}
 
-	candidates := make([]lang.Candidate, 0)
-	for _, resourceType := range types {
-		candidates = append(candidates, lang.Candidate{
-			Label:        resourceType,
-			Description:  lang.PlainText("this is description for " + resourceType),
-			Detail:       "string",
-			IsDeprecated: false,
-			TextEdit: lang.TextEdit{
-				NewText: fmt.Sprintf(`"%s"`, resourceType),
-				Snippet: fmt.Sprintf(`"%s"`, resourceType),
-			},
-			Kind:           lang.AttributeCandidateKind,
-			TriggerSuggest: true,
-		})
+	candidates := make([]lsp.CompletionItem, 0)
+	if prefix == nil || !strings.Contains(*prefix, "@") {
+		for resourceType := range types {
+			candidates = append(candidates, lsp.CompletionItem{
+				Label: fmt.Sprintf(`"%s"`, resourceType),
+				Kind:  lsp.ValueCompletion,
+				Documentation: lsp.MarkupContent{
+					Kind:  lsp.MarkupKind("markdown"),
+					Value: fmt.Sprintf("Type: `%s`  \n", resourceType),
+				},
+				SortText:         resourceType,
+				InsertTextFormat: lsp.SnippetTextFormat,
+				InsertTextMode:   lsp.AdjustIndentation,
+				TextEdit: &lsp.TextEdit{
+					Range:   r,
+					NewText: fmt.Sprintf(`"%s@$0"`, resourceType),
+				},
+				Command: &lsp.Command{
+					Command: "editor.action.triggerSuggest",
+					Title:   "Suggest",
+				},
+			})
+		}
+	} else {
+		resourceType := (*prefix)[0:strings.Index(*prefix, "@")]
+		for _, apiVersion := range types[resourceType] {
+			candidates = append(candidates, lsp.CompletionItem{
+				Label: fmt.Sprintf(`"%s@%s"`, resourceType, apiVersion),
+				Kind:  lsp.ValueCompletion,
+				Documentation: lsp.MarkupContent{
+					Kind:  lsp.MarkupKind("markdown"),
+					Value: fmt.Sprintf("Type: `%s`  \nAPI Version: `%s`", resourceType, apiVersion),
+				},
+				SortText:         apiVersion,
+				InsertTextFormat: lsp.PlainTextTextFormat,
+				InsertTextMode:   lsp.AdjustIndentation,
+				TextEdit: &lsp.TextEdit{
+					Range:   r,
+					NewText: fmt.Sprintf(`"%s@%s"`, resourceType, apiVersion),
+				},
+			})
+		}
 	}
+
 	return candidates
 }
 
+func toLiteral(expression hclsyntax.Expression) *string {
+	value, dialog := expression.Value(&hcl.EvalContext{})
+	if dialog != nil && dialog.HasErrors() {
+		return nil
+	}
+	if value.Type() == cty.String && !value.IsNull() && value.IsKnown() {
+		v := value.AsString()
+		return &v
+	}
+	return nil
+}
 
 func blockAtPos(file *hcl.File, pos hcl.Pos) (*hclsyntax.Block, error) {
 	body, isHcl := file.Body.(*hclsyntax.Body)
@@ -131,18 +172,21 @@ func blockAtPos(file *hcl.File, pos hcl.Pos) (*hclsyntax.Block, error) {
 	return nil, nil
 }
 
-func attributeAtPos(block *hclsyntax.Block, pos hcl.Pos) (*hclsyntax.Attribute, error) {
+func attributeAtPos(block *hclsyntax.Block, pos hcl.Pos) *hclsyntax.Attribute {
 	if block == nil {
-		return nil, nil
+		return nil
 	}
 
 	for _, attr := range block.Body.Attributes {
 		if ContainsPos(attr.SrcRange, pos) {
-			return attr, nil
+			return attr
+		}
+		if ContainsPos(attr.Expr.Range(), pos) {
+			return attr
 		}
 	}
 
-	return nil, nil
+	return nil
 }
 
 func ContainsPos(r hcl.Range, pos hcl.Pos) bool {
