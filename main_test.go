@@ -1,6 +1,7 @@
 package main_test
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl/v2"
@@ -160,126 +161,228 @@ func rangeOfJsonEncodeBody(expression hclsyntax.Expression) (*hcl.Range, error) 
 
 type RangeMap struct {
 	Children map[string]*RangeMap
-	Range hcl.Range
+	KeyRange, ValueRange, EqualRange hcl.Range
 	Value interface{}
 	Key interface{}
 }
 
-func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
-	stack := make([]*RangeMap, 0)
-	dummy := &RangeMap{
-		Children: make(map[string]*RangeMap),
+func (rm RangeMap) GetRange() hcl.Range  {
+	return RangeOver(rm.KeyRange, rm.ValueRange)
+}
+
+func RangeOver(a hcl.Range, b hcl.Range) hcl.Range {
+	if a.Empty() {
+		return b
 	}
-	stack = append(stack, dummy)
+	if b.Empty() {
+		return a
+	}
 
-	keyStack := make([]string, 0)
-	indexStack := make([]int, 0)
-	keyStack = append(keyStack, "dummy")
-	indexStack = append(indexStack, -1)
+	var start, end hcl.Pos
+	if a.Start.Line < b.Start.Line || a.Start.Line == b.Start.Line && a.Start.Column < b.Start.Column {
+		start = a.Start
+	} else {
+		start = b.Start
+	}
+	if a.Start.Line > b.Start.Line || a.Start.Line == b.Start.Line && a.Start.Column > b.Start.Column {
+		end = a.End
+	} else {
+		end = b.End
+	}
+	return hcl.Range{
+		Filename: a.Filename,
+		Start:    start,
+		End:      end,
+	}
+}
 
-	isKey := false
-	var value *string
+type State struct {
+	CurrentRangeMap *RangeMap
+	Key *string
+	Value *string
+	KeyRange, ValueRange, EqualRange hcl.Range
+	Index *int
+	ExpectKey bool
+}
+
+func (s State) GetCurrentKey() string {
+	key := "key_placeholder"
+	if s.Key != nil {
+		key = *s.Key
+	}
+	if s.Index != nil {
+		return fmt.Sprintf("%s.%d", key, *s.Index)
+	}
+	return key
+}
+
+func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
+	stack := make([]State, 0)
+	stack = append(stack, State{
+		CurrentRangeMap: &RangeMap{
+			Children: make(map[string]*RangeMap),
+		},
+		Key: String("dummy"),
+		Index: nil,
+		Value: nil,
+		ExpectKey: false,
+	})
+
 	for _, token := range tokens {
 		switch token.Type {
-		case hclsyntax.TokenOBrace:
-			key := "key_placeholder"
-			if isKey {
-				log.Printf("[WARN] key is empty")
-			} else {
-				key = getKey(keyStack, indexStack)
+		case hclsyntax.TokenOBrace: // {
+			top := len(stack) - 1
+			state := stack[top]
+			key := state.GetCurrentKey()
+			if state.ExpectKey {
+				log.Printf("[WARN] expect key but got {")
 			}
 			rangeMap := &RangeMap{
 				Key: key,
+				KeyRange: state.KeyRange,
+				EqualRange: state.EqualRange,
 				Children: make(map[string]*RangeMap),
 			}
-			stack[len(stack) - 1].Children[key] = rangeMap
-			stack = append(stack, rangeMap)
-			isKey = true
+			stack[top].CurrentRangeMap.Children[key] = rangeMap
+			stack[top].CurrentRangeMap.ValueRange = RangeOver(stack[top].CurrentRangeMap.ValueRange, token.Range)
+			stack[top].ExpectKey = stack[top].Index == nil // if there's an index, then expect value because p = [{}]
+			stack = append(stack, State{
+				ExpectKey: true,
+				CurrentRangeMap: rangeMap,
+			})
 			break
-		case hclsyntax.TokenCBrace:
-			// waiting for value, but got none
-			if !isKey {
-				key := getKey(keyStack, indexStack)
-				stack[len(stack) - 1].Children[key] = &RangeMap{
+		case hclsyntax.TokenCBrace: // }
+			top := len(stack) - 1
+			state := stack[top]
+			if !state.ExpectKey {
+				log.Printf("[WARN] expect value but got }")
+				key := state.GetCurrentKey()
+				stack[top].CurrentRangeMap.Children[key] = &RangeMap{
 					Key: key,
-					Value: nil,
+					Value: state.Value,
+					KeyRange: state.KeyRange,
+					ValueRange: state.ValueRange,
+					EqualRange: state.EqualRange,
 				}
-				keyStack = keyStack[0: len(keyStack) - 1]
-				indexStack = indexStack[0: len(indexStack) - 1]
-				isKey = true
 			}
-			stack = stack[0: len(stack) - 1]
-			keyStack = keyStack[0: len(keyStack) - 1]
-			indexStack = indexStack[0: len(indexStack) - 1]
+			stack[top].CurrentRangeMap.ValueRange = RangeOver(stack[top].CurrentRangeMap.ValueRange, token.Range)
+			stack = stack[0: top]
 			break
-		case hclsyntax.TokenOBrack:
-			if len(keyStack) == 0 {
-				log.Printf("[WARN] key is empty")
-				keyStack = append(keyStack, "key_placeholder")
-				indexStack = append(indexStack, -1)
+
+		case hclsyntax.TokenOBrack: // [
+			top := len(stack) - 1
+			state := stack[top]
+			if state.ExpectKey {
+				log.Printf("[WARN] expect key but got [")
 			}
-			key := keyStack[len(keyStack) - 1]
-			keyStack = append(keyStack, key)
-			indexStack = append(indexStack, 0)
+			key := state.GetCurrentKey()
+			rangeMap := &RangeMap{
+				Key: key,
+				KeyRange: state.KeyRange,
+				EqualRange: state.EqualRange,
+				ValueRange: token.Range,
+				Children: make(map[string]*RangeMap),
+			}
+			stack[top].CurrentRangeMap.Children[key] = rangeMap
+			stack[top].ExpectKey = true
+			stack = append(stack, State{
+				ExpectKey: false,
+				Key: state.Key,
+				Index: Int(0),
+				CurrentRangeMap: rangeMap,
+			})
 			break
-		case hclsyntax.TokenCBrack:
-			if !isKey && value != nil {
-				key := getKey(keyStack, indexStack)
-				stack[len(stack) - 1].Children[key] = &RangeMap{
+		case hclsyntax.TokenCBrack: // ]
+			top := len(stack) - 1
+			state := stack[top]
+			if _, ok := state.CurrentRangeMap.Children[state.GetCurrentKey()]; !ok {
+				log.Printf("[WARN] expect value but got }")
+				key := state.GetCurrentKey()
+				stack[top].CurrentRangeMap.Children[key] = &RangeMap{
 					Key: key,
-					Value: value,
+					Value: state.Value,
+					ValueRange: state.ValueRange,
 				}
-				value = nil
-				isKey = true
 			}
-			keyStack = keyStack[0: len(keyStack) - 2]
-			indexStack = indexStack[0: len(indexStack) - 2]
+			stack[top].CurrentRangeMap.ValueRange = RangeOver(stack[top].CurrentRangeMap.ValueRange, token.Range)
+			stack = stack[0: top]
+			top = len(stack) - 1
 			break
 		case hclsyntax.TokenIdent:
-			if !isKey {
-				key := getKey(keyStack, indexStack)
-				stack[len(stack) - 1].Children[key] = &RangeMap{
-					Key: key,
-					Value: value,
-				}
-				keyStack = keyStack[0: len(keyStack) - 1]
-				indexStack = indexStack[0: len(indexStack) - 1]
-				isKey = true
-				value = nil
-			}
-			if isKey {
-				keyStack = append(keyStack, string(token.Bytes))
-				indexStack = append(indexStack, -1)
-				isKey = false
+			top := len(stack) - 1
+			state := stack[top]
+			if state.ExpectKey {
+				stack[top].Key = String(string(token.Bytes))
+				stack[top].KeyRange = token.Range
+				stack[top].Index = nil
+				stack[top].Value = nil
+				stack[top].ExpectKey = false
 			} else {
-				log.Println("[WARN] expect value but got key")
+				if stack[top].Value == nil {
+					stack[top].Value = pointerString(string(token.Bytes))
+				} else {
+					*stack[top].Value = *stack[top].Value + string(token.Bytes)
+				}
+				stack[top].ValueRange = RangeOver(stack[top].ValueRange, token.Range)
 			}
 			break
-		case hclsyntax.TokenEqual:
-			if isKey {
-				log.Printf("[WARN] key is empty")
+		case hclsyntax.TokenEqual: // =
+			top := len(stack) - 1
+			state := stack[top]
+			if state.ExpectKey {
+				log.Printf("[WARN] expect key but got =")
+				stack[top].ExpectKey = false
 			}
+			stack[top].EqualRange = token.Range
 			break
 		case hclsyntax.TokenNewline:
+			top := len(stack) - 1
+			state := stack[top]
+			if !state.ExpectKey {
+				if stack[top].Index == nil {
+					key := state.GetCurrentKey()
+					stack[top].CurrentRangeMap.Children[key] = &RangeMap{
+						Key: key,
+						Value: state.Value,
+						KeyRange: state.KeyRange,
+						ValueRange: state.ValueRange,
+						EqualRange: state.EqualRange,
+					}
+					stack[top].Key = nil
+					stack[top].Value = nil
+					stack[top].ExpectKey = true
+				}
+			}
 			break
 		case hclsyntax.TokenComma:
-			if !isKey {
-				key := getKey(keyStack, indexStack)
-				stack[len(stack) - 1].Children[key] = &RangeMap{
-					Key: key,
-					Value: value,
+			top := len(stack) - 1
+			state := stack[top]
+			if !state.ExpectKey {
+				if state.Value != nil {
+					key := state.GetCurrentKey()
+					stack[top].CurrentRangeMap.Children[key] = &RangeMap{
+						Key: key,
+						Value: state.Value,
+						ValueRange: state.ValueRange,
+					}
 				}
-				indexStack[len(indexStack) - 1] ++
-				value = nil
+				*stack[top].Index++
+				stack[top].Value = nil
+				stack[top].ValueRange = hcl.Range{}
+			} else {
+				log.Printf("[WARN] expect key but got ,")
 			}
 			break
 		default:
-			if !isKey {
-				if value == nil {
-					value = pointerString(string(token.Bytes))
+			top := len(stack) - 1
+			state := stack[top]
+			if !state.ExpectKey {
+				if stack[top].Value == nil {
+					stack[top].Value = pointerString(string(token.Bytes))
 				} else {
-					*value = *value + string(token.Bytes)
+					*stack[top].Value = *stack[top].Value + string(token.Bytes)
 				}
+				stack[top].ValueRange = RangeOver(stack[top].ValueRange, token.Range)
 			}
 			break
 		}
@@ -288,7 +391,23 @@ func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 	if len(stack) == 0 {
 		return nil
 	}
-	return stack[0]
+
+	root := stack[0].CurrentRangeMap
+	updateValueRange(root)
+
+	data, _ := json.Marshal(root)
+	fmt.Println(string(data))
+	return root
+}
+
+func updateValueRange(rangeMap *RangeMap) {
+	if rangeMap == nil {
+		return
+	}
+	for _, v := range rangeMap.Children {
+		updateValueRange(v)
+		rangeMap.ValueRange = RangeOver(rangeMap.ValueRange, v.GetRange())
+	}
 }
 
 func pointerString(input string) *string{
@@ -306,23 +425,34 @@ func getNextIndex(key string, rangeMap *RangeMap) int {
 	return index
 }
 
-func getKey(keyStack []string, indexStack []int) string {
-	key := "missing_key_placeholder"
-	if len(keyStack) == 0 {
-		log.Printf("[WARN] key is empty")
-	} else {
-		key = keyStack[len(keyStack) - 1]
-	}
-	if len(indexStack) != 0 && indexStack[len(indexStack) - 1] != -1 {
-		key = fmt.Sprintf("%s.%d", key, indexStack[len(indexStack) - 1])
-	}
-	return key
-}
-
 func ContainsPos(r hcl.Range, pos hcl.Pos) bool {
 	afterStart := pos.Line > r.Start.Line || pos.Line == r.Start.Line && pos.Column >= r.Start.Column
 	beforeEnd := pos.Line < r.End.Line || pos.Line == r.End.Line && pos.Column <= r.End.Column
 	return afterStart && beforeEnd
+}
+
+func Bool(input bool) *bool {
+	return &input
+}
+
+func Int(input int) *int {
+	return &input
+}
+
+func Int32(input int32) *int32 {
+	return &input
+}
+
+func Int64(input int64) *int64 {
+	return &input
+}
+
+func Float(input float64) *float64 {
+	return &input
+}
+
+func String(input string) *string {
+	return &input
 }
 
 const config = `terraform {
@@ -412,16 +542,28 @@ resource "azurerm-restapi_resource" "test3" {
   }
   BODY
   body = jsonencode({
-    p1 = ["p1.0", "p1.1"]
-    p2 = [
-      {
-        p3 = "p2.0.p3"
-      },
-      {
-        p3 = "p2.0.p3"
-      }
-    ]
+    network_rule_set = [
+    {
+      default_action = "Deny"
+      ip_rule = [
+        {
+             = var.action
+          ip_range = 
+        },
+        {
+          action   = var.action
+          ip_range = "2.2.2.2/32"
+        }
+      ]
+      virtual_network = []
+    }
+  ]
   })
 }
 
 `
+/*
+
+
+
+ */
