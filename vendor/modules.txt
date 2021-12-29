@@ -149,7 +149,7 @@ github.com/hashicorp/hcl-lang/decoder
 github.com/hashicorp/hcl-lang/lang
 github.com/hashicorp/hcl-lang/reference
 github.com/hashicorp/hcl-lang/schema
-# github.com/hashicorp/hcl/v2 v2.10.1
+# github.com/hashicorp/hcl/v2 v2.11.1
 ## explicit
 github.com/hashicorp/hcl/v2
 github.com/hashicorp/hcl/v2/ext/customdecode
