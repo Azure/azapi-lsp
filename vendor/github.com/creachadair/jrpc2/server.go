@@ -1,3 +1,5 @@
+// Copyright (C) 2017 Michael J. Fromberger. All Rights Reserved.
+
 package jrpc2
 
 import (
@@ -100,6 +102,7 @@ func (s *Server) Start(c channel.Channel) *Server {
 	if s.start.IsZero() {
 		s.start = time.Now().In(time.UTC)
 	}
+	s.metrics.Count("rpc.serversActive", 1)
 
 	// Reset all the I/O structures and start up the workers.
 	s.err = nil
@@ -348,11 +351,14 @@ func (s *Server) invoke(base context.Context, h Handler, req *Request) (json.Raw
 // ServerInfo returns an atomic snapshot of the current server info for s.
 func (s *Server) ServerInfo() *ServerInfo {
 	info := &ServerInfo{
-		Methods:   s.mux.Names(),
+		Methods:   []string{"*"},
 		StartTime: s.start,
 		Counter:   make(map[string]int64),
 		MaxValue:  make(map[string]int64),
 		Label:     make(map[string]interface{}),
+	}
+	if n, ok := s.mux.(Namer); ok {
+		info.Methods = n.Names()
 	}
 	s.metrics.Snapshot(metrics.Snapshot{
 		Counter:  info.Counter,
@@ -576,6 +582,7 @@ func (s *Server) stop(err error) {
 
 	s.err = err
 	s.ch = nil
+	s.metrics.Count("rpc.serversActive", -1)
 }
 
 // read is the main receiver loop, decoding requests from the client and adding

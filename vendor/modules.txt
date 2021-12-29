@@ -64,7 +64,7 @@ github.com/aws/aws-sdk-go/service/sts
 github.com/bgentry/go-netrc/netrc
 # github.com/bgentry/speakeasy v0.1.0
 github.com/bgentry/speakeasy
-# github.com/creachadair/jrpc2 v0.32.0
+# github.com/creachadair/jrpc2 v0.35.1
 ## explicit
 github.com/creachadair/jrpc2
 github.com/creachadair/jrpc2/channel
