@@ -28,7 +28,8 @@ func TestLangServer_didOpenWithoutInitialization(t *testing.T) {
 			"text": "provider \"github\" {}",
 			"uri": "%s/main.tf"
 		}
-	}`, TempDir(t).URI())}, session.SessionNotInitialized.Err())
+	}`, TempDir(t).URI()),
+	}, session.SessionNotInitialized.Err())
 }
 
 func TestLangServer_didOpenLanguageIdStored(t *testing.T) {
@@ -52,7 +53,8 @@ func TestLangServer_didOpenLanguageIdStored(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 	    "processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -71,7 +73,8 @@ func TestLangServer_didOpenLanguageIdStored(t *testing.T) {
         "uri": "%s/main.tf",
         "text": %q
     }
-}`, TempDir(t).URI(), originalText)})
+}`, TempDir(t).URI(), originalText),
+	})
 	path := filepath.Join(TempDir(t).Dir(), "main.tf")
 	doc, err := fs.GetDocument(lsp.FileHandlerFromPath(path))
 	if err != nil {

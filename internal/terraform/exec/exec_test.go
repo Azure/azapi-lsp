@@ -60,12 +60,12 @@ func TestExec_cancel(t *testing.T) {
 func newExecutor(t *testing.T) TerraformExecutor {
 	tmpDir := TempDir(t)
 	workDir := filepath.Join(tmpDir, "workdir")
-	err := os.MkdirAll(workDir, 0755)
+	err := os.MkdirAll(workDir, 0o755)
 	if err != nil {
 		t.Fatal(err)
 	}
 	installDir := filepath.Join(tmpDir, "installdir")
-	err = os.MkdirAll(installDir, 0755)
+	err = os.MkdirAll(installDir, 0o755)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -86,7 +86,7 @@ func newExecutor(t *testing.T) TerraformExecutor {
 func TempDir(t *testing.T) string {
 	tmpDir := filepath.Join(os.TempDir(), "terraform-ls", t.Name())
 
-	err := os.MkdirAll(tmpDir, 0755)
+	err := os.MkdirAll(tmpDir, 0o755)
 	if err != nil {
 		t.Fatal(err)
 	}

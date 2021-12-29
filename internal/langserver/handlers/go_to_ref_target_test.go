@@ -56,7 +56,8 @@ func TestDefinition_basic(t *testing.T) {
 			},
 			"rootUri": %q,
 			"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -76,7 +77,8 @@ output "foo" {
 }`)+`,
 			"uri": "%s/main.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/definition",
 		ReqParams: fmt.Sprintf(`{
@@ -87,7 +89,8 @@ output "foo" {
 				"line": 4,
 				"character": 13
 			}
-		}`, tmpDir.URI())}, fmt.Sprintf(`{
+		}`, tmpDir.URI()),
+	}, fmt.Sprintf(`{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": [{
@@ -133,7 +136,8 @@ func TestDefinition_moduleInputToVariable(t *testing.T) {
 			},
 			"rootUri": %q,
 			"processId": 12345
-	}`, modUri.URI())})
+	}`, modUri.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -154,7 +158,8 @@ func TestDefinition_moduleInputToVariable(t *testing.T) {
 `)+`,
 			"uri": "%s/main.tf"
 		}
-	}`, modUri.URI())})
+	}`, modUri.URI()),
+	})
 	// TODO remove once we support synchronous dependent tasks
 	// See https://github.com/ms-henglu/azurerm-restapi-lsp/issues/719
 	time.Sleep(2 * time.Second)
@@ -168,7 +173,8 @@ func TestDefinition_moduleInputToVariable(t *testing.T) {
 				"line": 2,
 				"character": 6
 			}
-		}`, modUri.URI())}, fmt.Sprintf(`{
+		}`, modUri.URI()),
+	}, fmt.Sprintf(`{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": [
@@ -232,7 +238,8 @@ func TestDeclaration_basic(t *testing.T) {
 			},
 			"rootUri": %q,
 			"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -252,7 +259,8 @@ output "foo" {
 }`)+`,
 			"uri": "%s/main.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/declaration",
 		ReqParams: fmt.Sprintf(`{
@@ -263,7 +271,8 @@ output "foo" {
 				"line": 4,
 				"character": 13
 			}
-		}`, tmpDir.URI())}, fmt.Sprintf(`{
+		}`, tmpDir.URI()),
+	}, fmt.Sprintf(`{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": [{

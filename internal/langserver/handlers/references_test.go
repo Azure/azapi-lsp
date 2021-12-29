@@ -56,7 +56,8 @@ func TestReferences_basic(t *testing.T) {
 	    },
 	    "rootUri": %q,
 	    "processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -76,7 +77,8 @@ output "foo" {
 }`)+`,
 			"uri": "%s/main.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/references",
 		ReqParams: fmt.Sprintf(`{
@@ -87,7 +89,8 @@ output "foo" {
 				"line": 0,
 				"character": 2
 			}
-		}`, tmpDir.URI())}, fmt.Sprintf(`{
+		}`, tmpDir.URI()),
+	}, fmt.Sprintf(`{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": [
@@ -152,7 +155,8 @@ func TestReferences_variableToModuleInput(t *testing.T) {
 			},
 			"rootUri": %q,
 			"processId": 12345
-	}`, rootModUri.URI())})
+	}`, rootModUri.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -178,7 +182,8 @@ variable "instances" {
 `)+`,
 			"uri": "%s/main.tf"
 		}
-	}`, submodUri.URI())})
+	}`, submodUri.URI()),
+	})
 	// TODO remove once we support synchronous dependent tasks
 	// See https://github.com/ms-henglu/azurerm-restapi-lsp/issues/719
 	time.Sleep(2 * time.Second)
@@ -192,7 +197,8 @@ variable "instances" {
 				"line": 0,
 				"character": 5
 			}
-		}`, submodUri.URI())}, fmt.Sprintf(`{
+		}`, submodUri.URI()),
+	}, fmt.Sprintf(`{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": [

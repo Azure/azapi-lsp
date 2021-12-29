@@ -900,7 +900,6 @@ func addAnySchema(t testOrBench, ss *ProviderSchemaStore, ms *ModuleStore, ps *P
 		err := ss.AddLocalSchema(s.ModulePath, ps.Address, ps.Schema)
 		if err != nil {
 			t.Fatal(err)
-
 		}
 		pVersions := map[tfaddr.Provider]*version.Version{
 			ps.Address: ps.Version,

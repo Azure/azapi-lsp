@@ -12,7 +12,6 @@ type replacement struct {
 var replacements = []replacement{
 	// rules heavily inspired by: https://github.com/stiang/remove-markdown/blob/master/index.js
 	// back references were removed
-
 	// Header
 	{regexp.MustCompile(`\n={2,}`), "\n"},
 	// Fenced codeblocks

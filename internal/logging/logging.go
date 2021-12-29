@@ -33,7 +33,7 @@ func NewFileLogger(rawPath string) (*fileLogger, error) {
 	}
 
 	mode := os.O_TRUNC | os.O_CREATE | os.O_WRONLY
-	file, err := os.OpenFile(path, mode, 0600)
+	file, err := os.OpenFile(path, mode, 0o600)
 	if err != nil {
 		return nil, err
 	}

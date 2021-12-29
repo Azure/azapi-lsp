@@ -33,7 +33,8 @@ func TestLangServer_workspaceExecuteCommand_init_argumentError(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -47,13 +48,15 @@ func TestLangServer_workspaceExecuteCommand_init_argumentError(t *testing.T) {
 			"text": "provider \"github\" {}",
 			"uri": %q
 		}
-	}`, testFileURI)})
+	}`, testFileURI),
+	})
 
 	ls.CallAndExpectError(t, &langserver.CallRequest{
 		Method: "workspace/executeCommand",
 		ReqParams: fmt.Sprintf(`{
 		"command": %q
-	}`, cmd.Name("terraform.init"))}, code.InvalidParams.Err())
+	}`, cmd.Name("terraform.init")),
+	}, code.InvalidParams.Err())
 }
 
 func TestLangServer_workspaceExecuteCommand_init_basic(t *testing.T) {
@@ -108,7 +111,8 @@ func TestLangServer_workspaceExecuteCommand_init_basic(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -122,14 +126,16 @@ func TestLangServer_workspaceExecuteCommand_init_basic(t *testing.T) {
 			"text": "provider \"github\" {}",
 			"uri": %q
 		}
-	}`, testFileURI)})
+	}`, testFileURI),
+	})
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "workspace/executeCommand",
 		ReqParams: fmt.Sprintf(`{
 		"command": %q,
 		"arguments": ["uri=%s"]
-	}`, cmd.Name("terraform.init"), tmpDir.URI())}, `{
+	}`, cmd.Name("terraform.init"), tmpDir.URI()),
+	}, `{
 		"jsonrpc": "2.0",
 		"id": 3,
 		"result": null
@@ -188,7 +194,8 @@ func TestLangServer_workspaceExecuteCommand_init_error(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -202,12 +209,14 @@ func TestLangServer_workspaceExecuteCommand_init_error(t *testing.T) {
 			"text": "provider \"github\" {}",
 			"uri": %q
 		}
-	}`, testFileURI)})
+	}`, testFileURI),
+	})
 
 	ls.CallAndExpectError(t, &langserver.CallRequest{
 		Method: "workspace/executeCommand",
 		ReqParams: fmt.Sprintf(`{
 		"command": %q,
 		"arguments": ["uri=%s"]
-	}`, cmd.Name("terraform.init"), testFileURI)}, code.SystemError.Err())
+	}`, cmd.Name("terraform.init"), testFileURI),
+	}, code.SystemError.Err())
 }

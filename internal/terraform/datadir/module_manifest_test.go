@@ -13,7 +13,7 @@ import (
 func TestParseModuleManifestFromFile(t *testing.T) {
 	modPath := t.TempDir()
 	manifestDir := filepath.Join(modPath, ".terraform", "modules")
-	err := os.MkdirAll(manifestDir, 0755)
+	err := os.MkdirAll(manifestDir, 0o755)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -47,7 +47,7 @@ func TestParseModuleManifestFromFile(t *testing.T) {
 	}
 
 	path := filepath.Join(manifestDir, "modules.json")
-	err = ioutil.WriteFile(path, []byte(testManifestContent), 0755)
+	err = ioutil.WriteFile(path, []byte(testManifestContent), 0o755)
 	if err != nil {
 		t.Fatal(err)
 	}

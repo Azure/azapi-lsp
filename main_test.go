@@ -3,18 +3,18 @@ package main_test
 import (
 	"encoding/json"
 	"fmt"
+	"log"
+	"strings"
+	"testing"
+
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/zclconf/go-cty/cty"
-	"log"
-	"strings"
-	"testing"
 )
 
 func TestName(t *testing.T) {
 	file, dialog := hclsyntax.ParseConfig([]byte(config), "", hcl.InitialPos)
-
 
 	pos := hcl.Pos{Line: 91, Column: 23, Byte: 1910}
 
@@ -48,8 +48,13 @@ func TestName(t *testing.T) {
 					if r, err := rangeOfJsonEncodeBody(attribute.Expr); err == nil {
 						temp := ([]byte(config))[r.Start.Byte:r.End.Byte]
 						tokens, dialog1 := hclsyntax.LexExpression(temp, "", r.Start)
-						path := buildRangeMap(tokens)
-						_, _ = path, dialog1
+						rangeMap := buildRangeMap(tokens)
+						targetRangeMap := rangeMapOfPos(rangeMap, pos)
+						lastRangeMap := targetRangeMap[len(targetRangeMap)-1]
+						if ContainsPos(lastRangeMap.KeyRange, pos) {
+						} else if ContainsPos(lastRangeMap.ValueRange, pos) {
+						}
+						_, _, _ = targetRangeMap, rangeMap, dialog1
 					}
 
 					fmt.Println("")
@@ -160,14 +165,14 @@ func rangeOfJsonEncodeBody(expression hclsyntax.Expression) (*hcl.Range, error) 
 }
 
 type RangeMap struct {
-	Children map[string]*RangeMap
+	Children                         map[string]*RangeMap
 	KeyRange, ValueRange, EqualRange hcl.Range
-	Value interface{}
-	Key interface{}
+	Value                            interface{}
+	Key                              interface{}
 }
 
-func (rm RangeMap) GetRange() hcl.Range  {
-	return RangeOver(rm.KeyRange, rm.ValueRange)
+func (rm RangeMap) GetRange() hcl.Range {
+	return RangeOver(RangeOver(rm.KeyRange, rm.ValueRange), rm.EqualRange)
 }
 
 func RangeOver(a hcl.Range, b hcl.Range) hcl.Range {
@@ -184,7 +189,7 @@ func RangeOver(a hcl.Range, b hcl.Range) hcl.Range {
 	} else {
 		start = b.Start
 	}
-	if a.Start.Line > b.Start.Line || a.Start.Line == b.Start.Line && a.Start.Column > b.Start.Column {
+	if a.End.Line > b.End.Line || a.End.Line == b.End.Line && a.End.Column > b.End.Column {
 		end = a.End
 	} else {
 		end = b.End
@@ -197,12 +202,12 @@ func RangeOver(a hcl.Range, b hcl.Range) hcl.Range {
 }
 
 type State struct {
-	CurrentRangeMap *RangeMap
-	Key *string
-	Value *string
+	CurrentRangeMap                  *RangeMap
+	Key                              *string
+	Value                            *string
 	KeyRange, ValueRange, EqualRange hcl.Range
-	Index *int
-	ExpectKey bool
+	Index                            *int
+	ExpectKey                        bool
 }
 
 func (s State) GetCurrentKey() string {
@@ -222,9 +227,9 @@ func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 		CurrentRangeMap: &RangeMap{
 			Children: make(map[string]*RangeMap),
 		},
-		Key: String("dummy"),
-		Index: nil,
-		Value: nil,
+		Key:       String("dummy"),
+		Index:     nil,
+		Value:     nil,
 		ExpectKey: false,
 	})
 
@@ -238,16 +243,16 @@ func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				log.Printf("[WARN] expect key but got {")
 			}
 			rangeMap := &RangeMap{
-				Key: key,
-				KeyRange: state.KeyRange,
+				Key:        key,
+				KeyRange:   state.KeyRange,
+				ValueRange: token.Range,
 				EqualRange: state.EqualRange,
-				Children: make(map[string]*RangeMap),
+				Children:   make(map[string]*RangeMap),
 			}
 			stack[top].CurrentRangeMap.Children[key] = rangeMap
-			stack[top].CurrentRangeMap.ValueRange = RangeOver(stack[top].CurrentRangeMap.ValueRange, token.Range)
 			stack[top].ExpectKey = stack[top].Index == nil // if there's an index, then expect value because p = [{}]
 			stack = append(stack, State{
-				ExpectKey: true,
+				ExpectKey:       true,
 				CurrentRangeMap: rangeMap,
 			})
 			break
@@ -258,15 +263,15 @@ func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				log.Printf("[WARN] expect value but got }")
 				key := state.GetCurrentKey()
 				stack[top].CurrentRangeMap.Children[key] = &RangeMap{
-					Key: key,
-					Value: state.Value,
-					KeyRange: state.KeyRange,
+					Key:        key,
+					Value:      state.Value,
+					KeyRange:   state.KeyRange,
 					ValueRange: state.ValueRange,
 					EqualRange: state.EqualRange,
 				}
 			}
 			stack[top].CurrentRangeMap.ValueRange = RangeOver(stack[top].CurrentRangeMap.ValueRange, token.Range)
-			stack = stack[0: top]
+			stack = stack[0:top]
 			break
 
 		case hclsyntax.TokenOBrack: // [
@@ -277,18 +282,18 @@ func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 			}
 			key := state.GetCurrentKey()
 			rangeMap := &RangeMap{
-				Key: key,
-				KeyRange: state.KeyRange,
+				Key:        key,
+				KeyRange:   state.KeyRange,
 				EqualRange: state.EqualRange,
 				ValueRange: token.Range,
-				Children: make(map[string]*RangeMap),
+				Children:   make(map[string]*RangeMap),
 			}
 			stack[top].CurrentRangeMap.Children[key] = rangeMap
 			stack[top].ExpectKey = true
 			stack = append(stack, State{
-				ExpectKey: false,
-				Key: state.Key,
-				Index: Int(0),
+				ExpectKey:       false,
+				Key:             state.Key,
+				Index:           Int(0),
 				CurrentRangeMap: rangeMap,
 			})
 			break
@@ -299,13 +304,13 @@ func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				log.Printf("[WARN] expect value but got }")
 				key := state.GetCurrentKey()
 				stack[top].CurrentRangeMap.Children[key] = &RangeMap{
-					Key: key,
-					Value: state.Value,
+					Key:        key,
+					Value:      state.Value,
 					ValueRange: state.ValueRange,
 				}
 			}
 			stack[top].CurrentRangeMap.ValueRange = RangeOver(stack[top].CurrentRangeMap.ValueRange, token.Range)
-			stack = stack[0: top]
+			stack = stack[0:top]
 			top = len(stack) - 1
 			break
 		case hclsyntax.TokenIdent:
@@ -316,10 +321,12 @@ func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				stack[top].KeyRange = token.Range
 				stack[top].Index = nil
 				stack[top].Value = nil
+				stack[top].ValueRange = hcl.Range{}
+				stack[top].EqualRange = hcl.Range{}
 				stack[top].ExpectKey = false
 			} else {
 				if stack[top].Value == nil {
-					stack[top].Value = pointerString(string(token.Bytes))
+					stack[top].Value = String(string(token.Bytes))
 				} else {
 					*stack[top].Value = *stack[top].Value + string(token.Bytes)
 				}
@@ -342,9 +349,9 @@ func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				if stack[top].Index == nil {
 					key := state.GetCurrentKey()
 					stack[top].CurrentRangeMap.Children[key] = &RangeMap{
-						Key: key,
-						Value: state.Value,
-						KeyRange: state.KeyRange,
+						Key:        key,
+						Value:      state.Value,
+						KeyRange:   state.KeyRange,
 						ValueRange: state.ValueRange,
 						EqualRange: state.EqualRange,
 					}
@@ -361,8 +368,8 @@ func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				if state.Value != nil {
 					key := state.GetCurrentKey()
 					stack[top].CurrentRangeMap.Children[key] = &RangeMap{
-						Key: key,
-						Value: state.Value,
+						Key:        key,
+						Value:      state.Value,
 						ValueRange: state.ValueRange,
 					}
 				}
@@ -378,7 +385,7 @@ func buildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 			state := stack[top]
 			if !state.ExpectKey {
 				if stack[top].Value == nil {
-					stack[top].Value = pointerString(string(token.Bytes))
+					stack[top].Value = String(string(token.Bytes))
 				} else {
 					*stack[top].Value = *stack[top].Value + string(token.Bytes)
 				}
@@ -410,19 +417,22 @@ func updateValueRange(rangeMap *RangeMap) {
 	}
 }
 
-func pointerString(input string) *string{
-	return &input
-}
-
-func getNextIndex(key string, rangeMap *RangeMap) int {
-	index := 0
-	for _ = range rangeMap.Children {
-		if _, ok := rangeMap.Children[fmt.Sprintf("%s.%d", key, index)]; ok {
-			return index
-		}
-		index++
+func rangeMapOfPos(rangeMap *RangeMap, pos hcl.Pos) []*RangeMap {
+	if rangeMap == nil {
+		return nil
 	}
-	return index
+	res := make([]*RangeMap, 0)
+	if ContainsPos(rangeMap.GetRange(), pos) {
+		res = append(res, rangeMap)
+		for _, child := range rangeMap.Children {
+			if arr := rangeMapOfPos(child, pos); len(arr) != 0 {
+				res = append(res, arr...)
+				break
+			}
+		}
+		return res
+	}
+	return nil
 }
 
 func ContainsPos(r hcl.Range, pos hcl.Pos) bool {
@@ -562,6 +572,7 @@ resource "azurerm-restapi_resource" "test3" {
 }
 
 `
+
 /*
 
 

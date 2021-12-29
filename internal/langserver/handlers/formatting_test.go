@@ -27,7 +27,8 @@ func TestLangServer_formattingWithoutInitialization(t *testing.T) {
 			"text": "provider \"github\" {}",
 			"uri": "%s/main.tf"
 		}
-	}`, TempDir(t).URI())}, session.SessionNotInitialized.Err())
+	}`, TempDir(t).URI()),
+	}, session.SessionNotInitialized.Err())
 }
 
 func TestLangServer_formatting_basic(t *testing.T) {
@@ -81,7 +82,8 @@ func TestLangServer_formatting_basic(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 	    "processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -95,14 +97,16 @@ func TestLangServer_formatting_basic(t *testing.T) {
 			"text": "provider  \"test\"   {\n\n}\n",
 			"uri": "%s/main.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/formatting",
 		ReqParams: fmt.Sprintf(`{
 			"textDocument": {
 				"uri": "%s/main.tf"
 			}
-		}`, tmpDir.URI())}, `{
+		}`, tmpDir.URI()),
+	}, `{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": [
@@ -167,7 +171,8 @@ func TestLangServer_formatting_oldVersion(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 	    "processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -181,14 +186,16 @@ func TestLangServer_formatting_oldVersion(t *testing.T) {
 			"text": "provider  \"test\"   {\n\n}\n",
 			"uri": "%s/main.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.CallAndExpectError(t, &langserver.CallRequest{
 		Method: "textDocument/formatting",
 		ReqParams: fmt.Sprintf(`{
 			"textDocument": {
 				"uri": "%s/main.tf"
 			}
-		}`, tmpDir.URI())}, code.SystemError.Err())
+		}`, tmpDir.URI()),
+	}, code.SystemError.Err())
 }
 
 func TestLangServer_formatting_variables(t *testing.T) {
@@ -242,7 +249,8 @@ func TestLangServer_formatting_variables(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 	    "processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -256,14 +264,16 @@ func TestLangServer_formatting_variables(t *testing.T) {
 			"text": "test  = \"dev\"",
 			"uri": "%s/terraform.tfvars"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/formatting",
 		ReqParams: fmt.Sprintf(`{
 			"textDocument": {
 				"uri": "%s/terraform.tfvars"
 			}
-		}`, tmpDir.URI())}, `{
+		}`, tmpDir.URI()),
+	}, `{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": [

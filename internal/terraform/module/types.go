@@ -31,7 +31,6 @@ type ModuleLoader func(dir string) (Module, error)
 
 type ModuleManager interface {
 	ModuleFinder
-
 	SetLogger(logger *log.Logger)
 	AddModule(modPath string) (Module, error)
 	RemoveModule(modPath string) error

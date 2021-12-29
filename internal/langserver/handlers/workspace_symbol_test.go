@@ -44,7 +44,8 @@ func TestLangServer_workspace_symbol_basic(t *testing.T) {
 		},
 		"rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -58,7 +59,8 @@ func TestLangServer_workspace_symbol_basic(t *testing.T) {
 			"text": "provider \"github\" {}",
 			"uri": "%s/first.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Call(t, &langserver.CallRequest{
 		Method: "textDocument/didOpen",
 		ReqParams: fmt.Sprintf(`{
@@ -68,7 +70,8 @@ func TestLangServer_workspace_symbol_basic(t *testing.T) {
 			"text": "provider \"google\" {}",
 			"uri": "%s/second.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Call(t, &langserver.CallRequest{
 		Method: "textDocument/didOpen",
 		ReqParams: fmt.Sprintf(`{
@@ -78,13 +81,15 @@ func TestLangServer_workspace_symbol_basic(t *testing.T) {
 			"text": "myblock \"custom\" {}",
 			"uri": "%s/blah/third.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "workspace/symbol",
 		ReqParams: `{
 		"query": ""
-	}`}, fmt.Sprintf(`{
+	}`,
+	}, fmt.Sprintf(`{
 		"jsonrpc": "2.0",
 		"id": 5,
 		"result": [
@@ -128,7 +133,8 @@ func TestLangServer_workspace_symbol_basic(t *testing.T) {
 		Method: "workspace/symbol",
 		ReqParams: `{
 		"query": "myb"
-	}`}, fmt.Sprintf(`{
+	}`,
+	}, fmt.Sprintf(`{
 		"jsonrpc": "2.0",
 		"id": 6,
 		"result": [

@@ -111,7 +111,7 @@ func gen() error {
 	}
 
 	log.Println("creating schemas/data dir")
-	err = os.MkdirAll("data", 0755)
+	err = os.MkdirAll("data", 0o755)
 	if err != nil {
 		return err
 	}

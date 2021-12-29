@@ -28,11 +28,14 @@ func TestShutdown_twice(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 	    "processId": 12345
-	}`, TempDir(t).URI())})
+	}`, TempDir(t).URI()),
+	})
 	ls.Call(t, &langserver.CallRequest{
-		Method: "shutdown", ReqParams: `{}`})
+		Method: "shutdown", ReqParams: `{}`,
+	})
 
 	ls.CallAndExpectError(t, &langserver.CallRequest{
-		Method: "shutdown", ReqParams: `{}`},
+		Method: "shutdown", ReqParams: `{}`,
+	},
 		code.InvalidRequest.Err())
 }

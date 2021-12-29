@@ -3,10 +3,11 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 	"path/filepath"
 	"testing"
+
+	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
+	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 
 	"github.com/creachadair/jrpc2/code"
 	"github.com/hashicorp/go-version"
@@ -33,14 +34,16 @@ func TestInitialize_twice(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 	    "processId": 12345
-	}`, TempDir(t).URI())})
+	}`, TempDir(t).URI()),
+	})
 	ls.CallAndExpectError(t, &langserver.CallRequest{
 		Method: "initialize",
 		ReqParams: fmt.Sprintf(`{
 	    "capabilities": {},
 	    "rootUri": %q,
 	    "processId": 12345
-	}`, TempDir(t).URI())}, code.SystemError.Err())
+	}`, TempDir(t).URI()),
+	}, code.SystemError.Err())
 }
 
 func TestInitialize_withIncompatibleTerraformVersion(t *testing.T) {
@@ -73,7 +76,8 @@ func TestInitialize_withIncompatibleTerraformVersion(t *testing.T) {
 	    "capabilities": {},
 	    "processId": 12345,
 	    "rootUri": %q
-	}`, TempDir(t).URI())})
+	}`, TempDir(t).URI()),
+	})
 }
 
 func TestInitialize_withInvalidRootURI(t *testing.T) {
@@ -94,7 +98,8 @@ func TestInitialize_withInvalidRootURI(t *testing.T) {
 	    "capabilities": {},
 	    "processId": 12345,
 	    "rootUri": "meh"
-	}`}, code.SystemError.Err())
+	}`,
+	}, code.SystemError.Err())
 }
 
 func TestInitialize_multipleFolders(t *testing.T) {
@@ -121,7 +126,8 @@ func TestInitialize_multipleFolders(t *testing.T) {
 	    		"name": "root"
 	    	}
 	    ]
-	}`, rootDir.URI(), rootDir.URI())})
+	}`, rootDir.URI(), rootDir.URI()),
+	})
 }
 
 func TestInitialize_ignoreDirectoryNames(t *testing.T) {
@@ -147,7 +153,8 @@ func TestInitialize_ignoreDirectoryNames(t *testing.T) {
 					},
 				},
 			},
-		}}))
+		},
+	}))
 	stop := ls.Start(t)
 	defer stop()
 
@@ -160,7 +167,8 @@ func TestInitialize_ignoreDirectoryNames(t *testing.T) {
 			"initializationOptions": {
 				"ignoreDirectoryNames": [%q]
 			}
-	}`, tmpDir.URI(), "ignore")})
+	}`, tmpDir.URI(), "ignore"),
+	})
 }
 
 func TestName(t *testing.T) {

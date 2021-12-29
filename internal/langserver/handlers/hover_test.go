@@ -28,7 +28,8 @@ func TestHover_withoutInitialization(t *testing.T) {
 				"character": 0,
 				"line": 1
 			}
-		}`, TempDir(t).URI())}, session.SessionNotInitialized.Err())
+		}`, TempDir(t).URI()),
+	}, session.SessionNotInitialized.Err())
 }
 
 func TestHover_withValidData(t *testing.T) {
@@ -88,7 +89,8 @@ func TestHover_withValidData(t *testing.T) {
 		"capabilities": {},
 		"rootUri": %q,
 		"processId": 12345
-	}`, TempDir(t).URI())})
+	}`, TempDir(t).URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -102,7 +104,8 @@ func TestHover_withValidData(t *testing.T) {
 			"text": "provider \"test\" {\n\n}\n",
 			"uri": "%s/main.tf"
 		}
-	}`, TempDir(t).URI())})
+	}`, TempDir(t).URI()),
+	})
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/hover",
@@ -114,7 +117,8 @@ func TestHover_withValidData(t *testing.T) {
 				"character": 3,
 				"line": 0
 			}
-		}`, TempDir(t).URI())}, `{
+		}`, TempDir(t).URI()),
+	}, `{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": {
@@ -176,7 +180,8 @@ func TestVarsHover_withValidData(t *testing.T) {
 					},
 				},
 			},
-		}}))
+		},
+	}))
 	stop := ls.Start(t)
 	defer stop()
 
@@ -186,7 +191,8 @@ func TestVarsHover_withValidData(t *testing.T) {
 		"capabilities": {},
 		"rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -200,7 +206,8 @@ func TestVarsHover_withValidData(t *testing.T) {
 			"text": "variable \"test\" {\n type=string\n sensitive=true}\n",
 			"uri": "%s/variables.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Call(t, &langserver.CallRequest{
 		Method: "textDocument/didOpen",
 		ReqParams: fmt.Sprintf(`{
@@ -210,7 +217,8 @@ func TestVarsHover_withValidData(t *testing.T) {
 			"text": "test = \"dev\"\n",
 			"uri": "%s/terraform.tfvars"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/hover",
@@ -222,7 +230,8 @@ func TestVarsHover_withValidData(t *testing.T) {
 				"character": 3,
 				"line": 0
 			}
-		}`, tmpDir.URI())}, `{
+		}`, tmpDir.URI()),
+	}, `{
 			"jsonrpc": "2.0",
 			"id": 4,
 			"result": {

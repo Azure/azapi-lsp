@@ -160,7 +160,7 @@ func (w *Walker) StartWalking(ctx context.Context) error {
 		}
 	}
 
-	var nextPathToWalk = make(chan string)
+	nextPathToWalk := make(chan string)
 
 	go func(w *Walker) {
 		for {

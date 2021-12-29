@@ -20,7 +20,6 @@ func (s *VersionFieldIndexer) FromObject(obj interface{}) (bool, []byte, error) 
 	isPtr := fv.Kind() == reflect.Ptr
 	rawVersion := fv.Interface()
 	if rawVersion == nil {
-
 		return false, nil, nil
 	}
 

@@ -33,7 +33,8 @@ func TestDidChangeWorkspaceFolders(t *testing.T) {
 				"name": "first"
 			}
 		]
-	}`, rootDir.URI(), rootDir.URI())})
+	}`, rootDir.URI(), rootDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -49,5 +50,6 @@ func TestDidChangeWorkspaceFolders(t *testing.T) {
 				{"uri": %q, "name": "first"}
 			]
 		}
-	}`, rootDir.URI(), rootDir.URI())})
+	}`, rootDir.URI(), rootDir.URI()),
+	})
 }

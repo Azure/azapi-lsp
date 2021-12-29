@@ -47,7 +47,6 @@ type DocumentStorage interface {
 
 type Filesystem interface {
 	DocumentStorage
-
 	SetLogger(*log.Logger)
 
 	// direct FS methods

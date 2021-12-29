@@ -25,7 +25,8 @@ func TestLangServer_codeActionWithoutInitialization(t *testing.T) {
 			"text": "provider \"github\" {}",
 			"uri": "%s/main.tf"
 		}
-	}`, TempDir(t).URI())}, session.SessionNotInitialized.Err())
+	}`, TempDir(t).URI()),
+	}, session.SessionNotInitialized.Err())
 }
 
 func TestLangServer_codeAction_basic(t *testing.T) {
@@ -65,7 +66,8 @@ func TestLangServer_codeAction_basic(t *testing.T) {
 							[]byte("provider \"test\" {\n\n}\n"),
 							nil,
 						},
-					}},
+					},
+				},
 			},
 		},
 	}))
@@ -78,7 +80,8 @@ func TestLangServer_codeAction_basic(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 	    "processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -92,7 +95,8 @@ func TestLangServer_codeAction_basic(t *testing.T) {
 			"text": "provider  \"test\"   {\n\n      }\n",
 			"uri": "%s/main.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/codeAction",
 		ReqParams: fmt.Sprintf(`{
@@ -102,7 +106,8 @@ func TestLangServer_codeAction_basic(t *testing.T) {
 				"end": { "line": 1, "character": 0 }
 			},
 			"context": { "diagnostics": [], "only": ["source.formatAll.terraform"] }
-		}`, tmpDir.URI())}, fmt.Sprintf(`{
+		}`, tmpDir.URI()),
+	}, fmt.Sprintf(`{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": [
@@ -165,7 +170,8 @@ func TestLangServer_codeAction_no_code_action_requested(t *testing.T) {
 							"end": { "line": 1, "character": 0 }
 						},
 						"context": { "diagnostics": [], "only": [""] }
-					}`, tmpDir.URI())},
+					}`, tmpDir.URI()),
+			},
 			want: `{
 				"jsonrpc": "2.0",
 				"id": 3,
@@ -183,7 +189,8 @@ func TestLangServer_codeAction_no_code_action_requested(t *testing.T) {
 							"end": { "line": 1, "character": 0 }
 						},
 						"context": { "diagnostics": [], "only": ["source.formatAll.terraform"] }
-					}`, tmpDir.URI())},
+					}`, tmpDir.URI()),
+			},
 			want: fmt.Sprintf(`{
 				"jsonrpc": "2.0",
 				"id": 3,
@@ -303,7 +310,8 @@ func TestLangServer_codeAction_no_code_action_requested(t *testing.T) {
 									[]byte("provider \"test\" {\n\n}\n"),
 									nil,
 								},
-							}},
+							},
+						},
 					},
 				},
 			}))
@@ -316,7 +324,8 @@ func TestLangServer_codeAction_no_code_action_requested(t *testing.T) {
 					"capabilities": {},
 					"rootUri": %q,
 					"processId": 123456
-			}`, tmpDir.URI())})
+			}`, tmpDir.URI()),
+			})
 			ls.Notify(t, &langserver.CallRequest{
 				Method:    "initialized",
 				ReqParams: "{}",
@@ -330,7 +339,8 @@ func TestLangServer_codeAction_no_code_action_requested(t *testing.T) {
 					"text": "provider  \"test\"   {\n\n      }\n",
 					"uri": "%s/main.tf"
 				}
-			}`, tmpDir.URI())})
+			}`, tmpDir.URI()),
+			})
 
 			ls.CallAndExpectResponse(t, tt.request, tt.want)
 		})

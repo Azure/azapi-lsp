@@ -58,7 +58,8 @@ func TestDocumentLink_withValidData(t *testing.T) {
 					},
 				},
 			},
-		}}))
+		},
+	}))
 	stop := ls.Start(t)
 	defer stop()
 
@@ -68,7 +69,8 @@ func TestDocumentLink_withValidData(t *testing.T) {
 		"capabilities": {},
 		"rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -82,7 +84,8 @@ func TestDocumentLink_withValidData(t *testing.T) {
 			"text": "provider \"test\" {\n\n}\n",
 			"uri": "%s/main.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/documentLink",
@@ -90,7 +93,8 @@ func TestDocumentLink_withValidData(t *testing.T) {
 			"textDocument": {
 				"uri": "%s/main.tf"
 			}
-		}`, tmpDir.URI())}, `{
+		}`, tmpDir.URI()),
+	}, `{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": [

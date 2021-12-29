@@ -24,7 +24,7 @@ func TestWatcher_initFromScratch(t *testing.T) {
 	fs := filesystem.NewFilesystem()
 
 	modPath := filepath.Join(t.TempDir(), "module")
-	err := os.Mkdir(modPath, 0755)
+	err := os.Mkdir(modPath, 0o755)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -101,7 +101,7 @@ resource "aws_vpc" "example" {
   cidr_block = "10.0.0.0/16"
 }
 `)
-	err = ioutil.WriteFile(filepath.Join(modPath, "main.tf"), b, 0755)
+	err = ioutil.WriteFile(filepath.Join(modPath, "main.tf"), b, 0o755)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -119,7 +119,7 @@ resource "aws_vpc" "example" {
 		w.Stop()
 	})
 
-	err = ioutil.WriteFile(filepath.Join(modPath, ".terraform.lock.hcl"), b, 0755)
+	err = ioutil.WriteFile(filepath.Join(modPath, ".terraform.lock.hcl"), b, 0o755)
 	if err != nil {
 		t.Fatal(err)
 	}

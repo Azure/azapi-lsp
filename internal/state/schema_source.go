@@ -9,8 +9,7 @@ type SchemaSource interface {
 	String() string
 }
 
-type PreloadedSchemaSource struct {
-}
+type PreloadedSchemaSource struct{}
 
 func (PreloadedSchemaSource) isSchemaSrcImpl() schemaSrcSigil {
 	return schemaSrcSigil{}

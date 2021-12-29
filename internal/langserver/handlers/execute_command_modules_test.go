@@ -35,7 +35,8 @@ func TestLangServer_workspaceExecuteCommand_modules_argumentError(t *testing.T) 
 	    "capabilities": {},
 	    "rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -49,13 +50,15 @@ func TestLangServer_workspaceExecuteCommand_modules_argumentError(t *testing.T) 
 			"text": "provider \"github\" {}",
 			"uri": %q
 		}
-	}`, testFileURI)})
+	}`, testFileURI),
+	})
 
 	ls.CallAndExpectError(t, &langserver.CallRequest{
 		Method: "workspace/executeCommand",
 		ReqParams: fmt.Sprintf(`{
 		"command": %q
-	}`, cmd.Name("rootmodules"))}, code.InvalidParams.Err())
+	}`, cmd.Name("rootmodules")),
+	}, code.InvalidParams.Err())
 }
 
 func TestLangServer_workspaceExecuteCommand_modules_basic(t *testing.T) {
@@ -79,7 +82,8 @@ func TestLangServer_workspaceExecuteCommand_modules_basic(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -93,14 +97,16 @@ func TestLangServer_workspaceExecuteCommand_modules_basic(t *testing.T) {
 			"text": "provider \"github\" {}",
 			"uri": %q
 		}
-	}`, testFileURI)})
+	}`, testFileURI),
+	})
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "workspace/executeCommand",
 		ReqParams: fmt.Sprintf(`{
 		"command": %q,
 		"arguments": ["uri=%s"] 
-	}`, cmd.Name("rootmodules"), testFileURI)}, fmt.Sprintf(`{
+	}`, cmd.Name("rootmodules"), testFileURI),
+	}, fmt.Sprintf(`{
 		"jsonrpc": "2.0",
 		"id": 3,
 		"result": {
@@ -154,7 +160,8 @@ func TestLangServer_workspaceExecuteCommand_modules_multiple(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 		"processId": 12345
-	}`, root.URI())})
+	}`, root.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -167,7 +174,8 @@ func TestLangServer_workspaceExecuteCommand_modules_multiple(t *testing.T) {
 		ReqParams: fmt.Sprintf(`{
 		"command": %q,
 		"arguments": ["uri=%s"] 
-	}`, cmd.Name("rootmodules"), mod.URI())}, fmt.Sprintf(`{
+	}`, cmd.Name("rootmodules"), mod.URI()),
+	}, fmt.Sprintf(`{
 		"jsonrpc": "2.0",
 		"id": 2,
 		"result": {

@@ -6,8 +6,10 @@ import (
 	"strings"
 )
 
-type Handler func(context.Context, CommandArgs) (interface{}, error)
-type Handlers map[string]Handler
+type (
+	Handler  func(context.Context, CommandArgs) (interface{}, error)
+	Handlers map[string]Handler
+)
 
 const langServerPrefix = "terraform-ls."
 

@@ -46,7 +46,8 @@ func TestLangServer_symbols_basic(t *testing.T) {
 		},
 		"rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -60,7 +61,8 @@ func TestLangServer_symbols_basic(t *testing.T) {
 			"text": "provider \"github\" {}",
 			"uri": "%s/main.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/documentSymbol",
@@ -68,7 +70,8 @@ func TestLangServer_symbols_basic(t *testing.T) {
 		"textDocument": {
 			"uri": "%s/main.tf"
 		}
-	}`, tmpDir.URI())}, `{
+	}`, tmpDir.URI()),
+	}, `{
 		"jsonrpc": "2.0",
 		"id": 3,
 		"result": [

@@ -35,7 +35,8 @@ func TestLangServer_didChange_sequenceOfPartialChanges(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 	    "processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -64,7 +65,8 @@ module "app" {
         "uri": "%s/main.tf",
         "text": %q
     }
-}`, TempDir(t).URI(), originalText)})
+}`, TempDir(t).URI(), originalText),
+	})
 	ls.Call(t, &langserver.CallRequest{
 		Method: "textDocument/didChange",
 		ReqParams: fmt.Sprintf(`{
@@ -102,7 +104,8 @@ module "app" {
             }
         }
     ]
-}`, TempDir(t).URI())})
+}`, TempDir(t).URI()),
+	})
 	ls.Call(t, &langserver.CallRequest{
 		Method: "textDocument/didChange",
 		ReqParams: fmt.Sprintf(`{
@@ -126,7 +129,8 @@ module "app" {
             }
         }
     ]
-}`, TempDir(t).URI())})
+}`, TempDir(t).URI()),
+	})
 
 	path := filepath.Join(TempDir(t).Dir(), "main.tf")
 	doc, err := fs.GetDocument(lsp.FileHandlerFromPath(path))

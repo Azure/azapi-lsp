@@ -6,9 +6,7 @@ import (
 	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
-var (
-	validWindowsPath = "file:///C:/Users/With%20Space/tf-test/file.tf"
-)
+var validWindowsPath = "file:///C:/Users/With%20Space/tf-test/file.tf"
 
 func TestFileHandler_valid_windows(t *testing.T) {
 	path := "file:///C:/Users/With%20Space/tf-test/file.tf"

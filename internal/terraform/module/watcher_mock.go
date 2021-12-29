@@ -17,6 +17,7 @@ type mockWatcher struct{}
 func (w *mockWatcher) Start() error {
 	return nil
 }
+
 func (w *mockWatcher) Stop() error {
 	return nil
 }

@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
+
 	"github.com/creachadair/jrpc2"
 	"github.com/mitchellh/go-homedir"
 	lsctx "github.com/ms-henglu/azurerm-restapi-lsp/internal/context"
@@ -255,6 +257,8 @@ func (svc *service) Initialize(ctx context.Context, params lsp.InitializeParams)
 		return serverCaps, nil
 	}
 
+	// initialize embedded azurerm schema
+	azure.GetAzureSchema()
 	return serverCaps, nil
 }
 

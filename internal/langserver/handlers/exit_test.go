@@ -14,7 +14,8 @@ func TestExit(t *testing.T) {
 
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "exit",
-		ReqParams: `{}`})
+		ReqParams: `{}`,
+	})
 
 	if !ms.StopFuncCalled() {
 		t.Fatal("Expected service stop function to be called")

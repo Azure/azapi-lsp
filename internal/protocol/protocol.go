@@ -2566,8 +2566,7 @@ type InitializeResult struct {
 	} `json:"serverInfo,omitempty"`
 }
 
-type InitializedParams struct {
-}
+type InitializedParams struct{}
 
 /**
  * A special text edit to provide an insert and a replace operation.
@@ -5373,10 +5372,12 @@ type ParamConfiguration struct {
 	ConfigurationParams
 	PartialResultParams
 }
+
 type ParamInitialize struct {
 	InitializeParams
 	WorkDoneProgressParams
 }
+
 type Workspace2Gn struct {
 	/**
 	 * The client supports applying batch edits
@@ -5447,6 +5448,7 @@ type Workspace2Gn struct {
 	 */
 	Configuration bool `json:"configuration,omitempty"`
 }
+
 type Workspace3Gn struct {
 	/**
 	 * The client supports applying batch edits
@@ -5517,6 +5519,7 @@ type Workspace3Gn struct {
 	 */
 	Configuration bool `json:"configuration,omitempty"`
 }
+
 type WorkspaceFolders4Gn struct {
 	/**
 	 * The Server has support for workspace folders
@@ -5534,6 +5537,7 @@ type WorkspaceFolders4Gn struct {
 	 */
 	ChangeNotifications string/*string | boolean*/ `json:"changeNotifications,omitempty"`
 }
+
 type Workspace5Gn struct {
 	/**
 	* The server is interested in notifications/requests for operations on files.
@@ -5544,6 +5548,7 @@ type Workspace5Gn struct {
 
 	WorkspaceFolders WorkspaceFolders4Gn `json:"workspaceFolders,omitempty"`
 }
+
 type Workspace6Gn struct {
 	/**
 	 * The client supports applying batch edits
@@ -5614,6 +5619,7 @@ type Workspace6Gn struct {
 	 */
 	Configuration bool `json:"configuration,omitempty"`
 }
+
 type WorkspaceFolders7Gn struct {
 	/**
 	 * The Server has support for workspace folders
@@ -5631,6 +5637,7 @@ type WorkspaceFolders7Gn struct {
 	 */
 	ChangeNotifications string/*string | boolean*/ `json:"changeNotifications,omitempty"`
 }
+
 type Workspace8Gn struct {
 	/**
 	* The server is interested in notifications/requests for operations on files.

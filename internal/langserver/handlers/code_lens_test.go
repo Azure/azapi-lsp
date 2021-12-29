@@ -27,7 +27,8 @@ func TestCodeLens_withoutInitialization(t *testing.T) {
 			"textDocument": {
 				"uri": "%s/main.tf"
 			}
-		}`, TempDir(t).URI())}, session.SessionNotInitialized.Err())
+		}`, TempDir(t).URI()),
+	}, session.SessionNotInitialized.Err())
 }
 
 func TestCodeLens_withoutOptIn(t *testing.T) {
@@ -50,7 +51,8 @@ func TestCodeLens_withoutOptIn(t *testing.T) {
 		"capabilities": {},
 		"rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -64,7 +66,8 @@ func TestCodeLens_withoutOptIn(t *testing.T) {
 			"text": "provider \"test\" {\n\n}\n",
 			"uri": "%s/main.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/codeLens",
 		ReqParams: fmt.Sprintf(`{
@@ -125,7 +128,8 @@ func TestCodeLens_referenceCount(t *testing.T) {
 					},
 				},
 			},
-		}}))
+		},
+	}))
 	stop := ls.Start(t)
 	defer stop()
 
@@ -139,7 +143,8 @@ func TestCodeLens_referenceCount(t *testing.T) {
 		},
 		"rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -158,7 +163,8 @@ func TestCodeLens_referenceCount(t *testing.T) {
 output "test" {
 	value = var.test
 }
-`, tmpDir.URI())})
+`, tmpDir.URI()),
+	})
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/codeLens",
 		ReqParams: fmt.Sprintf(`{
@@ -222,7 +228,8 @@ func TestCodeLens_referenceCount_crossModule(t *testing.T) {
 				submodPath:  validTfMockCalls(),
 				rootModPath: validTfMockCalls(),
 			},
-		}}))
+		},
+	}))
 	stop := ls.Start(t)
 	defer stop()
 
@@ -236,7 +243,8 @@ func TestCodeLens_referenceCount_crossModule(t *testing.T) {
 		},
 		"rootUri": %q,
 		"processId": 12345
-	}`, rootModUri.URI())})
+	}`, rootModUri.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -261,7 +269,8 @@ variable "app_prefix" {
 variable "instances" {
   type = number
 }
-`, submodUri.URI())})
+`, submodUri.URI()),
+	})
 	// TODO remove once we support synchronous dependent tasks
 	// See https://github.com/ms-henglu/azurerm-restapi-lsp/issues/719
 	time.Sleep(2 * time.Second)

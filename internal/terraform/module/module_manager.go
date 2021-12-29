@@ -179,6 +179,7 @@ func (mm *moduleManager) ListModules() ([]Module, error) {
 
 	return modules, nil
 }
+
 func (mm *moduleManager) ModuleByPath(path string) (Module, error) {
 	path = filepath.Clean(path)
 

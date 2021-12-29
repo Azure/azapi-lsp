@@ -67,6 +67,7 @@ func TestValidate_IgnoreDirectoryNames_error(t *testing.T) {
 		}
 	}
 }
+
 func TestValidate_IgnoreDirectoryNames_success(t *testing.T) {
 	out, err := DecodeOptions(map[string]interface{}{
 		"ignoreDirectoryNames": []string{"directory"},

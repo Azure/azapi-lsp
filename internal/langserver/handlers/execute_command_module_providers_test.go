@@ -36,7 +36,8 @@ func TestLangServer_workspaceExecuteCommand_moduleProviders_argumentError(t *tes
 		"capabilities": {},
 		"rootUri": %q,
 		"processId": 12345
-	}`, rootUri)})
+	}`, rootUri),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -50,13 +51,15 @@ func TestLangServer_workspaceExecuteCommand_moduleProviders_argumentError(t *tes
 			"text": "provider \"github\" {}",
 			"uri": %q
 		}
-	}`, fmt.Sprintf("%s/main.tf", rootUri))})
+	}`, fmt.Sprintf("%s/main.tf", rootUri)),
+	})
 
 	ls.CallAndExpectError(t, &langserver.CallRequest{
 		Method: "workspace/executeCommand",
 		ReqParams: fmt.Sprintf(`{
 		"command": %q
-	}`, cmd.Name("module.providers"))}, code.InvalidParams.Err())
+	}`, cmd.Name("module.providers")),
+	}, code.InvalidParams.Err())
 }
 
 func TestLangServer_workspaceExecuteCommand_moduleProviders_basic(t *testing.T) {
@@ -117,7 +120,8 @@ func TestLangServer_workspaceExecuteCommand_moduleProviders_basic(t *testing.T) 
 		"capabilities": {},
 		"rootUri": %q,
 		"processId": 12345
-	}`, modUri)})
+	}`, modUri),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -128,7 +132,8 @@ func TestLangServer_workspaceExecuteCommand_moduleProviders_basic(t *testing.T) 
 		ReqParams: fmt.Sprintf(`{
 		"command": %q,
 		"arguments": ["uri=%s"]
-	}`, cmd.Name("module.providers"), modUri)}, `{
+	}`, cmd.Name("module.providers"), modUri),
+	}, `{
 		"jsonrpc": "2.0",
 		"id": 2,
 		"result": {

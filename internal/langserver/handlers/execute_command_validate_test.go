@@ -31,7 +31,8 @@ func TestLangServer_workspaceExecuteCommand_validate_argumentError(t *testing.T)
 	    "capabilities": {},
 	    "rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -45,11 +46,13 @@ func TestLangServer_workspaceExecuteCommand_validate_argumentError(t *testing.T)
 			"text": "provider \"github\" {}",
 			"uri": %q
 		}
-	}`, testFileURI)})
+	}`, testFileURI),
+	})
 
 	ls.CallAndExpectError(t, &langserver.CallRequest{
 		Method: "workspace/executeCommand",
 		ReqParams: fmt.Sprintf(`{
 		"command": %q
-	}`, cmd.Name("terraform.validate"))}, code.InvalidParams.Err())
+	}`, cmd.Name("terraform.validate")),
+	}, code.InvalidParams.Err())
 }

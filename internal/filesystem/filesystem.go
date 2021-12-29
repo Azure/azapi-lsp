@@ -41,7 +41,7 @@ func (fs *fsystem) CreateDocument(dh DocumentHandler, langId string, text []byte
 	_, err := fs.memFs.Stat(dh.Dir())
 	if err != nil {
 		if os.IsNotExist(err) {
-			err := fs.memFs.MkdirAll(dh.Dir(), 0755)
+			err := fs.memFs.MkdirAll(dh.Dir(), 0o755)
 			if err != nil {
 				return fmt.Errorf("failed to create parent dir: %w", err)
 			}
@@ -85,7 +85,7 @@ func (fs *fsystem) ChangeDocument(dh VersionedDocumentHandler, changes DocumentC
 		return &DocumentNotOpenErr{dh}
 	}
 
-	f, err := fs.memFs.OpenFile(dh.FullPath(), os.O_RDWR, 0700)
+	f, err := fs.memFs.OpenFile(dh.FullPath(), os.O_RDWR, 0o700)
 	if err != nil {
 		return err
 	}

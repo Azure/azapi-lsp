@@ -33,7 +33,8 @@ func TestModuleCompletion_withoutInitialization(t *testing.T) {
 				"character": 0,
 				"line": 1
 			}
-		}`, TempDir(t).URI())}, session.SessionNotInitialized.Err())
+		}`, TempDir(t).URI()),
+	}, session.SessionNotInitialized.Err())
 }
 
 func TestModuleCompletion_withValidData(t *testing.T) {
@@ -82,7 +83,8 @@ func TestModuleCompletion_withValidData(t *testing.T) {
 					},
 				},
 			},
-		}}))
+		},
+	}))
 	stop := ls.Start(t)
 	defer stop()
 
@@ -92,7 +94,8 @@ func TestModuleCompletion_withValidData(t *testing.T) {
 		"capabilities": {},
 		"rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -106,7 +109,8 @@ func TestModuleCompletion_withValidData(t *testing.T) {
 			"text": "provider \"test\" {\n\n}\n",
 			"uri": "%s/main.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/completion",
@@ -118,7 +122,8 @@ func TestModuleCompletion_withValidData(t *testing.T) {
 				"character": 0,
 				"line": 1
 			}
-		}`, tmpDir.URI())}, `{
+		}`, tmpDir.URI()),
+	}, `{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": {
@@ -280,7 +285,8 @@ func TestModuleCompletion_withValidDataAndSnippets(t *testing.T) {
 					},
 				},
 			},
-		}}))
+		},
+	}))
 	stop := ls.Start(t)
 	defer stop()
 
@@ -298,7 +304,8 @@ func TestModuleCompletion_withValidDataAndSnippets(t *testing.T) {
 		},
 		"rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -312,7 +319,8 @@ func TestModuleCompletion_withValidDataAndSnippets(t *testing.T) {
 			"text": "provider \"test\" {\n\n}\n",
 			"uri": "%s/main.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/completion",
@@ -324,7 +332,8 @@ func TestModuleCompletion_withValidDataAndSnippets(t *testing.T) {
 				"character": 0,
 				"line": 1
 			}
-		}`, tmpDir.URI())}, `{
+		}`, tmpDir.URI()),
+	}, `{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": {
@@ -545,7 +554,8 @@ func TestVarsCompletion_withValidData(t *testing.T) {
 					},
 				},
 			},
-		}}))
+		},
+	}))
 	stop := ls.Start(t)
 	defer stop()
 
@@ -555,7 +565,8 @@ func TestVarsCompletion_withValidData(t *testing.T) {
 		"capabilities": {},
 		"rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -569,7 +580,8 @@ func TestVarsCompletion_withValidData(t *testing.T) {
 			"text": "variable \"test\" {\n type=string\n}\n",
 			"uri": "%s/variables.tf"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Call(t, &langserver.CallRequest{
 		Method: "textDocument/didOpen",
 		ReqParams: fmt.Sprintf(`{
@@ -578,7 +590,8 @@ func TestVarsCompletion_withValidData(t *testing.T) {
 			"languageId": "terraform-vars",
 			"uri": "%s/terraform.tfvars"
 		}
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "textDocument/completion",
@@ -590,7 +603,8 @@ func TestVarsCompletion_withValidData(t *testing.T) {
 				"character": 0,
 				"line": 0
 			}
-		}`, tmpDir.URI())}, `{
+		}`, tmpDir.URI()),
+	}, `{
 			"jsonrpc": "2.0",
 			"id": 4,
 			"result": {
@@ -691,7 +705,8 @@ output "test" {
 					},
 				},
 			},
-		}}))
+		},
+	}))
 	stop := ls.Start(t)
 	defer stop()
 
@@ -701,7 +716,8 @@ output "test" {
 		"capabilities": {},
 		"rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())})
+	}`, tmpDir.URI()),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -715,7 +731,8 @@ output "test" {
 			"text": %q,
 			"uri": "%s/main.tf"
 		}
-	}`, mainCfg, tmpDir.URI())})
+	}`, mainCfg, tmpDir.URI()),
+	})
 
 	// TODO remove once we support synchronous dependent tasks
 	// See https://github.com/ms-henglu/azurerm-restapi-lsp/issues/719
@@ -731,7 +748,8 @@ output "test" {
 				"character": 0,
 				"line": 2
 			}
-		}`, tmpDir.URI())}, `{
+		}`, tmpDir.URI()),
+	}, `{
 			"jsonrpc": "2.0",
 			"id": 3,
 			"result": {
@@ -813,7 +831,8 @@ output "test" {
 				"character": 25,
 				"line": 6
 			}
-		}`, tmpDir.URI())}, `{
+		}`, tmpDir.URI()),
+	}, `{
 			"jsonrpc": "2.0",
 			"id": 4,
 			"result": {

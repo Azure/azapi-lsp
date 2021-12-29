@@ -4,8 +4,10 @@ import (
 	"math"
 )
 
-type TokenType string
-type TokenTypes []TokenType
+type (
+	TokenType  string
+	TokenTypes []TokenType
+)
 
 func (tt TokenTypes) AsStrings() []string {
 	types := make([]string, len(tt))
@@ -26,8 +28,10 @@ func (tt TokenTypes) Index(tokenType TokenType) int {
 	return -1
 }
 
-type TokenModifier string
-type TokenModifiers []TokenModifier
+type (
+	TokenModifier  string
+	TokenModifiers []TokenModifier
+)
 
 func (tm TokenModifiers) AsStrings() []string {
 	modifiers := make([]string, len(tm))

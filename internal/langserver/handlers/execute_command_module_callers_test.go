@@ -34,7 +34,8 @@ func TestLangServer_workspaceExecuteCommand_moduleCallers_argumentError(t *testi
 	    "capabilities": {},
 	    "rootUri": %q,
 		"processId": 12345
-	}`, rootUri)})
+	}`, rootUri),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -48,13 +49,15 @@ func TestLangServer_workspaceExecuteCommand_moduleCallers_argumentError(t *testi
 			"text": "provider \"github\" {}",
 			"uri": %q
 		}
-	}`, fmt.Sprintf("%s/main.tf", rootUri))})
+	}`, fmt.Sprintf("%s/main.tf", rootUri)),
+	})
 
 	ls.CallAndExpectError(t, &langserver.CallRequest{
 		Method: "workspace/executeCommand",
 		ReqParams: fmt.Sprintf(`{
 		"command": %q
-	}`, cmd.Name("module.callers"))}, code.InvalidParams.Err())
+	}`, cmd.Name("module.callers")),
+	}, code.InvalidParams.Err())
 }
 
 func TestLangServer_workspaceExecuteCommand_moduleCallers_basic(t *testing.T) {
@@ -82,7 +85,8 @@ func TestLangServer_workspaceExecuteCommand_moduleCallers_basic(t *testing.T) {
 	    "capabilities": {},
 	    "rootUri": %q,
 		"processId": 12345
-	}`, rootUri)})
+	}`, rootUri),
+	})
 	ls.Notify(t, &langserver.CallRequest{
 		Method:    "initialized",
 		ReqParams: "{}",
@@ -96,14 +100,16 @@ func TestLangServer_workspaceExecuteCommand_moduleCallers_basic(t *testing.T) {
 			"text": "provider \"github\" {}",
 			"uri": %q
 		}
-	}`, fmt.Sprintf("%s/main.tf", baseDirUri))})
+	}`, fmt.Sprintf("%s/main.tf", baseDirUri)),
+	})
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method: "workspace/executeCommand",
 		ReqParams: fmt.Sprintf(`{
 		"command": %q,
 		"arguments": ["uri=%s"]
-	}`, cmd.Name("module.callers"), baseDirUri)}, fmt.Sprintf(`{
+	}`, cmd.Name("module.callers"), baseDirUri),
+	}, fmt.Sprintf(`{
 		"jsonrpc": "2.0",
 		"id": 3,
 		"result": {
@@ -125,7 +131,7 @@ func TestLangServer_workspaceExecuteCommand_moduleCallers_basic(t *testing.T) {
 
 func createModuleCalling(t *testing.T, src, modPath string) {
 	modulesDir := filepath.Join(modPath, ".terraform", "modules")
-	err := os.MkdirAll(modulesDir, 0755)
+	err := os.MkdirAll(modulesDir, 0o755)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -135,7 +141,7 @@ module "local" {
   source = %q
 }
 `, src))
-	err = os.WriteFile(filepath.Join(modPath, "module.tf"), configBytes, 0755)
+	err = os.WriteFile(filepath.Join(modPath, "module.tf"), configBytes, 0o755)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -154,7 +160,7 @@ module "local" {
         }
     ]
 }`, src, src))
-	err = os.WriteFile(filepath.Join(modulesDir, "modules.json"), manifestBytes, 0755)
+	err = os.WriteFile(filepath.Join(modulesDir, "modules.json"), manifestBytes, 0o755)
 	if err != nil {
 		t.Fatal(err)
 	}

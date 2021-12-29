@@ -96,9 +96,11 @@ func TestInitalizeAndShutdown(t *testing.T) {
 		"capabilities": {},
 		"rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())}, initializeResponse(t, ""))
+	}`, tmpDir.URI()),
+	}, initializeResponse(t, ""))
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
-		Method: "shutdown", ReqParams: `{}`},
+		Method: "shutdown", ReqParams: `{}`,
+	},
 		`{
 		"jsonrpc": "2.0",
 		"id": 2,
@@ -128,7 +130,8 @@ func TestInitalizeWithCommandPrefix(t *testing.T) {
 		"initializationOptions": {
 			"commandPrefix": "1"
 		}
-	}`, tmpDir.URI())}, initializeResponse(t, "1"))
+	}`, tmpDir.URI()),
+	}, initializeResponse(t, "1"))
 }
 
 func TestEOF(t *testing.T) {
@@ -151,7 +154,8 @@ func TestEOF(t *testing.T) {
 		"capabilities": {},
 		"rootUri": %q,
 		"processId": 12345
-	}`, tmpDir.URI())}, initializeResponse(t, ""))
+	}`, tmpDir.URI()),
+	}, initializeResponse(t, ""))
 
 	ls.CloseClientStdout(t)
 
@@ -221,7 +225,7 @@ func validTfMockCalls() []*mock.Call {
 // The returned filehandler is the parent tmp dir
 func TempDir(t *testing.T, nested ...string) lsp.FileHandler {
 	tmpDir := filepath.Join(os.TempDir(), "terraform-ls", t.Name())
-	err := os.MkdirAll(tmpDir, 0755)
+	err := os.MkdirAll(tmpDir, 0o755)
 	if err != nil && !os.IsExist(err) {
 		t.Fatal(err)
 	}
@@ -233,7 +237,7 @@ func TempDir(t *testing.T, nested ...string) lsp.FileHandler {
 	})
 
 	for _, dir := range nested {
-		err := os.MkdirAll(filepath.Join(tmpDir, filepath.FromSlash(dir)), 0755)
+		err := os.MkdirAll(filepath.Join(tmpDir, filepath.FromSlash(dir)), 0o755)
 		if err != nil && !os.IsExist(err) {
 			t.Fatal(err)
 		}
@@ -244,7 +248,7 @@ func TempDir(t *testing.T, nested ...string) lsp.FileHandler {
 
 func InitPluginCache(t *testing.T, dir string) {
 	pluginCacheDir := filepath.Join(dir, ".terraform", "plugins")
-	err := os.MkdirAll(pluginCacheDir, 0755)
+	err := os.MkdirAll(pluginCacheDir, 0o755)
 	if err != nil {
 		t.Fatal(err)
 	}
