@@ -1,7 +1,8 @@
+// Copyright (C) 2017 Michael J. Fromberger. All Rights Reserved.
+
 package jrpc2
 
 import (
-	"container/list"
 	"context"
 	"encoding/json"
 	"errors"
@@ -40,7 +41,7 @@ type Server struct {
 	nbar sync.WaitGroup  // notification barrier (see the dispatch method)
 	err  error           // error from a previous operation
 	work *sync.Cond      // for signaling message availability
-	inq  *list.List      // inbound requests awaiting processing
+	inq  *queue          // inbound requests awaiting processing
 	ch   channel.Channel // the channel to the client
 
 	// For each request ID currently in-flight, this map carries a cancel
@@ -76,7 +77,7 @@ func NewServer(mux Assigner, opts *ServerOptions) *Server {
 		metrics: opts.metrics(),
 		start:   opts.startTime(),
 		builtin: opts.allowBuiltin(),
-		inq:     list.New(),
+		inq:     newQueue(),
 		used:    make(map[string]context.CancelFunc),
 		call:    make(map[string]*Response),
 		callID:  1,
@@ -100,6 +101,7 @@ func (s *Server) Start(c channel.Channel) *Server {
 	if s.start.IsZero() {
 		s.start = time.Now().In(time.UTC)
 	}
+	s.metrics.Count("rpc.serversActive", 1)
 
 	// Reset all the I/O structures and start up the workers.
 	s.err = nil
@@ -159,16 +161,16 @@ func (s *Server) serve() {
 func (s *Server) nextRequest() (func() error, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	for s.ch != nil && s.inq.Len() == 0 {
+	for s.ch != nil && s.inq.isEmpty() {
 		s.work.Wait()
 	}
-	if s.ch == nil && s.inq.Len() == 0 {
+	if s.ch == nil && s.inq.isEmpty() {
 		return nil, s.err
 	}
 	ch := s.ch // capture
 
-	next := s.inq.Remove(s.inq.Front()).(jmessages)
-	s.log("Dequeued request batch of length %d (qlen=%d)", len(next), s.inq.Len())
+	next := s.inq.pop()
+	s.log("Dequeued request batch of length %d (qlen=%d)", len(next), s.inq.size())
 
 	// Construct a dispatcher to run the handlers outside the lock.
 	return s.dispatch(next, ch), nil
@@ -200,32 +202,35 @@ func (s *Server) dispatch(next jmessages, ch sender) func() error {
 	// Resolve all the task handlers or record errors.
 	start := time.Now()
 	tasks := s.checkAndAssign(next)
-	last := len(tasks) - 1
 
 	// Ensure all notifications already issued have completed; see #24.
-	s.waitForBarrier(tasks.numValidNotifications())
+	todo, notes := tasks.numToDo()
+	s.waitForBarrier(notes)
 
 	return func() error {
 		var wg sync.WaitGroup
-		for i, t := range tasks {
+		for _, t := range tasks {
 			if t.err != nil {
 				continue // nothing to do here; this task has already failed
 			}
-			t := t
 
-			wg.Add(1)
-			run := func() {
-				defer wg.Done()
-				if t.hreq.IsNotification() {
-					defer s.nbar.Done()
-				}
+			todo--
+			if todo == 0 {
 				t.val, t.err = s.invoke(t.ctx, t.m, t.hreq)
+				if t.hreq.IsNotification() {
+					s.nbar.Done()
+				}
+				break
 			}
-			if i < last {
-				go run()
-			} else {
-				run()
-			}
+			t := t
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				t.val, t.err = s.invoke(t.ctx, t.m, t.hreq)
+				if t.hreq.IsNotification() {
+					s.nbar.Done()
+				}
+			}()
 		}
 
 		// Wait for all the handlers to return, then deliver any responses.
@@ -348,11 +353,14 @@ func (s *Server) invoke(base context.Context, h Handler, req *Request) (json.Raw
 // ServerInfo returns an atomic snapshot of the current server info for s.
 func (s *Server) ServerInfo() *ServerInfo {
 	info := &ServerInfo{
-		Methods:   s.mux.Names(),
+		Methods:   []string{"*"},
 		StartTime: s.start,
 		Counter:   make(map[string]int64),
 		MaxValue:  make(map[string]int64),
 		Label:     make(map[string]interface{}),
+	}
+	if n, ok := s.mux.(Namer); ok {
+		info.Methods = n.Names()
 	}
 	s.metrics.Snapshot(metrics.Snapshot{
 		Counter:  info.Counter,
@@ -510,7 +518,7 @@ func (s ServerStatus) Success() bool { return s.Err == nil }
 func (s *Server) WaitStatus() ServerStatus {
 	s.wg.Wait()
 	// Postcondition check.
-	if s.inq.Len() != 0 {
+	if !s.inq.isEmpty() {
 		panic("s.inq is not empty at shutdown")
 	}
 	stat := ServerStatus{Err: s.err}
@@ -543,8 +551,8 @@ func (s *Server) stop(err error) {
 	//
 	// TODO(@creachadair): We need better tests for this behaviour.
 	var keep jmessages
-	for cur := s.inq.Front(); cur != nil; cur = s.inq.Front() {
-		for _, req := range cur.Value.(jmessages) {
+	s.inq.each(func(cur jmessages) {
+		for _, req := range cur {
 			if req.isNotification() {
 				keep = append(keep, req)
 				s.log("Retaining notification %p", req)
@@ -552,10 +560,10 @@ func (s *Server) stop(err error) {
 				s.cancel(string(req.ID))
 			}
 		}
-		s.inq.Remove(cur)
-	}
+	})
+	s.inq.reset()
 	for _, elt := range keep {
-		s.inq.PushBack(jmessages{elt})
+		s.inq.push(jmessages{elt})
 	}
 	s.work.Broadcast()
 
@@ -576,6 +584,7 @@ func (s *Server) stop(err error) {
 
 	s.err = err
 	s.ch = nil
+	s.metrics.Count("rpc.serversActive", -1)
 }
 
 // read is the main receiver loop, decoding requests from the client and adding
@@ -605,8 +614,8 @@ func (s *Server) read(ch receiver) {
 		} else if len(in) == 0 {
 			s.pushError(errEmptyBatch)
 		} else {
-			s.log("Received request batch of size %d (qlen=%d)", len(in), s.inq.Len())
-			s.inq.PushBack(in)
+			s.log("Received request batch of size %d (qlen=%d)", len(in), s.inq.size())
+			s.inq.push(in)
 			s.work.Broadcast()
 		}
 		s.mu.Unlock()
@@ -735,12 +744,15 @@ func (ts tasks) responses(rpcLog RPCLogger) jmessages {
 	return rsps
 }
 
-// numValidNotifications reports the number of elements in ts that are
-// syntactically valid notifications.
-func (ts tasks) numValidNotifications() (n int) {
+// numToDo reports the number of tasks in ts that need to be executed, and the
+// number of those that are notifications.
+func (ts tasks) numToDo() (todo, notes int) {
 	for _, t := range ts {
-		if t.err == nil && t.hreq.IsNotification() {
-			n++
+		if t.err == nil {
+			todo++
+			if t.hreq.IsNotification() {
+				notes++
+			}
 		}
 	}
 	return
