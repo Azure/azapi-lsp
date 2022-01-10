@@ -27,6 +27,7 @@ func (svc *service) Initialize(ctx context.Context, params lsp.InitializeParams)
 					`@`,
 					`{`,
 					`"`,
+					"\n",
 				},
 			},
 			CodeActionProvider: lsp.CodeActionOptions{
