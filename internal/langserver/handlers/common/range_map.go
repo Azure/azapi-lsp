@@ -241,6 +241,10 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 			top := len(stack) - 1
 			state := stack[top]
 			if !state.ExpectKey {
+				if state.Index == nil {
+					log.Printf("[WARN] unexpected symbol: ,")
+					break
+				}
 				if state.Value != nil {
 					key := state.GetCurrentKey()
 					stack[top].CurrentRangeMap.Children[key] = &RangeMap{
