@@ -27,7 +27,7 @@ func NewFilesystem() *fsystem {
 	return &fsystem{
 		memFs:     afero.NewMemMapFs(),
 		osFs:      afero.NewReadOnlyFs(afero.NewOsFs()),
-		docMeta:   make(map[string]*documentMetadata, 0),
+		docMeta:   make(map[string]*documentMetadata),
 		docMetaMu: &sync.RWMutex{},
 		logger:    log.New(ioutil.Discard, "", 0),
 	}
@@ -144,10 +144,10 @@ func (fs *fsystem) applyDocumentChange(buf *bytes.Buffer, change DocumentChange)
 		buf.Grow(diff)
 	}
 
-	beforeChange := make([]byte, startByte, startByte)
+	beforeChange := make([]byte, startByte)
 	copy(beforeChange, buf.Bytes())
 	afterBytes := buf.Bytes()[endByte:]
-	afterChange := make([]byte, len(afterBytes), len(afterBytes))
+	afterChange := make([]byte, len(afterBytes))
 	copy(afterChange, afterBytes)
 
 	buf.Reset()

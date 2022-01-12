@@ -19,11 +19,7 @@ func FromPath(path string) string {
 
 func IsURIValid(uri string) bool {
 	_, err := parseUri(uri)
-	if err != nil {
-		return false
-	}
-
-	return true
+	return err == nil
 }
 
 func mustParseUri(uri string) string {

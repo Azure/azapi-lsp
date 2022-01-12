@@ -82,7 +82,7 @@ func (c *CompletionCommand) Run(args []string) int {
 
 	fs := filesystem.NewFilesystem()
 	fs.SetLogger(logger)
-	fs.CreateAndOpenDocument(fh, "terraform", content)
+	_ = fs.CreateAndOpenDocument(fh, "terraform", content)
 
 	doc, err := fs.GetDocument(fh)
 	if err != nil {

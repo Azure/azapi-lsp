@@ -3,7 +3,6 @@ package filesystem
 import (
 	"path/filepath"
 
-	"github.com/hashicorp/hcl/v2"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/uri"
 )
 
@@ -107,10 +106,4 @@ func (fs *fsystem) getDocumentMetadata(dh DocumentHandler) (*documentMetadata, e
 	}
 
 	return dm, nil
-}
-
-// HCL column and line indexes start from 1, therefore if the any index
-// contains 0, we assume it is an undefined range
-func rangeIsNil(r hcl.Range) bool {
-	return r.End.Column == 0 && r.End.Line == 0
 }

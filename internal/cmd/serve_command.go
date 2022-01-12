@@ -60,7 +60,7 @@ func (c *ServeCommand) Run(args []string) int {
 
 	if c.cpuProfile != "" {
 		stop, err := writeCpuProfileInto(c.cpuProfile)
-		defer stop()
+		defer stop() //nolint
 		if err != nil {
 			c.Ui.Error(err.Error())
 			return 1
@@ -68,7 +68,7 @@ func (c *ServeCommand) Run(args []string) int {
 	}
 
 	if c.memProfile != "" {
-		defer writeMemoryProfileInto(c.memProfile)
+		defer writeMemoryProfileInto(c.memProfile) //nolint
 	}
 
 	var logger *log.Logger

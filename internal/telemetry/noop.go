@@ -10,7 +10,7 @@ type NoopSender struct {
 	Logger *log.Logger
 }
 
-func (t *NoopSender) log() *log.Logger {
+func (t *NoopSender) log() *log.Logger { //nolint
 	if t.Logger != nil {
 		return t.Logger
 	}

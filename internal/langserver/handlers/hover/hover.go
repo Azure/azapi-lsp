@@ -23,7 +23,6 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 					return Hover("type", "required", "string <resource-type>@<api-version>",
 						"Azure Resource Manager type.", attribute.NameRange)
 				}
-				break
 			case "body":
 				if common.ContainsPos(attribute.NameRange, pos) {
 					return Hover("body", "optional", "string",
@@ -73,7 +72,6 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 						}
 					}
 				}
-				break
 			}
 		}
 	}

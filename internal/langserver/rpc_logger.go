@@ -24,7 +24,7 @@ func (rl *rpcLogger) LogRequest(ctx context.Context, req *jrpc2.Request) {
 	}
 
 	var params json.RawMessage
-	req.UnmarshalParams(&params)
+	_ = req.UnmarshalParams(&params)
 
 	rl.logger.Printf("Incoming %s for %q%s: %s",
 		reqType, req.Method(), idStr, params)
@@ -46,6 +46,6 @@ func (rl *rpcLogger) LogResponse(ctx context.Context, rsp *jrpc2.Response) {
 		return
 	}
 	var body json.RawMessage
-	rsp.UnmarshalResult(&body)
+	_ = rsp.UnmarshalResult(&body)
 	rl.logger.Printf("Response to %q%s: %s", req.Method(), idStr, body)
 }

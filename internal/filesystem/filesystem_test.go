@@ -35,7 +35,7 @@ func TestFilesystem_Change_closed(t *testing.T) {
 	fs := testDocumentStorage()
 
 	fh := &testHandler{uri: "file:///doesnotexist"}
-	fs.CreateAndOpenDocument(fh, "test", []byte{})
+	_ = fs.CreateAndOpenDocument(fh, "test", []byte{})
 	err := fs.CloseAndRemoveDocument(fh)
 	if err != nil {
 		t.Fatal(err)
@@ -59,7 +59,7 @@ func TestFilesystem_Remove_unknown(t *testing.T) {
 	fs := testDocumentStorage()
 
 	fh := &testHandler{uri: "file:///doesnotexist"}
-	fs.CreateAndOpenDocument(fh, "test", []byte{})
+	_ = fs.CreateAndOpenDocument(fh, "test", []byte{})
 	err := fs.CloseAndRemoveDocument(fh)
 	if err != nil {
 		t.Fatal(err)
@@ -81,7 +81,7 @@ func TestFilesystem_Close_closed(t *testing.T) {
 	fs := testDocumentStorage()
 
 	fh := &testHandler{uri: "file:///isnotopen"}
-	fs.CreateDocument(fh, "test", []byte{})
+	_ = fs.CreateDocument(fh, "test", []byte{})
 	err := fs.CloseAndRemoveDocument(fh)
 	expectedErr := &DocumentNotOpenErr{fh}
 	if err == nil {
@@ -97,7 +97,7 @@ func TestFilesystem_Change_noChanges(t *testing.T) {
 	fs := testDocumentStorage()
 
 	fh := &testHandler{uri: "file:///test.tf"}
-	fs.CreateAndOpenDocument(fh, "test", []byte{})
+	_ = fs.CreateAndOpenDocument(fh, "test", []byte{})
 
 	var changes DocumentChanges
 	err := fs.ChangeDocument(fh, changes)
@@ -110,7 +110,7 @@ func TestFilesystem_Change_multipleChanges(t *testing.T) {
 	fs := testDocumentStorage()
 
 	fh := &testHandler{uri: "file:///test.tf"}
-	fs.CreateAndOpenDocument(fh, "test", []byte{})
+	_ = fs.CreateAndOpenDocument(fh, "test", []byte{})
 
 	var changes DocumentChanges
 	changes = append(changes, &testChange{text: "ahoy"})
@@ -319,7 +319,7 @@ func TestFilesystem_ReadDir_memFsOnly(t *testing.T) {
 }
 
 func namesFromFileInfos(entries []fs.DirEntry) []string {
-	names := make([]string, len(entries), len(entries))
+	names := make([]string, len(entries))
 	for i, entry := range entries {
 		names[i] = entry.Name()
 	}

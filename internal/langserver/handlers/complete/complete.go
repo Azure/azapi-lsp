@@ -22,7 +22,6 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 			case "type":
 				prefix := common.ToLiteral(attribute.Expr)
 				candidateList = typeCandidates(prefix, editRangeFromExprRange(attribute.Expr, pos))
-				break
 			case "body":
 				if attribute.Expr != nil {
 					if _, ok := attribute.Expr.(*hclsyntax.LiteralValueExpr); ok && common.ToLiteral(attribute.Expr) == nil {
@@ -66,7 +65,6 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 					logger.Printf("state: input key, key: %s", key)
 					logger.Printf("received allowed keys: %#v", keys)
 					candidateList = keyCandidates(keys, editRange)
-					break
 				case !lastRangeMap.KeyRange.Empty() && !lastRangeMap.EqualRange.Empty() && lastRangeMap.Children == nil:
 					start := len("..dummy.")
 					if start < len(key) {
@@ -81,7 +79,6 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 					candidateList = valueCandidates(values, ilsp.HCLRangeToLSP(editRange))
 					logger.Printf("state: input value, key: %s", key)
 					logger.Printf("received allowed keys: %#v", values)
-					break
 				case common.ContainsPos(lastRangeMap.ValueRange, pos):
 					start := len("..dummy.")
 					if start < len(key) {
@@ -95,9 +92,7 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 					logger.Printf("state: input key without prefix, key: %s", key)
 					logger.Printf("received allowed keys: %#v", keys)
 					candidateList = keyCandidates(keys, editRange)
-					break
 				}
-				break
 			}
 		}
 	}

@@ -131,7 +131,6 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				ExpectKey:       true,
 				CurrentRangeMap: rangeMap,
 			})
-			break
 		case hclsyntax.TokenCBrace: // }
 			top := len(stack) - 1
 			state := stack[top]
@@ -148,8 +147,6 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 			}
 			stack[top].CurrentRangeMap.ValueRange = RangeOver(stack[top].CurrentRangeMap.ValueRange, token.Range)
 			stack = stack[0:top]
-			break
-
 		case hclsyntax.TokenOBrack: // [
 			top := len(stack) - 1
 			state := stack[top]
@@ -172,7 +169,6 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				Index:           utils.Int(0),
 				CurrentRangeMap: rangeMap,
 			})
-			break
 		case hclsyntax.TokenCBrack: // ]
 			top := len(stack) - 1
 			state := stack[top]
@@ -187,8 +183,6 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 			}
 			stack[top].CurrentRangeMap.ValueRange = RangeOver(stack[top].CurrentRangeMap.ValueRange, token.Range)
 			stack = stack[0:top]
-			top = len(stack) - 1
-			break
 		case hclsyntax.TokenIdent:
 			top := len(stack) - 1
 			state := stack[top]
@@ -208,7 +202,6 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				}
 				stack[top].ValueRange = RangeOver(stack[top].ValueRange, token.Range)
 			}
-			break
 		case hclsyntax.TokenEqual: // =
 			top := len(stack) - 1
 			state := stack[top]
@@ -217,7 +210,6 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				stack[top].ExpectKey = false
 			}
 			stack[top].EqualRange = token.Range
-			break
 		case hclsyntax.TokenNewline:
 			top := len(stack) - 1
 			state := stack[top]
@@ -236,7 +228,6 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 					stack[top].ExpectKey = true
 				}
 			}
-			break
 		case hclsyntax.TokenComma:
 			top := len(stack) - 1
 			state := stack[top]
@@ -259,7 +250,6 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 			} else {
 				log.Printf("[WARN] expect key but got ,")
 			}
-			break
 		default:
 			top := len(stack) - 1
 			state := stack[top]
@@ -271,7 +261,6 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				}
 				stack[top].ValueRange = RangeOver(stack[top].ValueRange, token.Range)
 			}
-			break
 		}
 	}
 

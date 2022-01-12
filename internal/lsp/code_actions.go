@@ -46,7 +46,7 @@ func (c CodeActions) AsSlice() []lsp.CodeActionKind {
 }
 
 func (ca CodeActions) Only(only []lsp.CodeActionKind) CodeActions {
-	wanted := make(CodeActions, 0)
+	wanted := make(CodeActions)
 
 	for _, kind := range only {
 		if v, ok := ca[kind]; ok {

@@ -83,20 +83,20 @@ func (n *Notifier) notify() {
 type Diagnostics map[string]map[DiagnosticSource]hcl.Diagnostics
 
 func NewDiagnostics() Diagnostics {
-	return make(Diagnostics, 0)
+	return make(Diagnostics)
 }
 
 // EmptyRootDiagnostic allows emptying any diagnostics for
 // the whole directory which were published previously.
 func (d Diagnostics) EmptyRootDiagnostic() Diagnostics {
-	d[""] = make(map[DiagnosticSource]hcl.Diagnostics, 0)
+	d[""] = make(map[DiagnosticSource]hcl.Diagnostics)
 	return d
 }
 
 func (d Diagnostics) Append(src string, diagsMap map[string]hcl.Diagnostics) Diagnostics {
 	for uri, uriDiags := range diagsMap {
 		if _, ok := d[uri]; !ok {
-			d[uri] = make(map[DiagnosticSource]hcl.Diagnostics, 0)
+			d[uri] = make(map[DiagnosticSource]hcl.Diagnostics)
 		}
 		d[uri][DiagnosticSource(src)] = uriDiags
 	}

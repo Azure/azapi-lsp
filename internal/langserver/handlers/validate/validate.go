@@ -97,7 +97,6 @@ func Validate(rangeMap *common.RangeMap, typeBase *types.TypeBase) hcl.Diagnosti
 		for _, child := range rangeMap.Children {
 			diags = append(diags, Validate(child, t.ItemType.Type)...)
 		}
-		break
 	case *types.DiscriminatedObjectType:
 		if !rangeMap.IsValueMap() {
 			summary := fmt.Sprintf("`%s`'s value `%s` is invalid, expect an object", rangeMap.Key, *rangeMap.Value)
@@ -169,7 +168,6 @@ func Validate(rangeMap *common.RangeMap, typeBase *types.TypeBase) hcl.Diagnosti
 		} else {
 			diags = append(diags, newDiagnostic(ErrorMismatch(t.Discriminator, "string", fmt.Sprintf("%T", otherProperties[t.Discriminator])), discriminatorRange))
 		}
-		break
 	case *types.ObjectType:
 		if !rangeMap.IsValueMap() {
 			summary := fmt.Sprintf("`%s`'s value `%s` is invalid, expect an object", rangeMap.Key, *rangeMap.Value)
@@ -212,14 +210,11 @@ func Validate(rangeMap *common.RangeMap, typeBase *types.TypeBase) hcl.Diagnosti
 				diags = append(diags, newDiagnostic(ErrorShouldDefine(key), rangeMap.KeyRange))
 			}
 		}
-		break
 	case *types.ResourceType:
 		if t.Body != nil {
 			return Validate(rangeMap, t.Body.Type)
 		}
-		break
 	case *types.BuiltInType:
-		break
 	case *types.StringLiteralType:
 		if rangeMap.Value != nil {
 			value := strings.TrimSpace(*rangeMap.Value)
@@ -230,7 +225,6 @@ func Validate(rangeMap *common.RangeMap, typeBase *types.TypeBase) hcl.Diagnosti
 				}
 			}
 		}
-		break
 	case *types.UnionType:
 		valid := false
 		for _, element := range t.Elements {
@@ -262,7 +256,6 @@ func Validate(rangeMap *common.RangeMap, typeBase *types.TypeBase) hcl.Diagnosti
 				diags = append(diags, newDiagnostic(ErrorNotMatchAnyValues(rangeMap.Key, value, options), rangeMap.ValueRange))
 			}
 		}
-		break
 	}
 	return diags
 }
