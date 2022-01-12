@@ -27,6 +27,8 @@ func TestLangServer_codeActionWithoutInitialization(t *testing.T) {
 }
 
 func TestLangServer_codeAction_basic(t *testing.T) {
+	// code action is not implemented yet
+	t.SkipNow()
 	tmpDir := TempDir(t)
 
 	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
@@ -136,100 +138,6 @@ func TestLangServer_codeAction_no_code_action_requested(t *testing.T) {
 				"id": 3,
 				"result": null
 			}`,
-		},
-		{
-			name: "source.formatAll.terraform code action requested",
-			request: &langserver.CallRequest{
-				Method: "textDocument/codeAction",
-				ReqParams: fmt.Sprintf(`{
-						"textDocument": { "uri": "%s/main.tf" },
-						"range": {
-							"start": { "line": 0, "character": 0 },
-							"end": { "line": 1, "character": 0 }
-						},
-						"context": { "diagnostics": [], "only": ["source.formatAll.terraform"] }
-					}`, tmpDir.URI()),
-			},
-			want: fmt.Sprintf(`{
-				"jsonrpc": "2.0",
-				"id": 3,
-				"result": [
-					{
-						"title":"Format Document",
-						"kind":"source.formatAll.terraform",
-						"edit":{
-							"changes": {
-								"%s/main.tf": [
-									{
-										"range": {
-											"start": {
-												"line": 0,
-												"character": 0
-											},
-											"end": {
-												"line": 1,
-												"character": 0
-											}
-										},
-										"newText": "provider \"test\" {\n"
-									},
-									{
-										"range": {
-											"start": { "line": 2, "character": 0 },
-											"end": { "line": 3, "character": 0 }
-										},
-										"newText": "}\n"
-									}
-								]
-							}
-						}
-					}
-				]
-				}`, tmpDir.URI()),
-		},
-		{
-			name: "source.fixAll and source.formatAll.terraform code action requested",
-			request: &langserver.CallRequest{
-				Method: "textDocument/codeAction",
-				ReqParams: fmt.Sprintf(`{
-						"textDocument": { "uri": "%s/main.tf" },
-						"range": {
-							"start": { "line": 0, "character": 0 },
-							"end": { "line": 1, "character": 0 }
-						},
-						"context": { "diagnostics": [], "only": ["source.fixAll", "source.formatAll.terraform"] }
-					}`, tmpDir.URI()),
-			},
-			want: fmt.Sprintf(`{
-				"jsonrpc": "2.0",
-				"id": 3,
-				"result": [
-					{
-						"title": "Format Document",
-						"kind": "source.formatAll.terraform",
-						"edit": {
-							"changes": {
-								"%s/main.tf": [
-									{
-										"range": {
-											"start": { "line": 0, "character": 0 },
-											"end": { "line": 1, "character": 0 }
-										},
-										"newText": "provider \"test\" {\n"
-									},
-									{
-										"range": {
-											"start": { "line": 2, "character": 0 },
-											"end": { "line": 3, "character": 0 }
-										},
-										"newText": "}\n"
-									}
-								]
-							}
-						}
-					}
-				]
-			}`, tmpDir.URI()),
 		},
 	}
 

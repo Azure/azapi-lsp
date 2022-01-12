@@ -14,6 +14,7 @@ import (
 )
 
 type MockSessionInput struct {
+	Filesystem         filesystem.Filesystem
 	AdditionalHandlers map[string]handler.Func
 }
 
@@ -25,29 +26,38 @@ type mockSession struct {
 	stopCalledMu *sync.RWMutex
 }
 
+func (ms *mockSession) new(srvCtx context.Context) session.Session {
+	sessCtx, stopSession := context.WithCancel(srvCtx)
+	ms.stopFunc = stopSession
+
+	var fs filesystem.Filesystem
+	fs = filesystem.NewFilesystem()
+	var handlers map[string]handler.Func
+	if ms.mockInput != nil {
+		if ms.mockInput.Filesystem != nil {
+			fs = ms.mockInput.Filesystem
+		}
+		handlers = ms.mockInput.AdditionalHandlers
+	}
+
+	svc := &service{
+		logger:             testLogger(),
+		srvCtx:             srvCtx,
+		sessCtx:            sessCtx,
+		stopSession:        ms.stop,
+		fs:                 fs,
+		additionalHandlers: handlers,
+	}
+
+	return svc
+}
+
 func testLogger() *log.Logger {
 	if testing.Verbose() {
 		return log.New(os.Stdout, "", log.LstdFlags|log.Lshortfile)
 	}
 
 	return log.New(ioutil.Discard, "", 0)
-}
-
-func (ms *mockSession) new(srvCtx context.Context) session.Session {
-	sessCtx, stopSession := context.WithCancel(srvCtx)
-	ms.stopFunc = stopSession
-
-	fs := filesystem.NewFilesystem()
-
-	svc := &service{
-		logger:      testLogger(),
-		srvCtx:      srvCtx,
-		sessCtx:     sessCtx,
-		stopSession: ms.stop,
-		fs:          fs,
-	}
-
-	return svc
 }
 
 func (ms *mockSession) stop() {

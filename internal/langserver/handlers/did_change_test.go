@@ -15,8 +15,9 @@ func TestLangServer_didChange_sequenceOfPartialChanges(t *testing.T) {
 	tmpDir := TempDir(t)
 
 	fs := filesystem.NewFilesystem()
-
-	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
+	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{
+		Filesystem: fs,
+	}))
 	stop := ls.Start(t)
 	defer stop()
 

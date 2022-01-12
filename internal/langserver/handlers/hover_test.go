@@ -3,9 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"testing"
 
-	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/session"
 )
@@ -29,19 +29,23 @@ func TestHover_withoutInitialization(t *testing.T) {
 	}, session.SessionNotInitialized.Err())
 }
 
-func TestHover_withValidData(t *testing.T) {
+func TestHover_prop(t *testing.T) {
 	tmpDir := TempDir(t)
 	InitPluginCache(t, tmpDir.Dir())
-
-	var testSchema tfjson.ProviderSchemas
-	err := json.Unmarshal([]byte(testModuleSchemaOutput), &testSchema)
-	if err != nil {
-		t.Fatal(err)
-	}
 
 	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
 	stop := ls.Start(t)
 	defer stop()
+
+	config, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	expectRaw, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	ls.Call(t, &langserver.CallRequest{
 		Method: "initialize",
@@ -56,116 +60,25 @@ func TestHover_withValidData(t *testing.T) {
 		ReqParams: "{}",
 	})
 	ls.Call(t, &langserver.CallRequest{
-		Method: "textDocument/didOpen",
-		ReqParams: fmt.Sprintf(`{
-		"textDocument": {
-			"version": 0,
-			"languageId": "terraform",
-			"text": "provider \"test\" {\n\n}\n",
-			"uri": "%s/main.tf"
-		}
-	}`, TempDir(t).URI()),
+		Method:    "textDocument/didOpen",
+		ReqParams: buildReqParamsTextDocument(string(config), tmpDir.URI()),
 	})
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
-		Method: "textDocument/hover",
-		ReqParams: fmt.Sprintf(`{
-			"textDocument": {
-				"uri": "%s/main.tf"
-			},
-			"position": {
-				"character": 3,
-				"line": 0
-			}
-		}`, TempDir(t).URI()),
-	}, `{
-			"jsonrpc": "2.0",
-			"id": 3,
-			"result": {
-				"contents": {
-					"kind": "plaintext",
-					"value": "provider Block\n\nA provider block is used to specify a provider configuration"
-				},
-				"range": {
-					"start": { "line":0, "character":0 },
-					"end": { "line":0, "character":8 }
-				}
-			}
-		}`)
+		Method:    "textDocument/hover",
+		ReqParams: buildReqParamsHover(11, 14, tmpDir.URI()),
+	}, string(expectRaw))
 }
 
-func TestVarsHover_withValidData(t *testing.T) {
-	tmpDir := TempDir(t)
-	InitPluginCache(t, tmpDir.Dir())
-
-	var testSchema tfjson.ProviderSchemas
-	err := json.Unmarshal([]byte(testModuleSchemaOutput), &testSchema)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
-	stop := ls.Start(t)
-	defer stop()
-
-	ls.Call(t, &langserver.CallRequest{
-		Method: "initialize",
-		ReqParams: fmt.Sprintf(`{
-		"capabilities": {},
-		"rootUri": %q,
-		"processId": 12345
-	}`, tmpDir.URI()),
-	})
-	ls.Notify(t, &langserver.CallRequest{
-		Method:    "initialized",
-		ReqParams: "{}",
-	})
-	ls.Call(t, &langserver.CallRequest{
-		Method: "textDocument/didOpen",
-		ReqParams: fmt.Sprintf(`{
-		"textDocument": {
-			"version": 0,
-			"languageId": "terraform",
-			"text": "variable \"test\" {\n type=string\n sensitive=true}\n",
-			"uri": "%s/variables.tf"
-		}
-	}`, tmpDir.URI()),
-	})
-	ls.Call(t, &langserver.CallRequest{
-		Method: "textDocument/didOpen",
-		ReqParams: fmt.Sprintf(`{
-		"textDocument": {
-			"version": 0,
-			"languageId": "terraform-vars",
-			"text": "test = \"dev\"\n",
-			"uri": "%s/terraform.tfvars"
-		}
-	}`, tmpDir.URI()),
-	})
-
-	ls.CallAndExpectResponse(t, &langserver.CallRequest{
-		Method: "textDocument/hover",
-		ReqParams: fmt.Sprintf(`{
-			"textDocument": {
-				"uri": "%s/terraform.tfvars"
-			},
-			"position": {
-				"character": 3,
-				"line": 0
-			}
-		}`, tmpDir.URI()),
-	}, `{
-			"jsonrpc": "2.0",
-			"id": 4,
-			"result": {
-				"contents": {
-					"kind": "plaintext",
-					"value": "test required, sensitive, string"
-				},
-				"range": {
-					"start": { "line":0, "character":0 },
-					"end": { "line":0, "character":12 }
-				}
-			}
-		}`)
+func buildReqParamsHover(line int, character int, uri string) string {
+	param := make(map[string]interface{})
+	textDocument := make(map[string]interface{})
+	textDocument["uri"] = fmt.Sprintf("%s/main.tf", uri)
+	param["textDocument"] = textDocument
+	position := make(map[string]interface{})
+	position["character"] = character - 1
+	position["line"] = line - 1
+	param["position"] = position
+	paramJson, _ := json.Marshal(param)
+	return string(paramJson)
 }
