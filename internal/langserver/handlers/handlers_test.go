@@ -16,53 +16,35 @@ func initializeResponse(t *testing.T, commandPrefix string) string {
 		"jsonrpc": "2.0",
 		"id": 1,
 		"result": {
-			"capabilities": {
-				"textDocumentSync": {
-					"openClose": true,
-					"change": 2,
-					"save": {}
-				},
-				"completionProvider": {
-					"triggerCharacters": [".", "["],
-					"completionItem":{}
-				},
-				"hoverProvider": true,
-				"signatureHelpProvider": {},
-				"declarationProvider": {},
-				"definitionProvider": true,
-				"referencesProvider": true,
-				"documentSymbolProvider": true,
-				"codeActionProvider": {
-					"codeActionKinds": ["source.formatAll.terraform"]
-				},
-				"codeLensProvider": {},
-				"documentLinkProvider": {},
-				"workspaceSymbolProvider": true,
-				"documentFormattingProvider": true,
-				"documentOnTypeFormattingProvider": {
-					"firstTriggerCharacter": ""
-				},
-				"executeCommandProvider": {
-					"commands": [],
-					"workDoneProgress":true
-				},
-				"semanticTokensProvider": {
-					"legend": {
-						"tokenTypes": [],
-						"tokenModifiers": []
-					},
-					"full": false
-				},
-				"workspace": {
-					"workspaceFolders": {
-						"supported": true,
-						"changeNotifications": "workspace/didChangeWorkspaceFolders"
-					}
-				}
+		  "capabilities": {
+			"textDocumentSync": {
+			  "openClose": true,
+			  "change": 2,
+			  "save": {}
 			},
-			"serverInfo": {
-				"name": "terraform-ls"
+			"completionProvider": {
+			  "triggerCharacters": [
+				" ",
+				".",
+				"/",
+				"@",
+				"{",
+				"\"",
+				"\n"
+			  ],
+			  "completionItem": {}
+			},
+			"hoverProvider": true,
+			"declarationProvider": false,
+			"codeActionProvider": {
+			  "codeActionKinds": [
+				"source.formatAll.terraform"
+			  ]
 			}
+		  },
+		  "serverInfo": {
+			"name": "azurerm-restapi-lsp"
+		  }
 		}
 	}`
 }

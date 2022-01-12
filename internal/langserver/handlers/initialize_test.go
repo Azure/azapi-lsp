@@ -51,21 +51,6 @@ func TestInitialize_withIncompatibleTerraformVersion(t *testing.T) {
 	})
 }
 
-func TestInitialize_withInvalidRootURI(t *testing.T) {
-	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
-	stop := ls.Start(t)
-	defer stop()
-
-	ls.CallAndExpectError(t, &langserver.CallRequest{
-		Method: "initialize",
-		ReqParams: `{
-	    "capabilities": {},
-	    "processId": 12345,
-	    "rootUri": "meh"
-	}`,
-	}, code.SystemError.Err())
-}
-
 func TestInitialize_multipleFolders(t *testing.T) {
 	rootDir := TempDir(t)
 	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))

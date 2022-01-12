@@ -1,0 +1,39 @@
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "result": {
+    "isIncomplete": false,
+    "items": [
+      {
+        "label": "userAssignedIdentity",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "userAssignedIdentity (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `string`  \nThe resource id of the user assigned identity to authenticate to customer's key vault.\n"
+        },
+        "sortText": "1userAssignedIdentity",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 11,
+              "character": 10
+            },
+            "end": {
+              "line": 11,
+              "character": 10
+            }
+          },
+          "newText": "userAssignedIdentity = \"$0\""
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      }
+    ]
+  }
+}
