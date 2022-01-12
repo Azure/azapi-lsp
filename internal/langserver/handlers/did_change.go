@@ -34,9 +34,9 @@ func TextDocumentDidChange(ctx context.Context, params lsp.DidChangeTextDocument
 
 	// Versions don't have to be consecutive, but they must be increasing
 	if int(p.TextDocument.Version) <= f.Version() {
-		fs.CloseAndRemoveDocument(fh)
-		return fmt.Errorf("Old version (%d) received, current version is %d. "+
-			"Unable to update %s. This is likely a bug, please report it.",
+		_ = fs.CloseAndRemoveDocument(fh)
+		return fmt.Errorf("old version (%d) received, current version is %d. "+
+			"Unable to update %s. This is likely a bug, please report it",
 			int(p.TextDocument.Version), f.Version(), p.TextDocument.URI)
 	}
 

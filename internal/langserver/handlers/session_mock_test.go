@@ -37,8 +37,7 @@ func (ms *mockSession) new(srvCtx context.Context) session.Session {
 	sessCtx, stopSession := context.WithCancel(srvCtx)
 	ms.stopFunc = stopSession
 
-	var fs filesystem.Filesystem
-	fs = filesystem.NewFilesystem()
+	fs := filesystem.NewFilesystem()
 
 	svc := &service{
 		logger:      testLogger(),

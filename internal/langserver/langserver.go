@@ -102,7 +102,7 @@ func (ls *langServer) StartAndWait(reader io.Reader, writer io.WriteCloser) erro
 		cancelFunc()
 	}()
 
-	select {
+	select { //nolint
 	case <-ctx.Done():
 		ls.logger.Printf("Stopping server (pid %d) ...", os.Getpid())
 		srv.Stop()
@@ -133,7 +133,7 @@ func (ls *langServer) StartTCP(address string) error {
 		}
 	}()
 
-	select {
+	select { //nolint
 	case <-ls.srvCtx.Done():
 		ls.logger.Printf("Stopping TCP server (pid %d) ...", os.Getpid())
 		err = lst.Close()

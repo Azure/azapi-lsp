@@ -7,11 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-version"
-	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
-	"github.com/stretchr/testify/mock"
 )
 
 func initializeResponse(t *testing.T, commandPrefix string) string {
@@ -143,48 +140,6 @@ func TestEOF(t *testing.T) {
 	}
 	if ls.StopFuncCalled() {
 		t.Fatal("Expected server not to stop on EOF")
-	}
-}
-
-func validTfMockCalls() []*mock.Call {
-	return []*mock.Call{
-		{
-			Method:        "Version",
-			Repeatability: 1,
-			Arguments: []interface{}{
-				mock.AnythingOfType(""),
-			},
-			ReturnArguments: []interface{}{
-				version.Must(version.NewVersion("0.12.0")),
-				nil,
-				nil,
-			},
-		},
-		{
-			Method:        "GetExecPath",
-			Repeatability: 1,
-			ReturnArguments: []interface{}{
-				"",
-			},
-		},
-		{
-			Method:        "ProviderSchemas",
-			Repeatability: 1,
-			Arguments: []interface{}{
-				mock.AnythingOfType(""),
-			},
-			ReturnArguments: []interface{}{
-				&tfjson.ProviderSchemas{
-					FormatVersion: "0.1",
-					Schemas: map[string]*tfjson.ProviderSchema{
-						"test": {
-							ConfigSchema: &tfjson.Schema{},
-						},
-					},
-				},
-				nil,
-			},
-		},
 	}
 }
 

@@ -10,7 +10,7 @@ func ExperimentalClientCapabilities(input interface{}) ExpClientCapabilities {
 	if m, ok := input.(map[string]interface{}); ok && len(m) > 0 {
 		return ExpClientCapabilities(m)
 	}
-	return make(ExpClientCapabilities, 0)
+	return make(ExpClientCapabilities)
 }
 
 func (cc ExpClientCapabilities) ShowReferencesCommandId() (string, bool) {

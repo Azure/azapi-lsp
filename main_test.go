@@ -1,25 +1,33 @@
 package main_test
 
 import (
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/hover"
+	"log"
+	"os"
 	"testing"
 
+	"github.com/hashicorp/hcl/v2"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/complete"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/validate"
 )
 
-func TestName(t *testing.T) {
-	// logger := log.New(os.Stdout, "", log.Lshortfile)
-	filename := "main.tf"
-
-	validate.ValidateFile([]byte(config), filename)
-
-	// pos := hcl.Pos{Line: 75, Column: 6, Byte: 1910}
-	// candidateList := complete.CandidatesAtPos([]byte(config), filename, pos, logger)
-	// fmt.Printf("%#v", candidateList)
-
-	// pos := hcl.Pos{Line: 89, Column: 10, Byte: 1910}
-	// hover.HoverAtPos([]byte(config), filename, pos, logger)
+func TestValidate(t *testing.T) {
+	_, _ = validate.ValidateFile([]byte(config), filename)
 }
 
+func TestHover(t *testing.T) {
+	logger := log.New(os.Stdout, "", log.Lshortfile)
+	pos := hcl.Pos{Line: 89, Column: 10, Byte: 1910}
+	hover.HoverAtPos([]byte(config), filename, pos, logger)
+}
+
+func TestCompletion(t *testing.T) {
+	logger := log.New(os.Stdout, "", log.Lshortfile)
+	pos := hcl.Pos{Line: 75, Column: 6, Byte: 1910}
+	complete.CandidatesAtPos([]byte(config), filename, pos, logger)
+}
+
+const filename = "main.tf"
 const config = `terraform {
   required_providers {
     azurerm-restapi = {
@@ -95,6 +103,8 @@ resource "azurerm-restapi_resource" "test3" {
   type = "Microsoft.Containerregistry/Registries@2021-06-01-preview"
   body = jsonencode({
     sku = {
+      p1 = 
+		= v2
       name = "Classic"
     }
     properties = {

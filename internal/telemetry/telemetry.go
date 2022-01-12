@@ -29,7 +29,7 @@ func NewSender(version int, notifier Notifier) (*Telemetry, error) {
 }
 
 func (t *Telemetry) SendEvent(ctx context.Context, name string, properties map[string]interface{}) {
-	t.notifier.Notify(ctx, "telemetry/event", lsp.TelemetryEvent{
+	_ = t.notifier.Notify(ctx, "telemetry/event", lsp.TelemetryEvent{
 		Version:    t.version,
 		Name:       name,
 		Properties: properties,

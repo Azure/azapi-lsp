@@ -43,10 +43,11 @@ func GetApiVersions(resourceType string) []string {
 		return []string{}
 	}
 	res := make([]string, 0)
-	resourceType = strings.ToUpper(resourceType)
-	if azureSchema.Resources[resourceType] != nil {
-		for _, v := range azureSchema.Resources[resourceType].Definitions {
-			res = append(res, v.ApiVersion)
+	for key, value := range azureSchema.Resources {
+		if strings.EqualFold(key, resourceType) {
+			for _, v := range value.Definitions {
+				res = append(res, v.ApiVersion)
+			}
 		}
 	}
 	sort.Strings(res)
@@ -67,11 +68,12 @@ func GetResourceDefinition(resourceType, apiVersion string) (*types.ResourceType
 	if azureSchema == nil {
 		return nil, fmt.Errorf("failed to load azure schema index")
 	}
-	resourceType = strings.ToUpper(resourceType)
-	if azureSchema.Resources[resourceType] != nil {
-		for _, v := range azureSchema.Resources[resourceType].Definitions {
-			if v.ApiVersion == apiVersion {
-				return v.GetDefinition()
+	for key, value := range azureSchema.Resources {
+		if strings.EqualFold(key, resourceType) {
+			for _, v := range value.Definitions {
+				if v.ApiVersion == apiVersion {
+					return v.GetDefinition()
+				}
 			}
 		}
 	}
@@ -146,12 +148,10 @@ func GetDef(resourceType *types.TypeBase, path string) []*types.TypeBase {
 		if t.AdditionalProperties != nil {
 			return GetDef(t.AdditionalProperties.Type, rest)
 		}
-		break
 	case *types.ResourceType:
 		if t.Body != nil {
 			return GetDef(t.Body.Type, path)
 		}
-		break
 	case *types.BuiltInType:
 		return []*types.TypeBase{resourceType}
 	case *types.StringLiteralType:
@@ -183,7 +183,6 @@ func GetAllowedProperties(resourceType *types.TypeBase) []Property {
 		for _, discriminator := range t.Elements {
 			props = append(props, GetAllowedProperties(discriminator.Type)...)
 		}
-		break
 	case *types.ObjectType:
 		for key, value := range t.Properties {
 			if prop := PropertyFromObjectProperty(key, value); prop != nil {
@@ -193,16 +192,13 @@ func GetAllowedProperties(resourceType *types.TypeBase) []Property {
 		if t.AdditionalProperties != nil {
 			props = append(props, GetAllowedProperties(t.AdditionalProperties.Type)...)
 		}
-		break
 	case *types.ResourceType:
 		if t.Body != nil {
 			return GetAllowedProperties(t.Body.Type)
 		}
-		break
 	case *types.BuiltInType:
 	case *types.StringLiteralType:
 	case *types.UnionType:
-		return props
 	}
 	return props
 }
@@ -218,7 +214,6 @@ func GetAllowedValues(resourceType *types.TypeBase) []string {
 		if t.Body != nil {
 			return GetAllowedValues(t.Body.Type)
 		}
-		break
 	case *types.StringLiteralType:
 		return []string{t.Value}
 	case *types.UnionType:

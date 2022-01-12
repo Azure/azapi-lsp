@@ -6,7 +6,7 @@ import (
 	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
-var validUnixPath = "file:///valid/path/to/file.tf"
+var validUnixPath = "file:///valid/path/to/file.tf" //nolint
 
 func TestFileHandler_invalid(t *testing.T) {
 	path := "invalidpath"
