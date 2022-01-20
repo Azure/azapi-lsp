@@ -62,6 +62,9 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 					// input a property
 					editRange := ilsp.HCLRangeToLSP(lastRangeMap.KeyRange)
 					keys := azure.ListProperties(def, key)
+					if key == "" {
+						keys = ignorePulledOutProperties(keys)
+					}
 					logger.Printf("state: input key, key: %s", key)
 					logger.Printf("received allowed keys: %#v", keys)
 					candidateList = keyCandidates(keys, editRange)
@@ -89,6 +92,9 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 					// input a property
 					editRange := ilsp.HCLRangeToLSP(hcl.Range{Start: pos, End: pos, Filename: filename})
 					keys := azure.ListProperties(def, key)
+					if key == "" {
+						keys = ignorePulledOutProperties(keys)
+					}
 					logger.Printf("state: input key without prefix, key: %s", key)
 					logger.Printf("received allowed keys: %#v", keys)
 					candidateList = keyCandidates(keys, editRange)
@@ -105,4 +111,15 @@ func editRangeFromExprRange(expression hclsyntax.Expression, pos hcl.Pos) lsp.Ra
 		expRange.End = pos
 	}
 	return ilsp.HCLRangeToLSP(expRange)
+}
+
+func ignorePulledOutProperties(input []azure.Property) []azure.Property {
+	res := make([]azure.Property, 0)
+	// ignore properties pulled out from body
+	for _, p := range input {
+		if p.Name != "name" && p.Name != "location" && p.Name != "identity" && p.Name != "tags" {
+			res = append(res, p)
+		}
+	}
+	return res
 }
