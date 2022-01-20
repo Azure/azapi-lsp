@@ -20,6 +20,18 @@ func ToLiteral(expression hclsyntax.Expression) *string {
 	return nil
 }
 
+func ToLiteralBoolean(expression hclsyntax.Expression) *bool {
+	value, dialog := expression.Value(&hcl.EvalContext{})
+	if dialog != nil && dialog.HasErrors() {
+		return nil
+	}
+	if value.Type() == cty.Bool && !value.IsNull() && value.IsKnown() {
+		v := value.True()
+		return &v
+	}
+	return nil
+}
+
 func BlockAtPos(file *hcl.File, pos hcl.Pos) (*hclsyntax.Block, error) {
 	body, isHcl := file.Body.(*hclsyntax.Body)
 	if !isHcl {

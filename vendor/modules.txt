@@ -55,9 +55,6 @@ github.com/hashicorp/hcl/v2
 github.com/hashicorp/hcl/v2/ext/customdecode
 github.com/hashicorp/hcl/v2/ext/typeexpr
 github.com/hashicorp/hcl/v2/hclsyntax
-# github.com/hashicorp/terraform-json v0.13.0
-## explicit
-github.com/hashicorp/terraform-json
 # github.com/hashicorp/terraform-registry-address v0.0.0-20210816115301-cb2034eba045
 ## explicit
 github.com/hashicorp/terraform-registry-address
@@ -83,6 +80,7 @@ github.com/mattn/go-isatty
 ## explicit
 github.com/mitchellh/cli
 # github.com/mitchellh/copystructure v1.2.0
+## explicit
 github.com/mitchellh/copystructure
 # github.com/mitchellh/go-wordwrap v1.0.0
 ## explicit

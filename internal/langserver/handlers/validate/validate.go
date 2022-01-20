@@ -36,7 +36,7 @@ func ValidateFile(src []byte, filename string) (*hcl.File, hcl.Diagnostics) {
 
 	diags = make([]*hcl.Diagnostic, 0)
 	for _, block := range body.Blocks {
-		if block.Type == "resource" || len(block.Labels) > 0 && block.Labels[0] == "azurerm-restapi_resource" {
+		if block.Type == "resource" && len(block.Labels) > 0 && strings.HasPrefix(block.Labels[0], "azurerm-restapi") {
 			if diag := ValidateBlock(src, block); diag != nil {
 				diags = append(diags, diag...)
 			}
@@ -49,8 +49,12 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 	if block == nil {
 		return nil
 	}
-	// TODO: check schema_validation_enabled flag in resource block and provider block
-	// schemaValidationAttr := common.AttributeWithName(block, "")
+	schemaValidationAttr := common.AttributeWithName(block, "schema_validation_enabled")
+	if schemaValidationAttr != nil {
+		if enabled := common.ToLiteralBoolean(schemaValidationAttr.Expr); enabled != nil && !*enabled {
+			return nil
+		}
+	}
 	attribute := common.AttributeWithName(block, "body")
 	if attribute == nil {
 		return nil
@@ -71,7 +75,20 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 	}
 	if dummy, ok := rangeMap.Children["dummy"]; ok {
 		dummy.KeyRange = attribute.NameRange
-		return Validate(dummy, def.AsTypeBase())
+		diags := Validate(dummy, def.AsTypeBase())
+		// patch resource doesn't need to check on required properties
+		if block.Labels[0] == "azurerm-restapi_patch_resource" {
+			res := hcl.Diagnostics{}
+			for _, diag := range diags {
+				// TODO: don't hardcode here
+				if !strings.HasSuffix(diag.Summary, " is required, but no definition was found") {
+					res = append(res, diag)
+				}
+			}
+			return res
+		} else {
+			return diags
+		}
 	}
 	return nil
 }
