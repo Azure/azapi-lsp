@@ -25,8 +25,8 @@ func NewDiagnostics(src []byte, filename string) diagnostics.Diagnostics {
 }
 
 func ValidateFile(src []byte, filename string) (*hcl.File, hcl.Diagnostics) {
-	file, diags := hclsyntax.ParseConfig(src, filename, hcl.InitialPos)
-	if diags != nil && diags.HasErrors() || file == nil {
+	file, _ := hclsyntax.ParseConfig(src, filename, hcl.InitialPos)
+	if file == nil {
 		return nil, nil
 	}
 	body, isHcl := file.Body.(*hclsyntax.Body)
@@ -34,7 +34,7 @@ func ValidateFile(src []byte, filename string) (*hcl.File, hcl.Diagnostics) {
 		return nil, nil
 	}
 
-	diags = make([]*hcl.Diagnostic, 0)
+	diags := make([]*hcl.Diagnostic, 0)
 	for _, block := range body.Blocks {
 		if block.Type == "resource" && len(block.Labels) > 0 && strings.HasPrefix(block.Labels[0], "azurerm-restapi") {
 			if diag := ValidateBlock(src, block); diag != nil {
