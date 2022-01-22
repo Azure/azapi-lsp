@@ -26,7 +26,7 @@ func NewDiagnostics(src []byte, filename string) diagnostics.Diagnostics {
 
 func ValidateFile(src []byte, filename string) (*hcl.File, hcl.Diagnostics) {
 	file, diags := hclsyntax.ParseConfig(src, filename, hcl.InitialPos)
-	if diags != nil && diags.HasErrors() || file == nil {
+	if file == nil {
 		return nil, nil
 	}
 	body, isHcl := file.Body.(*hclsyntax.Body)
