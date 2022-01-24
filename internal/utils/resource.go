@@ -49,3 +49,11 @@ func GetResourceType(id string) string {
 	}
 	return resourceType
 }
+
+func GetParentType(resourceType string) string {
+	parts := strings.Split(resourceType, "/")
+	if len(parts) <= 2 {
+		return "Microsoft.Resources/resourceGroups"
+	}
+	return strings.Join(parts[0:len(parts)-1], "/")
+}
