@@ -34,8 +34,6 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 								fmt.Sprintf("id of `%s`", parentType), attribute.NameRange)
 						}
 					}
-					return Hover("type", "required", "string <resource-type>@<api-version>",
-						"Azure Resource Manager type.", attribute.NameRange)
 				}
 			case "body":
 				if common.ContainsPos(attribute.NameRange, pos) {
