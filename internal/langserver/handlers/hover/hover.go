@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/common"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/utils"
 )
 
 func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *lang.HoverData {
@@ -22,6 +23,17 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 				if common.ContainsPos(attribute.NameRange, pos) {
 					return Hover("type", "required", "string <resource-type>@<api-version>",
 						"Azure Resource Manager type.", attribute.NameRange)
+				}
+			case "parent_id":
+				if common.ContainsPos(attribute.NameRange, pos) {
+					typeAttribute := common.AttributeWithName(block, "type")
+					if typeAttribute != nil {
+						if typeValue := common.ToLiteral(typeAttribute.Expr); typeValue != nil && len(*typeValue) != 0 {
+							parentType := utils.GetParentType(*typeValue)
+							return Hover("parent_id", "required", "string",
+								fmt.Sprintf("id of `%s`", parentType), attribute.NameRange)
+						}
+					}
 				}
 			case "body":
 				if common.ContainsPos(attribute.NameRange, pos) {
