@@ -31,7 +31,7 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 						if typeValue := common.ToLiteral(typeAttribute.Expr); typeValue != nil && len(*typeValue) != 0 {
 							parentType := utils.GetParentType(*typeValue)
 							return Hover("parent_id", "required", "string",
-								fmt.Sprintf("id of `%s`", parentType), attribute.NameRange)
+								fmt.Sprintf("The ID of `%s` which is the parent resource in which this resource is created.", parentType), attribute.NameRange)
 						}
 					}
 				}
