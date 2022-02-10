@@ -53,35 +53,22 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 				if rangeMap == nil {
 					break
 				}
-				targetRangeMap := common.RangeMapOfPos(rangeMap, pos)
-				if len(targetRangeMap) == 0 {
+				rangeMaps := common.RangeMapArraysOfPos(rangeMap, pos)
+				if len(rangeMaps) == 0 {
 					break
 				}
-				lastRangeMap := targetRangeMap[len(targetRangeMap)-1]
-
-				key := common.BuildKeyFromRangeMaps(targetRangeMap)
-				logger.Printf("key: %v\n", key)
+				lastRangeMap := rangeMaps[len(rangeMaps)-1]
 
 				if common.ContainsPos(lastRangeMap.KeyRange, pos) {
-					start := len("..dummy.")
-					end := strings.LastIndex(key, ".")
-					propName := ""
-					if start < end && start < len(key) && end > 0 {
-						propName = key[end+1:]
-						key = key[start:end]
-					} else {
-						propName = key[end+1:]
-						key = ""
+					scopes := azure.GetDef(def.AsTypeBase(), rangeMaps, 0)
+					defs := azure.GetDef(def.AsTypeBase(), rangeMaps[0:len(rangeMaps)-1], 0)
+					props := make([]azure.Property, 0)
+					for _, def := range defs {
+						props = append(props, azure.GetAllowedProperties(def, scopes)...)
 					}
-
-					// input a property
-					props := azure.ListProperties(def, key)
-					logger.Printf("state: input key, key: %s", props)
 					logger.Printf("received allowed keys: %#v", props)
-					for _, prop := range props {
-						if prop.Name == propName {
-							return Hover(prop.Name, string(prop.Modifier), prop.Type, prop.Description, lastRangeMap.KeyRange)
-						}
+					if len(props) != 0 {
+						return Hover(props[0].Name, string(props[0].Modifier), props[0].Type, props[0].Description, lastRangeMap.KeyRange)
 					}
 				}
 			}

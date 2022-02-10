@@ -41,62 +41,40 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 				if rangeMap == nil {
 					break
 				}
-				targetRangeMap := common.RangeMapOfPos(rangeMap, pos)
-				if len(targetRangeMap) == 0 {
+				rangeMaps := common.RangeMapArraysOfPos(rangeMap, pos)
+				if len(rangeMaps) == 0 {
 					break
 				}
-				lastRangeMap := targetRangeMap[len(targetRangeMap)-1]
-
-				key := common.BuildKeyFromRangeMaps(targetRangeMap)
-				logger.Printf("key: %v\n", key)
+				lastRangeMap := rangeMaps[len(rangeMaps)-1]
 
 				switch {
 				case common.ContainsPos(lastRangeMap.KeyRange, pos):
-					start := len("..dummy.")
-					end := strings.LastIndex(key, ".")
-					if start < end && start < len(key) && end > 0 {
-						key = key[start:end]
-					} else {
-						key = ""
-					}
-					// input a property
-					editRange := ilsp.HCLRangeToLSP(lastRangeMap.KeyRange)
-					keys := azure.ListProperties(def, key)
-					if key == "" {
+					// input a property with a prefix
+					rangeMaps := rangeMaps[0 : len(rangeMaps)-1]
+					keys := azure.ListProperties(def, rangeMaps)
+					if len(rangeMaps) == 1 {
 						keys = ignorePulledOutProperties(keys)
 					}
-					logger.Printf("state: input key, key: %s", key)
 					logger.Printf("received allowed keys: %#v", keys)
+					editRange := ilsp.HCLRangeToLSP(lastRangeMap.KeyRange)
 					candidateList = keyCandidates(keys, editRange)
 				case !lastRangeMap.KeyRange.Empty() && !lastRangeMap.EqualRange.Empty() && lastRangeMap.Children == nil:
-					start := len("..dummy.")
-					if start < len(key) {
-						key = key[start:]
-					}
 					// input property =
+					values := azure.ListValues(def, rangeMaps)
 					editRange := lastRangeMap.ValueRange
 					if lastRangeMap.Value == nil {
 						editRange.End = pos
 					}
-					values := azure.ListValues(def, key)
 					candidateList = valueCandidates(values, ilsp.HCLRangeToLSP(editRange))
-					logger.Printf("state: input value, key: %s", key)
 					logger.Printf("received allowed keys: %#v", values)
 				case common.ContainsPos(lastRangeMap.ValueRange, pos):
-					start := len("..dummy.")
-					if start < len(key) {
-						key = key[start:]
-					} else {
-						key = ""
-					}
 					// input a property
-					editRange := ilsp.HCLRangeToLSP(hcl.Range{Start: pos, End: pos, Filename: filename})
-					keys := azure.ListProperties(def, key)
-					if key == "" {
+					keys := azure.ListProperties(def, rangeMaps)
+					if len(rangeMaps) == 1 {
 						keys = ignorePulledOutProperties(keys)
 					}
-					logger.Printf("state: input key without prefix, key: %s", key)
 					logger.Printf("received allowed keys: %#v", keys)
+					editRange := ilsp.HCLRangeToLSP(hcl.Range{Start: pos, End: pos, Filename: filename})
 					candidateList = keyCandidates(keys, editRange)
 				}
 			}
