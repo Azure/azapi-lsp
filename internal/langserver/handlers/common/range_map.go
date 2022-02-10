@@ -47,34 +47,23 @@ func (rm RangeMap) IsValueMap() bool {
 	return true
 }
 
-func RangeMapOfPos(rangeMap *RangeMap, pos hcl.Pos) []*RangeMap {
+func RangeMapArraysOfPos(rangeMap *RangeMap, pos hcl.Pos) []*RangeMap {
 	if rangeMap == nil {
 		return nil
 	}
-	res := make([]*RangeMap, 0)
 	if ContainsPos(rangeMap.GetRange(), pos) {
-		res = append(res, rangeMap)
+		res := make([]*RangeMap, 0)
+		if rangeMap.Key != "" {
+			res = append(res, rangeMap)
+		}
 		for _, child := range rangeMap.Children {
-			if arr := RangeMapOfPos(child, pos); len(arr) != 0 {
-				res = append(res, arr...)
-				break
+			if arr := RangeMapArraysOfPos(child, pos); len(arr) != 0 {
+				return append(res, arr...)
 			}
 		}
 		return res
 	}
 	return nil
-}
-
-func BuildKeyFromRangeMaps(rangeMaps []*RangeMap) string {
-	key := ""
-	for _, rangeMap := range rangeMaps {
-		part := fmt.Sprintf("%v", rangeMap.Key)
-		if strings.Contains(part, ".") {
-			part = "#" // means array's item
-		}
-		key = fmt.Sprintf("%s.%s", key, part)
-	}
-	return key
 }
 
 type State struct {

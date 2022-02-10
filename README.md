@@ -18,7 +18,7 @@ it's recommended to use it with language server for `Terraform`.
 - [x] Completion when input `body`, limitation: it only works when use `jsonencode` function to build the JSON
 - [X] Show hint when hover on `type`, `body` and properties defined inside `body`
 - [X] Show diagnostics for properties defined inside `body`
-- [ ] Better completion for discriminated object
+- [x] Better completion for discriminated object
 
 ## Installation
 

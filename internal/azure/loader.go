@@ -10,6 +10,7 @@ import (
 	"sync"
 
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/common"
 )
 
 var schema *Schema
@@ -80,23 +81,23 @@ func GetResourceDefinition(resourceType, apiVersion string) (*types.ResourceType
 	return nil, fmt.Errorf("failed to find resource type %s api-version %s in azure schema index", resourceType, apiVersion)
 }
 
-func ListProperties(resourceType *types.ResourceType, path string) []Property {
+func ListProperties(resourceType *types.ResourceType, rangeMaps []*common.RangeMap) []Property {
 	if resourceType == nil {
 		return []Property{}
 	}
-	defs := GetDef(resourceType.AsTypeBase(), path)
+	defs := GetDef(resourceType.AsTypeBase(), rangeMaps, 0)
 	props := make([]Property, 0)
 	for _, def := range defs {
-		props = append(props, GetAllowedProperties(def)...)
+		props = append(props, GetAllowedProperties(def, []*types.TypeBase{})...)
 	}
 	return props
 }
 
-func ListValues(resourceType *types.ResourceType, path string) []string {
+func ListValues(resourceType *types.ResourceType, rangeMaps []*common.RangeMap) []string {
 	if resourceType == nil {
 		return []string{}
 	}
-	defs := GetDef(resourceType.AsTypeBase(), path)
+	defs := GetDef(resourceType.AsTypeBase(), rangeMaps, 0)
 	values := make([]string, 0)
 	for _, def := range defs {
 		values = append(values, GetAllowedValues(def)...)
@@ -104,37 +105,41 @@ func ListValues(resourceType *types.ResourceType, path string) []string {
 	return values
 }
 
-func GetDef(resourceType *types.TypeBase, path string) []*types.TypeBase {
+func GetDef(resourceType *types.TypeBase, rangeMaps []*common.RangeMap, index int) []*types.TypeBase {
 	if resourceType == nil {
 		return nil
 	}
-	if len(path) == 0 {
+	if len(rangeMaps) == index {
 		return []*types.TypeBase{resourceType}
 	}
-	key := path
-	rest := ""
-	if strings.Contains(key, ".") {
-		key = path[0:strings.Index(path, ".")]
-		rest = path[len(key)+1:]
-	}
+	key := rangeMaps[index].Key
 	switch t := (*resourceType).(type) {
 	case *types.ArrayType:
 		if t.ItemType != nil {
-			if key == "#" {
-				return GetDef(t.ItemType.Type, rest)
+			if strings.Contains(key, ".") {
+				return GetDef(t.ItemType.Type, rangeMaps, index+1)
 			}
-			return GetDef(t.ItemType.Type, path)
+			return GetDef(t.ItemType.Type, rangeMaps, index)
 		}
 		return nil
 	case *types.DiscriminatedObjectType:
 		if value, ok := t.BaseProperties[key]; ok {
 			if value.Type != nil {
-				return GetDef(value.Type.Type, rest)
+				return GetDef(value.Type.Type, rangeMaps, index+1)
+			}
+		}
+		if index != 0 {
+			if discriminator, ok := rangeMaps[index-1].Children[t.Discriminator]; ok && discriminator != nil && discriminator.Value != nil {
+				if discriminatorValue := strings.Trim(*discriminator.Value, `"`); len(discriminatorValue) > 0 {
+					if t.Elements[discriminatorValue] != nil && t.Elements[discriminatorValue].Type != nil {
+						return GetDef(t.Elements[discriminatorValue].Type, rangeMaps, index)
+					}
+				}
 			}
 		}
 		res := make([]*types.TypeBase, 0)
 		for _, discriminator := range t.Elements {
-			if resourceType := GetDef(discriminator.Type, path); resourceType != nil {
+			if resourceType := GetDef(discriminator.Type, rangeMaps, index); resourceType != nil {
 				res = append(res, resourceType...)
 			}
 		}
@@ -142,15 +147,15 @@ func GetDef(resourceType *types.TypeBase, path string) []*types.TypeBase {
 	case *types.ObjectType:
 		if value, ok := t.Properties[key]; ok {
 			if value.Type != nil {
-				return GetDef(value.Type.Type, rest)
+				return GetDef(value.Type.Type, rangeMaps, index+1)
 			}
 		}
 		if t.AdditionalProperties != nil {
-			return GetDef(t.AdditionalProperties.Type, rest)
+			return GetDef(t.AdditionalProperties.Type, rangeMaps, index+1)
 		}
 	case *types.ResourceType:
 		if t.Body != nil {
-			return GetDef(t.Body.Type, path)
+			return GetDef(t.Body.Type, rangeMaps, index+1)
 		}
 	case *types.BuiltInType:
 		return []*types.TypeBase{resourceType}
@@ -159,14 +164,14 @@ func GetDef(resourceType *types.TypeBase, path string) []*types.TypeBase {
 	case *types.UnionType:
 		res := make([]*types.TypeBase, 0)
 		for _, element := range t.Elements {
-			res = append(res, GetDef(element.Type, path)...)
+			res = append(res, GetDef(element.Type, rangeMaps, index)...)
 		}
 		return res
 	}
 	return nil
 }
 
-func GetAllowedProperties(resourceType *types.TypeBase) []Property {
+func GetAllowedProperties(resourceType *types.TypeBase, scopes []*types.TypeBase) []Property {
 	if resourceType == nil {
 		return []Property{}
 	}
@@ -176,31 +181,49 @@ func GetAllowedProperties(resourceType *types.TypeBase) []Property {
 		return props
 	case *types.DiscriminatedObjectType:
 		for key, value := range t.BaseProperties {
+			if value.Type != nil && !isInScopes(value.Type.Type, scopes) {
+				continue
+			}
 			if prop := PropertyFromObjectProperty(key, value); prop != nil {
 				props = append(props, *prop)
 			}
 		}
 		for _, discriminator := range t.Elements {
-			props = append(props, GetAllowedProperties(discriminator.Type)...)
+			props = append(props, GetAllowedProperties(discriminator.Type, scopes)...)
 		}
 	case *types.ObjectType:
 		for key, value := range t.Properties {
+			if value.Type != nil && !isInScopes(value.Type.Type, scopes) {
+				continue
+			}
 			if prop := PropertyFromObjectProperty(key, value); prop != nil {
 				props = append(props, *prop)
 			}
 		}
 		if t.AdditionalProperties != nil {
-			props = append(props, GetAllowedProperties(t.AdditionalProperties.Type)...)
+			props = append(props, GetAllowedProperties(t.AdditionalProperties.Type, scopes)...)
 		}
 	case *types.ResourceType:
 		if t.Body != nil {
-			return GetAllowedProperties(t.Body.Type)
+			return GetAllowedProperties(t.Body.Type, scopes)
 		}
 	case *types.BuiltInType:
 	case *types.StringLiteralType:
 	case *types.UnionType:
 	}
 	return props
+}
+
+func isInScopes(valueType *types.TypeBase, scopes []*types.TypeBase) bool {
+	if len(scopes) != 0 {
+		for _, scope := range scopes {
+			if valueType == scope {
+				return true
+			}
+		}
+		return false
+	}
+	return true
 }
 
 func GetAllowedValues(resourceType *types.TypeBase) []string {
