@@ -29,7 +29,7 @@ func GetRequiredPropertySet(typeBase *types.TypeBase) []PropertySet {
 		}
 		return res
 	case *types.ObjectType:
-		requiredProps := make(map[string]Property, 0)
+		requiredProps := make(map[string]Property)
 		for propName, prop := range t.Properties {
 			if prop.IsRequired() {
 				if value := PropertyFromObjectProperty(propName, prop); value != nil {

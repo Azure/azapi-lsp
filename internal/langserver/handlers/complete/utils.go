@@ -14,7 +14,7 @@ func ignorePulledOutProperties(input []schema.Property) []schema.Property {
 }
 
 func ignorePulledOutPropertiesFromPropertySet(properties map[string]schema.Property) map[string]schema.Property {
-	res := make(map[string]schema.Property, 0)
+	res := make(map[string]schema.Property)
 	// ignore properties pulled out from body
 	for _, p := range properties {
 		if !isPropertyPulledOut(p) {
