@@ -1,4 +1,4 @@
-package common
+package parser
 
 import (
 	"fmt"
@@ -16,13 +16,13 @@ func ExtractAzureResourceType(block *hclsyntax.Block) *string {
 	return ToLiteral(typeAttr.Expr)
 }
 
-func JsonEncodeExpressionToRangeMap(data []byte, expression hclsyntax.Expression) *RangeMap {
+func JsonEncodeExpressionToHclNode(data []byte, expression hclsyntax.Expression) *HclNode {
 	r, err := rangeOfJsonEncodeBody(expression)
 	if err != nil {
 		return nil
 	}
 	tokens, _ := hclsyntax.LexExpression(data[r.Start.Byte:r.End.Byte], "", r.Start)
-	return BuildRangeMap(tokens)
+	return BuildHclNode(tokens)
 }
 
 func rangeOfJsonEncodeBody(expression hclsyntax.Expression) (*hcl.Range, error) {
