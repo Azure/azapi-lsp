@@ -6,23 +6,6 @@ import (
 	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
-func fsRangeToLSP(fsRng *filesystem.Range) lsp.Range {
-	if fsRng == nil {
-		return lsp.Range{}
-	}
-
-	return lsp.Range{
-		Start: lsp.Position{
-			Character: uint32(fsRng.Start.Column),
-			Line:      uint32(fsRng.Start.Line),
-		},
-		End: lsp.Position{
-			Character: uint32(fsRng.End.Column),
-			Line:      uint32(fsRng.End.Line),
-		},
-	}
-}
-
 func lspRangeToFsRange(rng *lsp.Range) *filesystem.Range {
 	if rng == nil {
 		return nil
