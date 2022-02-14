@@ -10,25 +10,26 @@ import (
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/common"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/schema"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/parser"
 )
 
 func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *lang.HoverData {
 	file, _ := hclsyntax.ParseConfig(data, filename, hcl.InitialPos)
-	block, err := common.BlockAtPos(file, pos)
+	block, err := parser.BlockAtPos(file, pos)
 	if err == nil && block != nil && len(block.Labels) != 0 && strings.HasPrefix(block.Labels[0], "azurerm-restapi") {
-		if attribute := common.AttributeAtPos(block, pos); attribute != nil {
+		if attribute := parser.AttributeAtPos(block, pos); attribute != nil {
 			switch attribute.Name {
 			case "type":
-				if common.ContainsPos(attribute.NameRange, pos) {
+				if parser.ContainsPos(attribute.NameRange, pos) {
 					return Hover("type", "required", "string <resource-type>@<api-version>",
 						"Azure Resource Manager type.", attribute.NameRange)
 				}
 			case "parent_id":
-				if common.ContainsPos(attribute.NameRange, pos) {
-					typeAttribute := common.AttributeWithName(block, "type")
+				if parser.ContainsPos(attribute.NameRange, pos) {
+					typeAttribute := parser.AttributeWithName(block, "type")
 					if typeAttribute != nil {
-						if typeValue := common.ToLiteral(typeAttribute.Expr); typeValue != nil && len(*typeValue) != 0 {
+						if typeValue := parser.ToLiteral(typeAttribute.Expr); typeValue != nil && len(*typeValue) != 0 {
 							parentType := GetParentType(*typeValue)
 							return Hover("parent_id", "required", "string",
 								fmt.Sprintf("The ID of `%s` which is the parent resource in which this resource is created.", parentType), attribute.NameRange)
@@ -36,11 +37,11 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 					}
 				}
 			case "body":
-				if common.ContainsPos(attribute.NameRange, pos) {
+				if parser.ContainsPos(attribute.NameRange, pos) {
 					return Hover("body", "optional", "string",
 						"A JSON object that contains the request body used to create and update azure resource.", attribute.NameRange)
 				}
-				typeValue := common.ExtractAzureResourceType(block)
+				typeValue := parser.ExtractAzureResourceType(block)
 				if typeValue == nil {
 					break
 				}
@@ -49,26 +50,26 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 					break
 				}
 
-				rangeMap := common.JsonEncodeExpressionToRangeMap(data, attribute.Expr)
-				if rangeMap == nil {
+				hclNode := parser.JsonEncodeExpressionToHclNode(data, attribute.Expr)
+				if hclNode == nil {
 					break
 				}
-				rangeMaps := common.RangeMapArraysOfPos(rangeMap, pos)
-				if len(rangeMaps) == 0 {
+				hclNodes := parser.HclNodeArraysOfPos(hclNode, pos)
+				if len(hclNodes) == 0 {
 					break
 				}
-				lastRangeMap := rangeMaps[len(rangeMaps)-1]
+				lastHclNode := hclNodes[len(hclNodes)-1]
 
-				if common.ContainsPos(lastRangeMap.KeyRange, pos) {
-					scopes := azure.GetDef(def.AsTypeBase(), rangeMaps, 0)
-					defs := azure.GetDef(def.AsTypeBase(), rangeMaps[0:len(rangeMaps)-1], 0)
-					props := make([]azure.Property, 0)
+				if parser.ContainsPos(lastHclNode.KeyRange, pos) {
+					scopes := schema.GetDef(def.AsTypeBase(), hclNodes, 0)
+					defs := schema.GetDef(def.AsTypeBase(), hclNodes[0:len(hclNodes)-1], 0)
+					props := make([]schema.Property, 0)
 					for _, def := range defs {
-						props = append(props, azure.GetAllowedProperties(def, scopes)...)
+						props = append(props, schema.GetAllowedProperties(def, scopes)...)
 					}
 					logger.Printf("received allowed keys: %#v", props)
 					if len(props) != 0 {
-						return Hover(props[0].Name, string(props[0].Modifier), props[0].Type, props[0].Description, lastRangeMap.KeyRange)
+						return Hover(props[0].Name, string(props[0].Modifier), props[0].Type, props[0].Description, lastHclNode.KeyRange)
 					}
 				}
 			}

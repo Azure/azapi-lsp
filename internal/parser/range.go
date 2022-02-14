@@ -1,4 +1,4 @@
-package common
+package parser
 
 import "github.com/hashicorp/hcl/v2"
 

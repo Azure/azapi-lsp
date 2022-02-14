@@ -1,4 +1,4 @@
-package common
+package parser
 
 import (
 	"fmt"
@@ -10,18 +10,18 @@ import (
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/utils"
 )
 
-type RangeMap struct {
-	Children                         map[string]*RangeMap
+type HclNode struct {
+	Children                         map[string]*HclNode
 	KeyRange, ValueRange, EqualRange hcl.Range
 	Value                            *string
 	Key                              string
 }
 
-func (rm RangeMap) GetRange() hcl.Range {
+func (rm HclNode) GetRange() hcl.Range {
 	return RangeOver(RangeOver(rm.KeyRange, rm.ValueRange), rm.EqualRange)
 }
 
-func (rm RangeMap) IsValueArray() bool {
+func (rm HclNode) IsValueArray() bool {
 	if rm.Value != nil {
 		return false
 	}
@@ -34,7 +34,7 @@ func (rm RangeMap) IsValueArray() bool {
 	return true
 }
 
-func (rm RangeMap) IsValueMap() bool {
+func (rm HclNode) IsValueMap() bool {
 	if rm.Value != nil {
 		return false
 	}
@@ -47,17 +47,17 @@ func (rm RangeMap) IsValueMap() bool {
 	return true
 }
 
-func RangeMapArraysOfPos(rangeMap *RangeMap, pos hcl.Pos) []*RangeMap {
-	if rangeMap == nil {
+func HclNodeArraysOfPos(hclNode *HclNode, pos hcl.Pos) []*HclNode {
+	if hclNode == nil {
 		return nil
 	}
-	if ContainsPos(rangeMap.GetRange(), pos) {
-		res := make([]*RangeMap, 0)
-		if rangeMap.Key != "" {
-			res = append(res, rangeMap)
+	if ContainsPos(hclNode.GetRange(), pos) {
+		res := make([]*HclNode, 0)
+		if hclNode.Key != "" {
+			res = append(res, hclNode)
 		}
-		for _, child := range rangeMap.Children {
-			if arr := RangeMapArraysOfPos(child, pos); len(arr) != 0 {
+		for _, child := range hclNode.Children {
+			if arr := HclNodeArraysOfPos(child, pos); len(arr) != 0 {
 				return append(res, arr...)
 			}
 		}
@@ -67,7 +67,7 @@ func RangeMapArraysOfPos(rangeMap *RangeMap, pos hcl.Pos) []*RangeMap {
 }
 
 type State struct {
-	CurrentRangeMap                  *RangeMap
+	CurrentHclNode                   *HclNode
 	Key                              *string
 	Value                            *string
 	KeyRange, ValueRange, EqualRange hcl.Range
@@ -86,11 +86,11 @@ func (s State) GetCurrentKey() string {
 	return key
 }
 
-func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
+func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 	stack := make([]State, 0)
 	stack = append(stack, State{
-		CurrentRangeMap: &RangeMap{
-			Children: make(map[string]*RangeMap),
+		CurrentHclNode: &HclNode{
+			Children: make(map[string]*HclNode),
 		},
 		Key:       utils.String("dummy"),
 		Index:     nil,
@@ -107,18 +107,18 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 			if state.ExpectKey {
 				log.Printf("[WARN] expect key but got {")
 			}
-			rangeMap := &RangeMap{
+			hclNode := &HclNode{
 				Key:        key,
 				KeyRange:   state.KeyRange,
 				ValueRange: token.Range,
 				EqualRange: state.EqualRange,
-				Children:   make(map[string]*RangeMap),
+				Children:   make(map[string]*HclNode),
 			}
-			stack[top].CurrentRangeMap.Children[key] = rangeMap
+			stack[top].CurrentHclNode.Children[key] = hclNode
 			stack[top].ExpectKey = stack[top].Index == nil // if there's an index, then expect value because p = [{}]
 			stack = append(stack, State{
-				ExpectKey:       true,
-				CurrentRangeMap: rangeMap,
+				ExpectKey:      true,
+				CurrentHclNode: hclNode,
 			})
 		case hclsyntax.TokenCBrace: // }
 			top := len(stack) - 1
@@ -126,7 +126,7 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 			if !state.ExpectKey {
 				log.Printf("[WARN] expect value but got }")
 				key := state.GetCurrentKey()
-				stack[top].CurrentRangeMap.Children[key] = &RangeMap{
+				stack[top].CurrentHclNode.Children[key] = &HclNode{
 					Key:        key,
 					Value:      state.Value,
 					KeyRange:   state.KeyRange,
@@ -134,7 +134,7 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 					EqualRange: state.EqualRange,
 				}
 			}
-			stack[top].CurrentRangeMap.ValueRange = RangeOver(stack[top].CurrentRangeMap.ValueRange, token.Range)
+			stack[top].CurrentHclNode.ValueRange = RangeOver(stack[top].CurrentHclNode.ValueRange, token.Range)
 			stack = stack[0:top]
 		case hclsyntax.TokenOBrack: // [
 			top := len(stack) - 1
@@ -143,34 +143,34 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				log.Printf("[WARN] expect key but got [")
 			}
 			key := state.GetCurrentKey()
-			rangeMap := &RangeMap{
+			hclNode := &HclNode{
 				Key:        key,
 				KeyRange:   state.KeyRange,
 				EqualRange: state.EqualRange,
 				ValueRange: token.Range,
-				Children:   make(map[string]*RangeMap),
+				Children:   make(map[string]*HclNode),
 			}
-			stack[top].CurrentRangeMap.Children[key] = rangeMap
+			stack[top].CurrentHclNode.Children[key] = hclNode
 			stack[top].ExpectKey = true
 			stack = append(stack, State{
-				ExpectKey:       false,
-				Key:             state.Key,
-				Index:           utils.Int(0),
-				CurrentRangeMap: rangeMap,
+				ExpectKey:      false,
+				Key:            state.Key,
+				Index:          utils.Int(0),
+				CurrentHclNode: hclNode,
 			})
 		case hclsyntax.TokenCBrack: // ]
 			top := len(stack) - 1
 			state := stack[top]
-			if _, ok := state.CurrentRangeMap.Children[state.GetCurrentKey()]; !ok {
+			if _, ok := state.CurrentHclNode.Children[state.GetCurrentKey()]; !ok {
 				log.Printf("[WARN] expect value but got }")
 				key := state.GetCurrentKey()
-				stack[top].CurrentRangeMap.Children[key] = &RangeMap{
+				stack[top].CurrentHclNode.Children[key] = &HclNode{
 					Key:        key,
 					Value:      state.Value,
 					ValueRange: state.ValueRange,
 				}
 			}
-			stack[top].CurrentRangeMap.ValueRange = RangeOver(stack[top].CurrentRangeMap.ValueRange, token.Range)
+			stack[top].CurrentHclNode.ValueRange = RangeOver(stack[top].CurrentHclNode.ValueRange, token.Range)
 			stack = stack[0:top]
 		case hclsyntax.TokenIdent:
 			top := len(stack) - 1
@@ -205,7 +205,7 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 			if !state.ExpectKey {
 				if stack[top].Index == nil {
 					key := state.GetCurrentKey()
-					stack[top].CurrentRangeMap.Children[key] = &RangeMap{
+					stack[top].CurrentHclNode.Children[key] = &HclNode{
 						Key:        key,
 						Value:      state.Value,
 						KeyRange:   state.KeyRange,
@@ -227,7 +227,7 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 				}
 				if state.Value != nil {
 					key := state.GetCurrentKey()
-					stack[top].CurrentRangeMap.Children[key] = &RangeMap{
+					stack[top].CurrentHclNode.Children[key] = &HclNode{
 						Key:        key,
 						Value:      state.Value,
 						ValueRange: state.ValueRange,
@@ -257,37 +257,37 @@ func BuildRangeMap(tokens hclsyntax.Tokens) *RangeMap {
 		return nil
 	}
 
-	root := stack[0].CurrentRangeMap
+	root := stack[0].CurrentHclNode
 	updateValueRange(root)
 	fixEmptyValueRange(root)
 	return root
 }
 
-func updateValueRange(rangeMap *RangeMap) {
-	if rangeMap == nil {
+func updateValueRange(hclNode *HclNode) {
+	if hclNode == nil {
 		return
 	}
-	for _, v := range rangeMap.Children {
+	for _, v := range hclNode.Children {
 		updateValueRange(v)
-		rangeMap.ValueRange = RangeOver(rangeMap.ValueRange, v.GetRange())
+		hclNode.ValueRange = RangeOver(hclNode.ValueRange, v.GetRange())
 	}
 }
 
-func fixEmptyValueRange(rangeMap *RangeMap) {
-	if rangeMap == nil {
+func fixEmptyValueRange(hclNode *HclNode) {
+	if hclNode == nil {
 		return
 	}
-	if rangeMap.Children == nil {
-		if !rangeMap.KeyRange.Empty() && !rangeMap.EqualRange.Empty() && rangeMap.ValueRange.Empty() {
-			line := rangeMap.EqualRange.End.Line
-			column := rangeMap.EqualRange.End.Column
-			rangeMap.ValueRange = hcl.Range{
-				Start: hcl.Pos{Line: line, Column: column + 1, Byte: rangeMap.EqualRange.End.Byte},
-				End:   hcl.Pos{Line: line + 1, Byte: rangeMap.EqualRange.End.Byte + 1},
+	if hclNode.Children == nil {
+		if !hclNode.KeyRange.Empty() && !hclNode.EqualRange.Empty() && hclNode.ValueRange.Empty() {
+			line := hclNode.EqualRange.End.Line
+			column := hclNode.EqualRange.End.Column
+			hclNode.ValueRange = hcl.Range{
+				Start: hcl.Pos{Line: line, Column: column + 1, Byte: hclNode.EqualRange.End.Byte},
+				End:   hcl.Pos{Line: line + 1, Byte: hclNode.EqualRange.End.Byte + 1},
 			}
 		}
 	} else {
-		for _, child := range rangeMap.Children {
+		for _, child := range hclNode.Children {
 			fixEmptyValueRange(child)
 		}
 	}

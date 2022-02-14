@@ -4,13 +4,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/diagnostics"
-
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/common"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/diagnostics"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/parser"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/utils"
 )
 
@@ -49,18 +48,18 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 	if block == nil {
 		return nil
 	}
-	schemaValidationAttr := common.AttributeWithName(block, "schema_validation_enabled")
+	schemaValidationAttr := parser.AttributeWithName(block, "schema_validation_enabled")
 	if schemaValidationAttr != nil {
-		if enabled := common.ToLiteralBoolean(schemaValidationAttr.Expr); enabled != nil && !*enabled {
+		if enabled := parser.ToLiteralBoolean(schemaValidationAttr.Expr); enabled != nil && !*enabled {
 			return nil
 		}
 	}
-	attribute := common.AttributeWithName(block, "body")
+	attribute := parser.AttributeWithName(block, "body")
 	if attribute == nil {
 		return nil
 	}
 
-	typeValue := common.ExtractAzureResourceType(block)
+	typeValue := parser.ExtractAzureResourceType(block)
 	if typeValue == nil {
 		return nil
 	}
@@ -69,11 +68,11 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 		return nil
 	}
 
-	rangeMap := common.JsonEncodeExpressionToRangeMap(src, attribute.Expr)
-	if rangeMap == nil {
+	hclNode := parser.JsonEncodeExpressionToHclNode(src, attribute.Expr)
+	if hclNode == nil {
 		return nil
 	}
-	if dummy, ok := rangeMap.Children["dummy"]; ok {
+	if dummy, ok := hclNode.Children["dummy"]; ok {
 		dummy.KeyRange = attribute.NameRange
 		diags := Validate(dummy, def.AsTypeBase())
 		// patch resource doesn't need to check on required properties
@@ -93,40 +92,40 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 	return nil
 }
 
-func Validate(rangeMap *common.RangeMap, typeBase *types.TypeBase) hcl.Diagnostics {
-	if typeBase == nil || rangeMap == nil {
+func Validate(hclNode *parser.HclNode, typeBase *types.TypeBase) hcl.Diagnostics {
+	if typeBase == nil || hclNode == nil {
 		return nil
 	}
 	diags := make([]*hcl.Diagnostic, 0)
 	switch t := (*typeBase).(type) {
 	case *types.ArrayType:
-		if !rangeMap.IsValueArray() {
-			summary := fmt.Sprintf("`%s`'s value `%s` is invalid, expect an array", rangeMap.Key, *rangeMap.Value)
-			if rangeMap.Value != nil {
-				summary = fmt.Sprintf("`%s`'s value is invalid, expect an array", rangeMap.Key)
+		if !hclNode.IsValueArray() {
+			summary := fmt.Sprintf("`%s`'s value `%s` is invalid, expect an array", hclNode.Key, *hclNode.Value)
+			if hclNode.Value != nil {
+				summary = fmt.Sprintf("`%s`'s value is invalid, expect an array", hclNode.Key)
 			}
-			diags = append(diags, newDiagnostic(summary, rangeMap.ValueRange))
+			diags = append(diags, newDiagnostic(summary, hclNode.ValueRange))
 			break
 		}
 		if t.ItemType == nil {
 			break
 		}
-		for _, child := range rangeMap.Children {
+		for _, child := range hclNode.Children {
 			diags = append(diags, Validate(child, t.ItemType.Type)...)
 		}
 	case *types.DiscriminatedObjectType:
-		if !rangeMap.IsValueMap() {
-			summary := fmt.Sprintf("`%s`'s value `%s` is invalid, expect an object", rangeMap.Key, *rangeMap.Value)
-			if rangeMap.Value != nil {
-				summary = fmt.Sprintf("`%s`'s value is invalid, expect an object", rangeMap.Key)
+		if !hclNode.IsValueMap() {
+			summary := fmt.Sprintf("`%s`'s value `%s` is invalid, expect an object", hclNode.Key, *hclNode.Value)
+			if hclNode.Value != nil {
+				summary = fmt.Sprintf("`%s`'s value is invalid, expect an object", hclNode.Key)
 			}
-			diags = append(diags, newDiagnostic(summary, rangeMap.ValueRange))
+			diags = append(diags, newDiagnostic(summary, hclNode.ValueRange))
 			break
 		}
 
 		// check base properties
-		otherProperties := make(map[string]*common.RangeMap)
-		for key, value := range rangeMap.Children {
+		otherProperties := make(map[string]*parser.HclNode)
+		for key, value := range hclNode.Children {
 			if def, ok := t.BaseProperties[key]; ok {
 				if def.IsReadOnly() {
 					diags = append(diags, newDiagnostic(ErrorShouldNotDefineReadOnly(key), value.KeyRange))
@@ -142,20 +141,20 @@ func Validate(rangeMap *common.RangeMap, typeBase *types.TypeBase) hcl.Diagnosti
 
 		// check required base properties
 		for key, value := range t.BaseProperties {
-			if value.IsRequired() && rangeMap.Children[key] == nil {
-				diags = append(diags, newDiagnostic(ErrorShouldDefine(key), rangeMap.KeyRange))
+			if value.IsRequired() && hclNode.Children[key] == nil {
+				diags = append(diags, newDiagnostic(ErrorShouldDefine(key), hclNode.KeyRange))
 			}
 		}
 
 		// check other properties which should be defined in discriminated objects
 		if _, ok := otherProperties[t.Discriminator]; !ok {
-			diags = append(diags, newDiagnostic(ErrorShouldDefine(t.Discriminator), rangeMap.KeyRange))
+			diags = append(diags, newDiagnostic(ErrorShouldDefine(t.Discriminator), hclNode.KeyRange))
 			break
 		}
 
 		discriminator := ""
 
-		discriminatorRange := rangeMap.KeyRange
+		discriminatorRange := hclNode.KeyRange
 		discriminatorProp := otherProperties[t.Discriminator]
 		if discriminatorProp != nil {
 			if discriminatorProp.Value != nil {
@@ -173,12 +172,12 @@ func Validate(rangeMap *common.RangeMap, typeBase *types.TypeBase) hcl.Diagnosti
 				}
 				diags = append(diags, newDiagnostic(ErrorNotMatchAnyValues(t.Discriminator, discriminator, options), discriminatorProp.ValueRange))
 			case t.Elements[discriminator].Type != nil:
-				other := &common.RangeMap{
-					Key:        rangeMap.Key,
-					KeyRange:   rangeMap.KeyRange,
+				other := &parser.HclNode{
+					Key:        hclNode.Key,
+					KeyRange:   hclNode.KeyRange,
 					Children:   otherProperties,
-					EqualRange: rangeMap.EqualRange,
-					ValueRange: rangeMap.ValueRange,
+					EqualRange: hclNode.EqualRange,
+					ValueRange: hclNode.ValueRange,
 				}
 				diags = append(diags, Validate(other, t.Elements[discriminator].Type)...)
 			}
@@ -186,16 +185,16 @@ func Validate(rangeMap *common.RangeMap, typeBase *types.TypeBase) hcl.Diagnosti
 			diags = append(diags, newDiagnostic(ErrorMismatch(t.Discriminator, "string", fmt.Sprintf("%T", otherProperties[t.Discriminator])), discriminatorRange))
 		}
 	case *types.ObjectType:
-		if !rangeMap.IsValueMap() {
-			summary := fmt.Sprintf("`%s`'s value `%s` is invalid, expect an object", rangeMap.Key, *rangeMap.Value)
-			if rangeMap.Value != nil {
-				summary = fmt.Sprintf("`%s`'s value is invalid, expect an object", rangeMap.Key)
+		if !hclNode.IsValueMap() {
+			summary := fmt.Sprintf("`%s`'s value `%s` is invalid, expect an object", hclNode.Key, *hclNode.Value)
+			if hclNode.Value != nil {
+				summary = fmt.Sprintf("`%s`'s value is invalid, expect an object", hclNode.Key)
 			}
-			diags = append(diags, newDiagnostic(summary, rangeMap.ValueRange))
+			diags = append(diags, newDiagnostic(summary, hclNode.ValueRange))
 			break
 		}
 		// check properties defined in body, but not in schema
-		for key, value := range rangeMap.Children {
+		for key, value := range hclNode.Children {
 			if def, ok := t.Properties[key]; ok {
 				if def.IsReadOnly() {
 					diags = append(diags, newDiagnostic(ErrorShouldNotDefineReadOnly(key), value.KeyRange))
@@ -219,26 +218,26 @@ func Validate(rangeMap *common.RangeMap, typeBase *types.TypeBase) hcl.Diagnosti
 
 		// check properties required in schema, but not in body
 		for key, value := range t.Properties {
-			if value.IsRequired() && rangeMap.Children[key] == nil {
+			if value.IsRequired() && hclNode.Children[key] == nil {
 				// skip name in body
-				if rangeMap.Key == "dummy" && (key == "name" || key == "location") {
+				if hclNode.Key == "dummy" && (key == "name" || key == "location") {
 					continue
 				}
-				diags = append(diags, newDiagnostic(ErrorShouldDefine(key), rangeMap.KeyRange))
+				diags = append(diags, newDiagnostic(ErrorShouldDefine(key), hclNode.KeyRange))
 			}
 		}
 	case *types.ResourceType:
 		if t.Body != nil {
-			return Validate(rangeMap, t.Body.Type)
+			return Validate(hclNode, t.Body.Type)
 		}
 	case *types.BuiltInType:
 	case *types.StringLiteralType:
-		if rangeMap.Value != nil {
-			value := strings.TrimSpace(*rangeMap.Value)
+		if hclNode.Value != nil {
+			value := strings.TrimSpace(*hclNode.Value)
 			if strings.HasPrefix(value, `"`) && strings.HasSuffix(value, `"`) {
 				value = strings.TrimPrefix(strings.TrimSuffix(value, `"`), `"`)
 				if value != t.Value {
-					diags = append(diags, newDiagnostic(ErrorMismatch(rangeMap.Key, t.Value, value), rangeMap.ValueRange))
+					diags = append(diags, newDiagnostic(ErrorMismatch(hclNode.Key, t.Value, value), hclNode.ValueRange))
 				}
 			}
 		}
@@ -248,7 +247,7 @@ func Validate(rangeMap *common.RangeMap, typeBase *types.TypeBase) hcl.Diagnosti
 			if element.Type == nil {
 				continue
 			}
-			temp := Validate(rangeMap, element.Type)
+			temp := Validate(hclNode, element.Type)
 			if len(temp) == 0 {
 				valid = true
 				break
@@ -264,13 +263,13 @@ func Validate(rangeMap *common.RangeMap, typeBase *types.TypeBase) hcl.Diagnosti
 				}
 			}
 			if len(options) == 0 {
-				diags = append(diags, newDiagnostic(ErrorNotMatchAny(rangeMap.Key), rangeMap.GetRange()))
+				diags = append(diags, newDiagnostic(ErrorNotMatchAny(hclNode.Key), hclNode.GetRange()))
 			} else {
 				value := ""
-				if rangeMap.Value != nil {
-					value = *rangeMap.Value
+				if hclNode.Value != nil {
+					value = *hclNode.Value
 				}
-				diags = append(diags, newDiagnostic(ErrorNotMatchAnyValues(rangeMap.Key, value, options), rangeMap.ValueRange))
+				diags = append(diags, newDiagnostic(ErrorNotMatchAnyValues(hclNode.Key, value, options), hclNode.ValueRange))
 			}
 		}
 	}
