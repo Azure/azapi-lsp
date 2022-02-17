@@ -12,7 +12,7 @@
           "kind": "markdown",
           "value": "Value: `SystemAssigned`  \n"
         },
-        "sortText": "SystemAssigned",
+        "sortText": "0SystemAssigned",
         "insertTextFormat": 1,
         "insertTextMode": 2,
         "textEdit": {
@@ -37,7 +37,7 @@
           "kind": "markdown",
           "value": "Value: `UserAssigned`  \n"
         },
-        "sortText": "UserAssigned",
+        "sortText": "0UserAssigned",
         "insertTextFormat": 1,
         "insertTextMode": 2,
         "textEdit": {
@@ -62,7 +62,7 @@
           "kind": "markdown",
           "value": "Value: `SystemAssigned,UserAssigned`  \n"
         },
-        "sortText": "SystemAssigned,UserAssigned",
+        "sortText": "0SystemAssigned,UserAssigned",
         "insertTextFormat": 1,
         "insertTextMode": 2,
         "textEdit": {

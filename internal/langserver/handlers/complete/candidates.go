@@ -125,20 +125,20 @@ func requiredPropertiesCandidates(propertySets []schema.PropertySet, r lsp.Range
 func valueCandidates(values []string, r lsp.Range) []lsp.CompletionItem {
 	candidates := make([]lsp.CompletionItem, 0)
 	for _, value := range values {
-		content := value
+		literal := strings.Trim(value, `"`)
 		candidates = append(candidates, lsp.CompletionItem{
-			Label: fmt.Sprintf(`"%s"`, content),
+			Label: value,
 			Kind:  lsp.ValueCompletion,
 			Documentation: lsp.MarkupContent{
 				Kind:  "markdown",
-				Value: fmt.Sprintf("Value: `%s`  \n", content),
+				Value: fmt.Sprintf("Value: `%s`  \n", literal),
 			},
-			SortText:         content,
+			SortText:         "0" + literal,
 			InsertTextFormat: lsp.PlainTextTextFormat,
 			InsertTextMode:   lsp.AdjustIndentation,
 			TextEdit: &lsp.TextEdit{
 				Range:   r,
-				NewText: fmt.Sprintf(`"%s"`, content),
+				NewText: value,
 			},
 		})
 	}
