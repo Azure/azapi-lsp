@@ -127,18 +127,18 @@ func valueCandidates(values []string, r lsp.Range) []lsp.CompletionItem {
 	for _, value := range values {
 		content := value
 		candidates = append(candidates, lsp.CompletionItem{
-			Label: fmt.Sprintf(`"%s"`, content),
+			Label: fmt.Sprintf(`%s`, content),
 			Kind:  lsp.ValueCompletion,
 			Documentation: lsp.MarkupContent{
 				Kind:  "markdown",
 				Value: fmt.Sprintf("Value: `%s`  \n", content),
 			},
-			SortText:         content,
+			SortText:         "0" + content,
 			InsertTextFormat: lsp.PlainTextTextFormat,
 			InsertTextMode:   lsp.AdjustIndentation,
 			TextEdit: &lsp.TextEdit{
 				Range:   r,
-				NewText: fmt.Sprintf(`"%s"`, content),
+				NewText: fmt.Sprintf(`%s`, content),
 			},
 		})
 	}

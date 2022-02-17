@@ -1,6 +1,7 @@
 package schema
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
@@ -134,13 +135,12 @@ func GetAllowedValues(resourceType *types.TypeBase) []string {
 	}
 	values := make([]string, 0)
 	switch t := (*resourceType).(type) {
-
 	case *types.ResourceType:
 		if t.Body != nil {
 			return GetAllowedValues(t.Body.Type)
 		}
 	case *types.StringLiteralType:
-		return []string{t.Value}
+		return []string{fmt.Sprintf(`"%s"`, t.Value)}
 	case *types.UnionType:
 		for _, element := range t.Elements {
 			values = append(values, GetAllowedValues(element.Type)...)
@@ -150,6 +150,9 @@ func GetAllowedValues(resourceType *types.TypeBase) []string {
 	case *types.ObjectType:
 	case *types.ArrayType:
 	case *types.BuiltInType:
+		if t.Kind == types.Bool {
+			values = append(values, "true", "false")
+		}
 	}
 	return values
 }
