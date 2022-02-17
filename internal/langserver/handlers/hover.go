@@ -16,7 +16,7 @@ func (svc *service) TextDocumentHover(ctx context.Context, params lsp.TextDocume
 		return nil, err
 	}
 
-	cc, err := ilsp.ClientCapabilities(ctx)
+	_, err = ilsp.ClientCapabilities(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -40,5 +40,5 @@ func (svc *service) TextDocumentHover(ctx context.Context, params lsp.TextDocume
 	hoverData := hover.HoverAtPos(data, doc.Filename(), fPos.Position(), svc.logger)
 	svc.logger.Printf("received hover data: %#v", hoverData)
 
-	return ilsp.HoverData(hoverData, cc.TextDocument), nil
+	return hoverData, nil
 }

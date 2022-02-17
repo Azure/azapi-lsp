@@ -1,8 +1,6 @@
 package parser
 
 import (
-	"fmt"
-
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/zclconf/go-cty/cty"
@@ -32,18 +30,13 @@ func ToLiteralBoolean(expression hclsyntax.Expression) *bool {
 	return nil
 }
 
-func BlockAtPos(file *hcl.File, pos hcl.Pos) (*hclsyntax.Block, error) {
-	body, isHcl := file.Body.(*hclsyntax.Body)
-	if !isHcl {
-		return nil, fmt.Errorf("file is not hcl")
-	}
-
+func BlockAtPos(body *hclsyntax.Body, pos hcl.Pos) *hclsyntax.Block {
 	for _, b := range body.Blocks {
 		if ContainsPos(b.Range(), pos) {
-			return b, nil
+			return b
 		}
 	}
-	return nil, nil
+	return nil
 }
 
 func AttributeAtPos(block *hclsyntax.Block, pos hcl.Pos) *hclsyntax.Attribute {

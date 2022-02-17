@@ -5,41 +5,51 @@ import (
 	"log"
 	"strings"
 
-	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/tfschema"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/schema"
+	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/parser"
+	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
-func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *lang.HoverData {
+func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *lsp.Hover {
 	file, _ := hclsyntax.ParseConfig(data, filename, hcl.InitialPos)
-	block, err := parser.BlockAtPos(file, pos)
-	if err == nil && block != nil && len(block.Labels) != 0 && strings.HasPrefix(block.Labels[0], "azurerm-restapi") {
+	body, isHcl := file.Body.(*hclsyntax.Body)
+	if !isHcl {
+		logger.Printf("file is not hcl")
+		return nil
+	}
+	block := parser.BlockAtPos(body, pos)
+	if block != nil && len(block.Labels) != 0 && strings.HasPrefix(block.Labels[0], "azurerm-restapi") {
+		resourceName := block.Labels[0]
+		resource := tfschema.GetResourceSchema(resourceName)
+		if resource == nil {
+			return nil
+		}
 		if attribute := parser.AttributeAtPos(block, pos); attribute != nil {
+			property := resource.GetProperty(attribute.Name)
+			if property == nil {
+				return nil
+			}
 			switch attribute.Name {
-			case "type":
-				if parser.ContainsPos(attribute.NameRange, pos) {
-					return Hover("type", "required", "string <resource-type>@<api-version>",
-						"Azure Resource Manager type.", attribute.NameRange)
-				}
 			case "parent_id":
 				if parser.ContainsPos(attribute.NameRange, pos) {
 					typeAttribute := parser.AttributeWithName(block, "type")
 					if typeAttribute != nil {
 						if typeValue := parser.ToLiteral(typeAttribute.Expr); typeValue != nil && len(*typeValue) != 0 {
 							parentType := GetParentType(*typeValue)
-							return Hover("parent_id", "required", "string",
+							return Hover(property.Name, property.Modifier, property.Type,
 								fmt.Sprintf("The ID of `%s` which is the parent resource in which this resource is created.", parentType), attribute.NameRange)
 						}
 					}
 				}
 			case "body":
 				if parser.ContainsPos(attribute.NameRange, pos) {
-					return Hover("body", "optional", "string",
-						"A JSON object that contains the request body used to create and update azure resource.", attribute.NameRange)
+					return Hover(property.Name, property.Modifier, property.Type, property.Description, attribute.NameRange)
 				}
 				typeValue := parser.ExtractAzureResourceType(block)
 				if typeValue == nil {
@@ -72,17 +82,31 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 						return Hover(props[0].Name, string(props[0].Modifier), props[0].Type, props[0].Description, lastHclNode.KeyRange)
 					}
 				}
+			default:
+				if !parser.ContainsPos(attribute.NameRange, pos) {
+					return nil
+				}
+				return Hover(property.Name, property.Modifier, property.Type, property.Description, attribute.NameRange)
+			}
+		} else {
+			if subBody := parser.BlockAtPos(block.Body, pos); subBody != nil {
+				property := resource.GetProperty(subBody.Type)
+				if property == nil {
+					return nil
+				}
+				if attribute := parser.AttributeAtPos(subBody, pos); attribute != nil {
+					for _, p := range property.NestedProperties {
+						if p.Name == attribute.Name {
+							return Hover(p.Name, p.Modifier, p.Type, p.Description, attribute.NameRange)
+						}
+					}
+				} else {
+					return Hover(property.Name, property.Modifier, property.Type, property.Description, subBody.TypeRange)
+				}
 			}
 		}
 	}
 	return nil
-}
-
-func Hover(name string, modifier string, propType string, description string, r hcl.Range) *lang.HoverData {
-	return &lang.HoverData{
-		Range:   r,
-		Content: lang.Markdown(fmt.Sprintf("```\n%s: %s(%s)\n```\n%s", name, modifier, propType, description)),
-	}
 }
 
 func GetParentType(resourceType string) string {
@@ -112,4 +136,14 @@ func GetParentType(resourceType string) string {
 		return strings.Join(res, ", ")
 	}
 	return strings.Join(parts[0:len(parts)-1], "/")
+}
+
+func Hover(name string, modifier string, propType string, description string, r hcl.Range) *lsp.Hover {
+	return &lsp.Hover{
+		Range: ilsp.HCLRangeToLSP(r),
+		Contents: lsp.MarkupContent{
+			Kind:  lsp.Markdown,
+			Value: fmt.Sprintf("```\n%s: %s(%s)\n```\n%s", name, modifier, propType, description),
+		},
+	}
 }

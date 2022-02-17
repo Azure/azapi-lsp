@@ -6,9 +6,7 @@ import (
 
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/schema"
+	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/tfschema"
 	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
 	"github.com/ms-henglu/azurerm-restapi-lsp/internal/parser"
 	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
@@ -16,95 +14,52 @@ import (
 
 func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) []lsp.CompletionItem {
 	file, _ := hclsyntax.ParseConfig(data, filename, hcl.InitialPos)
-	block, err := parser.BlockAtPos(file, pos)
+
+	body, isHcl := file.Body.(*hclsyntax.Body)
+	if !isHcl {
+		logger.Printf("file is not hcl")
+		return nil
+	}
+	block := parser.BlockAtPos(body, pos)
 	candidateList := make([]lsp.CompletionItem, 0)
-	if err == nil && block != nil && len(block.Labels) != 0 && strings.HasPrefix(block.Labels[0], "azurerm-restapi") {
+	if block != nil && len(block.Labels) != 0 && strings.HasPrefix(block.Labels[0], "azurerm-restapi") {
+		resourceName := block.Labels[0]
+		resource := tfschema.GetResourceSchema(resourceName)
+		if resource == nil {
+			return candidateList
+		}
 		if attribute := parser.AttributeAtPos(block, pos); attribute != nil {
-			switch attribute.Name {
-			case "type":
-				prefix := parser.ToLiteral(attribute.Expr)
-				candidateList = typeCandidates(prefix, editRangeFromExprRange(attribute.Expr, pos))
-			case "body":
-				if attribute.Expr != nil {
-					if _, ok := attribute.Expr.(*hclsyntax.LiteralValueExpr); ok && parser.ToLiteral(attribute.Expr) == nil {
-						candidateList = append(candidateList, bodyFuncCandidate(editRangeFromExprRange(attribute.Expr, pos)))
-					}
+			property := resource.GetProperty(attribute.Name)
+			if property != nil {
+				if property.GenericCandidatesFunc != nil {
+					candidateList = append(candidateList, property.GenericCandidatesFunc(data, filename, block, attribute, pos, property)...)
+				} else if property.ValueCandidatesFunc != nil {
+					prefix := parser.ToLiteral(attribute.Expr)
+					candidateList = append(candidateList, property.ValueCandidatesFunc(prefix, editRangeFromExprRange(attribute.Expr, pos))...)
 				}
-				typeValue := parser.ExtractAzureResourceType(block)
-				if typeValue == nil {
-					break
+			}
+		} else {
+			if subBody := parser.BlockAtPos(block.Body, pos); subBody != nil {
+				property := resource.GetProperty(subBody.Type)
+				if property == nil {
+					return nil
 				}
-				def, _ := azure.GetResourceDefinitionByResourceType(*typeValue)
-				if def == nil {
-					break
-				}
-
-				hclNode := parser.JsonEncodeExpressionToHclNode(data, attribute.Expr)
-				if hclNode == nil {
-					break
-				}
-				hclNodes := parser.HclNodeArraysOfPos(hclNode, pos)
-				if len(hclNodes) == 0 {
-					break
-				}
-				lastHclNode := hclNodes[len(hclNodes)-1]
-
-				switch {
-				case parser.ContainsPos(lastHclNode.KeyRange, pos):
-					// input a property with a prefix
-					hclNodes := hclNodes[0 : len(hclNodes)-1]
-					defs := schema.GetDef(def.AsTypeBase(), hclNodes, 0)
-					keys := make([]schema.Property, 0)
-					for _, def := range defs {
-						keys = append(keys, schema.GetAllowedProperties(def, []*types.TypeBase{})...)
-					}
-					if len(hclNodes) == 1 {
-						keys = ignorePulledOutProperties(keys)
-					}
-					logger.Printf("received allowed keys: %#v", keys)
-					editRange := ilsp.HCLRangeToLSP(lastHclNode.KeyRange)
-					candidateList = keyCandidates(keys, editRange)
-				case !lastHclNode.KeyRange.Empty() && !lastHclNode.EqualRange.Empty() && lastHclNode.Children == nil:
-					// input property =
-					defs := schema.GetDef(def.AsTypeBase(), hclNodes, 0)
-					values := make([]string, 0)
-					for _, def := range defs {
-						values = append(values, schema.GetAllowedValues(def)...)
-					}
-					editRange := lastHclNode.ValueRange
-					if lastHclNode.Value == nil {
-						editRange.End = pos
-					}
-					candidateList = valueCandidates(values, ilsp.HCLRangeToLSP(editRange))
-					logger.Printf("received allowed keys: %#v", values)
-				case parser.ContainsPos(lastHclNode.ValueRange, pos):
-					// input a property
-					defs := schema.GetDef(def.AsTypeBase(), hclNodes, 0)
-					keys := make([]schema.Property, 0)
-					for _, def := range defs {
-						keys = append(keys, schema.GetAllowedProperties(def, []*types.TypeBase{})...)
-					}
-					if len(hclNodes) == 1 {
-						keys = ignorePulledOutProperties(keys)
-					}
-					logger.Printf("received allowed keys: %#v", keys)
-					editRange := ilsp.HCLRangeToLSP(hcl.Range{Start: pos, End: pos, Filename: filename})
-					candidateList = keyCandidates(keys, editRange)
-
-					if len(lastHclNode.Children) == 0 {
-						propertySets := make([]schema.PropertySet, 0)
-						for _, def := range defs {
-							propertySets = append(propertySets, schema.GetRequiredPropertySet(def)...)
+				if attribute := parser.AttributeAtPos(subBody, pos); attribute != nil {
+					for _, p := range property.NestedProperties {
+						if p.Name == attribute.Name && p.ValueCandidatesFunc != nil {
+							candidateList = append(candidateList, p.ValueCandidatesFunc(nil, editRangeFromExprRange(attribute.Expr, pos))...)
+							break
 						}
-						if len(hclNodes) == 1 {
-							for i, ps := range propertySets {
-								propertySets[i].Name = ""
-								propertySets[i].Properties = ignorePulledOutPropertiesFromPropertySet(ps.Properties)
-							}
-						}
-						candidateList = append(candidateList, requiredPropertiesCandidates(propertySets, editRange)...)
 					}
 				}
+			} else {
+				//input a top level property
+				editRange := lsp.Range{
+					Start: ilsp.HCLPosToLSP(pos),
+					End:   ilsp.HCLPosToLSP(pos),
+				}
+				editRange.Start.Character = 2
+				candidateList = append(candidateList, tfschema.PropertiesCandidates(resource.Properties, editRange)...)
 			}
 		}
 	}
