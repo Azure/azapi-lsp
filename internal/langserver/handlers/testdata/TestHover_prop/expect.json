@@ -3,8 +3,8 @@
   "id": 3,
   "result": {
     "contents": {
-      "kind": "plaintext",
-      "value": "identity: Optional(object)\nManaged Identity used for CMK."
+      "kind": "markdown",
+      "value": "```\nidentity: Optional(object)\n```\nManaged Identity used for CMK."
     },
     "range": {
       "start": {
