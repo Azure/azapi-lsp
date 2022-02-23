@@ -14,11 +14,13 @@ it's recommended to use it with language server for `Terraform`.
 
 ## Features
 
-- [x] Completion when input `type`
-- [x] Completion when input `body`, limitation: it only works when use `jsonencode` function to build the JSON
-- [X] Show hint when hover on `type`, `body` and properties defined inside `body`
-- [X] Show diagnostics for properties defined inside `body`
-- [x] Better completion for discriminated object
+- Completion of `azurerm-restapi` resources
+- Completion of allowed azure resource types when input `type` in `azurerm-restapi` resources
+- Completion of allowed azure resource properties when input `body` in `azurerm-restapi` resources, limitation: it only works when use `jsonencode` function to build the JSON
+- Better completion for discriminated object
+- Completion for all required properties
+- Show hint when hover on `azurerm-restapi` resources
+- Show diagnostics for properties defined inside `body`
 
 ## Installation
 
