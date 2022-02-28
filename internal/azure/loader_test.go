@@ -3,7 +3,7 @@ package azure_test
 import (
 	"testing"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
+	"github.com/Azure/azapi-lsp/internal/azure"
 )
 
 func Test_GetAzureSchema(t *testing.T) {

@@ -6,11 +6,11 @@ import (
 	"path/filepath"
 	"testing"
 
-	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
+	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 
+	"github.com/Azure/azapi-lsp/internal/langserver"
 	"github.com/creachadair/jrpc2/code"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver"
 )
 
 func TestInitialize_twice(t *testing.T) {

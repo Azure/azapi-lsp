@@ -1,6 +1,6 @@
-# Terraform azurerm-restapi Provider Language Server
+# Terraform AzAPI Provider Language Server
 
-Experimental version of [terraform-provider-azurerm-restapi](https://github.com/Azure/terraform-provider-azurerm-restapi) language server.
+Experimental version of [terraform-provider-azapi](https://github.com/Azure/terraform-provider-azapi) language server.
 
 ## What is LSP
 
@@ -8,18 +8,18 @@ Read more about the Language Server Protocol at https://microsoft.github.io/lang
 
 ## Introduction
 
-This project only supports completion/hover/diagnostics for `terraform-provider-azurerm-restapi`,
+This project only supports completion/hover/diagnostics for `terraform-provider-azapi`,
 not targeting support all language features for `HCL` or `Terraform`. To get the best user experience, 
 it's recommended to use it with language server for `Terraform`.
 
 ## Features
 
-- Completion of `azurerm-restapi` resources
-- Completion of allowed azure resource types when input `type` in `azurerm-restapi` resources
-- Completion of allowed azure resource properties when input `body` in `azurerm-restapi` resources, limitation: it only works when use `jsonencode` function to build the JSON
+- Completion of `azapi` resources
+- Completion of allowed azure resource types when input `type` in `azapi` resources
+- Completion of allowed azure resource properties when input `body` in `azapi` resources, limitation: it only works when use `jsonencode` function to build the JSON
 - Better completion for discriminated object
 - Completion for all required properties
-- Show hint when hover on `azurerm-restapi` resources
+- Show hint when hover on `azapi` resources
 - Show diagnostics for properties defined inside `body`
 
 ## Installation
@@ -32,4 +32,4 @@ it's recommended to use it with language server for `Terraform`.
 The most reasonable way you will interact with the language server
 is through a client represented by an IDE, or a plugin of an IDE.
 
-VSCode extension: [azurerm-restapi-vscode](https://github.com/ms-henglu/azurerm-restapi-vscode)
+VSCode extension: [azapi-vscode](https://github.com/ms-henglu/azapi-vscode)

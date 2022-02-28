@@ -3,7 +3,7 @@ package mdplain_test
 import (
 	"testing"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/mdplain"
+	"github.com/Azure/azapi-lsp/internal/mdplain"
 )
 
 func TestClean(t *testing.T) {

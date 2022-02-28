@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"path/filepath"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/source"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/uri"
+	"github.com/Azure/azapi-lsp/internal/source"
+	"github.com/Azure/azapi-lsp/internal/uri"
 	"github.com/spf13/afero"
 )
 

@@ -7,16 +7,16 @@ import (
 	"io/ioutil"
 	"log"
 
+	lsctx "github.com/Azure/azapi-lsp/internal/context"
+	"github.com/Azure/azapi-lsp/internal/filesystem"
+	"github.com/Azure/azapi-lsp/internal/langserver/diagnostics"
+	"github.com/Azure/azapi-lsp/internal/langserver/session"
+	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
+	"github.com/Azure/azapi-lsp/internal/telemetry"
 	"github.com/creachadair/jrpc2"
 	"github.com/creachadair/jrpc2/code"
 	rpch "github.com/creachadair/jrpc2/handler"
-	lsctx "github.com/ms-henglu/azurerm-restapi-lsp/internal/context"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/filesystem"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/diagnostics"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/session"
-	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/telemetry"
 )
 
 type service struct {

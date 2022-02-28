@@ -3,7 +3,7 @@ package lsp
 import (
 	"testing"
 
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 )
 
 var validUnixPath = "file:///valid/path/to/file.tf" //nolint

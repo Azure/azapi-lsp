@@ -1,4 +1,4 @@
-module github.com/ms-henglu/azurerm-restapi-lsp
+module github.com/Azure/azapi-lsp
 
 go 1.16
 

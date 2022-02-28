@@ -3,7 +3,7 @@ package filesystem
 import (
 	"sync"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/source"
+	"github.com/Azure/azapi-lsp/internal/source"
 )
 
 type documentMetadata struct {

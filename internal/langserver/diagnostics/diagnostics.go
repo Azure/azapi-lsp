@@ -6,10 +6,10 @@ import (
 	"path/filepath"
 	"sync"
 
+	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
+	"github.com/Azure/azapi-lsp/internal/uri"
 	"github.com/hashicorp/hcl/v2"
-	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/uri"
 )
 
 type diagContext struct {

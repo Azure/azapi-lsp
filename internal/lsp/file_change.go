@@ -1,8 +1,8 @@
 package lsp
 
 import (
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/filesystem"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
+	"github.com/Azure/azapi-lsp/internal/filesystem"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 )
 
 type contentChange struct {

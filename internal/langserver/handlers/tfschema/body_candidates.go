@@ -3,14 +3,14 @@ package tfschema
 import (
 	"fmt"
 
+	"github.com/Azure/azapi-lsp/internal/azure"
+	"github.com/Azure/azapi-lsp/internal/azure/types"
+	"github.com/Azure/azapi-lsp/internal/langserver/schema"
+	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
+	"github.com/Azure/azapi-lsp/internal/parser"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/schema"
-	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/parser"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
 func bodyCandidates(data []byte, filename string, block *hclsyntax.Block, attribute *hclsyntax.Attribute, pos hcl.Pos, property *Property) []lsp.CompletionItem {

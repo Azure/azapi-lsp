@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/source"
+	"github.com/Azure/azapi-lsp/internal/source"
 )
 
 type Document interface {

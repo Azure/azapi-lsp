@@ -5,11 +5,11 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/Azure/azapi-lsp/internal/filesystem"
+	"github.com/Azure/azapi-lsp/internal/langserver"
+	"github.com/Azure/azapi-lsp/internal/langserver/session"
+	"github.com/Azure/azapi-lsp/internal/lsp"
 	"github.com/google/go-cmp/cmp"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/filesystem"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/session"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
 )
 
 func TestLangServer_didOpenWithoutInitialization(t *testing.T) {

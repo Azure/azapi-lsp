@@ -1,8 +1,8 @@
 package lsp
 
 import (
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/source"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
+	"github.com/Azure/azapi-lsp/internal/source"
 )
 
 type File interface {

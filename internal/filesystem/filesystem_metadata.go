@@ -3,7 +3,7 @@ package filesystem
 import (
 	"path/filepath"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/uri"
+	"github.com/Azure/azapi-lsp/internal/uri"
 )
 
 func (fs *fsystem) markDocumentAsOpen(dh DocumentHandler) error {

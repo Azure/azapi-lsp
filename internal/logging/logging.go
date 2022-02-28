@@ -9,7 +9,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/pathtpl"
+	"github.com/Azure/azapi-lsp/internal/pathtpl"
 )
 
 func NewLogger(w io.Writer) *log.Logger {

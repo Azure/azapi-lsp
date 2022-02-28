@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/Azure/azapi-lsp/internal/uri"
 	"github.com/google/go-cmp/cmp"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/uri"
 )
 
 func TestFilesystem_Change_notOpen(t *testing.T) {

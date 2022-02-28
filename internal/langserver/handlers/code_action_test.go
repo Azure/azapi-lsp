@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/session"
+	"github.com/Azure/azapi-lsp/internal/langserver"
+	"github.com/Azure/azapi-lsp/internal/langserver/session"
 )
 
 func TestLangServer_codeActionWithoutInitialization(t *testing.T) {

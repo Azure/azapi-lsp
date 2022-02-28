@@ -3,7 +3,7 @@ package types
 import (
 	"encoding/json"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/utils"
+	"github.com/Azure/azapi-lsp/internal/utils"
 )
 
 var _ TypeBase = &UnionType{}

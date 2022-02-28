@@ -5,9 +5,9 @@ import (
 	"log"
 	"strings"
 
+	"github.com/Azure/azapi-lsp/internal/utils"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/utils"
 )
 
 type HclNode struct {

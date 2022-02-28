@@ -3,10 +3,10 @@ package lsp
 import (
 	"path/filepath"
 
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
+	"github.com/Azure/azapi-lsp/internal/uri"
 	"github.com/hashicorp/hcl-lang/decoder"
 	"github.com/hashicorp/hcl-lang/lang"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/uri"
 	"github.com/zclconf/go-cty/cty"
 )
 

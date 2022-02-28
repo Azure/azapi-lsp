@@ -1,13 +1,13 @@
 package tfschema
 
-import lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
+import lsp "github.com/Azure/azapi-lsp/internal/protocol"
 
 func init() {
 	Resources = make([]Resource, 0)
 
-	// build azurerm-restapi_resource
+	// build azapi_resource
 	Resources = append(Resources, Resource{
-		Name: "azurerm-restapi_resource",
+		Name: "azapi_resource",
 		Properties: []Property{
 			{
 				Name:                "type",
@@ -124,7 +124,7 @@ func init() {
 		},
 	},
 		Resource{
-			Name: "azurerm-restapi_patch_resource",
+			Name: "azapi_patch_resource",
 			Properties: []Property{
 				{
 					Name:                "type",

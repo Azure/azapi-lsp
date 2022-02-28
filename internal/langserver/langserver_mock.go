@@ -12,10 +12,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Azure/azapi-lsp/internal/langserver/session"
 	"github.com/creachadair/jrpc2"
 	"github.com/creachadair/jrpc2/channel"
 	"github.com/google/go-cmp/cmp"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/session"
 )
 
 type langServerMock struct {

@@ -4,8 +4,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/uri"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
+	"github.com/Azure/azapi-lsp/internal/uri"
 )
 
 func FileHandlerFromDocumentURI(docUri lsp.DocumentURI) *fileHandler {

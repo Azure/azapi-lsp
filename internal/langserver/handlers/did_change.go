@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	lsctx "github.com/ms-henglu/azurerm-restapi-lsp/internal/context"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/validate"
-	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
+	lsctx "github.com/Azure/azapi-lsp/internal/context"
+	"github.com/Azure/azapi-lsp/internal/langserver/handlers/validate"
+	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 )
 
 func TextDocumentDidChange(ctx context.Context, params lsp.DidChangeTextDocumentParams) error {

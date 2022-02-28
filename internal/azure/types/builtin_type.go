@@ -3,7 +3,7 @@ package types
 import (
 	"fmt"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/utils"
+	"github.com/Azure/azapi-lsp/internal/utils"
 )
 
 type BuiltInTypeKind int

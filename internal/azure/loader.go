@@ -9,7 +9,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
+	"github.com/Azure/azapi-lsp/internal/azure/types"
 )
 
 var schema *Schema

@@ -3,10 +3,10 @@ package handlers
 import (
 	"context"
 
-	lsctx "github.com/ms-henglu/azurerm-restapi-lsp/internal/context"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/complete"
-	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
+	lsctx "github.com/Azure/azapi-lsp/internal/context"
+	"github.com/Azure/azapi-lsp/internal/langserver/handlers/complete"
+	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 )
 
 func (svc *service) TextDocumentComplete(ctx context.Context, params lsp.CompletionParams) (lsp.CompletionList, error) {

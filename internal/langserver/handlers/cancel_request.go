@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 	"github.com/creachadair/jrpc2"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
 func CancelRequest(ctx context.Context, params lsp.CancelParams) error {

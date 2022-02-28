@@ -5,12 +5,12 @@ import (
 
 	"github.com/mitchellh/cli"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/cmd"
+	"github.com/Azure/azapi-lsp/internal/cmd"
 )
 
 func main() {
 	c := &cli.CLI{
-		Name:       "azurerm-restapi-lsp",
+		Name:       "azapi-lsp",
 		Version:    VersionString(),
 		Args:       os.Args[1:],
 		HelpWriter: os.Stdout,

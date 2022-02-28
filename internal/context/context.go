@@ -3,8 +3,8 @@ package context
 import (
 	"context"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/filesystem"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/diagnostics"
+	"github.com/Azure/azapi-lsp/internal/filesystem"
+	"github.com/Azure/azapi-lsp/internal/langserver/diagnostics"
 )
 
 type contextKey struct {

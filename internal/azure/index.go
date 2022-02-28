@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
+	"github.com/Azure/azapi-lsp/internal/azure/types"
 )
 
 type Schema struct {

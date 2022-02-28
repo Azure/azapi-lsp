@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/Azure/azapi-lsp/internal/azure"
+	"github.com/Azure/azapi-lsp/internal/azure/types"
+	"github.com/Azure/azapi-lsp/internal/langserver/diagnostics"
+	"github.com/Azure/azapi-lsp/internal/parser"
+	"github.com/Azure/azapi-lsp/internal/utils"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/diagnostics"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/parser"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/utils"
 )
 
 func NewDiagnostics(src []byte, filename string) diagnostics.Diagnostics {
@@ -35,7 +35,7 @@ func ValidateFile(src []byte, filename string) (*hcl.File, hcl.Diagnostics) {
 
 	diags := make([]*hcl.Diagnostic, 0)
 	for _, block := range body.Blocks {
-		if block.Type == "resource" && len(block.Labels) > 0 && strings.HasPrefix(block.Labels[0], "azurerm-restapi") {
+		if block.Type == "resource" && len(block.Labels) > 0 && strings.HasPrefix(block.Labels[0], "azapi") {
 			if diag := ValidateBlock(src, block); diag != nil {
 				diags = append(diags, diag...)
 			}
@@ -76,7 +76,7 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 		dummy.KeyRange = attribute.NameRange
 		diags := Validate(dummy, def.AsTypeBase())
 		// patch resource doesn't need to check on required properties
-		if block.Labels[0] == "azurerm-restapi_patch_resource" {
+		if block.Labels[0] == "azapi_patch_resource" {
 			res := hcl.Diagnostics{}
 			for _, diag := range diags {
 				// TODO: don't hardcode here

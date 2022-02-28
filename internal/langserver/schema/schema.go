@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/parser"
+	"github.com/Azure/azapi-lsp/internal/azure/types"
+	"github.com/Azure/azapi-lsp/internal/parser"
 )
 
 func GetDef(resourceType *types.TypeBase, hclNodes []*parser.HclNode, index int) []*types.TypeBase {

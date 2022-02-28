@@ -5,8 +5,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
+	"github.com/Azure/azapi-lsp/internal/azure"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 )
 
 func PropertiesCandidates(props []Property, r lsp.Range) []lsp.CompletionItem {
