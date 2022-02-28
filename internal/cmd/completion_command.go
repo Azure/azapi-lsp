@@ -9,12 +9,12 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/Azure/azapi-lsp/internal/filesystem"
+	"github.com/Azure/azapi-lsp/internal/langserver/handlers/complete"
+	"github.com/Azure/azapi-lsp/internal/logging"
+	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 	"github.com/mitchellh/cli"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/filesystem"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/complete"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/logging"
-	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
 type CompletionCommand struct {

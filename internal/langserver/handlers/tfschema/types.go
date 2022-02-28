@@ -1,9 +1,9 @@
 package tfschema
 
 import (
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
 var Resources []Resource

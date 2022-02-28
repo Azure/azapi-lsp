@@ -1,9 +1,9 @@
 package lsp
 
 import (
+	"github.com/Azure/azapi-lsp/internal/mdplain"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 	"github.com/hashicorp/hcl-lang/lang"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/mdplain"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
 func markupContent(content lang.MarkupContent, mdSupported bool) lsp.MarkupContent {

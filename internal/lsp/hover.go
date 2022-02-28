@@ -1,8 +1,8 @@
 package lsp
 
 import (
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 	"github.com/hashicorp/hcl-lang/lang"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
 func HoverData(data *lang.HoverData, cc lsp.TextDocumentClientCapabilities) *lsp.Hover {

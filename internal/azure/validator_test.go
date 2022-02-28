@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/utils"
+	"github.com/Azure/azapi-lsp/internal/azure"
+	"github.com/Azure/azapi-lsp/internal/utils"
 )
 
 func Test_BodyValidation(t *testing.T) {

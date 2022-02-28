@@ -4,8 +4,8 @@ import (
 	"unicode/utf16"
 	"unicode/utf8"
 
+	"github.com/Azure/azapi-lsp/internal/source"
 	"github.com/apparentlymart/go-textseg/textseg"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/source"
 )
 
 func ByteOffsetForPos(lines source.Lines, pos Pos) (int, error) {

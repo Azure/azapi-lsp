@@ -1,6 +1,6 @@
 package schema
 
-import "github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
+import "github.com/Azure/azapi-lsp/internal/azure/types"
 
 func GetRequiredPropertySet(typeBase *types.TypeBase) []PropertySet {
 	if typeBase == nil {

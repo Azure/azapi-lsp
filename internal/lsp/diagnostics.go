@@ -1,8 +1,8 @@
 package lsp
 
 import (
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 	"github.com/hashicorp/hcl/v2"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
 func HCLSeverityToLSP(severity hcl.DiagnosticSeverity) lsp.DiagnosticSeverity {

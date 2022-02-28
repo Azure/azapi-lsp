@@ -3,7 +3,7 @@ package handlers
 import (
 	"testing"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver"
+	"github.com/Azure/azapi-lsp/internal/langserver"
 )
 
 func TestExit(t *testing.T) {

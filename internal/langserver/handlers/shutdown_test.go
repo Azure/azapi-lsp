@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/Azure/azapi-lsp/internal/langserver"
 	"github.com/creachadair/jrpc2/code"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver"
 )
 
 func TestShutdown_twice(t *testing.T) {

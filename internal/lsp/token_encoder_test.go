@@ -3,11 +3,11 @@ package lsp
 import (
 	"testing"
 
+	"github.com/Azure/azapi-lsp/internal/protocol"
+	"github.com/Azure/azapi-lsp/internal/source"
 	"github.com/google/go-cmp/cmp"
 	"github.com/hashicorp/hcl-lang/lang"
 	"github.com/hashicorp/hcl/v2"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/source"
 )
 
 func TestTokenEncoder_singleLineTokens(t *testing.T) {

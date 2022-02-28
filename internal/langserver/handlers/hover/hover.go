@@ -5,15 +5,15 @@ import (
 	"log"
 	"strings"
 
+	"github.com/Azure/azapi-lsp/internal/azure"
+	"github.com/Azure/azapi-lsp/internal/azure/types"
+	"github.com/Azure/azapi-lsp/internal/langserver/handlers/tfschema"
+	"github.com/Azure/azapi-lsp/internal/langserver/schema"
+	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
+	"github.com/Azure/azapi-lsp/internal/parser"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure/types"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/handlers/tfschema"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/schema"
-	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/parser"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
 func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *lsp.Hover {
@@ -24,7 +24,7 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 		return nil
 	}
 	block := parser.BlockAtPos(body, pos)
-	if block != nil && len(block.Labels) != 0 && strings.HasPrefix(block.Labels[0], "azurerm-restapi") {
+	if block != nil && len(block.Labels) != 0 && strings.HasPrefix(block.Labels[0], "azapi") {
 		resourceName := block.Labels[0]
 		resource := tfschema.GetResourceSchema(resourceName)
 		if resource == nil {

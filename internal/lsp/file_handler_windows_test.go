@@ -3,7 +3,7 @@ package lsp
 import (
 	"testing"
 
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 )
 
 var validWindowsPath = "file:///C:/Users/With%20Space/tf-test/file.tf"

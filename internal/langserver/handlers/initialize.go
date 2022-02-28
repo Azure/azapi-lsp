@@ -3,12 +3,12 @@ package handlers
 import (
 	"context"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/azure"
+	"github.com/Azure/azapi-lsp/internal/azure"
 
+	lsctx "github.com/Azure/azapi-lsp/internal/context"
+	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 	"github.com/creachadair/jrpc2"
-	lsctx "github.com/ms-henglu/azurerm-restapi-lsp/internal/context"
-	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
 )
 
 func (svc *service) Initialize(ctx context.Context, params lsp.InitializeParams) (lsp.InitializeResult, error) {
@@ -47,7 +47,7 @@ func (svc *service) Initialize(ctx context.Context, params lsp.InitializeParams)
 		},
 	}
 
-	serverCaps.ServerInfo.Name = "azurerm-restapi-lsp"
+	serverCaps.ServerInfo.Name = "azapi-lsp"
 	version, ok := lsctx.LanguageServerVersion(ctx)
 	if ok {
 		serverCaps.ServerInfo.Version = version

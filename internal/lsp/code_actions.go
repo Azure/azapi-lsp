@@ -3,7 +3,7 @@ package lsp
 import (
 	"sort"
 
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 )
 
 const (

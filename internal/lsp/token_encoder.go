@@ -3,9 +3,9 @@ package lsp
 import (
 	"bytes"
 
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
+	"github.com/Azure/azapi-lsp/internal/source"
 	"github.com/hashicorp/hcl-lang/lang"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/source"
 )
 
 type TokenEncoder struct {

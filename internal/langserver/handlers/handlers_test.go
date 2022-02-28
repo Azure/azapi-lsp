@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
+	"github.com/Azure/azapi-lsp/internal/langserver"
+	"github.com/Azure/azapi-lsp/internal/lsp"
 )
 
 func initializeResponse(t *testing.T, commandPrefix string) string {
@@ -43,7 +43,7 @@ func initializeResponse(t *testing.T, commandPrefix string) string {
 			}
 		  },
 		  "serverInfo": {
-			"name": "azurerm-restapi-lsp"
+			"name": "azapi-lsp"
 		  }
 		}
 	}`

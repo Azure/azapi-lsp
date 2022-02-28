@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Azure/azapi-lsp/internal/langserver"
 	"github.com/creachadair/jrpc2"
 	"github.com/creachadair/jrpc2/handler"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver"
 )
 
 func TestLangServer_cancelRequest(t *testing.T) {

@@ -3,9 +3,9 @@ package handlers
 import (
 	"context"
 
-	lsctx "github.com/ms-henglu/azurerm-restapi-lsp/internal/context"
-	ilsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/lsp"
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
+	lsctx "github.com/Azure/azapi-lsp/internal/context"
+	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 )
 
 func TextDocumentDidClose(ctx context.Context, params lsp.DidCloseTextDocumentParams) error {

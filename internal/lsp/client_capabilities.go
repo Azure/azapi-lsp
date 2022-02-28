@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	lsp "github.com/ms-henglu/azurerm-restapi-lsp/internal/protocol"
+	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 )
 
 type clientCapsCtxKey struct{}

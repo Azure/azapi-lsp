@@ -8,9 +8,9 @@ import (
 	"sync"
 	"testing"
 
+	"github.com/Azure/azapi-lsp/internal/filesystem"
+	"github.com/Azure/azapi-lsp/internal/langserver/session"
 	"github.com/creachadair/jrpc2/handler"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/filesystem"
-	"github.com/ms-henglu/azurerm-restapi-lsp/internal/langserver/session"
 )
 
 type MockSessionInput struct {
