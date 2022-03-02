@@ -106,20 +106,20 @@ func init() {
 				},
 
 				{
-					Name:                "ignore_casing_enabled",
+					Name:                "ignore_casing",
 					Modifier:            "Optional",
 					Type:                "bool",
 					Description:         "Whether ignore incorrect casing returned in `body` to suppress plan-diff. Defaults to `false`.",
-					CompletionNewText:   `ignore_casing_enabled = $0`,
+					CompletionNewText:   `ignore_casing = $0`,
 					ValueCandidatesFunc: boolCandidates,
 				},
 
 				{
-					Name:                "ignore_missing_property_enabled",
+					Name:                "ignore_missing_property",
 					Modifier:            "Optional",
 					Type:                "bool",
 					Description:         "Whether ignore not returned properties like credentials in `body` to suppress plan-diff. Defaults to `false`.",
-					CompletionNewText:   `ignore_missing_property_enabled = $0`,
+					CompletionNewText:   `ignore_missing_property = $0`,
 					ValueCandidatesFunc: boolCandidates,
 				},
 			},
@@ -179,20 +179,20 @@ func init() {
 				},
 
 				{
-					Name:                "ignore_casing_enabled",
+					Name:                "ignore_casing",
 					Modifier:            "Optional",
 					Type:                "bool",
 					Description:         "Whether ignore incorrect casing returned in `body` to suppress plan-diff. Defaults to `false`.",
-					CompletionNewText:   `ignore_casing_enabled = $0`,
+					CompletionNewText:   `ignore_casing = $0`,
 					ValueCandidatesFunc: boolCandidates,
 				},
 
 				{
-					Name:                "ignore_missing_property_enabled",
+					Name:                "ignore_missing_property",
 					Modifier:            "Optional",
 					Type:                "bool",
 					Description:         "Whether ignore not returned properties like credentials in `body` to suppress plan-diff. Defaults to `false`.",
-					CompletionNewText:   `ignore_missing_property_enabled = $0`,
+					CompletionNewText:   `ignore_missing_property = $0`,
 					ValueCandidatesFunc: boolCandidates,
 				},
 			},
