@@ -25,7 +25,7 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 	}
 	block := parser.BlockAtPos(body, pos)
 	if block != nil && len(block.Labels) != 0 && strings.HasPrefix(block.Labels[0], "azapi") {
-		resourceName := block.Labels[0]
+		resourceName := fmt.Sprintf("%s.%s", block.Type, block.Labels[0])
 		resource := tfschema.GetResourceSchema(resourceName)
 		if resource == nil {
 			return nil

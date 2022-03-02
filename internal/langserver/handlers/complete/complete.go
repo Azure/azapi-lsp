@@ -1,6 +1,7 @@
 package complete
 
 import (
+	"fmt"
 	"log"
 	"strings"
 
@@ -23,7 +24,7 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 	block := parser.BlockAtPos(body, pos)
 	candidateList := make([]lsp.CompletionItem, 0)
 	if block != nil && len(block.Labels) != 0 && strings.HasPrefix(block.Labels[0], "azapi") {
-		resourceName := block.Labels[0]
+		resourceName := fmt.Sprintf("%s.%s", block.Type, block.Labels[0])
 		resource := tfschema.GetResourceSchema(resourceName)
 		if resource == nil {
 			return candidateList
