@@ -239,6 +239,27 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			} else {
 				log.Printf("[WARN] expect key but got ,")
 			}
+		case hclsyntax.TokenComment:
+			comment := string(token.Bytes)
+			if strings.HasSuffix(comment, "\n") {
+				top := len(stack) - 1
+				state := stack[top]
+				if !state.ExpectKey {
+					if stack[top].Index == nil {
+						key := state.GetCurrentKey()
+						stack[top].CurrentHclNode.Children[key] = &HclNode{
+							Key:        key,
+							Value:      state.Value,
+							KeyRange:   state.KeyRange,
+							ValueRange: state.ValueRange,
+							EqualRange: state.EqualRange,
+						}
+						stack[top].Key = nil
+						stack[top].Value = nil
+						stack[top].ExpectKey = true
+					}
+				}
+			}
 		default:
 			top := len(stack) - 1
 			state := stack[top]
