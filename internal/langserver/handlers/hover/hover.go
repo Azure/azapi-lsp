@@ -79,7 +79,14 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 					}
 					logger.Printf("received allowed keys: %#v", props)
 					if len(props) != 0 {
-						return Hover(props[0].Name, string(props[0].Modifier), props[0].Type, props[0].Description, lastHclNode.KeyRange)
+						index := 0
+						for i := range props {
+							if props[i].Name == lastHclNode.Key {
+								index = i
+								break
+							}
+						}
+						return Hover(props[index].Name, string(props[index].Modifier), props[index].Type, props[index].Description, lastHclNode.KeyRange)
 					}
 				}
 			default:
