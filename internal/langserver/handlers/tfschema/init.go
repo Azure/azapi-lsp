@@ -125,7 +125,7 @@ func init() {
 			},
 		},
 		Resource{
-			Name: "resource.azapi_patch_resource",
+			Name: "resource.azapi_update_resource",
 			Properties: []Property{
 				{
 					Name:                "type",

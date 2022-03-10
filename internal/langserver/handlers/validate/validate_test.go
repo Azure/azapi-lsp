@@ -54,7 +54,7 @@ func TestValidation_notExpectedProperty(t *testing.T) {
 	}
 }
 
-func TestValidation_patch(t *testing.T) {
+func TestValidation_update(t *testing.T) {
 	config, err := ioutil.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
