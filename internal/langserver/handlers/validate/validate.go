@@ -75,8 +75,8 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 	if dummy, ok := hclNode.Children["dummy"]; ok {
 		dummy.KeyRange = attribute.NameRange
 		diags := Validate(dummy, def.AsTypeBase())
-		// patch resource doesn't need to check on required properties
-		if block.Labels[0] == "azapi_patch_resource" {
+		// update resource doesn't need to check on required properties
+		if block.Labels[0] == "azapi_update_resource" {
 			res := hcl.Diagnostics{}
 			for _, diag := range diags {
 				// TODO: don't hardcode here
