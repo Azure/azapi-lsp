@@ -13,6 +13,15 @@ func GetDef(resourceType *types.TypeBase, hclNodes []*parser.HclNode, index int)
 		return nil
 	}
 	if len(hclNodes) == index {
+		if t, ok := (*resourceType).(*types.DiscriminatedObjectType); ok {
+			if discriminator, ok := hclNodes[index-1].Children[t.Discriminator]; ok && discriminator != nil && discriminator.Value != nil {
+				if discriminatorValue := strings.Trim(*discriminator.Value, `"`); len(discriminatorValue) > 0 {
+					if t.Elements[discriminatorValue] != nil && t.Elements[discriminatorValue].Type != nil {
+						resourceType = t.Elements[discriminatorValue].Type
+					}
+				}
+			}
+		}
 		return []*types.TypeBase{resourceType}
 	}
 	key := hclNodes[index].Key
@@ -74,7 +83,7 @@ func GetDef(resourceType *types.TypeBase, hclNodes []*parser.HclNode, index int)
 	return nil
 }
 
-func GetAllowedProperties(resourceType *types.TypeBase, scopes []*types.TypeBase) []Property {
+func GetAllowedProperties(resourceType *types.TypeBase) []Property {
 	if resourceType == nil {
 		return []Property{}
 	}
@@ -84,49 +93,31 @@ func GetAllowedProperties(resourceType *types.TypeBase, scopes []*types.TypeBase
 		return props
 	case *types.DiscriminatedObjectType:
 		for key, value := range t.BaseProperties {
-			if value.Type != nil && !isInScopes(value.Type.Type, scopes) {
-				continue
-			}
 			if prop := PropertyFromObjectProperty(key, value); prop != nil {
 				props = append(props, *prop)
 			}
 		}
 		for _, discriminator := range t.Elements {
-			props = append(props, GetAllowedProperties(discriminator.Type, scopes)...)
+			props = append(props, GetAllowedProperties(discriminator.Type)...)
 		}
 	case *types.ObjectType:
 		for key, value := range t.Properties {
-			if value.Type != nil && !isInScopes(value.Type.Type, scopes) {
-				continue
-			}
 			if prop := PropertyFromObjectProperty(key, value); prop != nil {
 				props = append(props, *prop)
 			}
 		}
 		if t.AdditionalProperties != nil {
-			props = append(props, GetAllowedProperties(t.AdditionalProperties.Type, scopes)...)
+			props = append(props, GetAllowedProperties(t.AdditionalProperties.Type)...)
 		}
 	case *types.ResourceType:
 		if t.Body != nil {
-			return GetAllowedProperties(t.Body.Type, scopes)
+			return GetAllowedProperties(t.Body.Type)
 		}
 	case *types.BuiltInType:
 	case *types.StringLiteralType:
 	case *types.UnionType:
 	}
 	return props
-}
-
-func isInScopes(valueType *types.TypeBase, scopes []*types.TypeBase) bool {
-	if len(scopes) != 0 {
-		for _, scope := range scopes {
-			if valueType == scope {
-				return true
-			}
-		}
-		return false
-	}
-	return true
 }
 
 func GetAllowedValues(resourceType *types.TypeBase) []string {
