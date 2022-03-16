@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/Azure/azapi-lsp/internal/azure"
-	"github.com/Azure/azapi-lsp/internal/azure/types"
 	"github.com/Azure/azapi-lsp/internal/langserver/schema"
 	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
 	"github.com/Azure/azapi-lsp/internal/parser"
@@ -48,7 +47,7 @@ func bodyCandidates(data []byte, filename string, block *hclsyntax.Block, attrib
 		defs := schema.GetDef(def.AsTypeBase(), hclNodes, 0)
 		keys := make([]schema.Property, 0)
 		for _, def := range defs {
-			keys = append(keys, schema.GetAllowedProperties(def, []*types.TypeBase{})...)
+			keys = append(keys, schema.GetAllowedProperties(def)...)
 		}
 		if len(hclNodes) == 1 {
 			keys = ignorePulledOutProperties(keys)
@@ -72,7 +71,7 @@ func bodyCandidates(data []byte, filename string, block *hclsyntax.Block, attrib
 		defs := schema.GetDef(def.AsTypeBase(), hclNodes, 0)
 		keys := make([]schema.Property, 0)
 		for _, def := range defs {
-			keys = append(keys, schema.GetAllowedProperties(def, []*types.TypeBase{})...)
+			keys = append(keys, schema.GetAllowedProperties(def)...)
 		}
 		if len(hclNodes) == 1 {
 			keys = ignorePulledOutProperties(keys)

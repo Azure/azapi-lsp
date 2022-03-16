@@ -71,11 +71,10 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 				lastHclNode := hclNodes[len(hclNodes)-1]
 
 				if parser.ContainsPos(lastHclNode.KeyRange, pos) {
-					scopes := schema.GetDef(def.AsTypeBase(), hclNodes, 0)
 					defs := schema.GetDef(def.AsTypeBase(), hclNodes[0:len(hclNodes)-1], 0)
 					props := make([]schema.Property, 0)
 					for _, def := range defs {
-						props = append(props, schema.GetAllowedProperties(def, scopes)...)
+						props = append(props, schema.GetAllowedProperties(def)...)
 					}
 					logger.Printf("received allowed keys: %#v", props)
 					if len(props) != 0 {
