@@ -157,7 +157,7 @@ func init() {
 					Modifier:          "Optional",
 					Type:              "string",
 					Description:       "The ID of an existing azure source. Changing this forces a new resource to be created.\n\nConfiguring `name` and `parent_id` is an alternative way to configure `resource_id`.",
-					CompletionNewText: `parent_id = $0`,
+					CompletionNewText: `resource_id = $0`,
 				},
 
 				{
