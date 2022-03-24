@@ -13,7 +13,7 @@
           "kind": "markdown",
           "value": "Type: `Microsoft.DataFactory/factories`  \nAPI Version: `2017-09-01-preview`"
         },
-        "sortText": "2",
+        "sortText": "0002",
         "insertTextFormat": 1,
         "insertTextMode": 2,
         "textEdit": {
@@ -38,7 +38,7 @@
           "kind": "markdown",
           "value": "Type: `Microsoft.DataFactory/factories`  \nAPI Version: `2018-06-01`"
         },
-        "sortText": "1",
+        "sortText": "0001",
         "insertTextFormat": 1,
         "insertTextMode": 2,
         "textEdit": {

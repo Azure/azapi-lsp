@@ -94,7 +94,7 @@ func typeCandidates(prefix *string, r lsp.Range) []lsp.CompletionItem {
 					Kind:  "markdown",
 					Value: fmt.Sprintf("Type: `%s`  \nAPI Version: `%s`", resourceType, apiVersion),
 				},
-				SortText:         fmt.Sprintf("%d", length-index),
+				SortText:         fmt.Sprintf("%04d", length-index),
 				InsertTextFormat: lsp.PlainTextTextFormat,
 				InsertTextMode:   lsp.AdjustIndentation,
 				TextEdit: &lsp.TextEdit{
