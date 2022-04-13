@@ -33,3 +33,8 @@ The most reasonable way you will interact with the language server
 is through a client represented by an IDE, or a plugin of an IDE.
 
 VSCode extension: [azapi-vscode](https://github.com/ms-henglu/azapi-vscode)
+
+## Credits
+
+- [terraform-ls](https://github.com/hashicorp/terraform-ls): This project is developed based on `terraform-ls`: framework, testing, file sync feature, etc.
+
