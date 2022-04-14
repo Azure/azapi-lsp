@@ -36,5 +36,5 @@ VSCode extension: [azapi-vscode](https://github.com/ms-henglu/azapi-vscode)
 
 ## Credits
 
-- [terraform-ls](https://github.com/hashicorp/terraform-ls): This project is developed based on `terraform-ls`: framework, testing, file sync feature, etc.
+We wish to thank HashiCorp for the use of some MPLv2-licensed code from their open source project [terraform-ls](https://github.com/hashicorp/terraform-ls).
 
