@@ -163,11 +163,14 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			state := stack[top]
 			if _, ok := state.CurrentHclNode.Children[state.GetCurrentKey()]; !ok {
 				log.Printf("[WARN] expect value but got }")
-				key := state.GetCurrentKey()
-				stack[top].CurrentHclNode.Children[key] = &HclNode{
-					Key:        key,
-					Value:      state.Value,
-					ValueRange: state.ValueRange,
+				// avoid adding an empty element
+				if !state.ValueRange.Empty() {
+					key := state.GetCurrentKey()
+					stack[top].CurrentHclNode.Children[key] = &HclNode{
+						Key:        key,
+						Value:      state.Value,
+						ValueRange: state.ValueRange,
+					}
 				}
 			}
 			stack[top].CurrentHclNode.ValueRange = RangeOver(stack[top].CurrentHclNode.ValueRange, token.Range)
