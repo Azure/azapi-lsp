@@ -30,6 +30,18 @@ func TestValidation_whileTyping(t *testing.T) {
 	}
 }
 
+func TestValidation_commaAfterArrayItem(t *testing.T) {
+	config, err := ioutil.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	_, diag := ValidateFile(config, "main.tf")
+	if len(diag) != 0 {
+		t.Errorf("expect 0 diagnostics, but got %v", diag)
+	}
+}
+
 func TestValidation_missingRequiredProperty(t *testing.T) {
 	config, err := ioutil.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
 	if err != nil {
