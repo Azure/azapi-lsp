@@ -17,7 +17,15 @@ func GetDef(resourceType *types.TypeBase, hclNodes []*parser.HclNode, index int)
 			if discriminator, ok := hclNodes[index-1].Children[t.Discriminator]; ok && discriminator != nil && discriminator.Value != nil {
 				if discriminatorValue := strings.Trim(*discriminator.Value, `"`); len(discriminatorValue) > 0 {
 					if t.Elements[discriminatorValue] != nil && t.Elements[discriminatorValue].Type != nil {
-						resourceType = t.Elements[discriminatorValue].Type
+						selectedDiscriminatedObjectType := &types.DiscriminatedObjectType{
+							Name:           t.Name,
+							Discriminator:  t.Discriminator,
+							BaseProperties: t.BaseProperties,
+							Elements: map[string]*types.TypeReference{
+								discriminatorValue: t.Elements[discriminatorValue],
+							},
+						}
+						return []*types.TypeBase{selectedDiscriminatedObjectType.AsTypeBase()}
 					}
 				}
 			}
