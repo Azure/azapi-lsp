@@ -1,9 +1,18 @@
-## 0.0.0 (5 January 2022)
-Initial state
+## Unreleased
+### Bugfix
+- Base properties of a discriminated object are not showed in completion list
+- When there's comma after last array item, HclNode parser falsely think there's one more item.
 
-FEATURES:
+## v0.2.0
+### Enhancements
+- Update bicep types to https://github.com/Azure/bicep-types-az/commit/57f3ecc750648562cf170ef456ef39533872b101
 
-- Completion when input `type`
-- Completion when input `body`, limitation: it only works when use `jsonencode` function to build the JSON
-- Show hint when hover on `type`, `body` and properties defined inside `body`
+## v0.1.0
+### Features
+- Completion of `azapi` resources and data sources
+- Completion of allowed azure resource types when input `type` in `azapi` resources
+- Completion of allowed azure resource properties when input `body` in `azapi` resources, limitation: it only works when use `jsonencode` function to build the JSON
+- Better completion for discriminated object
+- Completion for all required properties
+- Show hint when hover on `azapi` resources
 - Show diagnostics for properties defined inside `body`

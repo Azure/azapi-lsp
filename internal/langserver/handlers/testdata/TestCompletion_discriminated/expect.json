@@ -1,0 +1,159 @@
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "result": {
+    "isIncomplete": false,
+    "items": [
+      {
+        "label": "description",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "description (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `string`  \nThe description of the data flow.\n"
+        },
+        "sortText": "1description",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 10,
+              "character": 6
+            },
+            "end": {
+              "line": 10,
+              "character": 6
+            }
+          },
+          "newText": "description = \"$0\""
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "annotations",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "annotations (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `array`  \nList of tags that can be used for describing the data flow.\n"
+        },
+        "sortText": "1annotations",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 10,
+              "character": 6
+            },
+            "end": {
+              "line": 10,
+              "character": 6
+            }
+          },
+          "newText": "annotations = [$0]"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "folder",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "folder (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `object`  \nThe folder that this data flow is in. If not specified, Data flow will appear at the root level.\n"
+        },
+        "sortText": "1folder",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 10,
+              "character": 6
+            },
+            "end": {
+              "line": 10,
+              "character": 6
+            }
+          },
+          "newText": "folder = {\n\t$0\n}"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "typeProperties",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "typeProperties (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `object`  \nFlowlet type properties.\n"
+        },
+        "sortText": "1typeProperties",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 10,
+              "character": 6
+            },
+            "end": {
+              "line": 10,
+              "character": 6
+            }
+          },
+          "newText": "typeProperties = {\n\t$0\n}"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "type",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "type (Required)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `string`  \nType of data flow.\n"
+        },
+        "sortText": "0type",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 10,
+              "character": 6
+            },
+            "end": {
+              "line": 10,
+              "character": 6
+            }
+          },
+          "newText": "type = \"$0\""
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      }
+    ]
+  }
+}
