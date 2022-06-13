@@ -1,3 +1,7 @@
+## v0.4.0(unreleased)
+### ENHANCEMENTS:
+- Update `azapi` resource schemas.
+
 ## v0.3.0
 ### ENHANCEMENTS:
 - Update bicep types to https://github.com/Azure/bicep-types-az/commit/644ff521c92ce8d493f6da977af12377f32abffc

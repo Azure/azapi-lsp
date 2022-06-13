@@ -106,6 +106,14 @@ func init() {
 				},
 
 				{
+					Name:              "locks",
+					Modifier:          "Optional",
+					Type:              "list<string>",
+					Description:       "A list of ARM resource IDs which are used to avoid create/modify/delete azapi resources at the same time.",
+					CompletionNewText: `locks = [$0]`,
+				},
+
+				{
 					Name:                "ignore_casing",
 					Modifier:            "Optional",
 					Type:                "bool",
@@ -179,6 +187,14 @@ func init() {
 				},
 
 				{
+					Name:              "locks",
+					Modifier:          "Optional",
+					Type:              "list<string>",
+					Description:       "A list of ARM resource IDs which are used to avoid create/modify/delete azapi resources at the same time.",
+					CompletionNewText: `locks = [$0]`,
+				},
+
+				{
 					Name:                "ignore_casing",
 					Modifier:            "Optional",
 					Type:                "bool",
@@ -211,18 +227,26 @@ func init() {
 
 				{
 					Name:              "name",
-					Modifier:          "Required",
+					Modifier:          "Optional",
 					Type:              "string",
-					Description:       "Specifies the name of the azure resource. Changing this forces a new resource to be created.",
+					Description:       "Specifies the name of the azure resource.",
 					CompletionNewText: `name = "$0"`,
 				},
 
 				{
 					Name:              "parent_id",
-					Modifier:          "Required",
+					Modifier:          "Optional",
 					Type:              "string",
-					Description:       "The ID of the azure resource in which this resource is created. Changing this forces a new resource to be created.",
+					Description:       "The ID of the azure resource in which this resource is created.",
 					CompletionNewText: `parent_id = $0`,
+				},
+
+				{
+					Name:              "resource_id",
+					Modifier:          "Optional",
+					Type:              "string",
+					Description:       "The ID of an existing azure source.\n\nConfiguring `name` and `parent_id` is an alternative way to configure `resource_id`.",
+					CompletionNewText: `resource_id = $0`,
 				},
 
 				{
