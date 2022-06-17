@@ -5,7 +5,6 @@ import lsp "github.com/Azure/azapi-lsp/internal/protocol"
 func init() {
 	Resources = make([]Resource, 0)
 
-	// build azapi_resource
 	Resources = append(Resources,
 		Resource{
 			Name: "resource.azapi_resource",
