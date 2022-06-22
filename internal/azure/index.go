@@ -10,14 +10,25 @@ import (
 
 type Schema struct {
 	Resources map[string]*Resource
+	Functions map[string]*Function
 }
 
 type Resource struct {
 	Definitions []ResourceDefinition
 }
 
+type Function struct {
+	Definitions []FunctionDefinition
+}
+
 type ResourceDefinition struct {
 	Definition *types.ResourceType
+	Location   TypeLocation
+	ApiVersion string
+}
+
+type FunctionDefinition struct {
+	Definition *types.ResourceFunctionType
 	Location   TypeLocation
 	ApiVersion string
 }
@@ -27,17 +38,26 @@ type TypeLocation struct {
 	Index    int    `json:"Index"`
 }
 
+type IndexRaw struct {
+	Resources map[string]TypeLocation              `json:"Resources"`
+	Functions map[string]map[string][]TypeLocation `json:"Functions"`
+}
+
 func (o *Schema) UnmarshalJSON(body []byte) error {
-	var m map[string]map[string]TypeLocation
+	var m IndexRaw
 	err := json.Unmarshal(body, &m)
 	if err != nil {
 		return err
 	}
-	if m["Resources"] == nil {
-		return nil
+	if m.Resources == nil {
+		return fmt.Errorf("resources block is nil")
+	}
+	if m.Functions == nil {
+		return fmt.Errorf("functions block is nil")
 	}
 	o.Resources = make(map[string]*Resource)
-	for k, v := range m["Resources"] {
+	o.Functions = make(map[string]*Function)
+	for k, v := range m.Resources {
 		index := strings.Index(k, "@")
 		if index == -1 {
 			return fmt.Errorf("api-version is not specified, type: %s", k)
@@ -56,6 +76,24 @@ func (o *Schema) UnmarshalJSON(body []byte) error {
 			ApiVersion: k[index+1:],
 		})
 	}
+	for k, v := range m.Functions {
+		for apiVersion, arr := range v {
+			function := o.Functions[k]
+			if function == nil {
+				o.Functions[k] = &Function{
+					Definitions: make([]FunctionDefinition, 0),
+				}
+				function = o.Functions[k]
+			}
+			for _, item := range arr {
+				function.Definitions = append(function.Definitions, FunctionDefinition{
+					Definition: nil,
+					Location:   item,
+					ApiVersion: apiVersion,
+				})
+			}
+		}
+	}
 
 	return nil
 }
@@ -67,7 +105,7 @@ func (o *ResourceDefinition) GetDefinition() (*types.ResourceType, error) {
 	if o.Definition != nil {
 		return o.Definition, nil
 	}
-	definition, err := o.Location.LoadDefinition()
+	definition, err := o.Location.LoadResourceTypeDefinition()
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +113,22 @@ func (o *ResourceDefinition) GetDefinition() (*types.ResourceType, error) {
 	return o.Definition, nil
 }
 
-func (o *TypeLocation) LoadDefinition() (*types.ResourceType, error) {
+func (o *FunctionDefinition) GetDefinition() (*types.ResourceFunctionType, error) {
+	if o == nil {
+		return nil, nil
+	}
+	if o.Definition != nil {
+		return o.Definition, nil
+	}
+	definition, err := o.Location.LoadFunctionTypeDefinition()
+	if err != nil {
+		return nil, err
+	}
+	o.Definition = definition
+	return o.Definition, nil
+}
+
+func (o *TypeLocation) LoadResourceTypeDefinition() (*types.ResourceType, error) {
 	if o == nil {
 		return nil, nil
 	}
@@ -90,6 +143,27 @@ func (o *TypeLocation) LoadDefinition() (*types.ResourceType, error) {
 	}
 	if o.Index < len(schema.Types) && schema.Types[o.Index] != nil {
 		if resourceType, ok := (*schema.Types[o.Index]).(*types.ResourceType); ok {
+			return resourceType, nil
+		}
+	}
+	return nil, fmt.Errorf("index invalid or the type is not a resource type")
+}
+
+func (o *TypeLocation) LoadFunctionTypeDefinition() (*types.ResourceFunctionType, error) {
+	if o == nil {
+		return nil, nil
+	}
+	data, err := StaticFiles.ReadFile("generated/" + o.Location)
+	if err != nil {
+		return nil, err
+	}
+	var schema types.Schema
+	err = json.Unmarshal(data, &schema)
+	if err != nil {
+		return nil, err
+	}
+	if o.Index < len(schema.Types) && schema.Types[o.Index] != nil {
+		if resourceType, ok := (*schema.Types[o.Index]).(*types.ResourceFunctionType); ok {
 			return resourceType, nil
 		}
 	}

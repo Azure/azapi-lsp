@@ -55,9 +55,28 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 				if typeValue == nil {
 					break
 				}
-				def, _ := azure.GetResourceDefinitionByResourceType(*typeValue)
-				if def == nil {
-					break
+
+				var bodyDef types.TypeBase
+				if len(block.Labels) >= 2 && block.Labels[0] == "azapi_operation" {
+					parts := strings.Split(*typeValue, "@")
+					if len(parts) != 2 {
+						return nil
+					}
+					operationName := parser.ExtractOperation(block)
+					if operationName == nil {
+						return nil
+					}
+					def, err := azure.GetResourceFunction(parts[0], parts[1], *operationName)
+					if err != nil || def == nil {
+						return nil
+					}
+					bodyDef = def
+				} else {
+					def, err := azure.GetResourceDefinitionByResourceType(*typeValue)
+					if err != nil || def == nil {
+						return nil
+					}
+					bodyDef = def
 				}
 
 				hclNode := parser.JsonEncodeExpressionToHclNode(data, attribute.Expr)
@@ -71,7 +90,7 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 				lastHclNode := hclNodes[len(hclNodes)-1]
 
 				if parser.ContainsPos(lastHclNode.KeyRange, pos) {
-					defs := schema.GetDef(def.AsTypeBase(), hclNodes[0:len(hclNodes)-1], 0)
+					defs := schema.GetDef(bodyDef.AsTypeBase(), hclNodes[0:len(hclNodes)-1], 0)
 					props := make([]schema.Property, 0)
 					for _, def := range defs {
 						props = append(props, schema.GetAllowedProperties(def)...)

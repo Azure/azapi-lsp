@@ -15,16 +15,16 @@ type ResourceFunctionType struct {
 	Output       *TypeReference
 }
 
-func (t ResourceFunctionType) AsTypeBase() *TypeBase {
+func (t *ResourceFunctionType) AsTypeBase() *TypeBase {
 	typeBase := TypeBase(t)
 	return &typeBase
 }
 
-func (t ResourceFunctionType) Validate(body interface{}, path string) []error {
+func (t *ResourceFunctionType) Validate(body interface{}, path string) []error {
 	return []error{}
 }
 
-func (t ResourceFunctionType) GetWriteOnly(body interface{}) interface{} {
+func (t *ResourceFunctionType) GetWriteOnly(body interface{}) interface{} {
 	return body
 }
 

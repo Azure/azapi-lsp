@@ -77,6 +77,10 @@ func GetDef(resourceType *types.TypeBase, hclNodes []*parser.HclNode, index int)
 		if t.Body != nil {
 			return GetDef(t.Body.Type, hclNodes, index+1)
 		}
+	case *types.ResourceFunctionType:
+		if t.Input != nil {
+			return GetDef(t.Input.Type, hclNodes, index+1)
+		}
 	case *types.BuiltInType:
 		return []*types.TypeBase{resourceType}
 	case *types.StringLiteralType:

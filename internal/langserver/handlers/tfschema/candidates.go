@@ -161,6 +161,20 @@ func bodyJsonencodeFuncCandidate() lsp.CompletionItem {
 	}
 }
 
+func httpMethodCandidates(_ *string, r lsp.Range) []lsp.CompletionItem {
+	return valueCandidates([]string{
+		`"POST"`,
+		`"PATCH"`,
+		`"GET"`,
+		`"PUT"`,
+		`"DELETE"`,
+		`"CONNECT"`,
+		`"HEAD"`,
+		`"OPTIONS"`,
+		`"TRACE"`,
+	}, r, true)
+}
+
 func constTriggerSuggestCommand() *lsp.Command {
 	return &lsp.Command{
 		Command: "editor.action.triggerSuggest",
