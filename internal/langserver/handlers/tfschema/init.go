@@ -15,7 +15,7 @@ func init() {
 					Type:                "string <resource-type>@<api-version>",
 					Description:         "Azure Resource Manager type.",
 					CompletionNewText:   `type = "$0"`,
-					ValueCandidatesFunc: typeCandidates,
+					ValueCandidatesFunc: resourceTypeCandidates,
 				},
 
 				{
@@ -140,7 +140,7 @@ func init() {
 					Type:                "string <resource-type>@<api-version>",
 					Description:         "Azure Resource Manager type.",
 					CompletionNewText:   `type = "$0"`,
-					ValueCandidatesFunc: typeCandidates,
+					ValueCandidatesFunc: resourceTypeCandidates,
 				},
 
 				{
@@ -221,7 +221,7 @@ func init() {
 					Type:                "string <resource-type>@<api-version>",
 					Description:         "Azure Resource Manager type.",
 					CompletionNewText:   `type = "$0"`,
-					ValueCandidatesFunc: typeCandidates,
+					ValueCandidatesFunc: dataSourceTypeCandidates,
 				},
 
 				{
