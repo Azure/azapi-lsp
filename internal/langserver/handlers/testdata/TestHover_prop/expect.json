@@ -4,7 +4,7 @@
   "result": {
     "contents": {
       "kind": "markdown",
-      "value": "```\nidentity: Optional(object)\n```\nManaged Identity used for CMK."
+      "value": "```\nidentity: Optional(object)\n```\nUser assigned identity to use to authenticate to customer's key vault. If not provided Managed Service Identity will be used."
     },
     "range": {
       "start": {
