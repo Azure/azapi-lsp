@@ -84,6 +84,8 @@ func (t *ResourceType) UnmarshalJSON(body []byte) error {
 				}
 				t.ScopeTypes = scopeTypes
 			}
+		case "ReadOnlyScopes":
+			// NOTE: we're intentionally not parsing this field since it's not used in azapi
 		case "Body":
 			if v != nil {
 				var index int
