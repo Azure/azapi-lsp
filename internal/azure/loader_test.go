@@ -37,3 +37,30 @@ func Test_GetResourceDefinition(t *testing.T) {
 		}
 	}
 }
+
+func Test_AllBicepTypes(t *testing.T) {
+	schema := azure.GetAzureSchema()
+	if schema == nil {
+		t.Errorf("failed to load azure schema")
+	}
+	if len(schema.Resources) == 0 {
+		t.Errorf("expect resources are not empty")
+	}
+	for resourceName, res := range schema.Resources {
+		if len(resourceName) == 0 {
+			t.Errorf("expect resource name is not empty")
+		}
+		if res == nil {
+			t.Errorf("expect resource definition is not nil, resource name: %s", resourceName)
+		}
+		if len(res.Definitions) == 0 {
+			t.Errorf("expect resource definitions are not empty, resource name: %s", resourceName)
+		}
+		for _, definition := range res.Definitions {
+			_, err := definition.GetDefinition()
+			if err != nil {
+				t.Error(err)
+			}
+		}
+	}
+}
