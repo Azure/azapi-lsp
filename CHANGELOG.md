@@ -1,4 +1,4 @@
-## v0.4.0(unreleased)
+## v0.4.0
 ### ENHANCEMENTS:
 - Update `azapi` resource schemas.
 - Data source `azapi_resource`: Supports read only types.
