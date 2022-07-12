@@ -34,6 +34,12 @@ func GetAzureSchema() *Schema {
 			return nil
 		}
 	}
+	// preload the first definition
+	for _, resource := range schema.Resources {
+		if len(resource.Definitions) > 0 {
+			_, _ = resource.Definitions[0].GetDefinition()
+		}
+	}
 	return schema
 }
 
