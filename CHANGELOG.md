@@ -1,3 +1,7 @@
+## v0.5.0 (Unreleased)
+ENHANCEMENTS:
+- Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/08fe00486aec8ee0e35a7776f81da090c32476de
+
 ## v0.4.0
 ### ENHANCEMENTS:
 - Update `azapi` resource schemas.
