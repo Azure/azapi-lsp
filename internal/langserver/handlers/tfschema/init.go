@@ -292,7 +292,7 @@ func init() {
 					Type:                "string",
 					Description:         "Specifies the Http method of the azure resource operation. Defaults to `POST`",
 					CompletionNewText:   `method = $0`,
-					ValueCandidatesFunc: httpMethodCandidates,
+					ValueCandidatesFunc: resourceHttpMethodCandidates,
 				},
 
 				{
@@ -349,7 +349,7 @@ func init() {
 					Type:                "string",
 					Description:         "Specifies the Http method of the azure resource operation. Defaults to `POST`",
 					CompletionNewText:   `method = $0`,
-					ValueCandidatesFunc: httpMethodCandidates,
+					ValueCandidatesFunc: dataSourceHttpMethodCandidates,
 				},
 
 				{
