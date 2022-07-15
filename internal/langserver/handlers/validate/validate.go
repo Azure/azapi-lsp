@@ -35,7 +35,7 @@ func ValidateFile(src []byte, filename string) (*hcl.File, hcl.Diagnostics) {
 
 	diags := make([]*hcl.Diagnostic, 0)
 	for _, block := range body.Blocks {
-		if block.Type == "resource" && len(block.Labels) > 0 && strings.HasPrefix(block.Labels[0], "azapi") {
+		if block.Type == "resource" && len(block.Labels) > 0 && strings.HasPrefix(block.Labels[0], "azapi_") {
 			if diag := ValidateBlock(src, block); diag != nil {
 				diags = append(diags, diag...)
 			}
@@ -63,9 +63,28 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 	if typeValue == nil {
 		return nil
 	}
-	def, _ := azure.GetResourceDefinitionByResourceType(*typeValue)
-	if def == nil {
-		return nil
+
+	var bodyDef types.TypeBase
+	if len(block.Labels) >= 2 && block.Labels[0] == "azapi_operation" {
+		parts := strings.Split(*typeValue, "@")
+		if len(parts) != 2 {
+			return nil
+		}
+		operationName := parser.ExtractOperation(block)
+		if operationName == nil {
+			return nil
+		}
+		def, err := azure.GetResourceFunction(parts[0], parts[1], *operationName)
+		if err != nil || def == nil {
+			return nil
+		}
+		bodyDef = def
+	} else {
+		def, err := azure.GetResourceDefinitionByResourceType(*typeValue)
+		if err != nil || def == nil {
+			return nil
+		}
+		bodyDef = def
 	}
 
 	hclNode := parser.JsonEncodeExpressionToHclNode(src, attribute.Expr)
@@ -74,7 +93,7 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 	}
 	if dummy, ok := hclNode.Children["dummy"]; ok {
 		dummy.KeyRange = attribute.NameRange
-		diags := Validate(dummy, def.AsTypeBase())
+		diags := Validate(dummy, bodyDef.AsTypeBase())
 		// update resource doesn't need to check on required properties
 		if block.Labels[0] == "azapi_update_resource" {
 			res := hcl.Diagnostics{}
@@ -229,6 +248,10 @@ func Validate(hclNode *parser.HclNode, typeBase *types.TypeBase) hcl.Diagnostics
 	case *types.ResourceType:
 		if t.Body != nil {
 			return Validate(hclNode, t.Body.Type)
+		}
+	case *types.ResourceFunctionType:
+		if t.Input != nil {
+			return Validate(hclNode, t.Input.Type)
 		}
 	case *types.BuiltInType:
 	case *types.StringLiteralType:

@@ -257,5 +257,119 @@ func init() {
 				},
 			},
 		},
+		Resource{
+			Name: "resource.azapi_operation",
+			Properties: []Property{
+				{
+					Name:                "type",
+					Modifier:            "Required",
+					Type:                "string <resource-type>@<api-version>",
+					Description:         "Azure Resource Manager type.",
+					CompletionNewText:   `type = "$0"`,
+					ValueCandidatesFunc: resourceTypeCandidates,
+				},
+
+				{
+					Name:              "resource_id",
+					Modifier:          "Required",
+					Type:              "string",
+					Description:       "The ID of an existing azure source.",
+					CompletionNewText: `resource_id = $0`,
+				},
+
+				{
+					Name:                  "operation",
+					Modifier:              "Optional",
+					Type:                  "string",
+					Description:           "Specifies the name of the azure resource operation.",
+					CompletionNewText:     `operation = "$0"`,
+					GenericCandidatesFunc: operationCandidates,
+				},
+
+				{
+					Name:                "method",
+					Modifier:            "Optional",
+					Type:                "string",
+					Description:         "Specifies the Http method of the azure resource operation. Defaults to `POST`",
+					CompletionNewText:   `method = $0`,
+					ValueCandidatesFunc: resourceHttpMethodCandidates,
+				},
+
+				{
+					Name:                  "body",
+					Modifier:              "Optional",
+					Type:                  "string <JSON>",
+					Description:           "A JSON object that contains the request body.",
+					CompletionNewText:     `body = $0`,
+					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{bodyJsonencodeFuncCandidate()}),
+					GenericCandidatesFunc: bodyCandidates,
+				},
+
+				{
+					Name:              "response_export_values",
+					Modifier:          "Optional",
+					Type:              "list<string>",
+					Description:       "A list of path that needs to be exported from response body.",
+					CompletionNewText: `response_export_values = [$0]`,
+				},
+			},
+		},
+		Resource{
+			Name: "data.azapi_operation",
+			Properties: []Property{
+				{
+					Name:                "type",
+					Modifier:            "Required",
+					Type:                "string <resource-type>@<api-version>",
+					Description:         "Azure Resource Manager type.",
+					CompletionNewText:   `type = "$0"`,
+					ValueCandidatesFunc: resourceTypeCandidates,
+				},
+
+				{
+					Name:              "resource_id",
+					Modifier:          "Required",
+					Type:              "string",
+					Description:       "The ID of an existing azure source.",
+					CompletionNewText: `resource_id = $0`,
+				},
+
+				{
+					Name:                  "operation",
+					Modifier:              "Optional",
+					Type:                  "string",
+					Description:           "Specifies the name of the azure resource operation.",
+					CompletionNewText:     `operation = "$0"`,
+					GenericCandidatesFunc: operationCandidates,
+				},
+
+				{
+					Name:                "method",
+					Modifier:            "Optional",
+					Type:                "string",
+					Description:         "Specifies the Http method of the azure resource operation. Defaults to `POST`",
+					CompletionNewText:   `method = $0`,
+					ValueCandidatesFunc: dataSourceHttpMethodCandidates,
+				},
+
+				{
+					Name:                  "body",
+					Modifier:              "Optional",
+					Type:                  "string <JSON>",
+					Description:           "A JSON object that contains the request body.",
+					CompletionNewText:     `body = $0`,
+					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{bodyJsonencodeFuncCandidate()}),
+					GenericCandidatesFunc: bodyCandidates,
+				},
+
+				{
+					Name:              "response_export_values",
+					Modifier:          "Optional",
+					Type:              "list<string>",
+					Description:       "A list of path that needs to be exported from response body.",
+					CompletionNewText: `response_export_values = [$0]`,
+				},
+			},
+		},
 	)
 }

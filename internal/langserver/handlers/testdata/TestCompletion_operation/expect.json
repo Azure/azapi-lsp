@@ -1,0 +1,159 @@
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "result": {
+    "isIncomplete": false,
+    "items": [
+      {
+        "label": "\"listTestKeys\"",
+        "labelDetails": {},
+        "kind": 12,
+        "documentation": {
+          "kind": "markdown",
+          "value": "Value: `listTestKeys`  \n"
+        },
+        "sortText": "0listTestKeys",
+        "insertTextFormat": 1,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 14
+            },
+            "end": {
+              "line": 2,
+              "character": 14
+            }
+          },
+          "newText": "\"listTestKeys\""
+        }
+      },
+      {
+        "label": "\"regenerateTestKey\"",
+        "labelDetails": {},
+        "kind": 12,
+        "documentation": {
+          "kind": "markdown",
+          "value": "Value: `regenerateTestKey`  \n"
+        },
+        "sortText": "0regenerateTestKey",
+        "insertTextFormat": 1,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 14
+            },
+            "end": {
+              "line": 2,
+              "character": 14
+            }
+          },
+          "newText": "\"regenerateTestKey\""
+        }
+      },
+      {
+        "label": "\"disableTestEndpoint\"",
+        "labelDetails": {},
+        "kind": 12,
+        "documentation": {
+          "kind": "markdown",
+          "value": "Value: `disableTestEndpoint`  \n"
+        },
+        "sortText": "0disableTestEndpoint",
+        "insertTextFormat": 1,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 14
+            },
+            "end": {
+              "line": 2,
+              "character": 14
+            }
+          },
+          "newText": "\"disableTestEndpoint\""
+        }
+      },
+      {
+        "label": "\"enableTestEndpoint\"",
+        "labelDetails": {},
+        "kind": 12,
+        "documentation": {
+          "kind": "markdown",
+          "value": "Value: `enableTestEndpoint`  \n"
+        },
+        "sortText": "0enableTestEndpoint",
+        "insertTextFormat": 1,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 14
+            },
+            "end": {
+              "line": 2,
+              "character": 14
+            }
+          },
+          "newText": "\"enableTestEndpoint\""
+        }
+      },
+      {
+        "label": "\"stop\"",
+        "labelDetails": {},
+        "kind": 12,
+        "documentation": {
+          "kind": "markdown",
+          "value": "Value: `stop`  \n"
+        },
+        "sortText": "0stop",
+        "insertTextFormat": 1,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 14
+            },
+            "end": {
+              "line": 2,
+              "character": 14
+            }
+          },
+          "newText": "\"stop\""
+        }
+      },
+      {
+        "label": "\"start\"",
+        "labelDetails": {},
+        "kind": 12,
+        "documentation": {
+          "kind": "markdown",
+          "value": "Value: `start`  \n"
+        },
+        "sortText": "0start",
+        "insertTextFormat": 1,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 14
+            },
+            "end": {
+              "line": 2,
+              "character": 14
+            }
+          },
+          "newText": "\"start\""
+        }
+      }
+    ]
+  }
+}

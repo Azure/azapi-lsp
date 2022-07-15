@@ -16,6 +16,15 @@ func ExtractAzureResourceType(block *hclsyntax.Block) *string {
 	return ToLiteral(typeAttr.Expr)
 }
 
+func ExtractOperation(block *hclsyntax.Block) *string {
+	typeAttr := AttributeWithName(block, "operation")
+	if typeAttr == nil {
+		return nil
+	}
+
+	return ToLiteral(typeAttr.Expr)
+}
+
 func JsonEncodeExpressionToHclNode(data []byte, expression hclsyntax.Expression) *HclNode {
 	r, err := rangeOfJsonEncodeBody(expression)
 	if err != nil {

@@ -34,6 +34,12 @@ func GetAzureSchema() *Schema {
 			return nil
 		}
 	}
+	// preload the first definition
+	for _, resource := range schema.Resources {
+		if len(resource.Definitions) > 0 {
+			_, _ = resource.Definitions[0].GetDefinition()
+		}
+	}
 	return schema
 }
 
@@ -78,4 +84,43 @@ func GetResourceDefinition(resourceType, apiVersion string) (*types.ResourceType
 		}
 	}
 	return nil, fmt.Errorf("failed to find resource type %s api-version %s in azure schema index", resourceType, apiVersion)
+}
+
+func ListResourceFunctions(resourceType, apiVersion string) ([]FunctionDefinition, error) {
+	res := make([]FunctionDefinition, 0)
+	azureSchema := GetAzureSchema()
+	if azureSchema == nil {
+		return nil, fmt.Errorf("failed to load azure schema index")
+	}
+	for key, value := range azureSchema.Functions {
+		if strings.EqualFold(key, resourceType) {
+			for _, v := range value.Definitions {
+				if v.ApiVersion == apiVersion {
+					res = append(res, v)
+				}
+			}
+		}
+	}
+
+	return res, nil
+}
+
+func GetResourceFunction(resourceType, apiVersion, name string) (*types.ResourceFunctionType, error) {
+	azureSchema := GetAzureSchema()
+	if azureSchema == nil {
+		return nil, fmt.Errorf("failed to load azure schema index")
+	}
+	for key, value := range azureSchema.Functions {
+		if strings.EqualFold(key, resourceType) {
+			for _, v := range value.Definitions {
+				if v.ApiVersion == apiVersion {
+					def, err := v.GetDefinition()
+					if err == nil && def.Name == name {
+						return def, nil
+					}
+				}
+			}
+		}
+	}
+	return nil, nil
 }

@@ -2,8 +2,10 @@ package tfschema
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/Azure/azapi-lsp/internal/azure"
+	"github.com/Azure/azapi-lsp/internal/azure/types"
 	"github.com/Azure/azapi-lsp/internal/langserver/schema"
 	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
 	"github.com/Azure/azapi-lsp/internal/parser"
@@ -13,7 +15,6 @@ import (
 )
 
 func bodyCandidates(data []byte, filename string, block *hclsyntax.Block, attribute *hclsyntax.Attribute, pos hcl.Pos, property *Property) []lsp.CompletionItem {
-	candidateList := make([]lsp.CompletionItem, 0)
 	if attribute.Expr != nil {
 		if _, ok := attribute.Expr.(*hclsyntax.LiteralValueExpr); ok && parser.ToLiteral(attribute.Expr) == nil {
 			if property != nil {
@@ -21,15 +22,39 @@ func bodyCandidates(data []byte, filename string, block *hclsyntax.Block, attrib
 			}
 		}
 	}
+
 	typeValue := parser.ExtractAzureResourceType(block)
 	if typeValue == nil {
 		return nil
 	}
-	def, _ := azure.GetResourceDefinitionByResourceType(*typeValue)
-	if def == nil {
-		return nil
+	var bodyDef types.TypeBase
+	if len(block.Labels) >= 2 && block.Labels[0] == "azapi_operation" {
+		parts := strings.Split(*typeValue, "@")
+		if len(parts) != 2 {
+			return nil
+		}
+		operationName := parser.ExtractOperation(block)
+		if operationName == nil {
+			return nil
+		}
+		def, err := azure.GetResourceFunction(parts[0], parts[1], *operationName)
+		if err != nil || def == nil {
+			return nil
+		}
+		bodyDef = def
+	} else {
+		def, err := azure.GetResourceDefinitionByResourceType(*typeValue)
+		if err != nil || def == nil {
+			return nil
+		}
+		bodyDef = def
 	}
 
+	return buildCandidates(data, filename, attribute, pos, bodyDef)
+}
+
+func buildCandidates(data []byte, filename string, attribute *hclsyntax.Attribute, pos hcl.Pos, def types.TypeBase) []lsp.CompletionItem {
+	candidateList := make([]lsp.CompletionItem, 0)
 	hclNode := parser.JsonEncodeExpressionToHclNode(data, attribute.Expr)
 	if hclNode == nil {
 		return nil

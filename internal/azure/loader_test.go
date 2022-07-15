@@ -38,6 +38,28 @@ func Test_GetResourceDefinition(t *testing.T) {
 	}
 }
 
+func Test_ListResourceFunctions(t *testing.T) {
+	case1 := "Microsoft.MachineLearningServices/workspaces/computes"
+	functions, err := azure.ListResourceFunctions(case1, "2021-01-01")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(functions) == 0 {
+		t.Errorf("expect multiple functions but got 0 for Microsoft.MachineLearningServices/workspaces/computes")
+	}
+}
+
+func Test_GetResourceFunction(t *testing.T) {
+	case1 := "Microsoft.MachineLearningServices/workspaces/computes"
+	function, err := azure.GetResourceFunction(case1, "2021-01-01", "listNodes")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if function == nil {
+		t.Errorf("expect a valid function but got nil for Microsoft.MachineLearningServices/workspaces/computes@2021-01-01 listNodes")
+	}
+}
+
 func Test_AllBicepTypes(t *testing.T) {
 	schema := azure.GetAzureSchema()
 	if schema == nil {
