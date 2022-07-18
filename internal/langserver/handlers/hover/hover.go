@@ -57,26 +57,24 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 				}
 
 				var bodyDef types.TypeBase
+				def, err := azure.GetResourceDefinitionByResourceType(*typeValue)
+				if err != nil || def == nil {
+					return nil
+				}
+				bodyDef = def
 				if len(block.Labels) >= 2 && block.Labels[0] == "azapi_operation" {
 					parts := strings.Split(*typeValue, "@")
 					if len(parts) != 2 {
 						return nil
 					}
 					operationName := parser.ExtractOperation(block)
-					if operationName == nil {
-						return nil
+					if operationName != nil && len(*operationName) != 0 {
+						resourceFuncDef, err := azure.GetResourceFunction(parts[0], parts[1], *operationName)
+						if err != nil || resourceFuncDef == nil {
+							return nil
+						}
+						bodyDef = resourceFuncDef
 					}
-					def, err := azure.GetResourceFunction(parts[0], parts[1], *operationName)
-					if err != nil || def == nil {
-						return nil
-					}
-					bodyDef = def
-				} else {
-					def, err := azure.GetResourceDefinitionByResourceType(*typeValue)
-					if err != nil || def == nil {
-						return nil
-					}
-					bodyDef = def
 				}
 
 				hclNode := parser.JsonEncodeExpressionToHclNode(data, attribute.Expr)
