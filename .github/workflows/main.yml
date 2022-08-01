@@ -1,0 +1,17 @@
+name: Add all new issues to Terraform AzAPI provider project
+
+on:
+  issues:
+    types:
+      - opened
+      - transferred
+
+jobs:
+  add-to-project:
+    name: Add issue to project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@0.3.0
+        with:
+          project-url: https://github.com/orgs/Azure/projects/262
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
