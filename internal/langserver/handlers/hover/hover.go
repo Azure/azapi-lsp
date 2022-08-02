@@ -62,14 +62,14 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 					return nil
 				}
 				bodyDef = def
-				if len(block.Labels) >= 2 && block.Labels[0] == "azapi_operation" {
+				if len(block.Labels) >= 2 && block.Labels[0] == "azapi_action" {
 					parts := strings.Split(*typeValue, "@")
 					if len(parts) != 2 {
 						return nil
 					}
-					operationName := parser.ExtractOperation(block)
-					if operationName != nil && len(*operationName) != 0 {
-						resourceFuncDef, err := azure.GetResourceFunction(parts[0], parts[1], *operationName)
+					actionName := parser.ExtractAction(block)
+					if actionName != nil && len(*actionName) != 0 {
+						resourceFuncDef, err := azure.GetResourceFunction(parts[0], parts[1], *actionName)
 						if err != nil || resourceFuncDef == nil {
 							return nil
 						}

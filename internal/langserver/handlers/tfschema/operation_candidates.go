@@ -11,7 +11,7 @@ import (
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 )
 
-func operationCandidates(_ []byte, _ string, block *hclsyntax.Block, attribute *hclsyntax.Attribute, pos hcl.Pos, _ *Property) []lsp.CompletionItem {
+func actionCandidates(_ []byte, _ string, block *hclsyntax.Block, attribute *hclsyntax.Attribute, pos hcl.Pos, _ *Property) []lsp.CompletionItem {
 	typeValue := parser.ExtractAzureResourceType(block)
 	if typeValue == nil {
 		return nil

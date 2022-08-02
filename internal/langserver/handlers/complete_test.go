@@ -152,7 +152,7 @@ func TestCompletion_value(t *testing.T) {
 	}, string(expectRaw))
 }
 
-func TestCompletion_operation(t *testing.T) {
+func TestCompletion_action(t *testing.T) {
 	tmpDir := TempDir(t)
 	InitPluginCache(t, tmpDir.Dir())
 
@@ -193,7 +193,7 @@ func TestCompletion_operation(t *testing.T) {
 	}, string(expectRaw))
 }
 
-func TestCompletion_operationBody(t *testing.T) {
+func TestCompletion_actionBody(t *testing.T) {
 	tmpDir := TempDir(t)
 	InitPluginCache(t, tmpDir.Dir())
 
