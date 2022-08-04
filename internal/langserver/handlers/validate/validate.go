@@ -116,15 +116,7 @@ func Validate(hclNode *parser.HclNode, typeBase *types.TypeBase) hcl.Diagnostics
 	diags := make([]*hcl.Diagnostic, 0)
 	switch t := (*typeBase).(type) {
 	case *types.ArrayType:
-		if !hclNode.IsValueArray() {
-			summary := fmt.Sprintf("`%s`'s value `%s` is invalid, expect an array", hclNode.Key, *hclNode.Value)
-			if hclNode.Value != nil {
-				summary = fmt.Sprintf("`%s`'s value is invalid, expect an array", hclNode.Key)
-			}
-			diags = append(diags, newDiagnostic(summary, hclNode.ValueRange))
-			break
-		}
-		if t.ItemType == nil {
+		if !hclNode.IsValueArray() || t.ItemType == nil {
 			break
 		}
 		for _, child := range hclNode.Children {
@@ -132,11 +124,6 @@ func Validate(hclNode *parser.HclNode, typeBase *types.TypeBase) hcl.Diagnostics
 		}
 	case *types.DiscriminatedObjectType:
 		if !hclNode.IsValueMap() {
-			summary := fmt.Sprintf("`%s`'s value `%s` is invalid, expect an object", hclNode.Key, *hclNode.Value)
-			if hclNode.Value != nil {
-				summary = fmt.Sprintf("`%s`'s value is invalid, expect an object", hclNode.Key)
-			}
-			diags = append(diags, newDiagnostic(summary, hclNode.ValueRange))
 			break
 		}
 
@@ -203,11 +190,6 @@ func Validate(hclNode *parser.HclNode, typeBase *types.TypeBase) hcl.Diagnostics
 		}
 	case *types.ObjectType:
 		if !hclNode.IsValueMap() {
-			summary := fmt.Sprintf("`%s`'s value `%s` is invalid, expect an object", hclNode.Key, *hclNode.Value)
-			if hclNode.Value != nil {
-				summary = fmt.Sprintf("`%s`'s value is invalid, expect an object", hclNode.Key)
-			}
-			diags = append(diags, newDiagnostic(summary, hclNode.ValueRange))
 			break
 		}
 		// check properties defined in body, but not in schema
