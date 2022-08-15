@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 
 	lsctx "github.com/Azure/azapi-lsp/internal/context"
@@ -35,7 +35,7 @@ type service struct {
 	additionalHandlers map[string]rpch.Func
 }
 
-var discardLogs = log.New(ioutil.Discard, "", 0)
+var discardLogs = log.New(io.Discard, "", 0)
 
 func NewSession(srvCtx context.Context) session.Session {
 	fs := filesystem.NewFilesystem()

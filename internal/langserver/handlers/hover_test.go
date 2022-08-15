@@ -3,7 +3,6 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"testing"
 
 	"github.com/Azure/azapi-lsp/internal/langserver"
@@ -37,12 +36,12 @@ func TestHover_prop(t *testing.T) {
 	stop := ls.Start(t)
 	defer stop()
 
-	config, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	expectRaw, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -78,12 +77,12 @@ func TestHover_propInArray(t *testing.T) {
 	stop := ls.Start(t)
 	defer stop()
 
-	config, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	expectRaw, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}

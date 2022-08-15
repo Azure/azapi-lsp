@@ -2,7 +2,6 @@ package diagnostics
 
 import (
 	"context"
-	"io/ioutil"
 	"log"
 	"testing"
 
@@ -10,7 +9,7 @@ import (
 	"github.com/hashicorp/hcl/v2"
 )
 
-var discardLogger = log.New(ioutil.Discard, "", 0)
+var discardLogger = log.New(io.Discard, "", 0)
 
 func TestDiags_Closes(t *testing.T) {
 	n := NewNotifier(noopNotifier{}, discardLogger)
