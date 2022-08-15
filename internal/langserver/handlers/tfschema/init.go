@@ -258,7 +258,7 @@ func init() {
 			},
 		},
 		Resource{
-			Name: "resource.azapi_action",
+			Name: "resource.azapi_resource_action",
 			Properties: []Property{
 				{
 					Name:                "type",
@@ -315,7 +315,7 @@ func init() {
 			},
 		},
 		Resource{
-			Name: "data.azapi_action",
+			Name: "data.azapi_resource_action",
 			Properties: []Property{
 				{
 					Name:                "type",

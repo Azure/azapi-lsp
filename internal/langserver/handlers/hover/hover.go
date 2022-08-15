@@ -62,7 +62,7 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 					return nil
 				}
 				bodyDef = def
-				if len(block.Labels) >= 2 && block.Labels[0] == "azapi_action" {
+				if len(block.Labels) >= 2 && block.Labels[0] == "azapi_resource_action" {
 					parts := strings.Split(*typeValue, "@")
 					if len(parts) != 2 {
 						return nil
