@@ -2,6 +2,7 @@ package diagnostics
 
 import (
 	"context"
+	"io"
 	"log"
 	"testing"
 

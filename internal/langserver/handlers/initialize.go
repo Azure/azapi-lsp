@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/Azure/azapi-lsp/internal/azure"
-
 	lsctx "github.com/Azure/azapi-lsp/internal/context"
 	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
 	lsp "github.com/Azure/azapi-lsp/internal/protocol"

@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/Azure/azapi-lsp/internal/langserver"
@@ -188,7 +189,7 @@ func TestCompletion_action(t *testing.T) {
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method:    "textDocument/completion",
-		ReqParams: buildReqParamsCompletion(3, 15, tmpDir.URI()),
+		ReqParams: buildReqParamsCompletion(3, 12, tmpDir.URI()),
 	}, string(expectRaw))
 }
 
