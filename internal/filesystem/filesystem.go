@@ -3,8 +3,8 @@ package filesystem
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"io/fs"
-	"io/ioutil"
 	"log"
 	"os"
 	"sync"
@@ -29,7 +29,7 @@ func NewFilesystem() *fsystem {
 		osFs:      afero.NewReadOnlyFs(afero.NewOsFs()),
 		docMeta:   make(map[string]*documentMetadata),
 		docMetaMu: &sync.RWMutex{},
-		logger:    log.New(ioutil.Discard, "", 0),
+		logger:    log.New(io.Discard, "", 0),
 	}
 }
 

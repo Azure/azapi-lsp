@@ -258,7 +258,7 @@ func init() {
 			},
 		},
 		Resource{
-			Name: "resource.azapi_operation",
+			Name: "resource.azapi_resource_action",
 			Properties: []Property{
 				{
 					Name:                "type",
@@ -278,19 +278,19 @@ func init() {
 				},
 
 				{
-					Name:                  "operation",
+					Name:                  "action",
 					Modifier:              "Optional",
 					Type:                  "string",
-					Description:           "Specifies the name of the azure resource operation.",
-					CompletionNewText:     `operation = "$0"`,
-					GenericCandidatesFunc: operationCandidates,
+					Description:           "Specifies the name of the azure resource action.",
+					CompletionNewText:     `action = "$0"`,
+					GenericCandidatesFunc: actionCandidates,
 				},
 
 				{
 					Name:                "method",
 					Modifier:            "Optional",
 					Type:                "string",
-					Description:         "Specifies the Http method of the azure resource operation. Defaults to `POST`",
+					Description:         "Specifies the Http method of the azure resource action. Defaults to `POST`",
 					CompletionNewText:   `method = $0`,
 					ValueCandidatesFunc: resourceHttpMethodCandidates,
 				},
@@ -315,7 +315,7 @@ func init() {
 			},
 		},
 		Resource{
-			Name: "data.azapi_operation",
+			Name: "data.azapi_resource_action",
 			Properties: []Property{
 				{
 					Name:                "type",
@@ -335,19 +335,19 @@ func init() {
 				},
 
 				{
-					Name:                  "operation",
+					Name:                  "action",
 					Modifier:              "Optional",
 					Type:                  "string",
-					Description:           "Specifies the name of the azure resource operation.",
-					CompletionNewText:     `operation = "$0"`,
-					GenericCandidatesFunc: operationCandidates,
+					Description:           "Specifies the name of the azure resource action.",
+					CompletionNewText:     `action = "$0"`,
+					GenericCandidatesFunc: actionCandidates,
 				},
 
 				{
 					Name:                "method",
 					Modifier:            "Optional",
 					Type:                "string",
-					Description:         "Specifies the Http method of the azure resource operation. Defaults to `POST`",
+					Description:         "Specifies the Http method of the azure resource action. Defaults to `POST`",
 					CompletionNewText:   `method = $0`,
 					ValueCandidatesFunc: dataSourceHttpMethodCandidates,
 				},

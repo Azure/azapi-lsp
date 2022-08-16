@@ -2,12 +2,12 @@ package validate
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"testing"
 )
 
 func TestValidation_disabled(t *testing.T) {
-	config, err := ioutil.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -19,7 +19,7 @@ func TestValidation_disabled(t *testing.T) {
 }
 
 func TestValidation_whileTyping(t *testing.T) {
-	config, err := ioutil.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -31,7 +31,7 @@ func TestValidation_whileTyping(t *testing.T) {
 }
 
 func TestValidation_commaAfterArrayItem(t *testing.T) {
-	config, err := ioutil.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -43,7 +43,7 @@ func TestValidation_commaAfterArrayItem(t *testing.T) {
 }
 
 func TestValidation_missingRequiredProperty(t *testing.T) {
-	config, err := ioutil.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -55,7 +55,7 @@ func TestValidation_missingRequiredProperty(t *testing.T) {
 }
 
 func TestValidation_notExpectedProperty(t *testing.T) {
-	config, err := ioutil.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -67,7 +67,7 @@ func TestValidation_notExpectedProperty(t *testing.T) {
 }
 
 func TestValidation_update(t *testing.T) {
-	config, err := ioutil.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}

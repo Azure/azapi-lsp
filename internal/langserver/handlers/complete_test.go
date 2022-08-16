@@ -3,7 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"testing"
 
 	"github.com/Azure/azapi-lsp/internal/langserver"
@@ -37,12 +37,12 @@ func TestCompletion_apiVersion(t *testing.T) {
 	stop := ls.Start(t)
 	defer stop()
 
-	config, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	expectRaw, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -78,12 +78,12 @@ func TestCompletion_jsonencode(t *testing.T) {
 	stop := ls.Start(t)
 	defer stop()
 
-	config, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	expectRaw, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -119,12 +119,12 @@ func TestCompletion_value(t *testing.T) {
 	stop := ls.Start(t)
 	defer stop()
 
-	config, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	expectRaw, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -152,7 +152,7 @@ func TestCompletion_value(t *testing.T) {
 	}, string(expectRaw))
 }
 
-func TestCompletion_operation(t *testing.T) {
+func TestCompletion_action(t *testing.T) {
 	tmpDir := TempDir(t)
 	InitPluginCache(t, tmpDir.Dir())
 
@@ -160,12 +160,12 @@ func TestCompletion_operation(t *testing.T) {
 	stop := ls.Start(t)
 	defer stop()
 
-	config, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	expectRaw, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -189,11 +189,11 @@ func TestCompletion_operation(t *testing.T) {
 
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method:    "textDocument/completion",
-		ReqParams: buildReqParamsCompletion(3, 15, tmpDir.URI()),
+		ReqParams: buildReqParamsCompletion(3, 12, tmpDir.URI()),
 	}, string(expectRaw))
 }
 
-func TestCompletion_operationBody(t *testing.T) {
+func TestCompletion_actionBody(t *testing.T) {
 	tmpDir := TempDir(t)
 	InitPluginCache(t, tmpDir.Dir())
 
@@ -201,12 +201,12 @@ func TestCompletion_operationBody(t *testing.T) {
 	stop := ls.Start(t)
 	defer stop()
 
-	config, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	expectRaw, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -242,12 +242,12 @@ func TestCompletion_discriminated(t *testing.T) {
 	stop := ls.Start(t)
 	defer stop()
 
-	config, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	expectRaw, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -283,12 +283,12 @@ func TestCompletion_prop(t *testing.T) {
 	stop := ls.Start(t)
 	defer stop()
 
-	config, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	expectRaw, err := ioutil.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
 	if err != nil {
 		t.Fatal(err)
 	}

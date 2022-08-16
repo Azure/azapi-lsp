@@ -19,11 +19,11 @@
           "range": {
             "start": {
               "line": 2,
-              "character": 14
+              "character": 10
             },
             "end": {
               "line": 2,
-              "character": 14
+              "character": 11
             }
           },
           "newText": "\"listTestKeys\""
@@ -44,11 +44,11 @@
           "range": {
             "start": {
               "line": 2,
-              "character": 14
+              "character": 10
             },
             "end": {
               "line": 2,
-              "character": 14
+              "character": 11
             }
           },
           "newText": "\"regenerateTestKey\""
@@ -69,11 +69,11 @@
           "range": {
             "start": {
               "line": 2,
-              "character": 14
+              "character": 10
             },
             "end": {
               "line": 2,
-              "character": 14
+              "character": 11
             }
           },
           "newText": "\"disableTestEndpoint\""
@@ -94,11 +94,11 @@
           "range": {
             "start": {
               "line": 2,
-              "character": 14
+              "character": 10
             },
             "end": {
               "line": 2,
-              "character": 14
+              "character": 11
             }
           },
           "newText": "\"enableTestEndpoint\""
@@ -119,11 +119,11 @@
           "range": {
             "start": {
               "line": 2,
-              "character": 14
+              "character": 10
             },
             "end": {
               "line": 2,
-              "character": 14
+              "character": 11
             }
           },
           "newText": "\"stop\""
@@ -144,11 +144,11 @@
           "range": {
             "start": {
               "line": 2,
-              "character": 14
+              "character": 10
             },
             "end": {
               "line": 2,
-              "character": 14
+              "character": 11
             }
           },
           "newText": "\"start\""

@@ -2,7 +2,7 @@ package telemetry
 
 import (
 	"context"
-	"io/ioutil"
+	"io"
 	"log"
 )
 
@@ -14,7 +14,7 @@ func (t *NoopSender) log() *log.Logger { //nolint
 	if t.Logger != nil {
 		return t.Logger
 	}
-	return log.New(ioutil.Discard, "", 0)
+	return log.New(io.Discard, "", 0)
 }
 
 func (t *NoopSender) SendEvent(ctx context.Context, name string, properties map[string]interface{}) {}

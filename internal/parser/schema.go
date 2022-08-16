@@ -16,8 +16,8 @@ func ExtractAzureResourceType(block *hclsyntax.Block) *string {
 	return ToLiteral(typeAttr.Expr)
 }
 
-func ExtractOperation(block *hclsyntax.Block) *string {
-	typeAttr := AttributeWithName(block, "operation")
+func ExtractAction(block *hclsyntax.Block) *string {
+	typeAttr := AttributeWithName(block, "action")
 	if typeAttr == nil {
 		return nil
 	}

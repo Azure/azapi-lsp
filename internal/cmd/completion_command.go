@@ -3,7 +3,6 @@ package cmd
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -53,7 +52,7 @@ func (c *CompletionCommand) Run(args []string) int {
 		return 1
 	}
 
-	content, err := ioutil.ReadFile(path)
+	content, err := os.ReadFile(path)
 	if err != nil {
 		c.Ui.Error(fmt.Sprintf("reading file at %q failed: %s", path, err))
 		return 1

@@ -1,6 +1,6 @@
-resource "azapi_operation" "test" {
+resource "azapi_resource_action" "test" {
   type = "Microsoft.AppPlatform/Spring@2022-05-01-preview"
-  operation = "regenerateTestKey"
+  action = "regenerateTestKey"
   body = jsonencode({
 
   })
