@@ -6,8 +6,8 @@ import (
 	goversion "github.com/hashicorp/go-version"
 )
 
-// The main version number that is being run at the moment.
-var version = "0.6.0"
+// To set this from outside, use go build -ldflags "-X 'main.version=$(VERSION)'"
+var version string = "dev"
 
 // A pre-release marker for the version. If this is "" (empty string)
 // then it means that it is a final release. Otherwise, this is a pre-release
