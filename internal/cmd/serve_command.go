@@ -52,6 +52,7 @@ func (c *ServeCommand) flags() *flag.FlagSet {
 }
 
 func (c *ServeCommand) Run(args []string) int {
+	// #nosec G304
 	f := c.flags()
 	if err := f.Parse(args); err != nil {
 		c.Ui.Error(fmt.Sprintf("Error parsing command-line flags: %s", err))
@@ -127,6 +128,7 @@ func writeCpuProfileInto(rawPath string) (stopFunc, error) {
 		return nil, err
 	}
 
+	// #nosec G304
 	f, err := os.Create(path)
 	if err != nil {
 		return nil, fmt.Errorf("could not create CPU profile: %s", err)
@@ -148,10 +150,12 @@ func writeMemoryProfileInto(rawPath string) error {
 		return err
 	}
 
+	// #nosec G304
 	f, err := os.Create(path)
 	if err != nil {
 		return fmt.Errorf("could not create memory profile: %s", err)
 	}
+	// #nosec G307
 	defer f.Close()
 
 	runtime.GC()

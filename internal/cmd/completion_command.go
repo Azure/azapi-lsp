@@ -52,6 +52,7 @@ func (c *CompletionCommand) Run(args []string) int {
 		return 1
 	}
 
+	// #nosec G304
 	content, err := os.ReadFile(path)
 	if err != nil {
 		c.Ui.Error(fmt.Sprintf("reading file at %q failed: %s", path, err))
