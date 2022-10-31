@@ -66,12 +66,12 @@ func (c *CompletionCommand) Run(args []string) int {
 		c.Ui.Error(fmt.Sprintf("Error parsing at-pos argument: %q (expected line:col format)", c.atPos))
 		return 1
 	}
-	line, err := strconv.Atoi(parts[0])
+	line, err := strconv.ParseUint(parts[0], 10, 32)
 	if err != nil {
 		c.Ui.Error(fmt.Sprintf("Error parsing line: %s (expected number)", err))
 		return 1
 	}
-	col, err := strconv.Atoi(parts[1])
+	col, err := strconv.ParseUint(parts[1], 10, 32)
 	if err != nil {
 		c.Ui.Error(fmt.Sprintf("Error parsing column: %s (expected number)", err))
 		return 1
