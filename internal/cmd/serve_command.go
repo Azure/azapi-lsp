@@ -128,6 +128,7 @@ func writeCpuProfileInto(rawPath string) (stopFunc, error) {
 		return nil, err
 	}
 
+	// #nosec G304
 	f, err := os.Create(path)
 	if err != nil {
 		return nil, fmt.Errorf("could not create CPU profile: %s", err)
