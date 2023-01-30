@@ -1,3 +1,7 @@
+## v1.3.0
+ENHANCEMENTS:
+- Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/78ec1b99699a4bf44869bd13f1b0ed7d92a99c27
+
 ## v1.2.0
 ENHANCEMENTS:
 - Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/019b2d62fe84508582b8c54ce3d91c2b4840e624
