@@ -5,56 +5,6 @@
     "isIncomplete": false,
     "items": [
       {
-        "label": "\"listTestKeys\"",
-        "labelDetails": {},
-        "kind": 12,
-        "documentation": {
-          "kind": "markdown",
-          "value": "Value: `listTestKeys`  \n"
-        },
-        "sortText": "0listTestKeys",
-        "insertTextFormat": 1,
-        "insertTextMode": 2,
-        "textEdit": {
-          "range": {
-            "start": {
-              "line": 2,
-              "character": 10
-            },
-            "end": {
-              "line": 2,
-              "character": 11
-            }
-          },
-          "newText": "\"listTestKeys\""
-        }
-      },
-      {
-        "label": "\"regenerateTestKey\"",
-        "labelDetails": {},
-        "kind": 12,
-        "documentation": {
-          "kind": "markdown",
-          "value": "Value: `regenerateTestKey`  \n"
-        },
-        "sortText": "0regenerateTestKey",
-        "insertTextFormat": 1,
-        "insertTextMode": 2,
-        "textEdit": {
-          "range": {
-            "start": {
-              "line": 2,
-              "character": 10
-            },
-            "end": {
-              "line": 2,
-              "character": 11
-            }
-          },
-          "newText": "\"regenerateTestKey\""
-        }
-      },
-      {
         "label": "\"disableTestEndpoint\"",
         "labelDetails": {},
         "kind": 12,
@@ -105,14 +55,14 @@
         }
       },
       {
-        "label": "\"stop\"",
+        "label": "\"listTestKeys\"",
         "labelDetails": {},
         "kind": 12,
         "documentation": {
           "kind": "markdown",
-          "value": "Value: `stop`  \n"
+          "value": "Value: `listTestKeys`  \n"
         },
-        "sortText": "0stop",
+        "sortText": "0listTestKeys",
         "insertTextFormat": 1,
         "insertTextMode": 2,
         "textEdit": {
@@ -126,7 +76,32 @@
               "character": 11
             }
           },
-          "newText": "\"stop\""
+          "newText": "\"listTestKeys\""
+        }
+      },
+      {
+        "label": "\"regenerateTestKey\"",
+        "labelDetails": {},
+        "kind": 12,
+        "documentation": {
+          "kind": "markdown",
+          "value": "Value: `regenerateTestKey`  \n"
+        },
+        "sortText": "0regenerateTestKey",
+        "insertTextFormat": 1,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 10
+            },
+            "end": {
+              "line": 2,
+              "character": 11
+            }
+          },
+          "newText": "\"regenerateTestKey\""
         }
       },
       {
@@ -152,6 +127,31 @@
             }
           },
           "newText": "\"start\""
+        }
+      },
+      {
+        "label": "\"stop\"",
+        "labelDetails": {},
+        "kind": 12,
+        "documentation": {
+          "kind": "markdown",
+          "value": "Value: `stop`  \n"
+        },
+        "sortText": "0stop",
+        "insertTextFormat": 1,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 10
+            },
+            "end": {
+              "line": 2,
+              "character": 11
+            }
+          },
+          "newText": "\"stop\""
         }
       }
     ]

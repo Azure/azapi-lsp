@@ -10,11 +10,20 @@ import (
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 )
 
+type KeyValueFormat int
+
+const (
+	KeyEqualValue KeyValueFormat = iota
+	QuotedKeyEqualValue
+	QuotedKeyColonValue
+)
+
 type HclNode struct {
 	Children                         map[string]*HclNode
 	KeyRange, ValueRange, EqualRange hcl.Range
 	Value                            *string
 	Key                              string
+	KeyValueFormat                   KeyValueFormat
 }
 
 func (rm HclNode) GetRange() hcl.Range {
@@ -73,6 +82,7 @@ type State struct {
 	KeyRange, ValueRange, EqualRange hcl.Range
 	Index                            *int
 	ExpectKey                        bool
+	ExpectEqual                      bool
 }
 
 func (s State) GetCurrentKey() string {
@@ -90,12 +100,14 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 	stack := make([]State, 0)
 	stack = append(stack, State{
 		CurrentHclNode: &HclNode{
-			Children: make(map[string]*HclNode),
+			KeyValueFormat: KeyEqualValue,
+			Children:       make(map[string]*HclNode),
 		},
-		Key:       utils.String("dummy"),
-		Index:     nil,
-		Value:     nil,
-		ExpectKey: false,
+		Key:         utils.String("dummy"),
+		Index:       nil,
+		Value:       nil,
+		ExpectKey:   false,
+		ExpectEqual: false,
 	})
 
 	for _, token := range tokens {
@@ -108,16 +120,19 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 				log.Printf("[WARN] expect key but got {")
 			}
 			hclNode := &HclNode{
-				Key:        key,
-				KeyRange:   state.KeyRange,
-				ValueRange: token.Range,
-				EqualRange: state.EqualRange,
-				Children:   make(map[string]*HclNode),
+				Key:            key,
+				KeyRange:       state.KeyRange,
+				ValueRange:     token.Range,
+				EqualRange:     state.EqualRange,
+				Children:       make(map[string]*HclNode),
+				KeyValueFormat: stack[top].CurrentHclNode.KeyValueFormat,
 			}
 			stack[top].CurrentHclNode.Children[key] = hclNode
 			stack[top].ExpectKey = stack[top].Index == nil // if there's an index, then expect value because p = [{}]
+			stack[top].ExpectEqual = stack[top].ExpectKey
 			stack = append(stack, State{
 				ExpectKey:      true,
+				ExpectEqual:    true,
 				CurrentHclNode: hclNode,
 			})
 		case hclsyntax.TokenCBrace: // }
@@ -144,16 +159,19 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			}
 			key := state.GetCurrentKey()
 			hclNode := &HclNode{
-				Key:        key,
-				KeyRange:   state.KeyRange,
-				EqualRange: state.EqualRange,
-				ValueRange: token.Range,
-				Children:   make(map[string]*HclNode),
+				Key:            key,
+				KeyRange:       state.KeyRange,
+				EqualRange:     state.EqualRange,
+				ValueRange:     token.Range,
+				KeyValueFormat: state.CurrentHclNode.KeyValueFormat,
+				Children:       make(map[string]*HclNode),
 			}
 			stack[top].CurrentHclNode.Children[key] = hclNode
 			stack[top].ExpectKey = true
+			stack[top].ExpectEqual = stack[top].ExpectKey
 			stack = append(stack, State{
 				ExpectKey:      false,
+				ExpectEqual:    false,
 				Key:            state.Key,
 				Index:          utils.Int(0),
 				CurrentHclNode: hclNode,
@@ -175,33 +193,47 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			}
 			stack[top].CurrentHclNode.ValueRange = RangeOver(stack[top].CurrentHclNode.ValueRange, token.Range)
 			stack = stack[0:top]
+		case hclsyntax.TokenQuotedLit:
+			top := len(stack) - 1
+			if stack[top].ExpectKey {
+				foundKey(&stack[top], token)
+				stack[top].CurrentHclNode.KeyValueFormat = QuotedKeyEqualValue
+			} else {
+				updateStateValue(&stack[top], token)
+			}
 		case hclsyntax.TokenIdent:
 			top := len(stack) - 1
-			state := stack[top]
-			if state.ExpectKey {
-				stack[top].Key = utils.String(string(token.Bytes))
-				stack[top].KeyRange = token.Range
-				stack[top].Index = nil
-				stack[top].Value = nil
-				stack[top].ValueRange = hcl.Range{}
-				stack[top].EqualRange = hcl.Range{}
-				stack[top].ExpectKey = false
+			if stack[top].ExpectKey {
+				foundKey(&stack[top], token)
 			} else {
-				if stack[top].Value == nil {
-					stack[top].Value = utils.String(string(token.Bytes))
-				} else {
-					*stack[top].Value = *stack[top].Value + string(token.Bytes)
+				updateStateValue(&stack[top], token)
+			}
+		case hclsyntax.TokenColon: // :
+			top := len(stack) - 1
+			if stack[top].ExpectEqual {
+				if stack[top].ExpectKey {
+					log.Printf("[WARN] expect key but got =")
+					stack[top].ExpectKey = false
 				}
-				stack[top].ValueRange = RangeOver(stack[top].ValueRange, token.Range)
+
+				stack[top].CurrentHclNode.KeyValueFormat = QuotedKeyColonValue
+				stack[top].EqualRange = token.Range
+				stack[top].ExpectEqual = false
+			} else {
+				updateStateValue(&stack[top], token)
 			}
 		case hclsyntax.TokenEqual: // =
 			top := len(stack) - 1
-			state := stack[top]
-			if state.ExpectKey {
-				log.Printf("[WARN] expect key but got =")
-				stack[top].ExpectKey = false
+			if stack[top].ExpectEqual {
+				if stack[top].ExpectKey {
+					log.Printf("[WARN] expect key but got =")
+					stack[top].ExpectKey = false
+				}
+				stack[top].EqualRange = token.Range
+				stack[top].ExpectEqual = false
+			} else {
+				updateStateValue(&stack[top], token)
 			}
-			stack[top].EqualRange = token.Range
 		case hclsyntax.TokenNewline:
 			top := len(stack) - 1
 			state := stack[top]
@@ -218,6 +250,7 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 					stack[top].Key = nil
 					stack[top].Value = nil
 					stack[top].ExpectKey = true
+					stack[top].ExpectEqual = stack[top].ExpectKey
 				}
 			}
 		case hclsyntax.TokenComma:
@@ -260,19 +293,14 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 						stack[top].Key = nil
 						stack[top].Value = nil
 						stack[top].ExpectKey = true
+						stack[top].ExpectEqual = stack[top].ExpectKey
 					}
 				}
 			}
 		default:
 			top := len(stack) - 1
-			state := stack[top]
-			if !state.ExpectKey {
-				if stack[top].Value == nil {
-					stack[top].Value = utils.String(string(token.Bytes))
-				} else {
-					*stack[top].Value = *stack[top].Value + string(token.Bytes)
-				}
-				stack[top].ValueRange = RangeOver(stack[top].ValueRange, token.Range)
+			if !stack[top].ExpectEqual {
+				updateStateValue(&stack[top], token)
 			}
 		}
 	}
@@ -285,6 +313,26 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 	updateValueRange(root)
 	fixEmptyValueRange(root)
 	return root
+}
+
+func foundKey(st *State, token hclsyntax.Token) {
+	st.Key = utils.String(string(token.Bytes))
+	st.KeyRange = token.Range
+	st.Index = nil
+	st.Value = nil
+	st.ValueRange = hcl.Range{}
+	st.EqualRange = hcl.Range{}
+	st.ExpectKey = false
+}
+
+func updateStateValue(st *State, token hclsyntax.Token) {
+	if st.Value == nil {
+		st.Value = utils.String(string(token.Bytes))
+	} else {
+		*st.Value = *st.Value + string(token.Bytes)
+	}
+
+	st.ValueRange = RangeOver(st.ValueRange, token.Range)
 }
 
 func updateValueRange(hclNode *HclNode) {

@@ -6,31 +6,6 @@
     "isIncomplete": false,
     "items": [
       {
-        "label": "\"Microsoft.DataFactory/factories@2017-09-01-preview\"",
-        "labelDetails": {},
-        "kind": 12,
-        "documentation": {
-          "kind": "markdown",
-          "value": "Type: `Microsoft.DataFactory/factories`  \nAPI Version: `2017-09-01-preview`"
-        },
-        "sortText": "0002",
-        "insertTextFormat": 1,
-        "insertTextMode": 2,
-        "textEdit": {
-          "range": {
-            "start": {
-              "line": 3,
-              "character": 9
-            },
-            "end": {
-              "line": 3,
-              "character": 43
-            }
-          },
-          "newText": "\"Microsoft.DataFactory/factories@2017-09-01-preview\""
-        }
-      },
-      {
         "label": "\"Microsoft.DataFactory/factories@2018-06-01\"",
         "labelDetails": {},
         "kind": 12,
@@ -53,6 +28,31 @@
             }
           },
           "newText": "\"Microsoft.DataFactory/factories@2018-06-01\""
+        }
+      },
+      {
+        "label": "\"Microsoft.DataFactory/factories@2017-09-01-preview\"",
+        "labelDetails": {},
+        "kind": 12,
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `Microsoft.DataFactory/factories`  \nAPI Version: `2017-09-01-preview`"
+        },
+        "sortText": "0002",
+        "insertTextFormat": 1,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 3,
+              "character": 9
+            },
+            "end": {
+              "line": 3,
+              "character": 43
+            }
+          },
+          "newText": "\"Microsoft.DataFactory/factories@2017-09-01-preview\""
         }
       }
     ]

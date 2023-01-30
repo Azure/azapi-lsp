@@ -76,7 +76,7 @@ func buildCandidates(data []byte, filename string, attribute *hclsyntax.Attribut
 			keys = ignorePulledOutProperties(keys)
 		}
 		editRange := ilsp.HCLRangeToLSP(lastHclNode.KeyRange)
-		candidateList = keyCandidates(keys, editRange)
+		candidateList = keyCandidates(keys, editRange, lastHclNode)
 	case !lastHclNode.KeyRange.Empty() && !lastHclNode.EqualRange.Empty() && lastHclNode.Children == nil:
 		// input property =
 		defs := schema.GetDef(def.AsTypeBase(), hclNodes, 0)
@@ -100,7 +100,7 @@ func buildCandidates(data []byte, filename string, attribute *hclsyntax.Attribut
 			keys = ignorePulledOutProperties(keys)
 		}
 		editRange := ilsp.HCLRangeToLSP(hcl.Range{Start: pos, End: pos, Filename: filename})
-		candidateList = keyCandidates(keys, editRange)
+		candidateList = keyCandidates(keys, editRange, lastHclNode)
 
 		if len(lastHclNode.Children) == 0 {
 			propertySets := make([]schema.PropertySet, 0)
@@ -113,7 +113,7 @@ func buildCandidates(data []byte, filename string, attribute *hclsyntax.Attribut
 					propertySets[i].Properties = ignorePulledOutPropertiesFromPropertySet(ps.Properties)
 				}
 			}
-			candidateList = append(candidateList, requiredPropertiesCandidates(propertySets, editRange)...)
+			candidateList = append(candidateList, requiredPropertiesCandidates(propertySets, editRange, lastHclNode)...)
 		}
 	}
 	return candidateList
@@ -153,7 +153,7 @@ func isPropertyPulledOut(p schema.Property) bool {
 	return p.Name == "name" || p.Name == "location" || p.Name == "identity" || p.Name == "tags"
 }
 
-func keyCandidates(props []schema.Property, r lsp.Range) []lsp.CompletionItem {
+func keyCandidates(props []schema.Property, r lsp.Range, parentNode *parser.HclNode) []lsp.CompletionItem {
 	candidates := make([]lsp.CompletionItem, 0)
 	propSet := make(map[string]bool)
 	for _, prop := range props {
@@ -167,15 +167,23 @@ func keyCandidates(props []schema.Property, r lsp.Range) []lsp.CompletionItem {
 		if prop.Modifier == schema.Required {
 			sortText = fmt.Sprintf("0%s", content)
 		}
+
+		keyPart := fmt.Sprintf(`%s =`, content)
+		if parentNode.KeyValueFormat == parser.QuotedKeyEqualValue {
+			keyPart = fmt.Sprintf(`"%s" =`, content)
+		} else if parentNode.KeyValueFormat == parser.QuotedKeyColonValue {
+			keyPart = fmt.Sprintf(`"%s":`, content)
+		}
+
 		switch prop.Type {
 		case "string":
-			newText = fmt.Sprintf(`%s = "$0"`, content)
+			newText = fmt.Sprintf(`%s "$0"`, keyPart)
 		case "array":
-			newText = fmt.Sprintf(`%s = [$0]`, content)
+			newText = fmt.Sprintf(`%s [$0]`, keyPart)
 		case "object":
-			newText = fmt.Sprintf("%s = {\n\t$0\n}", content)
+			newText = fmt.Sprintf("%s {\n\t$0\n}", keyPart)
 		default:
-			newText = fmt.Sprintf(`%s = $0`, content)
+			newText = fmt.Sprintf(`%s $0`, keyPart)
 		}
 		candidates = append(candidates, lsp.CompletionItem{
 			Label:  content,
@@ -198,7 +206,7 @@ func keyCandidates(props []schema.Property, r lsp.Range) []lsp.CompletionItem {
 	return candidates
 }
 
-func requiredPropertiesCandidates(propertySets []schema.PropertySet, r lsp.Range) []lsp.CompletionItem {
+func requiredPropertiesCandidates(propertySets []schema.PropertySet, r lsp.Range, parentNode *parser.HclNode) []lsp.CompletionItem {
 	candidates := make([]lsp.CompletionItem, 0)
 	for _, ps := range propertySets {
 		if len(ps.Properties) == 0 {
@@ -218,18 +226,25 @@ func requiredPropertiesCandidates(propertySets []schema.PropertySet, r lsp.Range
 		newText := ""
 		index := 1
 		for _, prop := range props {
+			keyPart := fmt.Sprintf(`%s =`, prop.Name)
+			if parentNode.KeyValueFormat == parser.QuotedKeyEqualValue {
+				keyPart = fmt.Sprintf(`"%s" =`, prop.Name)
+			} else if parentNode.KeyValueFormat == parser.QuotedKeyColonValue {
+				keyPart = fmt.Sprintf(`"%s":`, prop.Name)
+			}
+
 			if len(prop.Value) != 0 {
-				newText += fmt.Sprintf("%s = \"%s\"\n", prop.Name, prop.Value)
+				newText += fmt.Sprintf("%s \"%s\"\n", keyPart, prop.Value)
 			} else {
 				switch prop.Type {
 				case "string":
-					newText += fmt.Sprintf(`%s = "$%d"`, prop.Name, index)
+					newText += fmt.Sprintf(`%s "$%d"`, keyPart, index)
 				case "array":
-					newText += fmt.Sprintf(`%s = [$%d]`, prop.Name, index)
+					newText += fmt.Sprintf(`%s [$%d]`, keyPart, index)
 				case "object":
-					newText += fmt.Sprintf("%s = {\n\t$%d\n}", prop.Name, index)
+					newText += fmt.Sprintf("%s {\n\t$%d\n}", keyPart, index)
 				default:
-					newText += fmt.Sprintf(`%s = $%d`, prop.Name, index)
+					newText += fmt.Sprintf(`%s $%d`, keyPart, index)
 				}
 				newText += "\n"
 				index++
