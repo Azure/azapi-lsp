@@ -3,6 +3,7 @@ package complete
 import (
 	"fmt"
 	"log"
+	"sort"
 	"strings"
 
 	"github.com/Azure/azapi-lsp/internal/langserver/handlers/tfschema"
@@ -64,6 +65,8 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 			}
 		}
 	}
+
+	sort.Slice(candidateList, func(i, j int) bool { return candidateList[i].SortText < candidateList[j].SortText })
 	return candidateList
 }
 

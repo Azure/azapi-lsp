@@ -5,36 +5,6 @@
     "isIncomplete": false,
     "items": [
       {
-        "label": "keyType",
-        "labelDetails": {},
-        "kind": 10,
-        "detail": "keyType (Required)",
-        "documentation": {
-          "kind": "markdown",
-          "value": "Type: `string`  \nType of the test key\n"
-        },
-        "sortText": "0keyType",
-        "insertTextFormat": 2,
-        "insertTextMode": 2,
-        "textEdit": {
-          "range": {
-            "start": {
-              "line": 4,
-              "character": 4
-            },
-            "end": {
-              "line": 4,
-              "character": 4
-            }
-          },
-          "newText": "keyType = \"$0\""
-        },
-        "command": {
-          "title": "Suggest",
-          "command": "editor.action.triggerSuggest"
-        }
-      },
-      {
         "label": "required-properties",
         "labelDetails": {},
         "kind": 15,
@@ -58,6 +28,36 @@
             }
           },
           "newText": "keyType = \"$1\"\n"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "keyType",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "keyType (Required)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `string`  \nType of the test key\n"
+        },
+        "sortText": "0keyType",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 4,
+              "character": 4
+            },
+            "end": {
+              "line": 4,
+              "character": 4
+            }
+          },
+          "newText": "keyType = \"$0\""
         },
         "command": {
           "title": "Suggest",

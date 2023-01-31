@@ -30,31 +30,6 @@
         }
       },
       {
-        "label": "\"UserAssigned\"",
-        "labelDetails": {},
-        "kind": 12,
-        "documentation": {
-          "kind": "markdown",
-          "value": "Value: `UserAssigned`  \n"
-        },
-        "sortText": "0UserAssigned",
-        "insertTextFormat": 1,
-        "insertTextMode": 2,
-        "textEdit": {
-          "range": {
-            "start": {
-              "line": 6,
-              "character": 13
-            },
-            "end": {
-              "line": 6,
-              "character": 15
-            }
-          },
-          "newText": "\"UserAssigned\""
-        }
-      },
-      {
         "label": "\"SystemAssigned,UserAssigned\"",
         "labelDetails": {},
         "kind": 12,
@@ -77,6 +52,31 @@
             }
           },
           "newText": "\"SystemAssigned,UserAssigned\""
+        }
+      },
+      {
+        "label": "\"UserAssigned\"",
+        "labelDetails": {},
+        "kind": 12,
+        "documentation": {
+          "kind": "markdown",
+          "value": "Value: `UserAssigned`  \n"
+        },
+        "sortText": "0UserAssigned",
+        "insertTextFormat": 1,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 6,
+              "character": 13
+            },
+            "end": {
+              "line": 6,
+              "character": 15
+            }
+          },
+          "newText": "\"UserAssigned\""
         }
       }
     ]

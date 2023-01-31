@@ -5,15 +5,15 @@
     "isIncomplete": false,
     "items": [
       {
-        "label": "description",
+        "label": "type",
         "labelDetails": {},
         "kind": 10,
-        "detail": "description (Optional)",
+        "detail": "type (Required)",
         "documentation": {
           "kind": "markdown",
-          "value": "Type: `string`  \nThe description of the data flow.\n"
+          "value": "Type: `string`  \nType of data flow.\n"
         },
-        "sortText": "1description",
+        "sortText": "0type",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -27,7 +27,7 @@
               "character": 6
             }
           },
-          "newText": "description = \"$0\""
+          "newText": "type = \"$0\""
         },
         "command": {
           "title": "Suggest",
@@ -58,6 +58,36 @@
             }
           },
           "newText": "annotations = [$0]"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "description",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "description (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `string`  \nThe description of the data flow.\n"
+        },
+        "sortText": "1description",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 10,
+              "character": 6
+            },
+            "end": {
+              "line": 10,
+              "character": 6
+            }
+          },
+          "newText": "description = \"$0\""
         },
         "command": {
           "title": "Suggest",
@@ -118,36 +148,6 @@
             }
           },
           "newText": "typeProperties = {\n\t$0\n}"
-        },
-        "command": {
-          "title": "Suggest",
-          "command": "editor.action.triggerSuggest"
-        }
-      },
-      {
-        "label": "type",
-        "labelDetails": {},
-        "kind": 10,
-        "detail": "type (Required)",
-        "documentation": {
-          "kind": "markdown",
-          "value": "Type: `string`  \nType of data flow.\n"
-        },
-        "sortText": "0type",
-        "insertTextFormat": 2,
-        "insertTextMode": 2,
-        "textEdit": {
-          "range": {
-            "start": {
-              "line": 10,
-              "character": 6
-            },
-            "end": {
-              "line": 10,
-              "character": 6
-            }
-          },
-          "newText": "type = \"$0\""
         },
         "command": {
           "title": "Suggest",
