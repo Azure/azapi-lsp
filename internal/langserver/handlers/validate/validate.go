@@ -91,6 +91,14 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 	}
 	if dummy, ok := hclNode.Children["dummy"]; ok {
 		dummy.KeyRange = attribute.NameRange
+		if nameAttribute := parser.AttributeWithName(block, "name"); nameAttribute != nil {
+			dummy.Children["name"] = &parser.HclNode{
+				Value:      parser.ToLiteral(attribute.Expr),
+				Key:        "name",
+				KeyRange:   nameAttribute.NameRange,
+				ValueRange: nameAttribute.Expr.Range(),
+			}
+		}
 		diags := Validate(dummy, bodyDef.AsTypeBase())
 		// update resource doesn't need to check on required properties
 		if block.Labels[0] == "azapi_update_resource" {
