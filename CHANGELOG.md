@@ -1,5 +1,6 @@
 ## v1.4.0 (unreleased)
 ENHANCEMENTS:
+- Support syntax which keys are wrapped by quotes.
 
 BUG FIXES:
 - Fix a bug that schema validation requires redundant `name` fields both in resource and in body.
