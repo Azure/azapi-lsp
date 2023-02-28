@@ -1,6 +1,7 @@
-## v1.4.0 (unreleased)
+## v1.4.0
 ENHANCEMENTS:
 - Support syntax which keys are wrapped by quotes.
+- Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/a915acab5788d890aed774ec818535b44311d16d
 
 BUG FIXES:
 - Fix a bug that schema validation requires redundant `name` fields both in resource and in body.
