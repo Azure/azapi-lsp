@@ -1,3 +1,7 @@
+## v1.5.0
+ENHANCEMENTS:
+- Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/b8626aecc5f47b70086580956adfcd1e267a49e6
+
 ## v1.4.0
 ENHANCEMENTS:
 - Support syntax which keys are wrapped by quotes.
