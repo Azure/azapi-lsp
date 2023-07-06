@@ -93,7 +93,7 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 		dummy.KeyRange = attribute.NameRange
 		if nameAttribute := parser.AttributeWithName(block, "name"); nameAttribute != nil {
 			dummy.Children["name"] = &parser.HclNode{
-				Value:      parser.ToLiteral(attribute.Expr),
+				Value:      parser.ToLiteral(nameAttribute.Expr),
 				Key:        "name",
 				KeyRange:   nameAttribute.NameRange,
 				ValueRange: nameAttribute.Expr.Range(),
