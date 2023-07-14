@@ -128,8 +128,16 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 				KeyValueFormat: stack[top].CurrentHclNode.KeyValueFormat,
 			}
 			stack[top].CurrentHclNode.Children[key] = hclNode
-			stack[top].ExpectKey = stack[top].Index == nil // if there's an index, then expect value because p = [{}]
-			stack[top].ExpectEqual = stack[top].ExpectKey
+			if stack[top].Index == nil {
+				stack[top].ExpectKey = true
+				stack[top].ExpectEqual = true
+			} else {
+				// if there's an index, then expect value because p = [{}]
+				stack[top].ExpectKey = false
+				stack[top].ExpectEqual = false
+				// the hclNode is an object in an array, so use the range of "{" as the key range
+				hclNode.KeyRange = token.Range
+			}
 			stack = append(stack, State{
 				ExpectKey:      true,
 				ExpectEqual:    true,
@@ -157,6 +165,10 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			if state.ExpectKey {
 				log.Printf("[WARN] expect key but got [")
 			}
+			if state.Value != nil && *state.Value != "" {
+				updateStateValue(&stack[top], token)
+				break
+			}
 			key := state.GetCurrentKey()
 			hclNode := &HclNode{
 				Key:            key,
@@ -179,6 +191,10 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 		case hclsyntax.TokenCBrack: // ]
 			top := len(stack) - 1
 			state := stack[top]
+			if state.Value != nil && *state.Value != "" && strings.Contains(*state.Value, "[") {
+				updateStateValue(&stack[top], token)
+				break
+			}
 			if _, ok := state.CurrentHclNode.Children[state.GetCurrentKey()]; !ok {
 				log.Printf("[WARN] expect value but got }")
 				// avoid adding an empty element
