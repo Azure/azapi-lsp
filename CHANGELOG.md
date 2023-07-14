@@ -2,6 +2,8 @@
 
 BUG FIXES:
 - Fix a bug that field `name`'s value is not parsed correctly when validate schema.
+- Fix a bug that missing required properties in array item is not reported properly.
+- Fix a bug that using brackets in value is not parsed correctly.
 
 ## v1.7.0
 ENHANCEMENTS:
