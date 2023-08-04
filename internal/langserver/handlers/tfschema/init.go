@@ -371,5 +371,34 @@ func init() {
 				},
 			},
 		},
+		Resource{
+			Name: "data.azapi_resource_list",
+			Properties: []Property{
+				{
+					Name:                "type",
+					Modifier:            "Required",
+					Type:                "string <resource-type>@<api-version>",
+					Description:         "Azure Resource Manager type.",
+					CompletionNewText:   `type = "$0"`,
+					ValueCandidatesFunc: dataSourceTypeCandidates,
+				},
+
+				{
+					Name:              "parent_id",
+					Modifier:          "Required",
+					Type:              "string",
+					Description:       "The parent resource ID to list resources under.",
+					CompletionNewText: `parent_id = $0`,
+				},
+
+				{
+					Name:              "response_export_values",
+					Modifier:          "Optional",
+					Type:              "list<string>",
+					Description:       "A list of path that needs to be exported from response body.",
+					CompletionNewText: `response_export_values = [$0]`,
+				},
+			},
+		},
 	)
 }
