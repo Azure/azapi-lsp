@@ -400,5 +400,42 @@ func init() {
 				},
 			},
 		},
+		Resource{
+			Name: "data.azapi_resource_id",
+			Properties: []Property{
+				{
+					Name:                "type",
+					Modifier:            "Required",
+					Type:                "string <resource-type>@<api-version>",
+					Description:         "Azure Resource Manager type.",
+					CompletionNewText:   `type = "$0"`,
+					ValueCandidatesFunc: dataSourceTypeCandidates,
+				},
+
+				{
+					Name:              "name",
+					Modifier:          "Optional",
+					Type:              "string",
+					Description:       "Specifies the name of the azure resource.\n\nConfiguring `name` and `parent_id` is an alternative way to configure `resource_id`.",
+					CompletionNewText: `name = "$0"`,
+				},
+
+				{
+					Name:              "parent_id",
+					Modifier:          "Optional",
+					Type:              "string",
+					Description:       "The ID of the azure resource in which this resource is created.\n\nConfiguring `name` and `parent_id` is an alternative way to configure `resource_id`.",
+					CompletionNewText: `parent_id = $0`,
+				},
+
+				{
+					Name:              "resource_id",
+					Modifier:          "Optional",
+					Type:              "string",
+					Description:       "The ID of an existing azure source.\n\nConfiguring `name` and `parent_id` is an alternative way to configure `resource_id`.",
+					CompletionNewText: `resource_id = $0`,
+				},
+			},
+		},
 	)
 }
