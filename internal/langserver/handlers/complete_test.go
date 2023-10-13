@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/Azure/azapi-lsp/internal/langserver"
@@ -354,6 +355,49 @@ func TestCompletion_prop(t *testing.T) {
 	ls.CallAndExpectResponse(t, &langserver.CallRequest{
 		Method:    "textDocument/completion",
 		ReqParams: buildReqParamsCompletion(12, 11, tmpDir.URI()),
+	}, string(expectRaw))
+}
+
+func TestCompletion_codeSample(t *testing.T) {
+	tmpDir := TempDir(t)
+	InitPluginCache(t, tmpDir.Dir())
+
+	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
+	stop := ls.Start(t)
+	defer stop()
+
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+	expectRaw = []byte(strings.ReplaceAll(string(expectRaw), "<", "\\u003c"))
+	expectRaw = []byte(strings.ReplaceAll(string(expectRaw), ">", "\\u003e"))
+
+	ls.Call(t, &langserver.CallRequest{
+		Method: "initialize",
+		ReqParams: fmt.Sprintf(`{
+		"capabilities": {},
+		"rootUri": %q,
+		"processId": 12345
+	}`, tmpDir.URI()),
+	})
+	ls.Notify(t, &langserver.CallRequest{
+		Method:    "initialized",
+		ReqParams: "{}",
+	})
+	ls.Call(t, &langserver.CallRequest{
+		Method:    "textDocument/didOpen",
+		ReqParams: buildReqParamsTextDocument(string(config), tmpDir.URI()),
+	})
+
+	ls.CallAndExpectResponse(t, &langserver.CallRequest{
+		Method:    "textDocument/completion",
+		ReqParams: buildReqParamsCompletion(3, 3, tmpDir.URI()),
 	}, string(expectRaw))
 }
 

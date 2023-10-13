@@ -1,0 +1,395 @@
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "result": {
+    "isIncomplete": false,
+    "items": [
+      {
+        "label": "code sample",
+        "labelDetails": {},
+        "kind": 15,
+        "detail": "Code Sample",
+        "documentation": {
+          "kind": "markdown",
+          "value": "```\nparent_id = ${1:\"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource\"}\nname      = ${2:\"The name of the resource\"}\nlocation  = ${3:\"location\"}\nbody = jsonencode({\n    properties = {\n      internet = \"Disabled\"\n      managementCluster = {\n        clusterSize = 3\n      }\n      networkBlock = \"192.168.48.0/22\"\n    }\n    sku = {\n      name = \"av36\"\n    }\n  })\nschema_validation_enabled = false\nresponse_export_values    = [\"*\"]\n\n```\n"
+        },
+        "sortText": "0",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "parent_id = ${1:\"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource\"}\nname      = ${2:\"The name of the resource\"}\nlocation  = ${3:\"location\"}\nbody = jsonencode({\n    properties = {\n      internet = \"Disabled\"\n      managementCluster = {\n        clusterSize = 3\n      }\n      networkBlock = \"192.168.48.0/22\"\n    }\n    sku = {\n      name = \"av36\"\n    }\n  })\nschema_validation_enabled = false\nresponse_export_values    = [\"*\"]\n"
+        }
+      },
+      {
+        "label": "type",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "type (Required)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `string <resource-type>@<api-version>`  \nAzure Resource Manager type.\n"
+        },
+        "sortText": "0000",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "type = \"$0\""
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "name",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "name (Required)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `string`  \nSpecifies the name of the azure resource. Changing this forces a new resource to be created.\n"
+        },
+        "sortText": "0001",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "name = \"$0\""
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "parent_id",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "parent_id (Required)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `string`  \nThe ID of the azure resource in which this resource is created. Changing this forces a new resource to be created.\n"
+        },
+        "sortText": "0002",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "parent_id = $0"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "location",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "location (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `string`  \nThe Azure Region where the azure resource should exist.\n"
+        },
+        "sortText": "0003",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "location = \"$0\""
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "identity",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "identity (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `block`  \nManaged identities which should be assigned to the azure resource.\n"
+        },
+        "sortText": "0004",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "identity {\n\ttype = \"$1\"\n\tidentity_ids = [$2]\n}\n"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "body",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "body (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `string <JSON>`  \nA JSON object that contains the request body used to create and update azure resource.\n"
+        },
+        "sortText": "0005",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "body = $0"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "tags",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "tags (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `map<string, string>`  \nA mapping of tags which should be assigned to the azure resource.\n"
+        },
+        "sortText": "0006",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "tags = $0"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "response_export_values",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "response_export_values (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `list<string>`  \nA list of path that needs to be exported from response body.\n"
+        },
+        "sortText": "0007",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "response_export_values = [$0]"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "schema_validation_enabled",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "schema_validation_enabled (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `bool`  \nWhether enabled the validation on `type` and `body` with embedded schema. Defaults to `true`.\n"
+        },
+        "sortText": "0008",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "schema_validation_enabled = $0"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "locks",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "locks (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `list<string>`  \nA list of ARM resource IDs which are used to avoid create/modify/delete azapi resources at the same time.\n"
+        },
+        "sortText": "0009",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "locks = [$0]"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "ignore_casing",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "ignore_casing (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `bool`  \nWhether ignore incorrect casing returned in `body` to suppress plan-diff. Defaults to `false`.\n"
+        },
+        "sortText": "0010",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "ignore_casing = $0"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
+        "label": "ignore_missing_property",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "ignore_missing_property (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `bool`  \nWhether ignore not returned properties like credentials in `body` to suppress plan-diff. Defaults to `false`.\n"
+        },
+        "sortText": "0011",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "ignore_missing_property = $0"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      }
+    ]
+  }
+}

@@ -1,11 +1,11 @@
 module github.com/Azure/azapi-lsp
 
-go 1.17
+go 1.20
 
 require (
 	github.com/apparentlymart/go-textseg v1.0.0
 	github.com/creachadair/jrpc2 v0.32.0
-	github.com/google/go-cmp v0.5.6
+	github.com/google/go-cmp v0.5.8
 	github.com/hashicorp/go-version v1.3.0
 	github.com/hashicorp/hcl-lang v0.0.0-20211123142056-191cd51dec5b
 	github.com/hashicorp/hcl/v2 v2.10.1
@@ -13,6 +13,7 @@ require (
 	github.com/mitchellh/cli v1.1.2
 	github.com/spf13/afero v1.6.0
 	github.com/zclconf/go-cty v1.10.0
+	golang.org/x/exp v0.0.0-20231006140011-7918f672742d
 )
 
 require (
@@ -43,6 +44,6 @@ require (
 	golang.org/x/crypto v0.0.0-20210421170649-83a5a9bb288b // indirect
 	golang.org/x/net v0.0.0-20210805182204-aaa1db679c0d // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e // indirect
+	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.3.6 // indirect
 )

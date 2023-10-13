@@ -1,3 +1,7 @@
+## v1.10.0 (unreleased)
+FEATURES:
+- Support auto-completion with verified examples.
+
 ## v1.9.0
 FEATURES:
 - **New Data Source**: azapi_resource_list

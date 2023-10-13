@@ -6,6 +6,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/Azure/azapi-lsp/internal/langserver/handlers/snippets"
 	"github.com/Azure/azapi-lsp/internal/langserver/handlers/tfschema"
 	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
 	"github.com/Azure/azapi-lsp/internal/parser"
@@ -62,6 +63,7 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 				}
 				editRange.Start.Character = 2
 				candidateList = append(candidateList, tfschema.PropertiesCandidates(resource.Properties, editRange)...)
+				candidateList = append(candidateList, snippets.CodeSampleCandidates(block, editRange)...)
 			}
 		}
 	}
