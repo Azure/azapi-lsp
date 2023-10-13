@@ -3,11 +3,11 @@ package snippets
 import (
 	"fmt"
 	"os"
-	"slices"
 	"strings"
 
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
+	"golang.org/x/exp/slices"
 )
 
 func parseSnippet(filepath string) (*Snippet, error) {
