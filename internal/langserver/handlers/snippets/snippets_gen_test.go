@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"os"
 	"path"
-	"slices"
 	"strings"
 	"testing"
+
+	"golang.org/x/exp/slices"
 )
 
 func Test_SnippetGen(t *testing.T) {
