@@ -1,6 +1,6 @@
 module github.com/Azure/azapi-lsp
 
-go 1.17
+go 1.20
 
 require (
 	github.com/apparentlymart/go-textseg v1.0.0
