@@ -11,6 +11,7 @@ import (
 )
 
 func parseSnippet(filepath string) (*Snippet, error) {
+	// #nosec G304
 	data, err := os.ReadFile(filepath)
 	if err != nil {
 		return nil, err
