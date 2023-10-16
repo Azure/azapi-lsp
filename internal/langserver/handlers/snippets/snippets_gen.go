@@ -121,9 +121,9 @@ func placeholderContent(content string, typeMap map[string]string) string {
 		if lastPart == "resource_name" {
 			return "The name of the resource"
 		}
-		return fmt.Sprintf("%s", lastPart)
+		return lastPart
 	case "local":
-		return fmt.Sprintf("%s", lastPart)
+		return lastPart
 	case "data":
 		addr := strings.Join(parts[:len(parts)-1], ".")
 		if typeValue, ok := typeMap[addr]; ok {
