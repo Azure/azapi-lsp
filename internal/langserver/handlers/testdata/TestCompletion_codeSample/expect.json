@@ -11,7 +11,7 @@
         "detail": "Code Sample",
         "documentation": {
           "kind": "markdown",
-          "value": "```\nparent_id = ${1:\"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource\"}\nname      = ${2:\"The name of the resource\"}\nlocation  = ${3:\"location\"}\nbody = jsonencode({\n    properties = {\n      internet = \"Disabled\"\n      managementCluster = {\n        clusterSize = 3\n      }\n      networkBlock = \"192.168.48.0/22\"\n    }\n    sku = {\n      name = \"av36\"\n    }\n  })\nschema_validation_enabled = false\nresponse_export_values    = [\"*\"]\n\n```\n"
+          "value": "```\nparent_id = ${1:\"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource\"}\nname      = \"${2:The name of the resource}\"\nlocation  = \"${3:location}\"\nbody = jsonencode({\n    properties = {\n      internet = \"Disabled\"\n      managementCluster = {\n        clusterSize = 3\n      }\n      networkBlock = \"192.168.48.0/22\"\n    }\n    sku = {\n      name = \"av36\"\n    }\n  })\nschema_validation_enabled = false\nresponse_export_values    = [\"*\"]\n\n```\n"
         },
         "sortText": "0",
         "insertTextFormat": 2,
@@ -27,7 +27,7 @@
               "character": 2
             }
           },
-          "newText": "parent_id = ${1:\"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource\"}\nname      = ${2:\"The name of the resource\"}\nlocation  = ${3:\"location\"}\nbody = jsonencode({\n    properties = {\n      internet = \"Disabled\"\n      managementCluster = {\n        clusterSize = 3\n      }\n      networkBlock = \"192.168.48.0/22\"\n    }\n    sku = {\n      name = \"av36\"\n    }\n  })\nschema_validation_enabled = false\nresponse_export_values    = [\"*\"]\n"
+          "newText": "parent_id = ${1:\"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource\"}\nname      = \"${2:The name of the resource}\"\nlocation  = \"${3:location}\"\nbody = jsonencode({\n    properties = {\n      internet = \"Disabled\"\n      managementCluster = {\n        clusterSize = 3\n      }\n      networkBlock = \"192.168.48.0/22\"\n    }\n    sku = {\n      name = \"av36\"\n    }\n  })\nschema_validation_enabled = false\nresponse_export_values    = [\"*\"]\n"
         }
       },
       {

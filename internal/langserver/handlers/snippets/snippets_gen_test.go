@@ -31,6 +31,9 @@ func Test_SnippetGen(t *testing.T) {
 			t.Fatal(err)
 			continue
 		}
+		if snippet == nil {
+			continue
+		}
 		snippets = append(snippets, *snippet)
 	}
 	slices.SortFunc(snippets, func(i, j Snippet) int {
@@ -95,7 +98,7 @@ func Test_parseSnippet(t *testing.T) {
 					},
 					{
 						Name:  "name",
-						Value: `name      = ${2:"The name of the resource"}`,
+						Value: `name      = "${2:The name of the resource}"`,
 					},
 					{
 						Name: "body",
@@ -151,50 +154,50 @@ func Test_PlaceholderContent(t *testing.T) {
 		{
 			rawContent:  "var.resource_name",
 			addrTypeMap: map[string]string{},
-			expected:    `"The name of the resource"`,
+			expected:    "The name of the resource",
 		},
 		{
 			rawContent:  "var.location",
 			addrTypeMap: map[string]string{},
-			expected:    `"location"`,
+			expected:    "location",
 		},
 		{
 			rawContent:  "local.ip",
 			addrTypeMap: map[string]string{},
-			expected:    `"ip"`,
+			expected:    "ip",
 		},
 		{
 			rawContent:  "azapi_resource.rg.output",
 			addrTypeMap: map[string]string{},
-			expected:    `"TODO"`,
+			expected:    "TODO",
 		},
 		{
 			rawContent: "data.azapi_resource.rg.id",
 			addrTypeMap: map[string]string{
 				"data.azapi_resource.rg": "Microsoft.Resources/resourceGroups@2021-04-01",
 			},
-			expected: `"The id of the Microsoft.Resources/resourceGroups@2021-04-01 resource"`,
+			expected: "The id of the Microsoft.Resources/resourceGroups@2021-04-01 resource",
 		},
 		{
 			rawContent: "azapi_resource.rg.id",
 			addrTypeMap: map[string]string{
 				"azapi_resource.rg": "Microsoft.Resources/resourceGroups@2021-04-01",
 			},
-			expected: `"The id of the Microsoft.Resources/resourceGroups@2021-04-01 resource"`,
+			expected: "The id of the Microsoft.Resources/resourceGroups@2021-04-01 resource",
 		},
 		{
 			rawContent: "data.azapi_resource.rg.foo",
 			addrTypeMap: map[string]string{
 				"data.azapi_resource.rg": "Microsoft.Resources/resourceGroups@2021-04-01",
 			},
-			expected: `"The foo of the Microsoft.Resources/resourceGroups@2021-04-01 resource"`,
+			expected: "The foo of the Microsoft.Resources/resourceGroups@2021-04-01 resource",
 		},
 		{
 			rawContent: "azapi_resource.rg.foo",
 			addrTypeMap: map[string]string{
 				"azapi_resource.rg": "Microsoft.Resources/resourceGroups@2021-04-01",
 			},
-			expected: `"The foo of the Microsoft.Resources/resourceGroups@2021-04-01 resource"`,
+			expected: "The foo of the Microsoft.Resources/resourceGroups@2021-04-01 resource",
 		},
 	}
 	for _, testcase := range testcases {
