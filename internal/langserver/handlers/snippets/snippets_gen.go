@@ -45,6 +45,10 @@ func parseSnippet(filepath string) (*Snippet, error) {
 	}
 
 	lastBlock := blocks[len(blocks)-1]
+	if lastBlock.Labels[0] != "azapi_resource" {
+		// skip non azapi_resource block
+		return nil, nil
+	}
 	typeValue := ""
 	fields := make([]Field, 0)
 	index := 1
@@ -57,7 +61,11 @@ func parseSnippet(filepath string) (*Snippet, error) {
 		for _, variable := range vars {
 			rawContent := stringValue(data, variable.SourceRange())
 			placeholder := placeholderContent(rawContent, addrTypeMap)
-			value = strings.ReplaceAll(value, rawContent, fmt.Sprintf("${%d:%s}", index, placeholder))
+			format := `${%d:"%s"}`
+			if attr.Name == "name" || attr.Name == "location" {
+				format = `"${%d:%s}"`
+			}
+			value = strings.ReplaceAll(value, rawContent, fmt.Sprintf(format, index, placeholder))
 			index++
 		}
 		fields = append(fields, Field{
@@ -93,17 +101,17 @@ func parseSnippet(filepath string) (*Snippet, error) {
 }
 
 func placeholderContent(content string, typeMap map[string]string) string {
-	out := `"TODO"`
+	out := "TODO"
 	parts := strings.Split(content, ".")
 	if len(parts) == 0 {
 		return out
 	}
 	lastPart := parts[len(parts)-1]
 	if lastPart == "subscription_id" {
-		return `"subscription id"`
+		return "subscription id"
 	}
 	if lastPart == "tenant_id" {
-		return `"tenant id"`
+		return "tenant id"
 	}
 	if lastPart == "output" {
 		return out
@@ -111,15 +119,15 @@ func placeholderContent(content string, typeMap map[string]string) string {
 	switch parts[0] {
 	case "var":
 		if lastPart == "resource_name" {
-			return `"The name of the resource"`
+			return "The name of the resource"
 		}
-		return fmt.Sprintf(`"%s"`, lastPart)
+		return lastPart
 	case "local":
-		return fmt.Sprintf(`"%s"`, lastPart)
+		return lastPart
 	case "data":
 		addr := strings.Join(parts[:len(parts)-1], ".")
 		if typeValue, ok := typeMap[addr]; ok {
-			return fmt.Sprintf(`"The %s of the %s resource"`, lastPart, typeValue)
+			return fmt.Sprintf("The %s of the %s resource", lastPart, typeValue)
 		}
 	case "azapi_resource", "azapi_resource_action", "azapi_update_resource":
 		addr := strings.Join(parts[:len(parts)-1], ".")
@@ -127,7 +135,7 @@ func placeholderContent(content string, typeMap map[string]string) string {
 			addr = content
 		}
 		if typeValue, ok := typeMap[addr]; ok {
-			return fmt.Sprintf(`"The %s of the %s resource"`, lastPart, typeValue)
+			return fmt.Sprintf("The %s of the %s resource", lastPart, typeValue)
 		}
 	}
 	return out
