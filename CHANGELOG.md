@@ -1,6 +1,9 @@
-## v1.10.0 (unreleased)
+## v1.10.0
 FEATURES:
 - Support auto-completion with verified examples.
+
+ENHANCEMENTS:
+- Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/505b813ce50368156e3da1b86f07977b5a913be9
 
 ## v1.9.0
 FEATURES:
