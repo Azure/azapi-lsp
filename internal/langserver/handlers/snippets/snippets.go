@@ -47,7 +47,11 @@ func (field Field) Order() int {
 }
 
 func CodeSampleCandidates(block *hclsyntax.Block, editRange lsp.Range) []lsp.CompletionItem {
-	if block == nil {
+	if block == nil || block.Type == "data" {
+		return nil
+	}
+
+	if len(block.Labels) != 2 || block.Labels[0] != "azapi_resource" {
 		return nil
 	}
 
