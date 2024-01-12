@@ -113,6 +113,14 @@ func init() {
 				},
 
 				{
+					Name:              "ignore_body_changes",
+					Modifier:          "Optional",
+					Type:              "list<string>",
+					Description:       "A list of properties that should be ignored when comparing the `body` with its current state..",
+					CompletionNewText: `ignore_body_changes = [$0]`,
+				},
+
+				{
 					Name:                "ignore_casing",
 					Modifier:            "Optional",
 					Type:                "bool",
