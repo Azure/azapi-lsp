@@ -1,3 +1,7 @@
+## v1.12.0
+ENHANCEMENTS:
+- `azapi_resource` resource: Support `ignore_body_changes` property.
+
 ## v1.11.0
 ENHANCEMENTS:
 - Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/fcfe2a66a04575f204767182fc575612c82eebc1

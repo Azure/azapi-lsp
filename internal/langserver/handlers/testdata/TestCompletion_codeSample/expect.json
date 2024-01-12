@@ -331,6 +331,36 @@
         }
       },
       {
+        "label": "ignore_body_changes",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "ignore_body_changes (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `list<string>`  \nA list of properties that should be ignored when comparing the `body` with its current state..\n"
+        },
+        "sortText": "0010",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "ignore_body_changes = [$0]"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
         "label": "ignore_casing",
         "labelDetails": {},
         "kind": 10,
@@ -339,7 +369,7 @@
           "kind": "markdown",
           "value": "Type: `bool`  \nWhether ignore incorrect casing returned in `body` to suppress plan-diff. Defaults to `false`.\n"
         },
-        "sortText": "0010",
+        "sortText": "0011",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -369,7 +399,7 @@
           "kind": "markdown",
           "value": "Type: `bool`  \nWhether ignore not returned properties like credentials in `body` to suppress plan-diff. Defaults to `false`.\n"
         },
-        "sortText": "0011",
+        "sortText": "0012",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
