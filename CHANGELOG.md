@@ -1,6 +1,7 @@
 ## v1.12.0
 ENHANCEMENTS:
 - `azapi_resource` resource: Support `ignore_body_changes` property.
+- Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/7aad507643b92d3de4b66e20baa404bb7043372e
 
 BUG FIXES:
 - Fix a bug that auto-completion with verified examples showed for wrong resource types.
