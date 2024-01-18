@@ -246,9 +246,6 @@ var snippetMap = map[string]Snippet{
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     properties = {
       certificates = [
       ]
@@ -347,11 +344,11 @@ var snippetMap = map[string]Snippet{
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${"${1:The name of the resource}"};rev=1"`,	
+		        Value: `name      = "${"${2:The name of the resource}"};rev=1"`,	
 	        },
             {
 		        Name:  "body",
@@ -548,11 +545,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -636,17 +633,17 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
-      connectionString = "${${2:"The name of the Microsoft.Cache/redis@2023-04-01 resource"}}.redis.cache.windows.net:6380,password=${jsondecode(${3:"TODO"}).primaryKey},ssl=true,abortConnect=False"
+      connectionString = "${${3:"The name of the Microsoft.Cache/redis@2023-04-01 resource"}}.redis.cache.windows.net:6380,password=${jsondecode(${4:"TODO"}).primaryKey},ssl=true,abortConnect=False"
       useFromLocation  = "default"
     }
   })`,	
@@ -675,11 +672,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -931,18 +928,18 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
       credentials = {
-        instrumentationKey = jsondecode(${3:"TODO"}).properties.InstrumentationKey
+        instrumentationKey = jsondecode(${1:"TODO"}).properties.InstrumentationKey
       }
       description = ""
       isBuffered  = true
@@ -1125,11 +1122,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id                 = ${2:"The id of the Microsoft.ApiManagement/service/products@2021-08-01 resource"}`,	
+		        Value: `parent_id                 = ${1:"The id of the Microsoft.ApiManagement/service/products@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name                      = "${1:The name of the Microsoft.ApiManagement/service/tags@2021-08-01 resource}"`,	
+		        Value: `name                      = "${2:The name of the Microsoft.ApiManagement/service/tags@2021-08-01 resource}"`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1151,11 +1148,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -1187,7 +1184,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -1199,8 +1196,8 @@ EOT
     properties = {
       allowTracing = true
       displayName  = "Butter Parser API Enterprise Edition"
-      ownerId      = ${1:"The id of the Microsoft.ApiManagement/service/users@2021-08-01 resource"}
-      scope        = ${2:"The id of the Microsoft.ApiManagement/service/products@2021-08-01 resource"}
+      ownerId      = ${2:"The id of the Microsoft.ApiManagement/service/users@2021-08-01 resource"}
+      scope        = ${3:"The id of the Microsoft.ApiManagement/service/products@2021-08-01 resource"}
       state        = "submitted"
     }
   })`,	
@@ -1308,10 +1305,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       configuration = {
         activeRevisionsMode = "Single"
@@ -1526,23 +1519,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       disableLocalAuth      = false
       enablePurgeProtection = false
@@ -1572,15 +1561,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -1841,9 +1830,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     properties = {
       customPersistentDisks = [
       ]
@@ -2011,11 +1997,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.AppPlatform/Spring/buildServices/builders@2023-05-01-preview resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.AppPlatform/Spring/buildServices/builders@2023-05-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -2194,18 +2180,18 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.AppPlatform/Spring@2023-05-01-preview resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.AppPlatform/Spring@2023-05-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
-      accountKey  = jsondecode(${2:"TODO"}).keys[0].value
-      accountName = ${3:"The name of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+      accountKey  = jsondecode(${3:"TODO"}).keys[0].value
+      accountName = ${4:"The name of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
       storageType = "StorageAccount"
     }
   })`,	
@@ -2406,7 +2392,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -2417,7 +2403,7 @@ EOT
 		        Value: `body = jsonencode({
     properties = {
       assignableScopes = [
-        ${1:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"},
+        ${2:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"},
       ]
       description = ""
       permissions = [
@@ -2433,7 +2419,7 @@ EOT
           ]
         },
       ]
-      roleName = ${2:"The name of the resource"}
+      roleName = ${3:"The name of the resource"}
       type     = "CustomRole"
     }
   })`,	
@@ -2458,15 +2444,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -2497,15 +2483,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -2577,15 +2563,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -2623,11 +2609,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -2664,11 +2650,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -2681,8 +2667,8 @@ EOT
       fieldDefinitionValues = {
         ApplicationId         = "00000000-0000-0000-0000-000000000000"
         CertificateThumbprint = "AEB97B81A68E8988850972916A8B8B6CD8F39813\n"
-        SubscriptionId        = ${3:"subscription id"}
-        TenantId              = ${4:"tenant id"}
+        SubscriptionId        = ${1:"subscription id"}
+        TenantId              = ${2:"tenant id"}
       }
     }
   })`,	
@@ -2743,17 +2729,17 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     credential = {
-      name = ${3:"The name of the Microsoft.Automation/automationAccounts/credentials@2020-01-13-preview resource"}
+      name = ${2:"The name of the Microsoft.Automation/automationAccounts/credentials@2020-01-13-preview resource"}
     }
   })`,	
 	        },
@@ -2777,7 +2763,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Automation/automationAccounts/hybridRunbookWorkerGroups@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts/hybridRunbookWorkerGroups@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -2787,7 +2773,7 @@ EOT
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
-      vmResourceId = ${1:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}
+      vmResourceId = ${2:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}
     }
   })`,	
 	        },
@@ -2811,7 +2797,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -2822,10 +2808,10 @@ EOT
 		        Value: `body = jsonencode({
     properties = {
       runbook = {
-        name = ${1:"The name of the Microsoft.Automation/automationAccounts/runbooks@2019-06-01 resource"}
+        name = ${3:"The name of the Microsoft.Automation/automationAccounts/runbooks@2019-06-01 resource"}
       }
       schedule = {
-        name = ${2:"The name of the Microsoft.Automation/automationAccounts/schedules@2020-01-13-preview resource"}
+        name = ${4:"The name of the Microsoft.Automation/automationAccounts/schedules@2020-01-13-preview resource"}
       }
     }
   })`,	
@@ -2840,7 +2826,7 @@ EOT
 	        },
             {
 		        Name:  "depends_on",
-		        Value: `depends_on                = [${3:"The public_runbook of the Microsoft.Automation/automationAccounts/runbooks@2019-06-01 resource"}]`,	
+		        Value: `depends_on                = [${1:"The public_runbook of the Microsoft.Automation/automationAccounts/runbooks@2019-06-01 resource"}]`,	
 	        },
 	
 	    },
@@ -2934,11 +2920,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -2971,11 +2957,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -3009,7 +2995,7 @@ EOT
                 "westeurope",
               ]
               scope = [
-                ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"},
+                ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"},
               ]
             },
           ]
@@ -3038,11 +3024,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -3074,7 +3060,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -3090,7 +3076,7 @@ EOT
       }
       runOn = ""
       runbook = {
-        name = ${3:"The name of the Microsoft.Automation/automationAccounts/runbooks@2019-06-01 resource"}
+        name = ${2:"The name of the Microsoft.Automation/automationAccounts/runbooks@2019-06-01 resource"}
       }
     }
   })`,	
@@ -3104,12 +3090,12 @@ EOT
 		        Value: `response_export_values    = ["*"]`,	
 	        },
             {
-		        Name:  "depends_on",
-		        Value: `depends_on                = [${1:"The publish_runbook of the Microsoft.Automation/automationAccounts/runbooks@2022-08-08 resource"}]`,	
-	        },
-            {
 		        Name:  "ignore_body_changes",
 		        Value: `ignore_body_changes            = ["properties.expiryTime"]`,	
+	        },
+            {
+		        Name:  "depends_on",
+		        Value: `depends_on                = [${3:"The publish_runbook of the Microsoft.Automation/automationAccounts/runbooks@2022-08-08 resource"}]`,	
 	        },
 	
 	    },
@@ -3136,10 +3122,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       encryption = {
         keySource = "Microsoft.Batch"
@@ -3251,10 +3233,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       certificates = null
       deploymentConfiguration = {
@@ -3310,11 +3288,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -3328,12 +3306,12 @@ EOT
       developerAppInsightKey            = ""
       developerAppInsightsApiKey        = ""
       developerAppInsightsApplicationId = ""
-      displayName                       = ${1:"The name of the resource"}
+      displayName                       = ${3:"The name of the resource"}
       endpoint                          = ""
       luisAppIds = [
       ]
       luisKey  = ""
-      msaAppId = ${2:"The client_id of the  resource"}
+      msaAppId = ${4:"The client_id of the  resource"}
     }
     sku = {
       name = "F0"
@@ -3405,15 +3383,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -3449,15 +3427,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -3567,11 +3545,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Cdn/profiles/afdEndpoints@2021-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Cdn/profiles/afdEndpoints@2021-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -3582,7 +3560,7 @@ EOT
       httpsRedirect       = "Enabled"
       linkToDefaultDomain = "Enabled"
       originGroup = {
-        id = ${3:"The id of the Microsoft.Cdn/profiles/originGroups@2021-06-01 resource"}
+        id = ${2:"The id of the Microsoft.Cdn/profiles/originGroups@2021-06-01 resource"}
       }
       patternsToMatch = [
         "/*",
@@ -3655,15 +3633,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Cdn/profiles@2020-09-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Cdn/profiles@2020-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -3705,11 +3683,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Cdn/profiles@2021-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Cdn/profiles@2021-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -3812,11 +3790,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Cdn/profiles@2021-06-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Cdn/profiles@2021-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -3827,7 +3805,7 @@ EOT
           {
             domains = [
               {
-                id = ${3:"The id of the Microsoft.Cdn/profiles/customDomains@2021-06-01 resource"}
+                id = ${2:"The id of the Microsoft.Cdn/profiles/customDomains@2021-06-01 resource"}
               },
             ]
             patternsToMatch = [
@@ -3837,7 +3815,7 @@ EOT
         ]
         type = "WebApplicationFirewall"
         wafPolicy = {
-          id = ${4:"The id of the Microsoft.Network/FrontDoorWebApplicationFirewallPolicies@2020-11-01 resource"}
+          id = ${3:"The id of the Microsoft.Network/FrontDoorWebApplicationFirewallPolicies@2020-11-01 resource"}
         }
       }
     }
@@ -3916,15 +3894,15 @@ EOT
 		        Value: `location  = "${3:location}"`,	
 	        },
             {
+		        Name:  "identity",
+		        Value: `identity {
+    type = "SystemAssigned, UserAssigned"
+    identity_ids = [${4:The id of the Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31 resource}]
+  }`,	
+	        },
+            {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "SystemAssigned, UserAssigned"
-      userAssignedIdentities = {
-        (${4:"The id of the Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31 resource"}) = {
-        }
-      }
-    }
     kind = "SpeechServices"
     properties = {
       allowedFqdnList = [
@@ -3963,11 +3941,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -4001,11 +3979,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -4150,28 +4128,31 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${5:location}"`,	
+		        Value: `location  = "${3:location}"`,	
+	        },
+            {
+		        Name:  "identity",
+		        Value: `identity {
+    type = "SystemAssigned"
+    identity_ids = []
+  }`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "SystemAssigned"
-      userAssignedIdentities = null
-    }
     properties = {
       activeKey = {
-        keyUrl = jsondecode(${1:"TODO"}).properties.keyUriWithVersion
+        keyUrl = jsondecode(${4:"TODO"}).properties.keyUriWithVersion
         sourceVault = {
-          id = ${2:"The id of the Microsoft.KeyVault/vaults@2023-02-01 resource"}
+          id = ${5:"The id of the Microsoft.KeyVault/vaults@2023-02-01 resource"}
         }
       }
       encryptionType                    = "EncryptionAtRestWithCustomerKey"
@@ -4199,15 +4180,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -4249,15 +4230,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -4424,15 +4405,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Compute/hostGroups@2021-11-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Compute/hostGroups@2021-11-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -4504,15 +4485,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -4545,22 +4526,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${5:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     properties = {
       additionalCapabilities = {
       }
@@ -4613,7 +4591,7 @@ EOT
                       primary                 = true
                       privateIPAddressVersion = "IPv4"
                       subnet = {
-                        id = ${2:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+                        id = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
                       }
                     }
                   },
@@ -4625,7 +4603,7 @@ EOT
         }
         osProfile = {
           adminUsername      = "adminuser"
-          computerNamePrefix = ${3:"The name of the resource"}
+          computerNamePrefix = ${5:"The name of the resource"}
           linuxConfiguration = {
             disablePasswordAuthentication = true
             provisionVMAgent              = true
@@ -4690,11 +4668,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Compute/virtualMachineScaleSets@2023-03-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Compute/virtualMachineScaleSets@2023-03-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -4806,15 +4784,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -4855,15 +4833,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${5:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -4872,8 +4850,8 @@ EOT
       aadBasedSecurityPrincipals = [
         {
           ledgerRoleName = "Administrator"
-          principalId    = ${3:"The object_id of the  resource"}
-          tenantId       = ${4:"tenant id"}
+          principalId    = ${4:"The object_id of the  resource"}
+          tenantId       = ${5:"tenant id"}
         },
       ]
       certBasedSecurityPrincipals = [
@@ -4919,10 +4897,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       containers = [
         {
@@ -5005,10 +4979,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       adminUserEnabled     = false
       anonymousPullEnabled = false
@@ -5150,10 +5120,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       isSystemTask = true
       status       = "Enabled"
@@ -5218,15 +5184,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ContainerRegistry/registries@2021-08-01-preview resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.ContainerRegistry/registries@2021-08-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -5263,23 +5229,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
+	        },
+            {
+		        Name:  "identity",
+		        Value: `identity {
+    type = "SystemAssigned"
+    identity_ids = []
+  }`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "SystemAssigned"
-      userAssignedIdentities = null
-    }
     properties = {
       agentPoolProfiles = [
         {
@@ -5289,7 +5258,7 @@ EOT
           vmSize = "Standard_DS2_v2"
         },
       ]
-      dnsPrefix = ${2:"The name of the resource"}
+      dnsPrefix = ${4:"The name of the resource"}
     }
   })`,	
 	        },
@@ -5692,22 +5661,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     properties = {
       administratorLogin         = "adminTerraform"
       administratorLoginPassword = "QAZwsx123"
@@ -5751,11 +5717,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DBforMySQL/flexibleServers@2021-05-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.DBforMySQL/flexibleServers@2021-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -5821,15 +5787,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -5876,7 +5842,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.DBforMySQL/servers@2017-12-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DBforMySQL/servers@2017-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -5888,8 +5854,8 @@ EOT
     properties = {
       administratorType = "ActiveDirectory"
       login             = "sqladmin"
-      sid               = ${1:"The client_id of the  resource"}
-      tenantId          = ${2:"tenant id"}
+      sid               = ${2:"The client_id of the  resource"}
+      tenantId          = ${3:"tenant id"}
     }
   })`,	
 	        },
@@ -6053,11 +6019,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -6123,15 +6089,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -6182,9 +6148,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     properties = {
       administratorLogin         = "acctestun"
       administratorLoginPassword = "H@Sh1CoR3!"
@@ -6228,7 +6191,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DBforPostgreSQL/servers@2017-12-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.DBforPostgreSQL/servers@2017-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -6240,8 +6203,8 @@ EOT
     properties = {
       administratorType = "ActiveDirectory"
       login             = "sqladmin"
-      sid               = ${2:"The client_id of the  resource"}
-      tenantId          = ${3:"tenant id"}
+      sid               = ${1:"The client_id of the  resource"}
+      tenantId          = ${2:"tenant id"}
     }
   })`,	
 	        },
@@ -6300,11 +6263,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DBforPostgreSQL/servers@2017-12-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.DBforPostgreSQL/servers@2017-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -6383,10 +6346,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       apiKey                            = "Disabled"
       autoGeneratedDomainNameLabelScope = "TenantReuse"
@@ -6599,11 +6558,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.DataFactory/factories@2018-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.DataFactory/factories@2018-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -6611,7 +6570,7 @@ EOT
     properties = {
       description = ""
       linkedServiceName = {
-        referenceName = ${1:"The name of the Microsoft.DataFactory/factories/linkedservices@2018-06-01 resource"}
+        referenceName = ${2:"The name of the Microsoft.DataFactory/factories/linkedservices@2018-06-01 resource"}
         type          = "LinkedServiceReference"
       }
       type = "Json"
@@ -6797,11 +6756,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DataFactory/factories@2018-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.DataFactory/factories@2018-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -6812,7 +6771,7 @@ EOT
         parameters = {
         }
         pipelineReference = {
-          referenceName = ${3:"The name of the Microsoft.DataFactory/factories/pipelines@2018-06-01 resource"}
+          referenceName = ${1:"The name of the Microsoft.DataFactory/factories/pipelines@2018-06-01 resource"}
           type          = "PipelineReference"
         }
       }
@@ -6846,22 +6805,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${4:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     kind = "Cloud"
     properties = {
-      virtualSubnetId = ${3:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+      virtualSubnetId = ${1:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
     }
     sku = {
       name = "Standard_1vCores"
@@ -6888,15 +6847,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DataMigration/services@2018-04-19 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.DataMigration/services@2018-04-19 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -6940,9 +6899,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     properties = {
       storageSettings = [
         {
@@ -7118,15 +7074,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -7157,22 +7113,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
+	        },
+            {
+		        Name:  "identity",
+		        Value: `identity {
+    type = "SystemAssigned"
+    identity_ids = []
+  }`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "SystemAssigned"
-    }
     tags = {
       env = "Test"
     }
@@ -7234,23 +7194,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
 
   })`,	
 	        },
@@ -7274,21 +7230,21 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
-      managedResourceGroupId = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}
+      managedResourceGroupId = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}
       parameters = {
         prepareEncryption = {
           value = true
@@ -7324,11 +7280,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Databricks/workspaces@2023-02-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Databricks/workspaces@2023-02-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -7348,7 +7304,7 @@ EOT
         ]
       }
       remoteVirtualNetwork = {
-        id = ${3:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
+        id = ${1:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
       }
       useRemoteGateways = false
     }
@@ -7374,15 +7330,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -7412,7 +7368,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DevTestLab/labs@2018-09-15 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.DevTestLab/labs@2018-09-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -7420,7 +7376,7 @@ EOT
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -7463,15 +7419,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.DevTestLab/labs@2018-09-15 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DevTestLab/labs@2018-09-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${5:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -7487,8 +7443,8 @@ EOT
         version   = "latest"
       }
       isAuthenticationWithSshKey = false
-      labSubnetName              = ${2:"The name of the Microsoft.Network/virtualNetworks/subnets@2023-04-01 resource"}
-      labVirtualNetworkId        = ${3:"The id of the Microsoft.DevTestLab/labs/virtualNetworks@2018-09-15 resource"}
+      labSubnetName              = ${4:"The name of the Microsoft.Network/virtualNetworks/subnets@2023-04-01 resource"}
+      labVirtualNetworkId        = ${5:"The id of the Microsoft.DevTestLab/labs/virtualNetworks@2018-09-15 resource"}
       networkInterface = {
       }
       notes       = ""
@@ -7566,15 +7522,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${4:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -7590,7 +7546,7 @@ EOT
         webhookUrl     = ""
       }
       status           = "Enabled"
-      targetResourceId = ${1:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}
+      targetResourceId = ${4:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}
       taskType         = "ComputeVmShutdownTask"
       timeZoneId       = "Pacific Standard Time"
     }
@@ -7632,10 +7588,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       publicNetworkAccess = "Enabled"
       sku                 = "Standard"
@@ -7663,25 +7615,25 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DeviceUpdate/accounts@2022-10-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.DeviceUpdate/accounts@2022-10-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${5:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
-      accountName       = ${4:"The name of the Microsoft.DeviceUpdate/accounts@2022-10-01 resource"}
+      accountName       = ${2:"The name of the Microsoft.DeviceUpdate/accounts@2022-10-01 resource"}
       enableDiagnostics = false
       iotHubs = [
         {
-          resourceId = ${5:"The id of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
+          resourceId = ${3:"The id of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
         },
       ]
     }
@@ -7708,22 +7660,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     properties = {
       cloudToDevice = {
       }
@@ -7804,15 +7753,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -7850,11 +7799,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Devices/provisioningServices@2022-02-05 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Devices/provisioningServices@2022-02-05 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -7884,22 +7833,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
+	        },
+            {
+		        Name:  "identity",
+		        Value: `identity {
+    type = "SystemAssigned"
+    identity_ids = []
+  }`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "SystemAssigned"
-    }
   })`,	
 	        },
             {
@@ -7964,22 +7917,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     kind = "GlobalDocumentDB"
     properties = {
       capabilities = [
@@ -8112,11 +8062,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.DocumentDB/databaseAccounts/gremlinDatabases@2023-04-15 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DocumentDB/databaseAccounts/gremlinDatabases@2023-04-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -8126,7 +8076,7 @@ EOT
         throughput = 400
       }
       resource = {
-        id = ${1:"The name of the resource"}
+        id = ${3:"The name of the resource"}
         partitionKey = {
           kind = "Hash"
           paths = [
@@ -8314,11 +8264,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -8328,7 +8278,7 @@ EOT
       }
       resource = {
         body = "  \tfunction () {\n\t\tvar context = getContext();\n\t\tvar response = context.getResponse();\n\t\tresponse.setBody('Hello, World');\n\t}\n"
-        id   = ${3:"The name of the resource"}
+        id   = ${1:"The name of the resource"}
       }
     }
   })`,	
@@ -8394,11 +8344,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -8408,7 +8358,7 @@ EOT
       }
       resource = {
         body = "  \tfunction test() {\n\t\tvar context = getContext();\n\t\tvar response = context.getResponse();\n\t\tresponse.setBody('Hello, World');\n\t}\n"
-        id   = ${2:"The name of the resource"}
+        id   = ${3:"The name of the resource"}
       }
     }
   })`,	
@@ -8433,7 +8383,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.DocumentDB/databaseAccounts@2021-10-15 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DocumentDB/databaseAccounts@2021-10-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -8443,9 +8393,9 @@ EOT
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
-      principalId      = jsondecode(${1:"TODO"}).identity.principalId
-      roleDefinitionId = ${2:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions@2021-10-15 resource"}
-      scope            = ${3:"The id of the Microsoft.DocumentDB/databaseAccounts@2021-10-15 resource"}
+      principalId      = jsondecode(${2:"TODO"}).identity.principalId
+      roleDefinitionId = ${3:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions@2021-10-15 resource"}
+      scope            = ${4:"The id of the Microsoft.DocumentDB/databaseAccounts@2021-10-15 resource"}
     }
   })`,	
 	        },
@@ -8552,15 +8502,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -8595,11 +8545,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id                 = ${1:"The id of the Microsoft.EventGrid/domains@2021-12-01 resource"}`,	
+		        Value: `parent_id                 = ${2:"The id of the Microsoft.EventGrid/domains@2021-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name                      = "${2:The name of the resource}"`,	
+		        Value: `name                      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8621,11 +8571,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -8636,7 +8586,7 @@ EOT
         endpointType = "EventHub"
         properties = {
           deliveryAttributeMappings = null
-          resourceId                = ${3:"The id of the Microsoft.EventHub/namespaces/eventhubs@2021-11-01 resource"}
+          resourceId                = ${1:"The id of the Microsoft.EventHub/namespaces/eventhubs@2021-11-01 resource"}
         }
       }
       eventDeliverySchema = "EventGridSchema"
@@ -8675,11 +8625,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -8689,7 +8639,7 @@ EOT
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
-      source    = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}
+      source    = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}
       topicType = "Microsoft.Resources.ResourceGroups"
     }
   })`,	
@@ -8807,10 +8757,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       disableLocalAuth     = false
       isAutoInflateEnabled = false
@@ -8916,11 +8862,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.EventHub/namespaces@2022-01-01-preview resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.EventHub/namespaces@2022-01-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -9057,23 +9003,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
     }
     tags = {
@@ -9151,15 +9093,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${7:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -9230,11 +9172,11 @@ EOT
       storageProfile = {
         storageaccounts = [
           {
-            container  = ${4:"The name of the Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01 resource"}
+            container  = ${3:"The name of the Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01 resource"}
             isDefault  = true
-            key        = jsondecode(${5:"TODO"}).keys[0].value
-            name       = "${${6:"The name of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}}.blob.core.windows.net"
-            resourceId = ${7:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+            key        = jsondecode(${4:"TODO"}).keys[0].value
+            name       = "${${5:"The name of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}}.blob.core.windows.net"
+            resourceId = ${6:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
           },
         ]
       }
@@ -9308,15 +9250,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -9325,7 +9267,7 @@ EOT
     properties = {
       accessPolicies = [
         {
-          objectId = ${2:"The object_id of the  resource"}
+          objectId = ${4:"The object_id of the  resource"}
         },
       ]
       authenticationConfiguration = {
@@ -9389,23 +9331,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.HealthcareApis/workspaces@2022-12-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.HealthcareApis/workspaces@2022-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       publicNetworkAccess = "Enabled"
     }
@@ -9431,30 +9369,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.HealthcareApis/workspaces@2022-12-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.HealthcareApis/workspaces@2022-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${5:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     kind = "fhir-R4"
     properties = {
       acrConfiguration = {
       }
       authenticationConfiguration = {
-        audience          = jsondecode(${4:"TODO"}).properties.authenticationConfiguration.audience
-        authority         = jsondecode(${4:"TODO"}).properties.authenticationConfiguration.authority
+        audience          = jsondecode(${1:"TODO"}).properties.authenticationConfiguration.audience
+        authority         = jsondecode(${1:"TODO"}).properties.authenticationConfiguration.authority
         smartProxyEnabled = false
       }
       corsConfiguration = {
@@ -9502,10 +9436,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       deviceMapping = {
         content = {
@@ -9542,15 +9472,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.HealthcareApis/workspaces/iotConnectors@2022-12-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.HealthcareApis/workspaces/iotConnectors@2022-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -9563,7 +9493,7 @@ EOT
           templateType = "CollectionFhirTemplate"
         }
       }
-      fhirServiceResourceId          = ${2:"The id of the Microsoft.HealthcareApis/workspaces/fhirServices@2022-12-01 resource"}
+      fhirServiceResourceId          = ${3:"The id of the Microsoft.HealthcareApis/workspaces/fhirServices@2022-12-01 resource"}
       resourceIdentityResolutionType = "Create"
     }
   })`,	
@@ -9791,15 +9721,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${5:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -9824,7 +9754,7 @@ EOT
                 dividePerInstance = true
                 metricName        = "Percentage CPU"
                 metricNamespace   = ""
-                metricResourceUri = ${4:"The id of the Microsoft.Compute/virtualMachineScaleSets@2023-03-01 resource"}
+                metricResourceUri = ${1:"The id of the Microsoft.Compute/virtualMachineScaleSets@2023-03-01 resource"}
                 operator          = "GreaterThan"
                 statistic         = "Average"
                 threshold         = 75
@@ -9842,7 +9772,7 @@ EOT
           ]
         },
       ]
-      targetResourceUri = ${4:"The id of the Microsoft.Compute/virtualMachineScaleSets@2023-03-01 resource"}
+      targetResourceUri = ${1:"The id of the Microsoft.Compute/virtualMachineScaleSets@2023-03-01 resource"}
     }
   })`,	
 	        },
@@ -9912,15 +9842,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -9953,17 +9883,17 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
-      dataCollectionRuleId = ${2:"The id of the Microsoft.Insights/dataCollectionRules@2022-06-01 resource"}
+      dataCollectionRuleId = ${1:"The id of the Microsoft.Insights/dataCollectionRules@2022-06-01 resource"}
       description          = ""
     }
   })`,	
@@ -10001,10 +9931,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       dataFlows = [
         {
@@ -10100,11 +10026,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = "/subscriptions/${${2:"subscription id"}}"`,	
+		        Value: `parent_id = "/subscriptions/${${1:"subscription id"}}"`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -10125,7 +10051,7 @@ EOT
         days    = 7
         enabled = true
       }
-      storageAccountId = ${1:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+      storageAccountId = ${3:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
     }
   })`,	
 	        },
@@ -10149,11 +10075,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -10187,7 +10113,7 @@ EOT
       enabled             = true
       evaluationFrequency = "PT1M"
       scopes = [
-        ${1:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"},
+        ${3:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"},
       ]
       severity             = 3
       targetResourceRegion = ""
@@ -10259,17 +10185,17 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Insights/privateLinkScopes@2019-10-17-preview resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Insights/privateLinkScopes@2019-10-17-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
-      linkedResourceId = ${3:"The id of the Microsoft.Insights/components@2020-02-02 resource"}
+      linkedResourceId = ${1:"The id of the Microsoft.Insights/components@2020-02-02 resource"}
     }
   })`,	
 	        },
@@ -10297,15 +10223,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -10333,7 +10259,7 @@ EOT
       source = {
         authorizedResources = [
         ]
-        dataSourceId = ${4:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}
+        dataSourceId = ${2:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}
       }
     }
   })`,	
@@ -10358,15 +10284,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${5:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${6:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -10382,7 +10308,7 @@ EOT
           Id = "us-tx-sn1-azr"
         },
       ]
-      Name = ${4:"The name of the resource"}
+      Name = ${1:"The name of the resource"}
       Request = {
         FollowRedirects = false
         Headers = [
@@ -10400,7 +10326,7 @@ EOT
         RequestUrl             = "http://microsoft.com"
       }
       RetryEnabled       = false
-      SyntheticMonitorId = ${4:"The name of the resource"}
+      SyntheticMonitorId = ${1:"The name of the resource"}
       Timeout            = 30
       ValidationRules = {
         ExpectedHttpStatusCode = 200
@@ -10408,7 +10334,7 @@ EOT
       }
     }
     tags = {
-      "hidden-link:${${6:"The id of the Microsoft.Insights/components@2020-02-02 resource"}}" = "Resource"
+      "hidden-link:${${3:"The id of the Microsoft.Insights/components@2020-02-02 resource"}}" = "Resource"
     }
   })`,	
 	        },
@@ -10432,15 +10358,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -10508,10 +10434,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     kind = "shared"
     properties = {
       category       = "workbook"
@@ -10541,24 +10463,21 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${4:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     properties = {
-      displayName         = ${1:"The name of the resource"}
+      displayName         = ${4:"The name of the resource"}
       publicNetworkAccess = "Enabled"
       subdomain           = "subdomain-2306300333537"
       template            = "iotc-pnp-preview@1.0.0"
@@ -10588,7 +10507,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -10596,7 +10515,7 @@ EOT
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -10606,11 +10525,11 @@ EOT
       enablePurgeProtection = false
       enableSoftDelete      = true
       initialAdminObjectIds = [
-        ${3:"The object_id of the  resource"},
+        ${2:"The object_id of the  resource"},
       ]
       publicNetworkAccess       = "Enabled"
       softDeleteRetentionInDays = 90
-      tenantId                  = ${4:"tenant id"}
+      tenantId                  = ${3:"tenant id"}
     }
     sku = {
       family = "B"
@@ -10755,10 +10674,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       enableAutoStop                = true
       enableDiskEncryption          = false
@@ -10910,18 +10825,18 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Kusto/clusters@2023-05-02 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Kusto/clusters@2023-05-02 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
       groupId               = "blob"
-      privateLinkResourceId = ${3:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+      privateLinkResourceId = ${2:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
     }
   })`,	
 	        },
@@ -11251,11 +11166,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Logic/integrationAccounts@2019-05-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Logic/integrationAccounts@2019-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -11400,12 +11315,12 @@ EOT
         qualifier = "AS2Identity"
         value     = "FabrikamDC"
       }
-      guestPartner = ${3:"The name of the Microsoft.Logic/integrationAccounts/partners@2019-05-01 resource"}
+      guestPartner = ${1:"The name of the Microsoft.Logic/integrationAccounts/partners@2019-05-01 resource"}
       hostIdentity = {
         qualifier = "AS2Identity"
         value     = "FabrikamNY"
       }
-      hostPartner = ${4:"The name of the Microsoft.Logic/integrationAccounts/partners@2019-05-01 resource"}
+      hostPartner = ${2:"The name of the Microsoft.Logic/integrationAccounts/partners@2019-05-01 resource"}
     }
   })`,	
 	        },
@@ -11466,11 +11381,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Logic/integrationAccounts@2019-05-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Logic/integrationAccounts@2019-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -11616,23 +11531,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       definition = {
         "$schema" = "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#"
@@ -11661,28 +11572,31 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${5:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${6:location}"`,	
+	        },
+            {
+		        Name:  "identity",
+		        Value: `identity {
+    type = "SystemAssigned"
+    identity_ids = []
+  }`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "SystemAssigned"
-      userAssignedIdentities = null
-    }
     properties = {
-      applicationInsights = ${4:"The id of the Microsoft.Insights/components@2020-02-02 resource"}
-      keyVault            = ${5:"The id of the Microsoft.KeyVault/vaults@2021-10-01 resource"}
+      applicationInsights = ${1:"The id of the Microsoft.Insights/components@2020-02-02 resource"}
+      keyVault            = ${2:"The id of the Microsoft.KeyVault/vaults@2021-10-01 resource"}
       publicNetworkAccess = "Disabled"
-      storageAccount      = ${6:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+      storageAccount      = ${3:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
       v1LegacyMode        = false
     }
     sku = {
@@ -11728,10 +11642,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       computeLocation  = "westeurope"
       computeType      = "ComputeInstance"
@@ -11951,27 +11861,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${4:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     properties = {
       publicNetworkAccess = "Enabled"
       storageAccounts = [
         {
-          id   = ${4:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+          id   = ${1:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
           type = "Primary"
         },
       ]
@@ -12067,11 +11974,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Media/mediaServices/assets@2022-08-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Media/mediaServices/assets@2022-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -12157,15 +12064,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Media/mediaServices@2021-11-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Media/mediaServices@2021-11-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -12250,17 +12157,17 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Media/mediaServices@2021-11-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Media/mediaServices@2021-11-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
-      assetName           = ${3:"The name of the Microsoft.Media/mediaServices/assets@2022-08-01 resource"}
+      assetName           = ${2:"The name of the Microsoft.Media/mediaServices/assets@2022-08-01 resource"}
       streamingPolicyName = "Predefined_ClearStreamingOnly"
     }
   })`,	
@@ -12326,11 +12233,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Media/mediaServices@2021-11-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Media/mediaServices@2021-11-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -12401,11 +12308,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Migrate/migrateProjects@2020-05-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Migrate/migrateProjects@2020-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -12430,15 +12337,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id                 = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id                 = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name                      = "${3:The name of the resource}"`,	
+		        Value: `name                      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location                  = "${1:location}"`,	
+		        Value: `location                  = "${3:location}"`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12600,22 +12507,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.MobileNetwork/mobileNetworks@2022-11-01 resource"}`,	
+		        Value: `parent_id = ${6:"The id of the Microsoft.MobileNetwork/mobileNetworks@2022-11-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${7:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${8:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
       defaultSlice = {
-        id = ${4:"The id of the Microsoft.MobileNetwork/mobileNetworks/slices@2022-11-01 resource"}
+        id = ${1:"The id of the Microsoft.MobileNetwork/mobileNetworks/slices@2022-11-01 resource"}
       }
       registrationTimer = 3240
       sliceConfigurations = [
@@ -12627,11 +12534,11 @@ EOT
               allocationAndRetentionPriorityLevel = 9
               allowedServices = [
                 {
-                  id = ${5:"The id of the Microsoft.MobileNetwork/mobileNetworks/services@2022-11-01 resource"}
+                  id = ${2:"The id of the Microsoft.MobileNetwork/mobileNetworks/services@2022-11-01 resource"}
                 },
               ]
               dataNetwork = {
-                id = ${6:"The id of the Microsoft.MobileNetwork/mobileNetworks/dataNetworks@2022-11-01 resource"}
+                id = ${3:"The id of the Microsoft.MobileNetwork/mobileNetworks/dataNetworks@2022-11-01 resource"}
               }
               defaultSessionType             = "IPv4"
               maximumNumberOfBufferedPackets = 10
@@ -12644,10 +12551,10 @@ EOT
             },
           ]
           defaultDataNetwork = {
-            id = ${6:"The id of the Microsoft.MobileNetwork/mobileNetworks/dataNetworks@2022-11-01 resource"}
+            id = ${3:"The id of the Microsoft.MobileNetwork/mobileNetworks/dataNetworks@2022-11-01 resource"}
           }
           slice = {
-            id = ${4:"The id of the Microsoft.MobileNetwork/mobileNetworks/slices@2022-11-01 resource"}
+            id = ${1:"The id of the Microsoft.MobileNetwork/mobileNetworks/slices@2022-11-01 resource"}
           }
         },
       ]
@@ -12719,15 +12626,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.MobileNetwork/mobileNetworks@2022-11-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.MobileNetwork/mobileNetworks@2022-11-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -12815,15 +12722,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.MobileNetwork/packetCoreControlPlanes@2022-11-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.MobileNetwork/packetCoreControlPlanes@2022-11-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -12855,22 +12762,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${4:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
       mobileNetwork = {
-        id = ${4:"The id of the Microsoft.MobileNetwork/mobileNetworks@2022-11-01 resource"}
+        id = ${1:"The id of the Microsoft.MobileNetwork/mobileNetworks@2022-11-01 resource"}
       }
     }
 
@@ -12896,15 +12803,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -12935,15 +12842,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -13019,15 +12926,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.NetApp/netAppAccounts/capacityPools@2022-05-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.NetApp/netAppAccounts/capacityPools@2022-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -13057,7 +12964,7 @@ EOT
       ]
       serviceLevel             = "Standard"
       snapshotDirectoryVisible = true
-      subnetId                 = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+      subnetId                 = ${2:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
       usageThreshold           = 1.073741824e+11
       volumeType               = ""
     }
@@ -13533,15 +13440,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id                 = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id                 = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name                      = "${2:The name of the resource}"`,	
+		        Value: `name                      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location                  = "${3:location}"`,	
+		        Value: `location                  = "${1:location}"`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13563,15 +13470,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${5:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -13584,10 +13491,10 @@ EOT
           name = "configuration"
           properties = {
             publicIPAddress = {
-              id = ${1:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
+              id = ${4:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
             }
             subnet = {
-              id = ${2:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+              id = ${5:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
             }
           }
         },
@@ -13620,15 +13527,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${5:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -13644,10 +13551,10 @@ EOT
           name = "ip-configuration"
           properties = {
             publicIPAddress = {
-              id = ${4:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
+              id = ${3:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
             }
             subnet = {
-              id = ${5:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+              id = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
             }
           }
         },
@@ -13679,15 +13586,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id                 = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id                 = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name                      = "${1:The name of the resource}"`,	
+		        Value: `name                      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location                  = "${2:location}"`,	
+		        Value: `location                  = "${3:location}"`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13709,15 +13616,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -13725,7 +13632,7 @@ EOT
     properties = {
       dnsResolverOutboundEndpoints = [
         {
-          id = ${3:"The id of the Microsoft.Network/dnsResolvers/outboundEndpoints@2022-07-01 resource"}
+          id = ${4:"The id of the Microsoft.Network/dnsResolvers/outboundEndpoints@2022-07-01 resource"}
         },
       ]
     }
@@ -13794,11 +13701,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/dnsForwardingRulesets@2022-07-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Network/dnsForwardingRulesets@2022-07-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -13806,7 +13713,7 @@ EOT
     properties = {
       metadata = null
       virtualNetwork = {
-        id = ${3:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
+        id = ${2:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
       }
     }
   })`,	
@@ -13831,22 +13738,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${4:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
       virtualNetwork = {
-        id = ${3:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
+        id = ${1:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
       }
     }
 
@@ -14081,11 +13988,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/dnsZones@2018-05-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Network/dnsZones@2018-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -14414,15 +14321,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${4:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -14431,7 +14338,7 @@ EOT
       authorizationKey = ""
       bandwidthInGbps  = 5
       expressRoutePort = {
-        id = ${1:"The id of the Microsoft.Network/ExpressRoutePorts@2022-07-01 resource"}
+        id = ${4:"The id of the Microsoft.Network/ExpressRoutePorts@2022-07-01 resource"}
       }
     }
     sku = {
@@ -14580,15 +14487,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -14601,7 +14508,7 @@ EOT
         }
       }
       virtualHub = {
-        id = ${2:"The id of the Microsoft.Network/virtualHubs@2022-07-01 resource"}
+        id = ${3:"The id of the Microsoft.Network/virtualHubs@2022-07-01 resource"}
       }
     }
   })`,	
@@ -14815,15 +14722,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${5:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -14831,10 +14738,10 @@ EOT
     properties = {
       frontendIPConfigurations = [
         {
-          name = ${2:"The name of the resource"}
+          name = ${4:"The name of the resource"}
           properties = {
             publicIPAddress = {
-              id = ${3:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
+              id = ${5:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
             }
           }
         },
@@ -14899,15 +14806,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -14942,15 +14849,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -14983,15 +14890,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${4:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -15007,7 +14914,7 @@ EOT
             privateIPAddressVersion   = "IPv4"
             privateIPAllocationMethod = "Dynamic"
             subnet = {
-              id = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+              id = ${1:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
             }
           }
         },
@@ -15069,15 +14976,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -15091,7 +14998,7 @@ EOT
         managementGroups = [
         ]
         subscriptions = [
-          ${3:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"},
+          ${4:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"},
         ]
       }
     }
@@ -15167,11 +15074,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Network/networkManagers@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Network/networkManagers@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -15200,17 +15107,17 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Network/networkManagers/networkGroups@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Network/networkManagers/networkGroups@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
-      resourceId = ${1:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
+      resourceId = ${2:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
     }
   })`,	
 	        },
@@ -15303,11 +15210,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Network/networkManagers/securityAdminConfigurations@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Network/networkManagers/securityAdminConfigurations@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -15315,7 +15222,7 @@ EOT
     properties = {
       appliesToGroups = [
         {
-          networkGroupId = ${1:"The id of the Microsoft.Network/networkManagers/networkGroups@2022-09-01 resource"}
+          networkGroupId = ${3:"The id of the Microsoft.Network/networkManagers/networkGroups@2022-09-01 resource"}
         },
       ]
     }
@@ -15383,15 +15290,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -15406,7 +15313,7 @@ EOT
                 name = "acctestipconfig-230630033653886950"
                 properties = {
                   subnet = {
-                    id = ${3:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+                    id = ${2:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
                   }
                 }
               },
@@ -15437,15 +15344,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -15664,11 +15571,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/privateDnsZones@2018-09-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Network/privateDnsZones@2018-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -15837,11 +15744,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Network/privateDnsZones@2018-09-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Network/privateDnsZones@2018-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -15937,11 +15844,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Network/privateDnsZones@2018-09-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Network/privateDnsZones@2018-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -15953,7 +15860,7 @@ EOT
     properties = {
       registrationEnabled = false
       virtualNetwork = {
-        id = ${1:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
+        id = ${3:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
       }
     }
   })`,	
@@ -16045,15 +15952,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -16552,11 +16459,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/virtualHubs@2022-07-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Network/virtualHubs@2022-07-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -16564,7 +16471,7 @@ EOT
     properties = {
       enableInternetSecurity = false
       remoteVirtualNetwork = {
-        id = ${3:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
+        id = ${1:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
       }
     }
   })`,	
@@ -16630,15 +16537,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${5:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -16654,10 +16561,10 @@ EOT
           properties = {
             privateIPAllocationMethod = "Dynamic"
             publicIPAddress = {
-              id = ${4:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
+              id = ${1:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
             }
             subnet = {
-              id = ${5:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+              id = ${2:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
             }
           }
         },
@@ -16735,15 +16642,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -16913,11 +16820,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/vpnGateways@2022-07-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Network/vpnGateways@2022-07-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -17096,11 +17003,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/vpnServerConfigurations@2022-07-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Network/vpnServerConfigurations@2022-07-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -17207,15 +17114,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -17334,11 +17241,15 @@ EOT
 		        Value: `location  = "${3:location}"`,	
 	        },
             {
+		        Name:  "identity",
+		        Value: `identity {
+    type = "SystemAssigned"
+    identity_ids = []
+  }`,	
+	        },
+            {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "SystemAssigned"
-    }
     sku = {
       capacity = 1000
       name     = "CapacityReservation"
@@ -17714,15 +17625,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -17765,11 +17676,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -17779,7 +17690,7 @@ EOT
         locations = [
         ]
       }
-      policyAssignmentId          = ${2:"The id of the Microsoft.Authorization/policyAssignments@2022-06-01 resource"}
+      policyAssignmentId          = ${3:"The id of the Microsoft.Authorization/policyAssignments@2022-06-01 resource"}
       policyDefinitionReferenceId = ""
       resourceDiscoveryMode       = "ExistingNonCompliant"
     }
@@ -17809,15 +17720,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -17894,23 +17805,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
+	        },
+            {
+		        Name:  "identity",
+		        Value: `identity {
+    type = "SystemAssigned"
+    identity_ids = []
+  }`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "SystemAssigned"
-      userAssignedIdentities = null
-    }
     properties = {
       publicNetworkAccess = "Enabled"
     }
@@ -17936,23 +17850,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       publicNetworkAccess = "Enabled"
     }
@@ -18108,11 +18018,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.RecoveryServices/vaults/replicationFabrics@2022-10-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.RecoveryServices/vaults/replicationFabrics@2022-10-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -18141,11 +18051,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.RecoveryServices/vaults@2022-10-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.RecoveryServices/vaults@2022-10-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -18181,15 +18091,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -18222,11 +18132,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Relay/namespaces@2017-04-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Relay/namespaces@2017-04-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -18331,15 +18241,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -18536,18 +18446,18 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Search/searchServices@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Search/searchServices@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
       groupId               = "blob"
-      privateLinkResourceId = ${2:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+      privateLinkResourceId = ${3:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
       requestMessage        = "please approve"
     }
   })`,	
@@ -18609,15 +18519,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -18625,7 +18535,7 @@ EOT
     properties = {
       displayName = "Iot Security Solution"
       iotHubs = [
-        ${4:"The id of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"},
+        ${2:"The id of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"},
       ]
       status                  = "Enabled"
       unmaskedIpLoggingStatus = "Disabled"
@@ -18773,7 +18683,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -18816,7 +18726,7 @@ EOT
 	        },
             {
 		        Name:  "depends_on",
-		        Value: `depends_on                = [${1:"The onboardingState of the Microsoft.SecurityInsights/onboardingStates@2023-06-01-preview resource"}]`,	
+		        Value: `depends_on                = [${2:"The onboardingState of the Microsoft.SecurityInsights/onboardingStates@2023-06-01-preview resource"}]`,	
 	        },
 	
 	    },
@@ -18830,11 +18740,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -18851,7 +18761,7 @@ EOT
           state          = "enabled"
         }
       }
-      tenantId = ${2:"tenant id"}
+      tenantId = ${4:"tenant id"}
     }
   })`,	
 	        },
@@ -18865,7 +18775,7 @@ EOT
 	        },
             {
 		        Name:  "depends_on",
-		        Value: `depends_on                = [${3:"The onboardingState of the Microsoft.SecurityInsights/onboardingStates@2023-06-01-preview resource"}]`,	
+		        Value: `depends_on                = [${1:"The onboardingState of the Microsoft.SecurityInsights/onboardingStates@2023-06-01-preview resource"}]`,	
 	        },
 	
 	    },
@@ -18950,11 +18860,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -18977,7 +18887,7 @@ EOT
 	        },
             {
 		        Name:  "depends_on",
-		        Value: `depends_on                = [${3:"The onboardingState of the Microsoft.SecurityInsights/onboardingStates@2022-11-01 resource"}]`,	
+		        Value: `depends_on                = [${1:"The onboardingState of the Microsoft.SecurityInsights/onboardingStates@2022-11-01 resource"}]`,	
 	        },
 	
 	    },
@@ -19040,10 +18950,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       disableLocalAuth    = false
       publicNetworkAccess = "Enabled"
@@ -19266,11 +19172,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ServiceBus/namespaces/topics@2021-06-01-preview resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.ServiceBus/namespaces/topics@2021-06-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -19308,11 +19214,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.ServiceBus/namespaces/topics/subscriptions@2021-06-01-preview resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.ServiceBus/namespaces/topics/subscriptions@2021-06-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -19413,15 +19319,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -19434,7 +19340,7 @@ EOT
       adminUserName             = "testUser"
       clientConnectionPort      = 12345
       clusterUpgradeCadence     = "Wave0"
-      dnsName                   = ${4:"The name of the resource"}
+      dnsName                   = ${3:"The name of the resource"}
       httpGatewayConnectionPort = 23456
       loadBalancingRules = [
         {
@@ -19553,11 +19459,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.AppPlatform/Spring/apps/deployments@2023-05-01-preview resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.AppPlatform/Spring/apps/deployments@2023-05-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -19568,7 +19474,7 @@ EOT
       }
       clientType = "none"
       targetService = {
-        id                 = ${1:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-10-15 resource"}
+        id                 = ${3:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-10-15 resource"}
         resourceProperties = null
         type               = "AzureResource"
       }
@@ -19608,10 +19514,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       cors = {
       }
@@ -19738,10 +19640,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       disableAadAuth      = false
       disableLocalAuth    = false
@@ -19895,22 +19793,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:The location of the Microsoft.Resources/resourceGroups@2022-09-01 resource}"`,	
+		        Value: `location  = "${2:The location of the Microsoft.Resources/resourceGroups@2022-09-01 resource}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
     properties = {
       licenseType = "LicenseIncluded"
-      subnetId    = ${2:"The id of the Microsoft.Network/virtualNetworks/subnets@2023-04-01 resource"}
+      subnetId    = ${3:"The id of the Microsoft.Network/virtualNetworks/subnets@2023-04-01 resource"}
       vCores      = 8
     }
     sku = {
@@ -19983,7 +19881,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Sql/servers@2015-05-01-preview resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Sql/servers@2015-05-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -19995,8 +19893,8 @@ EOT
     properties = {
       administratorType = "ActiveDirectory"
       login             = "sqladmin"
-      sid               = ${1:"The client_id of the  resource"}
-      tenantId          = ${2:"tenant id"}
+      sid               = ${2:"The client_id of the  resource"}
+      tenantId          = ${3:"tenant id"}
     }
   })`,	
 	        },
@@ -20129,11 +20027,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Sql/servers@2015-05-01-preview resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Sql/servers@2015-05-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -20318,9 +20216,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     kind = "StorageV2"
     properties = {
       accessTier                   = "Hot"
@@ -20581,10 +20476,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type                   = "None"
-      userAssignedIdentities = null
-    }
     properties = {
       cacheSizeGB = 3072
       networkSettings = {
@@ -20693,11 +20584,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.StorageMover/storageMovers@2023-03-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.StorageMover/storageMovers@2023-03-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -20790,15 +20681,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -20993,11 +20884,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.StreamAnalytics/streamingJobs@2020-03-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.StreamAnalytics/streamingJobs@2020-03-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -21005,8 +20896,8 @@ EOT
     properties = {
       datasource = {
         properties = {
-          accountKey   = jsondecode(${1:"TODO"}).keys[0].value
-          accountName  = ${2:"The name of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+          accountKey   = jsondecode(${3:"TODO"}).keys[0].value
+          accountName  = ${4:"The name of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
           batchSize    = 100
           partitionKey = "foo"
           rowKey       = "bar"
@@ -21079,11 +20970,15 @@ EOT
 		        Value: `location  = "${1:location}"`,	
 	        },
             {
+		        Name:  "identity",
+		        Value: `identity {
+    type = "SystemAssigned"
+    identity_ids = []
+  }`,	
+	        },
+            {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "SystemAssigned"
-    }
     properties = {
       defaultDataLakeStorage = {
         accountUrl = jsondecode(${2:"TODO"}).properties.primaryEndpoints.dfs
@@ -21243,15 +21138,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Synapse/workspaces@2021-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Synapse/workspaces@2021-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -21322,11 +21217,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Synapse/workspaces/sqlPools/workloadGroups@2021-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Synapse/workspaces/sqlPools/workloadGroups@2021-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
@@ -21438,15 +21333,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${6:"The id of the Microsoft.TimeSeriesInsights/environments@2020-05-15 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.TimeSeriesInsights/environments@2020-05-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
@@ -21454,10 +21349,10 @@ EOT
     kind = "Microsoft.IoTHub"
     properties = {
       consumerGroupName     = "test"
-      eventSourceResourceId = ${3:"The id of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
-      iotHubName            = ${4:"The name of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
+      eventSourceResourceId = ${4:"The id of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
+      iotHubName            = ${5:"The name of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
       keyName               = "iothubowner"
-      sharedAccessKey       = jsondecode(${5:"TODO"}).value[0].primaryKey
+      sharedAccessKey       = jsondecode(${6:"TODO"}).value[0].primaryKey
       timestampPropertyName = ""
     }
   })`,	
@@ -21570,22 +21465,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${4:location}"`,	
 	        },
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     properties = {
       clientAffinityEnabled = false
       clientCertEnabled     = false
@@ -21593,7 +21485,7 @@ EOT
       enabled               = true
       httpsOnly             = false
       publicNetworkAccess   = "Enabled"
-      serverFarmId          = ${3:"The id of the Microsoft.Web/serverfarms@2022-09-01 resource"}
+      serverFarmId          = ${1:"The id of the Microsoft.Web/serverfarms@2022-09-01 resource"}
       siteConfig = {
         acrUseManagedIdentityCreds       = false
         alwaysOn                         = true
@@ -21685,9 +21577,6 @@ EOT
             {
 		        Name:  "body",
 		        Value: `body = jsonencode({
-    identity = {
-      type = "None"
-    }
     properties = {
       clientAffinityEnabled    = false
       clientCertEnabled        = false
@@ -21781,11 +21670,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -21799,7 +21688,7 @@ EOT
         customEmailSubject   = ""
         customWebhookPayload = ""
         groupIds = [
-          ${3:"The id of the Microsoft.Insights/actionGroups@2023-01-01 resource"},
+          ${2:"The id of the Microsoft.Insights/actionGroups@2023-01-01 resource"},
         ]
       }
       description = ""
@@ -21808,7 +21697,7 @@ EOT
       }
       frequency = "PT1M"
       scope = [
-        ${4:"The id of the Microsoft.Insights/components@2020-02-02 resource"},
+        ${3:"The id of the Microsoft.Insights/components@2020-02-02 resource"},
       ]
       severity = "Sev0"
       state    = "Enabled"
