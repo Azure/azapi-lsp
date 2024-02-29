@@ -81,7 +81,13 @@ func GetDef(resourceType *types.TypeBase, hclNodes []*parser.HclNode, index int)
 		if t.Input != nil {
 			return GetDef(t.Input.Type, hclNodes, index+1)
 		}
-	case *types.BuiltInType:
+	case *types.AnyType:
+		return []*types.TypeBase{resourceType}
+	case *types.BooleanType:
+		return []*types.TypeBase{resourceType}
+	case *types.IntegerType:
+		return []*types.TypeBase{resourceType}
+	case *types.StringType:
 		return []*types.TypeBase{resourceType}
 	case *types.StringLiteralType:
 		return []*types.TypeBase{resourceType}
@@ -125,7 +131,10 @@ func GetAllowedProperties(resourceType *types.TypeBase) []Property {
 		if t.Body != nil {
 			return GetAllowedProperties(t.Body.Type)
 		}
-	case *types.BuiltInType:
+	case *types.AnyType:
+	case *types.BooleanType:
+	case *types.IntegerType:
+	case *types.StringType:
 	case *types.StringLiteralType:
 	case *types.UnionType:
 	}
@@ -152,10 +161,11 @@ func GetAllowedValues(resourceType *types.TypeBase) []string {
 	case *types.DiscriminatedObjectType:
 	case *types.ObjectType:
 	case *types.ArrayType:
-	case *types.BuiltInType:
-		if t.Kind == types.Bool {
-			values = append(values, "true", "false")
-		}
+	case *types.AnyType:
+	case *types.BooleanType:
+		values = append(values, "true", "false")
+	case *types.IntegerType:
+	case *types.StringType:
 	}
 	return values
 }
@@ -197,8 +207,14 @@ func GetTypeName(typeBase *types.TypeBase) string {
 		return "object"
 	case *types.ResourceType:
 		return "object"
-	case *types.BuiltInType:
-		return t.Kind.String()
+	case *types.AnyType:
+		return "any"
+	case *types.BooleanType:
+		return "boolean"
+	case *types.IntegerType:
+		return "int"
+	case *types.StringType:
+		return "string"
 	case *types.StringLiteralType:
 		return "string"
 	case *types.UnionType:

@@ -8,6 +8,7 @@ import (
 var _ TypeBase = &ResourceType{}
 
 type ResourceType struct {
+	Type       string
 	Name       string
 	ScopeTypes []ScopeType
 	Body       *TypeReference
@@ -57,7 +58,16 @@ func (t *ResourceType) UnmarshalJSON(body []byte) error {
 	}
 	for k, v := range m {
 		switch k {
-		case "Name":
+		case "$type":
+			if v != nil {
+				var typeRef string
+				err := json.Unmarshal(*v, &typeRef)
+				if err != nil {
+					return err
+				}
+				t.Type = typeRef
+			}
+		case "name":
 			if v != nil {
 				var name string
 				err := json.Unmarshal(*v, &name)
@@ -66,7 +76,7 @@ func (t *ResourceType) UnmarshalJSON(body []byte) error {
 				}
 				t.Name = name
 			}
-		case "ScopeType":
+		case "scopeType":
 			if v != nil {
 				var scopeType int
 				err := json.Unmarshal(*v, &scopeType)
@@ -84,18 +94,18 @@ func (t *ResourceType) UnmarshalJSON(body []byte) error {
 				}
 				t.ScopeTypes = scopeTypes
 			}
-		case "ReadOnlyScopes":
+		case "readOnlyScopes":
 			// NOTE: we're intentionally not parsing this field since it's not used in azapi
-		case "Body":
+		case "body":
 			if v != nil {
-				var index int
-				err := json.Unmarshal(*v, &index)
+				var typeRef TypeReference
+				err := json.Unmarshal(*v, &typeRef)
 				if err != nil {
 					return err
 				}
-				t.Body = &TypeReference{TypeIndex: index}
+				t.Body = &typeRef
 			}
-		case "Flags":
+		case "flags":
 			if v != nil {
 				var flag int
 				err := json.Unmarshal(*v, &flag)

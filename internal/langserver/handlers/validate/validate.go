@@ -241,7 +241,12 @@ func Validate(hclNode *parser.HclNode, typeBase *types.TypeBase) hcl.Diagnostics
 		if t.Input != nil {
 			return Validate(hclNode, t.Input.Type)
 		}
-	case *types.BuiltInType:
+	case *types.AnyType:
+	case *types.BooleanType:
+	case *types.IntegerType:
+		// TODO: validate
+	case *types.StringType:
+		// TODO: validate
 	case *types.StringLiteralType:
 		if hclNode.Value != nil {
 			value := strings.TrimSpace(*hclNode.Value)
