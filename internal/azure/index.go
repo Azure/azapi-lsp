@@ -3,6 +3,7 @@ package azure
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/Azure/azapi-lsp/internal/azure/types"
@@ -34,13 +35,74 @@ type FunctionDefinition struct {
 }
 
 type TypeLocation struct {
-	Location string `json:"RelativePath"`
-	Index    int    `json:"Index"`
+	Location string
+	Index    int
+}
+
+func (o *TypeLocation) UnmarshalJSON(body []byte) error {
+	var m types.TypeReference
+	err := json.Unmarshal(body, &m)
+	if err != nil {
+		return err
+	}
+	parts := strings.Split(m.Ref, "#/")
+	if len(parts) != 2 {
+		return fmt.Errorf("invalid ref: %s", m.Ref)
+	}
+	o.Location = parts[0]
+	index, err := strconv.ParseInt(parts[1], 10, 64)
+	if err != nil {
+		return fmt.Errorf("invalid index, ref: %s: %s", m.Ref, err)
+	}
+	o.Index = int(index)
+	return nil
+}
+
+func (o *TypeLocation) LoadResourceTypeDefinition() (*types.ResourceType, error) {
+	if o == nil {
+		return nil, nil
+	}
+	data, err := StaticFiles.ReadFile("generated/" + o.Location)
+	if err != nil {
+		return nil, err
+	}
+	var schema types.Schema
+	err = json.Unmarshal(data, &schema)
+	if err != nil {
+		return nil, err
+	}
+	if o.Index < len(schema.Types) && schema.Types[o.Index] != nil {
+		if resourceType, ok := (*schema.Types[o.Index]).(*types.ResourceType); ok {
+			return resourceType, nil
+		}
+	}
+	return nil, fmt.Errorf("index invalid or the type is not a resource type")
+}
+
+func (o *TypeLocation) LoadFunctionTypeDefinition() (*types.ResourceFunctionType, error) {
+	if o == nil {
+		return nil, nil
+	}
+	data, err := StaticFiles.ReadFile("generated/" + o.Location)
+	if err != nil {
+		return nil, err
+	}
+	var schema types.Schema
+	err = json.Unmarshal(data, &schema)
+	if err != nil {
+		return nil, err
+	}
+	if o.Index < len(schema.Types) && schema.Types[o.Index] != nil {
+		if resourceType, ok := (*schema.Types[o.Index]).(*types.ResourceFunctionType); ok {
+			return resourceType, nil
+		}
+	}
+	return nil, fmt.Errorf("index invalid or the type is not a resource type")
 }
 
 type IndexRaw struct {
-	Resources map[string]TypeLocation              `json:"Resources"`
-	Functions map[string]map[string][]TypeLocation `json:"Functions"`
+	Resources map[string]TypeLocation              `json:"resources"`
+	Functions map[string]map[string][]TypeLocation `json:"resourceFunctions"`
 }
 
 func (o *Schema) UnmarshalJSON(body []byte) error {
@@ -126,46 +188,4 @@ func (o *FunctionDefinition) GetDefinition() (*types.ResourceFunctionType, error
 	}
 	o.Definition = definition
 	return o.Definition, nil
-}
-
-func (o *TypeLocation) LoadResourceTypeDefinition() (*types.ResourceType, error) {
-	if o == nil {
-		return nil, nil
-	}
-	data, err := StaticFiles.ReadFile("generated/" + o.Location)
-	if err != nil {
-		return nil, err
-	}
-	var schema types.Schema
-	err = json.Unmarshal(data, &schema)
-	if err != nil {
-		return nil, err
-	}
-	if o.Index < len(schema.Types) && schema.Types[o.Index] != nil {
-		if resourceType, ok := (*schema.Types[o.Index]).(*types.ResourceType); ok {
-			return resourceType, nil
-		}
-	}
-	return nil, fmt.Errorf("index invalid or the type is not a resource type")
-}
-
-func (o *TypeLocation) LoadFunctionTypeDefinition() (*types.ResourceFunctionType, error) {
-	if o == nil {
-		return nil, nil
-	}
-	data, err := StaticFiles.ReadFile("generated/" + o.Location)
-	if err != nil {
-		return nil, err
-	}
-	var schema types.Schema
-	err = json.Unmarshal(data, &schema)
-	if err != nil {
-		return nil, err
-	}
-	if o.Index < len(schema.Types) && schema.Types[o.Index] != nil {
-		if resourceType, ok := (*schema.Types[o.Index]).(*types.ResourceFunctionType); ok {
-			return resourceType, nil
-		}
-	}
-	return nil, fmt.Errorf("index invalid or the type is not a resource type")
 }
