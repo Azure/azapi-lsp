@@ -1,3 +1,7 @@
+## v1.13.0 (unreleased)
+ENHANCEMENTS:
+- Support the new bicep types.
+
 ## v1.12.0
 ENHANCEMENTS:
 - `azapi_resource` resource: Support `ignore_body_changes` property.
