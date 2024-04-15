@@ -211,6 +211,36 @@
         }
       },
       {
+        "label": "payload",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "payload (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `dynamic`  \nA dynamic attribute that contains the request body used to create and update azure resource.\n"
+        },
+        "sortText": "0006",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "payload = $0"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
         "label": "tags",
         "labelDetails": {},
         "kind": 10,
@@ -219,7 +249,7 @@
           "kind": "markdown",
           "value": "Type: `map<string, string>`  \nA mapping of tags which should be assigned to the azure resource.\n"
         },
-        "sortText": "0006",
+        "sortText": "0007",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -249,7 +279,7 @@
           "kind": "markdown",
           "value": "Type: `list<string>`  \nA list of path that needs to be exported from response body.\n"
         },
-        "sortText": "0007",
+        "sortText": "0008",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -279,7 +309,7 @@
           "kind": "markdown",
           "value": "Type: `bool`  \nWhether enabled the validation on `type` and `body` with embedded schema. Defaults to `true`.\n"
         },
-        "sortText": "0008",
+        "sortText": "0009",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -309,7 +339,7 @@
           "kind": "markdown",
           "value": "Type: `list<string>`  \nA list of ARM resource IDs which are used to avoid create/modify/delete azapi resources at the same time.\n"
         },
-        "sortText": "0009",
+        "sortText": "0010",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -339,7 +369,7 @@
           "kind": "markdown",
           "value": "Type: `list<string>`  \nA list of properties that should be ignored when comparing the `body` with its current state..\n"
         },
-        "sortText": "0010",
+        "sortText": "0011",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -369,7 +399,7 @@
           "kind": "markdown",
           "value": "Type: `bool`  \nWhether ignore incorrect casing returned in `body` to suppress plan-diff. Defaults to `false`.\n"
         },
-        "sortText": "0011",
+        "sortText": "0012",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -399,7 +429,7 @@
           "kind": "markdown",
           "value": "Type: `bool`  \nWhether ignore not returned properties like credentials in `body` to suppress plan-diff. Defaults to `false`.\n"
         },
-        "sortText": "0012",
+        "sortText": "0013",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {

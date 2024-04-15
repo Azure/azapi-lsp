@@ -1,6 +1,10 @@
 ## v1.13.0 (unreleased)
 ENHANCEMENTS:
 - Support the new bicep types.
+- `azapi_resource` resource: Support for the `payload` property.
+- `azapi_update_resource` resource: Support for the `payload` property.
+- `azapi_resource_action` resource: Support for the `payload` property.
+- `azapi_resource_action` data source: Support for the `payload` property.
 
 ## v1.12.0
 ENHANCEMENTS:

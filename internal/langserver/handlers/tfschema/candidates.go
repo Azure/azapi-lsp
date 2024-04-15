@@ -161,6 +161,24 @@ func bodyJsonencodeFuncCandidate() lsp.CompletionItem {
 	}
 }
 
+func dynamicPlaceholderCandidate() lsp.CompletionItem {
+	return lsp.CompletionItem{
+		Label: `{}`,
+		Kind:  lsp.ValueCompletion,
+		Documentation: lsp.MarkupContent{
+			Kind:  "markdown",
+			Value: "dynamic attribute allows any valid HCL object.",
+		},
+		SortText:         `{}`,
+		InsertTextFormat: lsp.SnippetTextFormat,
+		InsertTextMode:   lsp.AdjustIndentation,
+		TextEdit: &lsp.TextEdit{
+			NewText: "{\n\t$0\n}",
+		},
+		Command: constTriggerSuggestCommand(),
+	}
+}
+
 func resourceHttpMethodCandidates(_ *string, r lsp.Range) []lsp.CompletionItem {
 	return valueCandidates([]string{
 		`"POST"`,
