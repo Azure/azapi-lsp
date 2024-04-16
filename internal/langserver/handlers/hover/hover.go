@@ -47,64 +47,39 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 						}
 					}
 				}
+			case "payload":
+				if parser.ContainsPos(attribute.NameRange, pos) {
+					return Hover(property.Name, property.Modifier, property.Type, property.Description, attribute.NameRange)
+				}
+
+				bodyDef := tfschema.BodyDefinitionFromBlock(block)
+				if bodyDef == nil {
+					return nil
+				}
+
+				tokens, _ := hclsyntax.LexExpression(data[attribute.Expr.Range().Start.Byte:attribute.Expr.Range().End.Byte], filename, attribute.Expr.Range().Start)
+				hclNode := parser.BuildHclNode(tokens)
+				if hclNode == nil {
+					break
+				}
+
+				return hoverOnBody(hclNode, pos, bodyDef)
 			case "body":
 				if parser.ContainsPos(attribute.NameRange, pos) {
 					return Hover(property.Name, property.Modifier, property.Type, property.Description, attribute.NameRange)
 				}
-				typeValue := parser.ExtractAzureResourceType(block)
-				if typeValue == nil {
-					break
-				}
 
-				var bodyDef types.TypeBase
-				def, err := azure.GetResourceDefinitionByResourceType(*typeValue)
-				if err != nil || def == nil {
+				bodyDef := tfschema.BodyDefinitionFromBlock(block)
+				if bodyDef == nil {
 					return nil
-				}
-				bodyDef = def
-				if len(block.Labels) >= 2 && block.Labels[0] == "azapi_resource_action" {
-					parts := strings.Split(*typeValue, "@")
-					if len(parts) != 2 {
-						return nil
-					}
-					actionName := parser.ExtractAction(block)
-					if actionName != nil && len(*actionName) != 0 {
-						resourceFuncDef, err := azure.GetResourceFunction(parts[0], parts[1], *actionName)
-						if err != nil || resourceFuncDef == nil {
-							return nil
-						}
-						bodyDef = resourceFuncDef
-					}
 				}
 
 				hclNode := parser.JsonEncodeExpressionToHclNode(data, attribute.Expr)
 				if hclNode == nil {
 					break
 				}
-				hclNodes := parser.HclNodeArraysOfPos(hclNode, pos)
-				if len(hclNodes) == 0 {
-					break
-				}
-				lastHclNode := hclNodes[len(hclNodes)-1]
 
-				if parser.ContainsPos(lastHclNode.KeyRange, pos) {
-					defs := schema.GetDef(bodyDef.AsTypeBase(), hclNodes[0:len(hclNodes)-1], 0)
-					props := make([]schema.Property, 0)
-					for _, def := range defs {
-						props = append(props, schema.GetAllowedProperties(def)...)
-					}
-					logger.Printf("received allowed keys: %#v", props)
-					if len(props) != 0 {
-						index := 0
-						for i := range props {
-							if props[i].Name == lastHclNode.Key {
-								index = i
-								break
-							}
-						}
-						return Hover(props[index].Name, string(props[index].Modifier), props[index].Type, props[index].Description, lastHclNode.KeyRange)
-					}
-				}
+				return hoverOnBody(hclNode, pos, bodyDef)
 			default:
 				if !parser.ContainsPos(attribute.NameRange, pos) {
 					return nil
@@ -127,6 +102,36 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 					return Hover(property.Name, property.Modifier, property.Type, property.Description, subBody.TypeRange)
 				}
 			}
+		}
+	}
+	return nil
+}
+
+func hoverOnBody(hclNode *parser.HclNode, pos hcl.Pos, bodyDef types.TypeBase) *lsp.Hover {
+	hclNodes := parser.HclNodeArraysOfPos(hclNode, pos)
+	if len(hclNodes) == 0 {
+		return nil
+	}
+	lastHclNode := hclNodes[len(hclNodes)-1]
+
+	if parser.ContainsPos(lastHclNode.KeyRange, pos) {
+		defs := schema.GetDef(bodyDef.AsTypeBase(), hclNodes[0:len(hclNodes)-1], 0)
+		props := make([]schema.Property, 0)
+		for _, def := range defs {
+			props = append(props, schema.GetAllowedProperties(def)...)
+		}
+		if len(props) != 0 {
+			index := -1
+			for i := range props {
+				if props[i].Name == lastHclNode.Key {
+					index = i
+					break
+				}
+			}
+			if index == -1 {
+				return nil
+			}
+			return Hover(props[index].Name, string(props[index].Modifier), props[index].Type, props[index].Description, lastHclNode.KeyRange)
 		}
 	}
 	return nil

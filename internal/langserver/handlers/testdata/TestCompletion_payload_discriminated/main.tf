@@ -1,0 +1,14 @@
+resource "azapi_resource" "dataflow" {
+  type = "Microsoft.DataFactory/factories/dataflows@2018-06-01"
+  name = "hengludf0509"
+  parent_id = azurerm_data_factory.test.id
+  payload = {
+    properties = {
+      type = "Flowlet"
+      typeProperties = {
+
+      }
+
+    }
+  }
+}

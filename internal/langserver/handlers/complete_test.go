@@ -153,7 +153,89 @@ func TestCompletion_value(t *testing.T) {
 	}, string(expectRaw))
 }
 
+func TestCompletion_payload_value(t *testing.T) {
+	tmpDir := TempDir(t)
+	InitPluginCache(t, tmpDir.Dir())
+
+	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
+	stop := ls.Start(t)
+	defer stop()
+
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ls.Call(t, &langserver.CallRequest{
+		Method: "initialize",
+		ReqParams: fmt.Sprintf(`{
+		"capabilities": {},
+		"rootUri": %q,
+		"processId": 12345
+	}`, tmpDir.URI()),
+	})
+	ls.Notify(t, &langserver.CallRequest{
+		Method:    "initialized",
+		ReqParams: "{}",
+	})
+	ls.Call(t, &langserver.CallRequest{
+		Method:    "textDocument/didOpen",
+		ReqParams: buildReqParamsTextDocument(string(config), tmpDir.URI()),
+	})
+
+	ls.CallAndExpectResponse(t, &langserver.CallRequest{
+		Method:    "textDocument/completion",
+		ReqParams: buildReqParamsCompletion(7, 15, tmpDir.URI()),
+	}, string(expectRaw))
+}
+
 func TestCompletion_propWrappedByQuote(t *testing.T) {
+	tmpDir := TempDir(t)
+	InitPluginCache(t, tmpDir.Dir())
+
+	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
+	stop := ls.Start(t)
+	defer stop()
+
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ls.Call(t, &langserver.CallRequest{
+		Method: "initialize",
+		ReqParams: fmt.Sprintf(`{
+		"capabilities": {},
+		"rootUri": %q,
+		"processId": 12345
+	}`, tmpDir.URI()),
+	})
+	ls.Notify(t, &langserver.CallRequest{
+		Method:    "initialized",
+		ReqParams: "{}",
+	})
+	ls.Call(t, &langserver.CallRequest{
+		Method:    "textDocument/didOpen",
+		ReqParams: buildReqParamsTextDocument(string(config), tmpDir.URI()),
+	})
+
+	ls.CallAndExpectResponse(t, &langserver.CallRequest{
+		Method:    "textDocument/completion",
+		ReqParams: buildReqParamsCompletion(9, 11, tmpDir.URI()),
+	}, string(expectRaw))
+}
+
+func TestCompletion_payload_propWrappedByQuote(t *testing.T) {
 	tmpDir := TempDir(t)
 	InitPluginCache(t, tmpDir.Dir())
 
@@ -276,6 +358,47 @@ func TestCompletion_actionBody(t *testing.T) {
 	}, string(expectRaw))
 }
 
+func TestCompletion_payload_actionBody(t *testing.T) {
+	tmpDir := TempDir(t)
+	InitPluginCache(t, tmpDir.Dir())
+
+	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
+	stop := ls.Start(t)
+	defer stop()
+
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ls.Call(t, &langserver.CallRequest{
+		Method: "initialize",
+		ReqParams: fmt.Sprintf(`{
+		"capabilities": {},
+		"rootUri": %q,
+		"processId": 12345
+	}`, tmpDir.URI()),
+	})
+	ls.Notify(t, &langserver.CallRequest{
+		Method:    "initialized",
+		ReqParams: "{}",
+	})
+	ls.Call(t, &langserver.CallRequest{
+		Method:    "textDocument/didOpen",
+		ReqParams: buildReqParamsTextDocument(string(config), tmpDir.URI()),
+	})
+
+	ls.CallAndExpectResponse(t, &langserver.CallRequest{
+		Method:    "textDocument/completion",
+		ReqParams: buildReqParamsCompletion(5, 5, tmpDir.URI()),
+	}, string(expectRaw))
+}
+
 func TestCompletion_discriminated(t *testing.T) {
 	tmpDir := TempDir(t)
 	InitPluginCache(t, tmpDir.Dir())
@@ -317,7 +440,89 @@ func TestCompletion_discriminated(t *testing.T) {
 	}, string(expectRaw))
 }
 
+func TestCompletion_payload_discriminated(t *testing.T) {
+	tmpDir := TempDir(t)
+	InitPluginCache(t, tmpDir.Dir())
+
+	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
+	stop := ls.Start(t)
+	defer stop()
+
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ls.Call(t, &langserver.CallRequest{
+		Method: "initialize",
+		ReqParams: fmt.Sprintf(`{
+		"capabilities": {},
+		"rootUri": %q,
+		"processId": 12345
+	}`, tmpDir.URI()),
+	})
+	ls.Notify(t, &langserver.CallRequest{
+		Method:    "initialized",
+		ReqParams: "{}",
+	})
+	ls.Call(t, &langserver.CallRequest{
+		Method:    "textDocument/didOpen",
+		ReqParams: buildReqParamsTextDocument(string(config), tmpDir.URI()),
+	})
+
+	ls.CallAndExpectResponse(t, &langserver.CallRequest{
+		Method:    "textDocument/completion",
+		ReqParams: buildReqParamsCompletion(11, 7, tmpDir.URI()),
+	}, string(expectRaw))
+}
+
 func TestCompletion_prop(t *testing.T) {
+	tmpDir := TempDir(t)
+	InitPluginCache(t, tmpDir.Dir())
+
+	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
+	stop := ls.Start(t)
+	defer stop()
+
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	expectRaw, err := os.ReadFile(fmt.Sprintf("./testdata/%s/expect.json", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ls.Call(t, &langserver.CallRequest{
+		Method: "initialize",
+		ReqParams: fmt.Sprintf(`{
+		"capabilities": {},
+		"rootUri": %q,
+		"processId": 12345
+	}`, tmpDir.URI()),
+	})
+	ls.Notify(t, &langserver.CallRequest{
+		Method:    "initialized",
+		ReqParams: "{}",
+	})
+	ls.Call(t, &langserver.CallRequest{
+		Method:    "textDocument/didOpen",
+		ReqParams: buildReqParamsTextDocument(string(config), tmpDir.URI()),
+	})
+
+	ls.CallAndExpectResponse(t, &langserver.CallRequest{
+		Method:    "textDocument/completion",
+		ReqParams: buildReqParamsCompletion(12, 11, tmpDir.URI()),
+	}, string(expectRaw))
+}
+
+func TestCompletion_payload_prop(t *testing.T) {
 	tmpDir := TempDir(t)
 	InitPluginCache(t, tmpDir.Dir())
 
