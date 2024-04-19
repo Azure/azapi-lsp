@@ -143,19 +143,19 @@ func boolCandidates(_ *string, r lsp.Range) []lsp.CompletionItem {
 	return valueCandidates([]string{"true", "false"}, r, false)
 }
 
-func bodyJsonencodeFuncCandidate() lsp.CompletionItem {
+func dynamicPlaceholderCandidate() lsp.CompletionItem {
 	return lsp.CompletionItem{
-		Label: `jsonencode({})`,
+		Label: `{}`,
 		Kind:  lsp.ValueCompletion,
 		Documentation: lsp.MarkupContent{
 			Kind:  "markdown",
-			Value: "`jsonencode` encodes a given value to a string using JSON syntax.",
+			Value: "dynamic attribute allows any valid HCL object.",
 		},
-		SortText:         `jsonencode`,
+		SortText:         `{}`,
 		InsertTextFormat: lsp.SnippetTextFormat,
 		InsertTextMode:   lsp.AdjustIndentation,
 		TextEdit: &lsp.TextEdit{
-			NewText: "jsonencode({\n\t$0\n})",
+			NewText: "{\n\t$0\n}",
 		},
 		Command: constTriggerSuggestCommand(),
 	}

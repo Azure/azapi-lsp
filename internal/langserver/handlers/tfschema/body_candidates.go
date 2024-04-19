@@ -23,6 +23,24 @@ func bodyCandidates(data []byte, filename string, block *hclsyntax.Block, attrib
 		}
 	}
 
+	bodyDef := BodyDefinitionFromBlock(block)
+	if bodyDef == nil {
+		return nil
+	}
+
+	hclNode := parser.JsonEncodeExpressionToHclNode(data, attribute.Expr)
+	if hclNode == nil {
+		tokens, _ := hclsyntax.LexExpression(data[attribute.Expr.Range().Start.Byte:attribute.Expr.Range().End.Byte], filename, attribute.Expr.Range().Start)
+		hclNode = parser.BuildHclNode(tokens)
+	}
+	if hclNode == nil {
+		return nil
+	}
+
+	return buildCandidates(hclNode, filename, pos, bodyDef)
+}
+
+func BodyDefinitionFromBlock(block *hclsyntax.Block) types.TypeBase {
 	typeValue := parser.ExtractAzureResourceType(block)
 	if typeValue == nil {
 		return nil
@@ -47,16 +65,11 @@ func bodyCandidates(data []byte, filename string, block *hclsyntax.Block, attrib
 			bodyDef = resourceFuncDef
 		}
 	}
-
-	return buildCandidates(data, filename, attribute, pos, bodyDef)
+	return bodyDef
 }
 
-func buildCandidates(data []byte, filename string, attribute *hclsyntax.Attribute, pos hcl.Pos, def types.TypeBase) []lsp.CompletionItem {
+func buildCandidates(hclNode *parser.HclNode, filename string, pos hcl.Pos, def types.TypeBase) []lsp.CompletionItem {
 	candidateList := make([]lsp.CompletionItem, 0)
-	hclNode := parser.JsonEncodeExpressionToHclNode(data, attribute.Expr)
-	if hclNode == nil {
-		return nil
-	}
 	hclNodes := parser.HclNodeArraysOfPos(hclNode, pos)
 	if len(hclNodes) == 0 {
 		return nil

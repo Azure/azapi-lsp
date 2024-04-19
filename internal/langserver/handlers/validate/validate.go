@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Azure/azapi-lsp/internal/azure"
 	"github.com/Azure/azapi-lsp/internal/azure/types"
 	"github.com/Azure/azapi-lsp/internal/langserver/diagnostics"
+	"github.com/Azure/azapi-lsp/internal/langserver/handlers/tfschema"
 	"github.com/Azure/azapi-lsp/internal/parser"
 	"github.com/Azure/azapi-lsp/internal/utils"
 	"github.com/hashicorp/hcl/v2"
@@ -54,41 +54,31 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 			return nil
 		}
 	}
-	attribute := parser.AttributeWithName(block, "body")
-	if attribute == nil {
-		return nil
-	}
 
 	typeValue := parser.ExtractAzureResourceType(block)
 	if typeValue == nil {
 		return nil
 	}
 
-	var bodyDef types.TypeBase
-	def, err := azure.GetResourceDefinitionByResourceType(*typeValue)
-	if err != nil || def == nil {
+	bodyDef := tfschema.BodyDefinitionFromBlock(block)
+	if bodyDef == nil {
 		return nil
-	}
-	bodyDef = def
-	if len(block.Labels) >= 2 && block.Labels[0] == "azapi_resource_action" {
-		parts := strings.Split(*typeValue, "@")
-		if len(parts) != 2 {
-			return nil
-		}
-		actionName := parser.ExtractAction(block)
-		if actionName != nil && len(*actionName) != 0 {
-			resourceFuncDef, err := azure.GetResourceFunction(parts[0], parts[1], *actionName)
-			if err != nil || resourceFuncDef == nil {
-				return nil
-			}
-			bodyDef = resourceFuncDef
-		}
 	}
 
-	hclNode := parser.JsonEncodeExpressionToHclNode(src, attribute.Expr)
-	if hclNode == nil {
+	var attribute *hclsyntax.Attribute
+	var hclNode *parser.HclNode
+	if bodyAttribute := parser.AttributeWithName(block, "body"); bodyAttribute != nil {
+		attribute = bodyAttribute
+		hclNode = parser.JsonEncodeExpressionToHclNode(src, attribute.Expr)
+		if hclNode == nil {
+			tokens, _ := hclsyntax.LexExpression(src[attribute.Expr.Range().Start.Byte:attribute.Expr.Range().End.Byte], "", attribute.Expr.Range().Start)
+			hclNode = parser.BuildHclNode(tokens)
+		}
+	}
+	if attribute == nil || hclNode == nil {
 		return nil
 	}
+
 	if dummy, ok := hclNode.Children["dummy"]; ok {
 		dummy.KeyRange = attribute.NameRange
 		if nameAttribute := parser.AttributeWithName(block, "name"); nameAttribute != nil {
