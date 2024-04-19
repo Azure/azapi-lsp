@@ -23,43 +23,6 @@ func bodyCandidates(data []byte, filename string, block *hclsyntax.Block, attrib
 		}
 	}
 
-	bodyDef := BodyDefinitionFromBlock(block)
-	if bodyDef == nil {
-		return nil
-	}
-
-	hclNode := parser.JsonEncodeExpressionToHclNode(data, attribute.Expr)
-	if hclNode == nil {
-		return nil
-	}
-
-	return buildCandidates(hclNode, filename, pos, bodyDef)
-}
-
-func payloadCandidates(data []byte, filename string, block *hclsyntax.Block, attribute *hclsyntax.Attribute, pos hcl.Pos, property *Property) []lsp.CompletionItem {
-	if attribute.Expr != nil {
-		if _, ok := attribute.Expr.(*hclsyntax.LiteralValueExpr); ok && parser.ToLiteral(attribute.Expr) == nil {
-			if property != nil {
-				return property.ValueCandidatesFunc(nil, editRangeFromExprRange(attribute.Expr, pos))
-			}
-		}
-	}
-
-	bodyDef := BodyDefinitionFromBlock(block)
-	if bodyDef == nil {
-		return nil
-	}
-
-	tokens, _ := hclsyntax.LexExpression(data[attribute.Expr.Range().Start.Byte:attribute.Expr.Range().End.Byte], filename, attribute.Expr.Range().Start)
-	hclNode := parser.BuildHclNode(tokens)
-	if hclNode == nil {
-		return nil
-	}
-
-	return buildCandidates(hclNode, filename, pos, bodyDef)
-}
-
-func BodyDefinitionFromBlock(block *hclsyntax.Block) types.TypeBase {
 	typeValue := parser.ExtractAzureResourceType(block)
 	if typeValue == nil {
 		return nil
@@ -84,11 +47,16 @@ func BodyDefinitionFromBlock(block *hclsyntax.Block) types.TypeBase {
 			bodyDef = resourceFuncDef
 		}
 	}
-	return bodyDef
+
+	return buildCandidates(data, filename, attribute, pos, bodyDef)
 }
 
-func buildCandidates(hclNode *parser.HclNode, filename string, pos hcl.Pos, def types.TypeBase) []lsp.CompletionItem {
+func buildCandidates(data []byte, filename string, attribute *hclsyntax.Attribute, pos hcl.Pos, def types.TypeBase) []lsp.CompletionItem {
 	candidateList := make([]lsp.CompletionItem, 0)
+	hclNode := parser.JsonEncodeExpressionToHclNode(data, attribute.Expr)
+	if hclNode == nil {
+		return nil
+	}
 	hclNodes := parser.HclNodeArraysOfPos(hclNode, pos)
 	if len(hclNodes) == 0 {
 		return nil

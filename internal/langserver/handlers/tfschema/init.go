@@ -80,16 +80,6 @@ func init() {
 				},
 
 				{
-					Name:                  "payload",
-					Modifier:              "Optional",
-					Type:                  "dynamic",
-					Description:           "A dynamic attribute that contains the request body used to create and update azure resource.",
-					CompletionNewText:     `payload = $0`,
-					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{dynamicPlaceholderCandidate()}),
-					GenericCandidatesFunc: payloadCandidates,
-				},
-
-				{
 					Name:              "tags",
 					Modifier:          "Optional",
 					Type:              "map<string, string>",
@@ -193,16 +183,6 @@ func init() {
 					CompletionNewText:     `body = $0`,
 					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{bodyJsonencodeFuncCandidate()}),
 					GenericCandidatesFunc: bodyCandidates,
-				},
-
-				{
-					Name:                  "payload",
-					Modifier:              "Optional",
-					Type:                  "dynamic",
-					Description:           "A dynamic attribute that contains the request body used to create and update azure resource.",
-					CompletionNewText:     `payload = $0`,
-					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{dynamicPlaceholderCandidate()}),
-					GenericCandidatesFunc: payloadCandidates,
 				},
 
 				{
@@ -334,16 +314,6 @@ func init() {
 				},
 
 				{
-					Name:                  "payload",
-					Modifier:              "Optional",
-					Type:                  "dynamic",
-					Description:           "A dynamic attribute that contains the request body used to create and update azure resource.",
-					CompletionNewText:     `payload = $0`,
-					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{dynamicPlaceholderCandidate()}),
-					GenericCandidatesFunc: payloadCandidates,
-				},
-
-				{
 					Name:              "response_export_values",
 					Modifier:          "Optional",
 					Type:              "list<string>",
@@ -398,16 +368,6 @@ func init() {
 					CompletionNewText:     `body = $0`,
 					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{bodyJsonencodeFuncCandidate()}),
 					GenericCandidatesFunc: bodyCandidates,
-				},
-
-				{
-					Name:                  "payload",
-					Modifier:              "Optional",
-					Type:                  "dynamic",
-					Description:           "A dynamic attribute that contains the request body used to create and update azure resource.",
-					CompletionNewText:     `payload = $0`,
-					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{dynamicPlaceholderCandidate()}),
-					GenericCandidatesFunc: payloadCandidates,
 				},
 
 				{
