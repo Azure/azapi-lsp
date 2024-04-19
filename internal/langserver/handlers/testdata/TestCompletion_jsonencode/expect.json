@@ -5,14 +5,14 @@
     "isIncomplete": false,
     "items": [
       {
-        "label": "jsonencode({})",
+        "label": "{}",
         "labelDetails": {},
         "kind": 12,
         "documentation": {
           "kind": "markdown",
-          "value": "`jsonencode` encodes a given value to a string using JSON syntax."
+          "value": "dynamic attribute allows any valid HCL object."
         },
-        "sortText": "jsonencode",
+        "sortText": "{}",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -26,7 +26,7 @@
               "character": 12
             }
           },
-          "newText": "jsonencode({\n\t$0\n})"
+          "newText": "{\n\t$0\n}"
         },
         "command": {
           "title": "Suggest",
