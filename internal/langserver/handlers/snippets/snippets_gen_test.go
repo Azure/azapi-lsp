@@ -26,6 +26,9 @@ func Test_SnippetGen(t *testing.T) {
 			continue
 		}
 		filepath := path.Join(exampleDir, folder.Name(), "main.tf")
+		if _, err := os.Stat(filepath); os.IsNotExist(err) {
+			filepath = path.Join(exampleDir, folder.Name(), "basic", "main.tf")
+		}
 		snippet, err := parseSnippet(filepath)
 		if err != nil {
 			t.Fatal(err)

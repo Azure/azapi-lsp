@@ -23,7 +23,7 @@ var snippetMap = map[string]Snippet{
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       internet = "Disabled"
       managementCluster = {
@@ -34,7 +34,7 @@ var snippetMap = map[string]Snippet{
     sku = {
       name = "av36"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -82,11 +82,11 @@ var snippetMap = map[string]Snippet{
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -94,7 +94,7 @@ var snippetMap = map[string]Snippet{
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       actions = [
         {
@@ -104,11 +104,11 @@ var snippetMap = map[string]Snippet{
       description = ""
       enabled     = true
       scopes = [
-        ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"},
+        ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"},
       ]
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -142,7 +142,7 @@ var snippetMap = map[string]Snippet{
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       clusterName = ""
       description = ""
@@ -162,7 +162,7 @@ var snippetMap = map[string]Snippet{
       ]
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -196,7 +196,7 @@ var snippetMap = map[string]Snippet{
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       asAdministrators = {
         members = [
@@ -211,7 +211,7 @@ var snippetMap = map[string]Snippet{
     sku = {
       name = "B1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -245,7 +245,7 @@ var snippetMap = map[string]Snippet{
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       certificates = [
       ]
@@ -278,7 +278,7 @@ var snippetMap = map[string]Snippet{
       capacity = 1
       name     = "Developer"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -308,21 +308,21 @@ var snippetMap = map[string]Snippet{
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description      = "TestDescription1"
       displayName      = "TestApiVersionSet1230630032559674766"
       versioningScheme = "Segment"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -352,7 +352,7 @@ var snippetMap = map[string]Snippet{
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       apiRevisionDescription = ""
       apiType                = "http"
@@ -370,7 +370,7 @@ var snippetMap = map[string]Snippet{
       subscriptionRequired = true
       type                 = "http"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -392,7 +392,7 @@ var snippetMap = map[string]Snippet{
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service/apis@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.ApiManagement/service/apis@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -400,12 +400,12 @@ var snippetMap = map[string]Snippet{
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      loggerId            = ${2:"The id of the Microsoft.ApiManagement/service/loggers@2021-08-01 resource"}
+      loggerId            = ${1:"The id of the Microsoft.ApiManagement/service/loggers@2021-08-01 resource"}
       operationNameFormat = "Name"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -435,7 +435,7 @@ var snippetMap = map[string]Snippet{
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       format = "xml"
       value  = <<-EOT
@@ -447,7 +447,7 @@ var snippetMap = map[string]Snippet{
 </policies>
 EOT
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -458,8 +458,10 @@ EOT
 		        Value: `response_export_values    = ["*"]`,	
 	        },
             {
-		        Name:  "ignore_body_changes",
-		        Value: `ignore_body_changes            = ["properties.value"]`,	
+		        Name:  "lifecycle",
+		        Value: `lifecycle {
+    ignore_changes = [${2:TODO}]
+  }`,	
 	        },
 	
 	    },
@@ -481,12 +483,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       apiId = trimsuffix(${3:"The id of the Microsoft.ApiManagement/service/apis@2021-08-01 resource"}, ";rev=1")
       notes = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -516,14 +518,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       contentType = "application/vnd.ms-azure-apim.xsd+xml"
       document = {
         value = "<!--\n Copyright (c) HashiCorp, Inc.\n SPDX-License-Identifier: MPL-2.0\n-->\n\n<s:schema elementFormDefault=\"qualified\" targetNamespace=\"http://ws.cdyne.com/WeatherWS/\" xmlns:tns=\"http://ws.cdyne.com/WeatherWS/\" xmlns:s=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/wsdl/soap12/\" xmlns:mime=\"http://schemas.xmlsoap.org/wsdl/mime/\" xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\" xmlns:tm=\"http://microsoft.com/wsdl/mime/textMatching/\" xmlns:http=\"http://schemas.xmlsoap.org/wsdl/http/\" xmlns:soapenc=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:wsdl=\"http://schemas.xmlsoap.org/wsdl/\" xmlns:apim-wsdltns=\"http://ws.cdyne.com/WeatherWS/\"> <s:element name=\"GetWeatherInformation\"> <s:complexType /> </s:element> <s:element name=\"GetWeatherInformationResponse\"> <s:complexType> <s:sequence> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"GetWeatherInformationResult\" type=\"tns:ArrayOfWeatherDescription\" /> </s:sequence> </s:complexType> </s:element> <s:complexType name=\"ArrayOfWeatherDescription\"> <s:sequence> <s:element minOccurs=\"0\" maxOccurs=\"unbounded\" name=\"WeatherDescription\" type=\"tns:WeatherDescription\" /> </s:sequence> </s:complexType> <s:complexType name=\"WeatherDescription\"> <s:sequence> <s:element minOccurs=\"1\" maxOccurs=\"1\" name=\"WeatherID\" type=\"s:short\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Description\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"PictureURL\" type=\"s:string\" /> </s:sequence> </s:complexType> <s:element name=\"GetCityForecastByZIP\"> <s:complexType> <s:sequence> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ZIP\" type=\"s:string\" /> </s:sequence> </s:complexType> </s:element> <s:element name=\"GetCityForecastByZIPResponse\"> <s:complexType> <s:sequence> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"GetCityForecastByZIPResult\" type=\"tns:ForecastReturn\" /> </s:sequence> </s:complexType> </s:element> <s:complexType name=\"ForecastReturn\"> <s:sequence> <s:element minOccurs=\"1\" maxOccurs=\"1\" name=\"Success\" type=\"s:boolean\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ResponseText\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"State\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"City\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"WeatherStationCity\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ForecastResult\" type=\"tns:ArrayOfForecast\" /> </s:sequence> </s:complexType> <s:complexType name=\"ArrayOfForecast\"> <s:sequence> <s:element minOccurs=\"0\" maxOccurs=\"unbounded\" name=\"Forecast\" nillable=\"true\" type=\"tns:Forecast\" /> </s:sequence> </s:complexType> <s:complexType name=\"Forecast\"> <s:sequence> <s:element minOccurs=\"1\" maxOccurs=\"1\" name=\"Date\" type=\"s:dateTime\" /> <s:element minOccurs=\"1\" maxOccurs=\"1\" name=\"WeatherID\" type=\"s:short\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Desciption\" type=\"s:string\" /> <s:element minOccurs=\"1\" maxOccurs=\"1\" name=\"Temperatures\" type=\"tns:temp\" /> <s:element minOccurs=\"1\" maxOccurs=\"1\" name=\"ProbabilityOfPrecipiation\" type=\"tns:POP\" /> </s:sequence> </s:complexType> <s:complexType name=\"temp\"> <s:sequence> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"MorningLow\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"DaytimeHigh\" type=\"s:string\" /> </s:sequence> </s:complexType> <s:complexType name=\"POP\"> <s:sequence> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Nighttime\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Daytime\" type=\"s:string\" /> </s:sequence> </s:complexType> <s:element name=\"GetCityWeatherByZIP\"> <s:complexType> <s:sequence> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ZIP\" type=\"s:string\" /> </s:sequence> </s:complexType> </s:element> <s:element name=\"GetCityWeatherByZIPResponse\"> <s:complexType> <s:sequence> <s:element minOccurs=\"1\" maxOccurs=\"1\" name=\"GetCityWeatherByZIPResult\" type=\"tns:WeatherReturn\" /> </s:sequence> </s:complexType> </s:element> <s:complexType name=\"WeatherReturn\"> <s:sequence> <s:element minOccurs=\"1\" maxOccurs=\"1\" name=\"Success\" type=\"s:boolean\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"ResponseText\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"State\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"City\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"WeatherStationCity\" type=\"s:string\" /> <s:element minOccurs=\"1\" maxOccurs=\"1\" name=\"WeatherID\" type=\"s:short\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Description\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Temperature\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"RelativeHumidity\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Wind\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Pressure\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Visibility\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"WindChill\" type=\"s:string\" /> <s:element minOccurs=\"0\" maxOccurs=\"1\" name=\"Remarks\" type=\"s:string\" /> </s:sequence> </s:complexType> <s:element name=\"ArrayOfWeatherDescription\" nillable=\"true\" type=\"tns:ArrayOfWeatherDescription\" /> <s:element name=\"ForecastReturn\" nillable=\"true\" type=\"tns:ForecastReturn\" /> <s:element name=\"WeatherReturn\" type=\"tns:WeatherReturn\" /> </s:schema>"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -545,15 +547,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       authorizationEndpoint = "https://azacceptance.hashicorptest.com/client/authorize"
       authorizationMethods = [
@@ -576,7 +578,7 @@ EOT
       tokenBodyParameters = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -606,12 +608,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       protocol = "http"
       url      = "https://acctest"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -641,12 +643,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      connectionString = "${${3:"The name of the Microsoft.Cache/redis@2023-04-01 resource"}}.redis.cache.windows.net:6380,password=${jsondecode(${4:"TODO"}).primaryKey},ssl=true,abortConnect=False"
+      connectionString = "${${3:"The name of the Microsoft.Cache/redis@2023-04-01 resource"}}.redis.cache.windows.net:6380,password=${${4:"TODO"}},ssl=true,abortConnect=False"
       useFromLocation  = "default"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -657,8 +659,10 @@ EOT
 		        Value: `response_export_values    = ["*"]`,	
 	        },
             {
-		        Name:  "ignore_body_changes",
-		        Value: `ignore_body_changes            = ["properties.connectionString"]`,	
+		        Name:  "lifecycle",
+		        Value: `lifecycle {
+    ignore_changes = [${5:TODO}]
+  }`,	
 	        },
 	
 	    },
@@ -680,12 +684,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       data     = "MIIKmQIBAzCCCl8GCSqGSIb3DQEHAaCCClAEggpMMIIKSDCCBP8GCSqGSIb3DQEHBqCCBPAwggTsAgEAMIIE5QYJKoZIhvcNAQcBMBwGCiqGSIb3DQEMAQYwDgQIp1c0ydxiVG0CAggAgIIEuA5qATScE+dBHsldt+cfd/PjV+FAei7+lyYXm2IN1TZ1mFEce3T6MlGaqXoHMlYlIEVtvxNp2qpbYyGbboCRYTmB1tHbDbwDAg0bO8J8ing2xOvkoKx+sFX7L0I+FcGz5ucJRoDus6K6GdMgWOi+vlEdliBpH7Lgk+8+SXpFf/JadnEY49Dr4XMUBs/fXe6BxB89b9H/5mUg1SQFuxnGQrdvEW7tNFJR7k9BUO/95X8b4mQZdqfXBzgayOKTcB7JShXA9gjyAbxsF2g5EXlmWNJoRVo8xPcybPgarDdfjM4L0eEzvB4mgn6JimCaHxt9Gb3PGhPJ0mFzVbJTPQgiFpjpREwDWVYk7LeKvjyLn70O9pQyCi8tjZGw5XfIHlt7P+EHEdXXYR7z7gbgNQmWFMjYEX2puAKjYyjYsZ3ZxlWWNsrWZA/lNE5BgIBAcNAT2NBGAGbe4floniM8RPpQJ/Tj53nFQxav2sY/toWRSA8z7/bMGmQZEh9Dun61YJc+yb0dzn0K98FlEw1+Uu4fR8l6/e4xvmpdH3tOVak0xFRJLdILlO9VwJ3Ins8CODFHV4J4DnuMyINonctjTl9qy66+pVf6ePX0Io5k+49hU3u19jZy/oN8xxTGDMGVQinZ19yNC5TJ7RJ4fb682Jk+P8dwc+1icbBydZo3a/n1JdglMjPJK4+f0iW/+KIBFD2oZlEt8/Hi+IzyXT2BJHuZJmPa61vxHurA/urGH06ybpcrSEkBC0Lcm07Ie5Ov/UQVcdwF2MM3f3Iv5hrdRogBmB5pe1sYwNGJanCy4dABwpu+qVrtBGZEdBRl4h6IUTTzFDJltVcAmi60blvB8pCufDnD+PdJobAD5FIcsMDl0hiB7AgDbtOWygE1i/b5GnoVsfOGt4iUclikKxCig4m500IgX/XgUBiY1RwkHIXZQ1mXyWBAnaFgPA7BOt70Qbj9wy9S60FvrElVG9NWXuTdGY+ECWkoEzjiGnCEL+T1Cv43b8SlL5GCCftIUHlM/ss8oBzcJmUJsUsv/ZHTcj3GKyHud5cIT4rli542dDkoZj0O6fsvE+yFM7kZaQrTzuPlstfnvi5OeJQ4+aJBeL+rEXvEspLn02i2Rg1afZAll6fk+epPJOxW2pkrVslDMj/0RfLr4dRi5uzBiJb3pILfCDJs9Nqzj2GMWOFudQn5OHbcbx6dtoB1RcdsZHSGTn+MrjoXey2nmIlg372aLR7tCH06Z66U9FagAr51DZAKq2ry0T6gR4sWtzHlS063xFH4JeCHAJouWqEwgxeBu1zSZneDlMaC1ifcB0fOML8658vi1B697wLP0Muc6UW4mqfuN7AMl1fJQ7vO5oTDgWbPd6bSrLk46zmN3vC3VzMqQVa/1BbKgGkTOaVIZJuK0OuN2hyaVLNvm8XQ2O5QWE6aY2l3fm7m4hbT2AXRd/ulquZRhbQa7jIyjTb6SwLZG9wpvRJ5pR/C1V/QitI4GrViMOgEX+LV2TzXZxmkBV45/dDJ9Vh+2LEUKvcbkWjxZEbgltyCOdDHbTA5ydcNCHi/t/L371N6mCcXJH4FC7za1LpNmXeRIZa4lUuW602YH0DCYTnZ95UqMNyXMIIFQQYJKoZIhvcNAQcBoIIFMgSCBS4wggUqMIIFJgYLKoZIhvcNAQwKAQKgggTuMIIE6jAcBgoqhkiG9w0BDAEDMA4ECMwUHG/3/JVkAgIIAASCBMivDxcmzXtuXLPeu468SGYRJk994sSYqjK6fKP4090KXsDgX+IkggKJWqZqyRb0Dq7EusKpMyrSJNtz9Cfl3+S/vsbX6mGz4TY1g4VNvkyJyUjqUjKIDL2SlULRa7ldEvpOciy0Ms/6PBQXOTyVr5Rd1dFUFSbkLAruIWTULK0OfQoFjuQXmDvunRBrqSbHtjID9m1OwdcTfzMGHjsXth3iSWSTTh5+Eg/6H+/9kGC9VEEURqFD3Gx2kWKjqSlZyf/LSOTBcQ6+qRQZT1B1ZnPAVBU9Xn9Z6Tq0EMNfNg9+pv1GlLBUg1Hqo8RAW1nNOBSBHXS0nq062j48luQOotthKOc1rkjQd91Q9qTLFlU12gllQw+ejHVVvEEPHtxJ7HVr/lvM/5mt2oObTJb01JcfVnYrnI3NnNSWRULx/tznhB2yoKqjtrnZAW3zNU9TQQVyLVjt2lIXhE4oXk0I+Cxmvbh+YJF6XLrATGc6yuL02ZInrC59ufkclcnjnTSGnXWr9gzIndZ6wSS0B+6bMpLxamvE4XDhAQCn6MEGGVcY9nMydxaWU3o7Is0J1nd/KZWgfXeOoZx10olSR22+PBKy8Gsge2mMbR2QvhUKNyXLTV3pOnxtjGf88PhseqDpwZ5++DOSFfi0spsDvfXJNO0F0f0JYrMNXbqlxO4uExj146thivXZVlR1n5Bo4eL0OoVIXn1w/MuU0suQvZm+kD8uVuajyBnJsnhsCWx2eTZ2vzHQTKB2EtYeDPioWSomTVVjIdg8A9pTzvvhe8MzFXvRMXFc9+ToN+uLjJqHRSmpZIGJvZQXCKrlCC9KRjP1HIhJhyfuYoEjTkF3IVeXS1tnA5CH5oilOG+guLKXNPWsrCXEpewz6i907ugx/VWTAmEMzYwMCDzCnW2l+mI8P56nWrwI0vDuk1GhIs6nn+Nhc6FPHD1996zyZ7hfmO7h25tto00IoVgI9QlhwtWLz10ZltLG581JvO7jEwT4u/nYxD7aO0Llb3ytNKihalFZMaY20a1dhVBsPwiWUpZcMmPoYySSiukyw350WiV/Z2NAsyeGRTWpdKcBi7gna0NN6fn0QLSdTcPKutASCplNExnI1IkkBFb3TmlF5HrrwmVht+vqxEHbRjDwEnKkvGcUbLWdjUjSWVNNbCbo8KbLAXcBPcjTHxIRw3gkLcS+yL0//uSENgo/LpHBZsO5d6as820lpYmHIjvyxhAMpMNlOPmUIW+cOgcf328wNaHaVWalIwfSGJdqGgC4msvP8vOcGWYgLkdrqJGWjhDs40x7LuFEBWgpgu6E2FfPOPTsqs5QxNKTgCw/eXjK92dZkdqO0Y7oLavU3OaJeWFJpAuZcC84Rwup2K0d4CXvZ0bOtpISSTr3VZeXRl8SkN2bQtgit9BJ2qGAy9blNObk1q8yOaVppercZMgG96DK23ZQ9uLRmliqytE1tXFKNKegwxGorKodoMwpRzClBz37KIYGJvFOYVya11v3gdcfeMcRTPdZG5dbI6US9DNk6fbShBJpc7PvYgMc8Vr+xEfzZXPnY2M8d+uJJomrU5ZQXcjy9jtyE4ToBz5ajh4Hq6Khlv6v5y2C+GrXb5+2KoSkcAYpTxlzAnjk9pYMZkwxJTAjBgkqhkiG9w0BCRUxFgQURdOwIJIHIprOPt5IqfZOf/7JJoQwMTAhMAkGBSsOAwIaBQAEFCaYzKHAOxuYPxNGezkbQ8Tp9cGsBAiTp8/jb7QK5AICCAAK"
       password = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -715,12 +719,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       loggerId            = ${2:"The id of the Microsoft.ApiManagement/service/loggers@2021-08-01 resource"}
       operationNameFormat = "Name"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -750,7 +754,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       locationData = {
@@ -760,7 +764,7 @@ EOT
         name            = "test"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -790,11 +794,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       isTrusted = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -816,24 +820,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service/gateways@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.ApiManagement/service/gateways@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      certificateId              = ${3:"The id of the Microsoft.ApiManagement/service/certificates@2021-08-01 resource"}
+      certificateId              = ${2:"The id of the Microsoft.ApiManagement/service/certificates@2021-08-01 resource"}
       hostname                   = "host-name-230630032559671742"
       http2Enabled               = true
       negotiateClientCertificate = false
       tls10Enabled               = false
       tls11Enabled               = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -863,14 +867,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       displayName = "Test Group"
       externalId  = ""
       type        = "custom"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -900,13 +904,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       clientId     = "00000000000000000000000000000000"
       clientSecret = "00000000000000000000000000000000"
       type         = "twitter"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -928,24 +932,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       credentials = {
-        instrumentationKey = jsondecode(${1:"TODO"}).properties.InstrumentationKey
+        instrumentationKey = ${2:"TODO"}
       }
       description = ""
       isBuffered  = true
       loggerType  = "applicationInsights"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -956,8 +960,10 @@ EOT
 		        Value: `response_export_values    = ["*"]`,	
 	        },
             {
-		        Name:  "ignore_body_changes",
-		        Value: `ignore_body_changes            = ["properties.credentials.instrumentationKey"]`,	
+		        Name:  "lifecycle",
+		        Value: `lifecycle {
+    ignore_changes = [${4:TODO}]
+  }`,	
 	        },
 	
 	    },
@@ -979,7 +985,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       displayName = "TestProperty230630032559683679"
       secret      = false
@@ -989,7 +995,7 @@ EOT
       ]
       value = "Test Value"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1019,7 +1025,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       clientId         = "00001111-2222-3333-230630032559684401"
       clientSecret     = "230630032559684401-cwdavsxbacsaxZX-230630032559684401"
@@ -1027,7 +1033,7 @@ EOT
       displayName      = "Initial Name"
       metadataEndpoint = "https://azacceptance.hashicorptest.com/example/foo"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1057,7 +1063,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description          = ""
       displayName          = "Test Product"
@@ -1065,7 +1071,7 @@ EOT
       subscriptionRequired = false
       terms                = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1095,12 +1101,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       format = "rawxml-link"
       value  = "https://gist.githubusercontent.com/riordanp/ca22f8113afae0eb38cc12d718fd048d/raw/d6ac89a2f35a6881a7729f8cb4883179dc88eea1/example.xml"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1148,21 +1154,21 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       schemaType  = "xml"
       value       = "    <xsd:schema xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n    xmlns:tns=\"http://tempuri.org/PurchaseOrderSchema.xsd\" targetNamespace=\"http://tempuri.org/PurchaseOrderSchema.xsd\" elementFormDefault=\"qualified\">\n    <xsd:element name=\"PurchaseOrder\" type=\"tns:PurchaseOrderType\"/>\n    <xsd:complexType name=\"PurchaseOrderType\">\n        <xsd:sequence>\n            <xsd:element name=\"ShipTo\" type=\"tns:USAddress\" maxOccurs=\"2\"/>\n            <xsd:element name=\"BillTo\" type=\"tns:USAddress\"/>\n        </xsd:sequence>\n        <xsd:attribute name=\"OrderDate\" type=\"xsd:date\"/>\n    </xsd:complexType>\n    <xsd:complexType name=\"USAddress\">\n        <xsd:sequence>\n            <xsd:element name=\"name\" type=\"xsd:string\"/>\n            <xsd:element name=\"street\" type=\"xsd:string\"/>\n            <xsd:element name=\"city\" type=\"xsd:string\"/>\n            <xsd:element name=\"state\" type=\"xsd:string\"/>\n            <xsd:element name=\"zip\" type=\"xsd:integer\"/>\n        </xsd:sequence>\n        <xsd:attribute name=\"country\" type=\"xsd:NMTOKEN\" fixed=\"US\"/>\n    </xsd:complexType>\n</xsd:schema>\n"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1184,7 +1190,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -1192,15 +1198,15 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       allowTracing = true
       displayName  = "Butter Parser API Enterprise Edition"
-      ownerId      = ${2:"The id of the Microsoft.ApiManagement/service/users@2021-08-01 resource"}
-      scope        = ${3:"The id of the Microsoft.ApiManagement/service/products@2021-08-01 resource"}
+      ownerId      = ${1:"The id of the Microsoft.ApiManagement/service/users@2021-08-01 resource"}
+      scope        = ${2:"The id of the Microsoft.ApiManagement/service/products@2021-08-01 resource"}
       state        = "submitted"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1222,19 +1228,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.ApiManagement/service@2021-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      displayName = ${3:"The name of the resource"}
+      displayName = ${2:"The name of the resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1264,13 +1270,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       email     = "azure-acctest230630032559695401@example.com"
       firstName = "Acceptance"
       lastName  = "Test"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1292,24 +1298,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       configuration = {
         activeRevisionsMode = "Single"
       }
-      managedEnvironmentId = ${4:"The id of the Microsoft.App/managedEnvironments@2022-03-01 resource"}
+      managedEnvironmentId = ${2:"The id of the Microsoft.App/managedEnvironments@2022-03-01 resource"}
       template = {
         containers = [
           {
@@ -1335,7 +1341,7 @@ EOT
         ]
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1357,31 +1363,31 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${5:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       appLogsConfiguration = {
         destination = "log-analytics"
         logAnalyticsConfiguration = {
-          customerId = jsondecode(${4:"TODO"}).properties.customerId
-          sharedKey  = jsondecode(${5:"TODO"}).primarySharedKey
+          customerId = ${1:"TODO"}
+          sharedKey  = ${2:"TODO"}
         }
       }
       vnetConfiguration = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1415,12 +1421,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       password = "TestAcc"
       value    = "MIIKEQIBAzCCCdcGCSqGSIb3DQEHAaCCCcgEggnEMIIJwDCCBHcGCSqGSIb3DQEHBqCCBGgwggRkAgEAMIIEXQYJKoZIhvcNAQcBMBwGCiqGSIb3DQEMAQYwDgQIC/GU56w4YWICAggAgIIEME9dVUOUs44yTqMunA5mEqo8YC4evKVXEA8ESnlfh8QVNEpyWzxwx83t6tg0Dfjk4INCGnDrAxqhQ/685mWQ9IM7J944BTznoN6uK9EqMtDVwavqwapvVR+yCCzqCMIQWUrrAiUzNPFQELCaMg1S13pjHOVd0iJSxvJ98Dga35baMyheYnLYksz1OObCyrn4yAHoyVnenqZd46He0ZmQS3pUrnTYe3U56fZDapRE6peRL5ItIpFrytaV7+KLisQdpQKDPkeew/zaf+p1hT57EHfUFgBYWFMgN4f1egqkKKDrh112Z+C6CUlps5N0AYGZ+ozLMNd1t/x87gCH5AuNeQEIBfDkmhLvZWZ5vLOiEKAoAQxFaMK+U+Vih6msysaQ7NhFA+h/NMmdt9RPm9pV7X+Qq7KNKHnhMZ7mNqxKvdidPOj5UGqhnN/OXrY8MykoedDakwwE9ZCY3ZQS9IN8kjwl2m9gJy18A2hZK+m3jEYGfn6tDayN6eAod1q/OnP7Tujp06pZFZ8HyXIbTPApuFYXSbAWhdBuCHGj0PzthLRzN8iv3T1d46oaEjjQddpM683RWH+daFtXLX7gMH4QjHxRND3IxEzHOiehLwOr2w6bgzIEeXksDPqitz/RGLgs4f10B6cvkCuGTXUCAQcel2IN4fM7dpD5uyg40q+xaFjmF/OLRdjS1vCezDvxVbRpazZOxMFMPQykBFcInP4vKURZ09MujElbBHSiglNjYGEC8k1Ehcqmz9GqU5o+9JHYFr2AgRqIIyz7jIjCZxsD0psdVjIPSYac6Qze5BK+qq/cH/ilIaNq3WGgwCtPA1pcicVYAYwB4czTHUfteO1FjlGYqbGu1b4GA4HzPLBUjTaFla4FgnO7je4PT7A3u3xaVAsCC1rZWKM4atYmkckboC4XE14mYlU625Hoap/xvKW6cbVAucBRkxMps/bV1Pik6N3YLeG2KUMQ77yNDGgv3qZ6XpgJ1Um7QZyW1XdQqtktZBror0bNUsG3Kkp/XPNxWhJLPI3baY84dqoRsXaDIh7k+iV+UuX/Tz70PqWThwANHJ2BmkwXUY1cyiHqJ4mBnu9t/oitjVVYr3a5UGKDzQY6Tcjrp22npiDrnEKpdwqUeShqb0mO4cCAksYy6jh7Eirk1Gdlk/tbMBMCN16Wbsh3kk/i9utQAc4R6+VFq5+/26noW/Q24a4onRGjZ5+rUXlGDUjzssJPxXM6906qMZIpdMB2nZMUp4P6UcPgB3t8FQa8SJs3gIFTxmf9Dce1qloHeXGX7UZ3IGZRZPqxXuBOzCbKf5/M2c3Pe6Vl3Jt/LTN22ghKR4VrVz7Ron71NU+CCvH4LbOyEnnzWe1ePO6RCdpRcN1bUJYa1htvWKb9WUMywfLiKjC6Cx+ezfFZ1DYvXsjq6MzKq22/XE4/fM0wggVBBgkqhkiG9w0BBwGgggUyBIIFLjCCBSowggUmBgsqhkiG9w0BDAoBAqCCBO4wggTqMBwGCiqGSIb3DQEMAQMwDgQIGRXiBvDEL+QCAggABIIEyLn7jmjZLfuFF366QMW9j8TolTxeyuMxsaPnEmw1sIc9Y6IlKzCqzGt3qAgSgdTPV6flNJBcoI4oQFhes7EDcpNfrAxzIRBQYS7i2JC/T68GNfkTIlb0sq8oU4JgoGMXDPjhgQ3yUNkn4xnxfpxy7N1mo41LfJVovG8JsBtg0boV2OovxKYTVFg4X1W4KD+BcJMkI+gjlmHcrnWkDFEycEddxznZINaf9LiZsoSh6gvSGXSRBrmFkG5nWXB/Q25r6cxHm4ZNIKYLFyCV8waq5R1fnvuiT62BI8vYyD1NO+Py2FGFO3vqV/7KrrD8x9eijSv2+ooe220Lqi2lR8HNlwrgh9my4Fak6SzQC5E2iAStzZrRtUr3Xfs4di8ixwgpC6HAt/egOCocKI6aJhouJJoihrow4axeKYdsjKgXairNElIu0/aTdKXptdfXuAos2ct42AHDP3TVngH6q+2B8HPyokQjegr+WE6Jfw9aHeLIBIPK3pFAUqH7hDHFt2OM4GZDaDMesNYhFaX+IJqdIbvr97eaLDFgrhVhB4kvRw7E2VW2K9aXDmDlIRP2XmXEcbC31cKzV19A4W7rEuTdJ9IJb06sCmU/jIGSdm9g+fKKXd15K9D+U+kyhCwqzEZt0JYsJIzypq15nL+QQX61renMUwfU13H0RYjjvqU3CGH3shUGcl0FvQoMPQy1a04ZvOsGiqLlR3lkiEbov7a/prJCkH1AAwezUHiSrn/Y7rVWGLHyd4k6Hd7wBvzRia3MmYDertXdEiinyMqPBiVRdd/NkSkjiBgLpHl3VleKJzmrlLfENnMt2iLSr3ZbhmVpJfn6wMhsqdIbkQT3CcSIoVo91U8JL6U38s4kArKtjgHgSUtST6Aw2o06EOWvVSp2BpsLNth/s21vK7Z1xnrZ06fO/msj+ElzsmLpPVGFpG3D8MW1ULZd2VqtK6cPFPyaYjUE3ZahGn50/DIVaSikvv6Yh4YjMBksiBfsLdndvfIit29i/eRTd3T28WPmvY87k6uG8xgYoDlwXmrBHdl57NktM8ND+Z9HUww4/issZkvvh7MdU2YbDOQsBs2kIYf6h2udRpztXBpecyI2WmFW8tsKXhv4vdx+xldEwtHQL4/UWgofkNl2LeABpn00kRjZ+rybD2p7cCmXKQbM+I6Yu564hC1lffAMBrMT5yUFgzCdmkRJT+8xp1C/zxWGx16dFImpTIPNmjGBU6UcfBg+fpFocybQ8s+yb2Xoq/s/NxpYDO5vqQT/rpPtKCQls8DLMssGgGAyvZ+e0qCnfK5BKUKtxA0tz/mXZrt+Ty6w6KjdZ6Ntmjt546tXTBeRrCJZlwJmPKehpeN5HopDQ7LyWqrKXLGlArCLmB1Xz1LUR1vL4KD7RdO/93LWN5EWQDRtoZCVFU/tCqRh+s4Ljw5jsiFBCczoF3z3dDSid3VL864bXB2neq/wHHhChSnODo6HhdaPfGYSFw7m4kFh7tn3MimFyTdJGqtPdLckFCqckZsliZyCqEAu05xgQJqjrnBEH8B/z3Aq3hHWiR0z1v8jPc8MUlBGeaTjl29c8DSx7gBh7c0Qs0yTxHd1TcELijPvy5dwzEenBYXDCbaxPW0Vm9AHsHVF2A2iuzElMCMGCSqGSIb3DQEJFTEWBBRwppPHAzTboDcfcZuQ6/YqIKiy2zAxMCEwCQYFKw4DAhoFAAQUNIuVDYFIRiHWnbIWwMphIFjOWckECND1GYVTSUGNAgIIAA=="
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1450,7 +1456,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       componentType = "state.azure.blobstorage"
       ignoreErrors  = false
@@ -1458,7 +1464,7 @@ EOT
       scopes        = null
       version       = "v1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1488,16 +1494,16 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       azureFile = {
         accessMode  = "ReadWrite"
-        accountKey  = jsondecode(${3:"TODO"}).keys[0].value
-        accountName = jsondecode(${4:"TODO"}).name
+        accountKey  = ${3:"TODO"}
+        accountName = ${4:"TODO"}
         shareName   = "testsharehkez7"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1519,19 +1525,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       disableLocalAuth      = false
       enablePurgeProtection = false
@@ -1539,7 +1545,7 @@ EOT
     sku = {
       name = "standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1561,26 +1567,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       zoneRedundant = false
     }
     sku = {
       name = "S0"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1610,7 +1616,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       features = {
         applicationAccelerator = {
@@ -1622,7 +1628,7 @@ EOT
       }
       public = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1652,7 +1658,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       gatewayIds = [
       ]
@@ -1664,7 +1670,7 @@ EOT
       name     = "E0"
       tier     = "Enterprise"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1694,11 +1700,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       thumbprint = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1754,7 +1760,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       displayName = ""
@@ -1769,7 +1775,7 @@ EOT
       }
       iconUrl = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1829,14 +1835,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       customPersistentDisks = [
       ]
       enableEndToEndTLS = false
       public            = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1858,23 +1864,23 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.AppPlatform/Spring/apps@2023-05-01-preview resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.AppPlatform/Spring/apps@2023-05-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       bindingParameters = {
         useSsl = "true"
       }
-      key        = jsondecode(${3:"TODO"}).primaryKey
-      resourceId = ${4:"The id of the Microsoft.Cache/redis@2023-04-01 resource"}
+      key        = ${1:"TODO"}
+      resourceId = ${2:"The id of the Microsoft.Cache/redis@2023-04-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1904,7 +1910,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       deploymentSettings = {
         environmentVariables = {
@@ -1928,7 +1934,7 @@ EOT
       name     = "E0"
       tier     = "Enterprise"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1958,7 +1964,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       buildpackGroups = [
         {
@@ -1975,7 +1981,7 @@ EOT
         version = "base"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -1997,19 +2003,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.AppPlatform/Spring/buildServices/builders@2023-05-01-preview resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.AppPlatform/Spring/buildServices/builders@2023-05-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       bindingType = "ApplicationInsights"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2039,14 +2045,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       settings = {
         gitProperty = {
         }
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2076,7 +2082,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       httpsOnly = false
       public    = false
@@ -2086,7 +2092,7 @@ EOT
       name     = "E0"
       tier     = "Enterprise"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2116,11 +2122,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       thumbprint = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2150,7 +2156,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       appResourceId = ${3:"The id of the Microsoft.AppPlatform/Spring/apps@2023-05-01-preview resource"}
       protocol      = "HTTP"
@@ -2158,7 +2164,7 @@ EOT
       ]
       ssoEnabled = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2188,13 +2194,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      accountKey  = jsondecode(${3:"TODO"}).keys[0].value
+      accountKey  = ${3:"TODO"}
       accountName = ${4:"The name of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
       storageType = "StorageAccount"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2224,12 +2230,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       level = "CanNotDelete"
       notes = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2251,15 +2257,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       displayName     = ""
       enforcementMode = "Default"
@@ -2272,10 +2278,10 @@ EOT
           ]
         }
       }
-      policyDefinitionId = ${3:"The id of the Microsoft.Authorization/policyDefinitions@2021-06-01 resource"}
-      scope              = ${4:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"}
+      policyDefinitionId = ${1:"The id of the Microsoft.Authorization/policyDefinitions@2021-06-01 resource"}
+      scope              = ${2:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2305,7 +2311,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       displayName = "my-policy-definition"
@@ -2333,7 +2339,7 @@ EOT
       }
       policyType = "Custom"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2355,22 +2361,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       exemptionCategory  = "Mitigated"
-      policyAssignmentId = ${3:"The id of the Microsoft.Authorization/policyAssignments@2022-06-01 resource"}
+      policyAssignmentId = ${1:"The id of the Microsoft.Authorization/policyAssignments@2022-06-01 resource"}
       policyDefinitionReferenceIds = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2400,7 +2406,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       assignableScopes = [
         ${2:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"},
@@ -2422,7 +2428,7 @@ EOT
       roleName = ${3:"The name of the resource"}
       type     = "CustomRole"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2444,24 +2450,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       configuration = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2483,19 +2489,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       encryption = {
         keySource = "Microsoft.Automation"
@@ -2505,7 +2511,7 @@ EOT
         name = "Basic"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2535,13 +2541,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       base64Value  = "MIIJXQIBAzCCCSMGCSqGSIb3DQEHAaCCCRQEggkQMIIJDDCCA0cGCSqGSIb3DQEHBqCCAzgwggM0AgEAMIIDLQYJKoZIhvcNAQcBMBwGCiqGSIb3DQEMAQYwDgQIgZpS0MR7AtwCAggAgIIDABD/o+pR2WXdr9RKUXVH3+L5/iNcSEAf5IFtBs2DftFE4wF+y32TUsp67M0LY4YfGLs3UEyv6qL2Mf1/nHRL87CaKWza9Dzz1H+TWIffA2fj/AsqLr+6QDJ4Ur9cvmvqdL2xL0hfmWt3RwCn7F0JLBfwLeColacsLkEqwqStGkFvjQ8r2CJ+E0xZ8GRzOdT8TOz0cGNzDl3dkSeRGYqDQ5/5NlGE6n3MJTqhullbff61hM6NBEZyB9xhNNs6zkT5j6Askx40YFpEStdFJ1TQSRMLDoCEpb6lqYY+HQ07ezoxYKvK/XMq43eN15sZz320ktkEkUF5ICyAry+ud1Cd6ReSV6ai4JvOaZGNwLVuFxinAq8TXqpBlqLOQSJCA6dItWo1O4snfPKTqblj8LxRYecLR8Pl9R55iVf2rh6p70b89UviTWrdlnUxhz3Ilb2CDC1dFIZCy8/qVA7pT0NwfNrhCIqv+qUrIRdhMAJkifa61EIQPUKJaWJutpnBHg82T1FKKpuIqgQvHnsctrQegW1KdF1WJKa/p8knRbKKeID4TQxM/c5+GdP+wAfsNjEedoZ4Z9Ud69ZMGYHrv21CgdafSzfhSecuz89kDzG8XNVXjIjhRA3aRkxMXK+xPD2ikmy0kZjBchpTbzy7zfC8SHfKypUkYTSqbQKakgqSQY9Ydd0XxGS+GovQ4TgCDr1qHCP8KYhtYbuW8PPDUblhLOxJzP3AzDbmMuZfFrRzUrq24F8FgOVvFiGrvLVgOXzMOX+mah+cli5fw3XqnBeu72yYhhXi/jxCHZ4C8I2T0okcCu016f4a0T9+dx///F7HsEjIkGI/Vrpiqiwclu1BXdiUwGpWBDvMHjTa0nD/2mqMZzSD6KclmeuQEzGLcgbVUzcg2VYGMfw8PHlDJNCJVZKf6TaK39+M+tW1BRB4/vSjBeZ2rSHDHzIykUGWmowPnb8mb50CaRa3k1iqhGmzcIaGbsDupPc+lTXB+VuaDQT+WAquINnhKQqIsgopDvmh1zCCBb0GCSqGSIb3DQEHAaCCBa4EggWqMIIFpjCCBaIGCyqGSIb3DQEMCgECoIIE7jCCBOowHAYKKoZIhvcNAQwBAzAOBAicxAYjkBRUlAICCAAEggTI6TAZVzV4qOBs34TeAIembvZyAxzknzIMB1jdKWQJgRXbeICY9v4ch68ilhKJGkzexOwqaEcOuB7rG8GKw4f+DIimLTSpHdKXpqVlUbhapQxnKvOvrcX3jJrfBmXu7cqaEXwol5b6Sx4zKbryAyNqACHxD2XOeUFG0man/aoVrJVfyLgv4i+K/I3hNwtaX4NY4Yegmlm05MH+pInHmt2lNKLKJhwgMiImarmoixFymSvt/4bqBfZMzXf4iWzacK+MjHVLZL6B7AeY026AGEOmlH/yEQCpee/LXzkpG3iAABQlVPuioYTv7svTiEi9IQa3qg2xjLQKAC8rsaUabNZ4rRJgmU2BNrzhgkNpKCjtLqpXMUB+hGi8njlLVciIxjElG3xpu829sNCm/hnXUyTiGvamNbQ0LfsFBttXX0OtnYeWoaBQMUsPsnc7HqsPVo2TD29PMs6Pgh2k6H6L7HSUWv5TN7kRFujDGCG79AKjSHTlF6htrioo3ZZRxUMOAWB4KBrLxLrR3Fs1B5etvvUd+nG2GY4sKZf2ezwblfjCqNYX2CmbH8xT+2L0WRBfp+QsOEZP8VnBpO1uSLhqogIr4fs10sWq9CZ8fnE4NRGgb1Di++8OSeXxSiIJox4zsME8HjePUKTajO2l/q22D29CCMh6aPW2cWQSDBbHE80UMrb2ewa/lKohviqm1Z/BaHRyqAf4J5szrroQe0KrFGk/7ju3s4xZ3qagg+vhgQin8csHrolq1mW2RiTSzNgPyTP54axZqAXO75LxcYoexsxZi1anvubc8L49kuD6Sra8SU9Op0GYSLQwtVug0IqYaQbZFiN8CW5cxG6T1F6CBSM91xBBld3Cq8xwTltOBG1u1jXgMHWTeXCBzBPADC8zmJ8Xth4ZBRdOj8krUQI07feTz+xFhVRs4FHgimJBzv9HtqvDaZFUajQyBLRucTqC5pj4bVcZCKPAwTr4dpgb0C4OvYJD92YDI5h1lUgdC1oRERf9gv0j+gfOJwnDNPq8WwmdvHbYdoATPqIqLcfFig5bElX1BRQGnP6CmfUzU/yiN48saHoYw0Xsg/C6pBvI9daxz/8qpsAjacJw/SkUveqLxkSvrRyiDm6mnTb0L/tl/wk0KwOT5SkR7viD7GvG5ChSr9nhfIjcOXEuorNEe8bEgrwrQqinCz9Q3UGZI0ZdsvI+2eK9YRgyp4p2Z4skXlPZP2p9MbTJDLdIAwFsvtwCBfM/SQc93YkkIvT6JQvAs9krhnWbMg5jpgQR7gRZvUyLkscxq1Q0hFmWQ9eeyACgOmC8iC6tjANLaAM9gu6i8PnTWIgy5DKzxyCi8ql0JgCtT+oMVz9bA8HY9sxB5v+qSssQB2j110URUTw77XFHfmas8vR7fajhuOTgBN5ohyidHSC3LlKv6l5r1NbI+66nYDabJn/DEk2VpkJ2+0HhmiW6mTqGSTf2P1prHzGXKnQpxodr5s5Z/X94Nwc3jyhZcDkOOEDpw0DvrwBjjhaTRnMvA7x1Re8aBQC9+5cXnG45x6AGMI1kB/wwE9PLZM7EiyTh2mj2cqZQ84H9uG2MhSBMMKC8fDxB/rezV+2HF4gBHOYbLw6YBZKXVvL1sb07yMOhirBcs1eOMYGgMCMGCSqGSIb3DQEJFTEWBBSuuXuBpo6JiIUJcpFqi4ts2POYEzB5BgkrBgEEAYI3EQExbB5qAE0AaQBjAHIAbwBzAG8AZgB0ACAARQBuAGgAYQBuAGMAZQBkACAAUgBTAEEAIABhAG4AZAAgAEEARQBTACAAQwByAHkAcAB0AG8AZwByAGEAcABoAGkAYwAgAFAAcgBvAHYAaQBkAGUAcjAxMCEwCQYFKw4DAhoFAAQUbe4FrGhxVExQjYdlCaXBHX2nbG4ECAHH8i4dQCJDAgIIAA=="
       description  = ""
       isExportable = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2563,19 +2569,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = "test"
       logVerbose  = false
@@ -2587,7 +2593,7 @@ EOT
     tags = {
       ENV = "prod"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2609,15 +2615,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       fieldDefinitions = {
         my_def = {
@@ -2628,7 +2634,7 @@ EOT
       }
       isGlobal = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2650,15 +2656,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       connectionType = {
         name = "AzureServicePrincipal"
@@ -2667,11 +2673,11 @@ EOT
       fieldDefinitionValues = {
         ApplicationId         = "00000000-0000-0000-0000-000000000000"
         CertificateThumbprint = "AEB97B81A68E8988850972916A8B8B6CD8F39813\n"
-        SubscriptionId        = ${1:"subscription id"}
-        TenantId              = ${2:"tenant id"}
+        SubscriptionId        = ${3:"subscription id"}
+        TenantId              = ${4:"tenant id"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2701,13 +2707,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       password    = "test_pwd"
       userName    = "test_user"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2729,19 +2735,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     credential = {
-      name = ${2:"The name of the Microsoft.Automation/automationAccounts/credentials@2020-01-13-preview resource"}
+      name = ${3:"The name of the Microsoft.Automation/automationAccounts/credentials@2020-01-13-preview resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2763,7 +2769,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts/hybridRunbookWorkerGroups@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Automation/automationAccounts/hybridRunbookWorkerGroups@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -2771,11 +2777,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      vmResourceId = ${2:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}
+      vmResourceId = ${1:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2805,7 +2811,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       runbook = {
         name = ${3:"The name of the Microsoft.Automation/automationAccounts/runbooks@2019-06-01 resource"}
@@ -2814,7 +2820,7 @@ EOT
         name = ${4:"The name of the Microsoft.Automation/automationAccounts/schedules@2020-01-13-preview resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2848,13 +2854,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       contentLink = {
         uri = "https://devopsgallerystorage.blob.core.windows.net/packages/xactivedirectory.2.19.0.nupkg"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2888,7 +2894,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = "This is a test runbook for terraform acceptance test"
       draft = {
@@ -2898,7 +2904,7 @@ EOT
       logVerbose       = true
       runbookType      = "PowerShell"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2928,14 +2934,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       frequency   = "OneTime"
       startTime   = "2024-07-05T08:51:00+00:00"
       timeZone    = "Etc/UTC"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -2965,7 +2971,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       scheduleInfo = {
         description             = ""
@@ -3002,7 +3008,7 @@ EOT
         }
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3024,21 +3030,21 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       isEncrypted = false
       value       = "\"Hello, Terraform Basic Test.\""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3060,7 +3066,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -3068,7 +3074,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       expiryTime = "2025-06-30T04:27:24Z"
       isEnabled  = true
@@ -3076,10 +3082,10 @@ EOT
       }
       runOn = ""
       runbook = {
-        name = ${2:"The name of the Microsoft.Automation/automationAccounts/runbooks@2019-06-01 resource"}
+        name = ${3:"The name of the Microsoft.Automation/automationAccounts/runbooks@2019-06-01 resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3090,12 +3096,14 @@ EOT
 		        Value: `response_export_values    = ["*"]`,	
 	        },
             {
-		        Name:  "ignore_body_changes",
-		        Value: `ignore_body_changes            = ["properties.expiryTime"]`,	
+		        Name:  "depends_on",
+		        Value: `depends_on                = [${1:"The publish_runbook of the Microsoft.Automation/automationAccounts/runbooks@2022-08-08 resource"}]`,	
 	        },
             {
-		        Name:  "depends_on",
-		        Value: `depends_on                = [${3:"The publish_runbook of the Microsoft.Automation/automationAccounts/runbooks@2022-08-08 resource"}]`,	
+		        Name:  "lifecycle",
+		        Value: `lifecycle {
+    ignore_changes = [${4:TODO}]
+  }`,	
 	        },
 	
 	    },
@@ -3121,7 +3129,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       encryption = {
         keySource = "Microsoft.Batch"
@@ -3129,7 +3137,7 @@ EOT
       poolAllocationMode  = "BatchService"
       publicNetworkAccess = "Enabled"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3159,13 +3167,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       allowUpdates   = true
       defaultVersion = ""
       displayName    = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3195,14 +3203,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       data                = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlEYnpDQ0FsZWdBd0lCQWdJSkFJempSRDM2c0liYk1BMEdDU3FHU0liM0RRRUJDd1VBTUUweEN6QUpCZ05WDQpCQVlUQWxWVE1STXdFUVlEVlFRSURBcFRiMjFsTFZOMFlYUmxNUkl3RUFZRFZRUUtEQWwwWlhKeVlXWnZjbTB4DQpGVEFUQmdOVkJBTU1ESFJsY25KaFptOXliUzVwYnpBZ0Z3MHhOekEwTWpFeU1EQTFNamRhR0E4eU1URTNNRE15DQpPREl3TURVeU4xb3dUVEVMTUFrR0ExVUVCaE1DVlZNeEV6QVJCZ05WQkFnTUNsTnZiV1V0VTNSaGRHVXhFakFRDQpCZ05WQkFvTUNYUmxjbkpoWm05eWJURVZNQk1HQTFVRUF3d01kR1Z5Y21GbWIzSnRMbWx2TUlJQklqQU5CZ2txDQpoa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQTNMOUw1c3pUNCtGTHlrVEZOeXlQankvazNCUVRZQWZSDQpRelAyZGhuc3VVS20zY2RQQzBOeVord0VYSVVHaG9ETzJZRzZFWUNoT2w4ZnNEcURPamxvU1VHS3FZdysrbmxwDQpISXVVZ0p4OEl4eEcyWGtBTENqRlU3RW1GK3c3a243NmQwZXpwRUlZeG5MUCtLRzJEVm9ybm9FdDFhTGh2MU1MDQptcGdFWlpQaERiTVNMaFNZV2VUVlJNYXlYTHdxdGZnbkR1bVFTQis4ZC8xSnVKcXJTSTRwRDEySm96VlRoemI2DQpoc2pmYjZSTVg0ZXBQbXJHbjBQYlRQRUVBNmF3bXN4QkNYQjBzMTNuTlF0L08waExNMmFnd3ZBeW96aWxRVitzDQo2MTZDa2drNkRKb1VrcVpoRHk3dlBZTUlSU3I5OGZCd3M2emtyVjZ0VExqbUQ4eEF2b2JlUFFJREFRQUJvMUF3DQpUakFkQmdOVkhRNEVGZ1FVWElxTzQyMXpNTW1iY1JSWDl3Y3RaRkNRdVBJd0h3WURWUjBqQkJnd0ZvQVVYSXFPDQo0MjF6TU1tYmNSUlg5d2N0WkZDUXVQSXdEQVlEVlIwVEJBVXdBd0VCL3pBTkJna3Foa2lHOXcwQkFRc0ZBQU9DDQpBUUVBcjgyTmVUM0JZSk9LTGxVTDZPbTVMalVGNjZld2NKakc5bHRkdnlRd1ZuZU1jcTd0NVVBUHhnQ2h6cU5SDQpWazRkYThQemtYcGpCSnlXZXpIdXBkSk5YM1hxZVVrMmtTeHFRNi9nbWhxdmZJM3k3ZGpyd29PNmp2TUVZMjZXDQpxdGtUTk9SV0RQM1RISkpWaW1DM3pWK0tNVTVVQlZyRXpoT1ZoSFNVNzA5bEJQNzVvMEJCbjN4R3NQcVNxOWs4DQpJb3RJRmZ5QWM2YStYUDMrWk1wdmg3d3FBVW1sN3ZXYTV3bGNYRXhDeDM5aDFiYWxmRFNMR05DNHN3V1BDcDlBDQpNblFSMHArdk1heTloTlAxRWgrOVFZVWFpMTRkNUtTM2NGVitLeEUxY0pSNUhEL2lMbHRubk9FYnBNc0IwZVZPDQpaV2tGdkU3WTVsVzBvVlNBZmluNVR3VEpNUT09DQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0t"
       format              = "Cer"
       thumbprint          = "312d31a79fa0cef49c00f769afc2b73e9f4edf34"
       thumbprintAlgorithm = "sha1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3232,7 +3240,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       certificates = null
       deploymentConfiguration = {
@@ -3266,7 +3274,7 @@ EOT
       taskSlotsPerNode = 1
       vmSize           = "STANDARD_A1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3288,11 +3296,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -3300,18 +3308,18 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "sdk"
     properties = {
       developerAppInsightKey            = ""
       developerAppInsightsApiKey        = ""
       developerAppInsightsApplicationId = ""
-      displayName                       = ${3:"The name of the resource"}
+      displayName                       = ${1:"The name of the resource"}
       endpoint                          = ""
       luisAppIds = [
       ]
       luisKey  = ""
-      msaAppId = ${4:"The client_id of the  resource"}
+      msaAppId = ${2:"The client_id of the  resource"}
     }
     sku = {
       name = "F0"
@@ -3319,7 +3327,7 @@ EOT
     tags = {
       environment = "production"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3341,11 +3349,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.BotService/botServices@2021-05-01-preview resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.BotService/botServices@2021-05-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -3353,15 +3361,15 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "bot"
     properties = {
-      clientId          = jsondecode(${3:"TODO"}).properties.msaAppId
+      clientId          = ${1:"TODO"}
       clientSecret      = "86546868-e7ed-429f-b0e5-3a1caea7db64"
       scopes            = ""
-      serviceProviderId = jsondecode(${4:"TODO"}).value[36].properties.id
+      serviceProviderId = ${2:"TODO"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3395,7 +3403,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       sku = {
         capacity = 2
@@ -3405,7 +3413,7 @@ EOT
       enableNonSslPort  = true
       minimumTlsVersion = "1.2"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3427,19 +3435,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       minimumTlsVersion = "1.2"
     }
@@ -3447,7 +3455,7 @@ EOT
       capacity = 2
       name     = "Enterprise_E100"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3481,11 +3489,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     sku = {
       name = "Standard_Verizon"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3519,11 +3527,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       enabledState = "Enabled"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3545,22 +3553,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Cdn/profiles/afdEndpoints@2021-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Cdn/profiles/afdEndpoints@2021-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       enabledState        = "Enabled"
       forwardingProtocol  = "MatchRequest"
       httpsRedirect       = "Enabled"
       linkToDefaultDomain = "Enabled"
       originGroup = {
-        id = ${2:"The id of the Microsoft.Cdn/profiles/originGroups@2021-06-01 resource"}
+        id = ${3:"The id of the Microsoft.Cdn/profiles/originGroups@2021-06-01 resource"}
       }
       patternsToMatch = [
         "/*",
@@ -3570,7 +3578,7 @@ EOT
         "Http",
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3600,7 +3608,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       azureDnsZone = {
         id = ${3:"The id of the Microsoft.Network/dnsZones@2018-05-01 resource"}
@@ -3611,7 +3619,7 @@ EOT
         minimumTlsVersion = "TLS12"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3645,7 +3653,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       isHttpAllowed  = true
       isHttpsAllowed = true
@@ -3661,7 +3669,7 @@ EOT
       ]
       queryStringCachingBehavior = "IgnoreQueryString"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3691,7 +3699,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       loadBalancingSettings = {
         additionalLatencyInMilliseconds = 0
@@ -3701,7 +3709,7 @@ EOT
       sessionAffinityState                                  = "Enabled"
       trafficRestorationTimeToHealedOrNewEndpointsInMinutes = 10
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3731,7 +3739,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       enabledState                = "Enabled"
       enforceCertificateNameCheck = false
@@ -3742,7 +3750,7 @@ EOT
       priority                    = 1
       weight                      = 1
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3764,11 +3772,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id                 = ${1:"The id of the Microsoft.Cdn/profiles@2021-06-01 resource"}`,	
+		        Value: `parent_id                 = ${2:"The id of the Microsoft.Cdn/profiles@2021-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name                      = "${2:The name of the resource}"`,	
+		        Value: `name                      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3790,22 +3798,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Cdn/profiles@2021-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Cdn/profiles@2021-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       parameters = {
         associations = [
           {
             domains = [
               {
-                id = ${2:"The id of the Microsoft.Cdn/profiles/customDomains@2021-06-01 resource"}
+                id = ${3:"The id of the Microsoft.Cdn/profiles/customDomains@2021-06-01 resource"}
               },
             ]
             patternsToMatch = [
@@ -3815,11 +3823,11 @@ EOT
         ]
         type = "WebApplicationFirewall"
         wafPolicy = {
-          id = ${3:"The id of the Microsoft.Network/FrontDoorWebApplicationFirewallPolicies@2020-11-01 resource"}
+          id = ${4:"The id of the Microsoft.Network/FrontDoorWebApplicationFirewallPolicies@2020-11-01 resource"}
         }
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3841,11 +3849,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -3853,7 +3861,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       autoRenew         = true
       distinguishedName = "CN=example.com"
@@ -3861,7 +3869,7 @@ EOT
       productType       = "StandardDomainValidatedSsl"
       validityInYears   = 1
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3902,7 +3910,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "SpeechServices"
     properties = {
       allowedFqdnList = [
@@ -3919,7 +3927,7 @@ EOT
       name = "S0"
       tier = "Standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3941,11 +3949,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -3953,11 +3961,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       dataLocation = "United States"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -3979,11 +3987,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -3991,11 +3999,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       dataLocation = "United States"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4017,19 +4025,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       platformFaultDomainCount  = 3
       platformUpdateDomainCount = 5
@@ -4037,7 +4045,7 @@ EOT
     sku = {
       name = "Aligned"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4101,12 +4109,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     tags = {
       cost-center = "ops"
       environment = "acctest"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4128,15 +4136,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${5:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "identity",
@@ -4147,18 +4155,18 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       activeKey = {
-        keyUrl = jsondecode(${4:"TODO"}).properties.keyUriWithVersion
+        keyUrl = ${3:"TODO"}
         sourceVault = {
-          id = ${5:"The id of the Microsoft.KeyVault/vaults@2023-02-01 resource"}
+          id = ${4:"The id of the Microsoft.KeyVault/vaults@2023-02-01 resource"}
         }
       }
       encryptionType                    = "EncryptionAtRestWithCustomerKey"
       rotationToLatestKeyVersionEnabled = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4180,19 +4188,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       creationData = {
         createOption = "Empty"
@@ -4208,7 +4216,7 @@ EOT
     sku = {
       name = "Standard_LRS"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4230,23 +4238,23 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4268,24 +4276,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Compute/galleries@2022-03-03 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Compute/galleries@2022-03-03 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       supportedOSType = "Linux"
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4307,19 +4315,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Compute/galleries@2022-03-03 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Compute/galleries@2022-03-03 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       architecture = "x64"
       description  = ""
@@ -4345,7 +4353,7 @@ EOT
       }
       releaseNoteUri = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4379,11 +4387,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       platformFaultDomainCount = 2
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4405,19 +4413,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Compute/hostGroups@2021-11-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Compute/hostGroups@2021-11-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       autoReplaceOnFailure = true
       licenseType          = "None"
@@ -4426,7 +4434,7 @@ EOT
     sku = {
       name = "DSv3-Type1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4460,10 +4468,10 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4497,14 +4505,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       publicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+wWK73dCr+jgQOAxNsHAnNNNMEMWOHYEccp6wJm2gotpr9katuF/ZAdou5AaW1C61slRkHRkpRRX9FA9CYBiitZgvCCz+3nWNN7l/Up54Zps/pHWGZLHNJZRYyAB6j5yVLMVHIHriY49d/GZTZVNB8GoJv9Gakwc/fuEZYYl4YDFiGMBP///TzlI4jhiJzjKnEvqPFki5p2ZRJqcbCiF4pJrxUQR/RXqVFQdbRLZgYfJ8xGB878RENq3yQ39d8dVOkq4edbkzwcUmwwwkYVPIoDGsYLaRHnG+To7FvMeyO7xDVQkMKzopTQV8AuKpyvpqu0a9pWOMaiCyDytO7GGN you@me.com"
     }
     tags = {
       test-tag = "test-value-230630032848837073"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4526,19 +4534,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${5:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       additionalCapabilities = {
       }
@@ -4591,7 +4599,7 @@ EOT
                       primary                 = true
                       privateIPAddressVersion = "IPv4"
                       subnet = {
-                        id = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+                        id = ${2:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
                       }
                     }
                   },
@@ -4603,7 +4611,7 @@ EOT
         }
         osProfile = {
           adminUsername      = "adminuser"
-          computerNamePrefix = ${5:"The name of the resource"}
+          computerNamePrefix = ${3:"The name of the resource"}
           linuxConfiguration = {
             disablePasswordAuthentication = true
             provisionVMAgent              = true
@@ -4646,7 +4654,7 @@ EOT
       name     = "Standard_F2"
       tier     = "Standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4668,15 +4676,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Compute/virtualMachineScaleSets@2023-03-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Compute/virtualMachineScaleSets@2023-03-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       autoUpgradeMinorVersion = true
       enableAutomaticUpgrade  = false
@@ -4690,7 +4698,7 @@ EOT
       type               = "CustomScript"
       typeHandlerVersion = "2.0"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4724,7 +4732,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       hardwareProfile = {
         vmSize = "Standard_F2"
@@ -4762,7 +4770,7 @@ EOT
         }
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4784,19 +4792,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       autoUpgradeMinorVersion = false
       enableAutomaticUpgrade  = false
@@ -4811,7 +4819,7 @@ EOT
     tags = {
       environment = "Production"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4845,7 +4853,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       aadBasedSecurityPrincipals = [
         {
@@ -4862,7 +4870,7 @@ EOT
       ]
       ledgerType = "Private"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4896,7 +4904,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       containers = [
         {
@@ -4944,7 +4952,7 @@ EOT
     }
     zones = [
     ]
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -4978,7 +4986,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       adminUserEnabled     = false
       anonymousPullEnabled = false
@@ -5008,7 +5016,7 @@ EOT
       name = "Standard"
       tier = "Standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5042,13 +5050,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       count = 1
       os    = "Linux"
       tier  = "S1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5078,14 +5086,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       actions = [
         "repositories/testrepo/content/read",
       ]
       description = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5119,7 +5127,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       isSystemTask = true
       status       = "Enabled"
@@ -5127,7 +5135,7 @@ EOT
       timeout      = 3600
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5157,12 +5165,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       scopeMapId = ${3:"The id of the Microsoft.ContainerRegistry/registries/scopeMaps@2021-08-01-preview resource"}
       status     = "enabled"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5196,7 +5204,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       actions = [
         "push",
@@ -5207,7 +5215,7 @@ EOT
       serviceUri = "https://mywebhookreceiver.example/mytag"
       status     = "enabled"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5229,15 +5237,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${4:location}"`,	
 	        },
             {
 		        Name:  "identity",
@@ -5248,7 +5256,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       agentPoolProfiles = [
         {
@@ -5258,9 +5266,9 @@ EOT
           vmSize = "Standard_DS2_v2"
         },
       ]
-      dnsPrefix = ${4:"The name of the resource"}
+      dnsPrefix = ${1:"The name of the resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5290,13 +5298,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       count  = 1
       mode   = "User"
       vmSize = "Standard_DS2_v2"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5318,15 +5326,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = "/subscriptions/${${1:"subscription id"}}"`,	
+		        Value: `parent_id = "/subscriptions/${${3:"subscription id"}}"`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "InsightAlert"
     properties = {
       displayName = "acctest 230630032939736168"
@@ -5348,9 +5356,9 @@ EOT
         startDate = "2023-07-18T11:21:14+00:00"
       }
       status = "Enabled"
-      viewId = ${3:"The id of the Microsoft.CostManagement/views@2022-10-01 resource"}
+      viewId = ${2:"The id of the Microsoft.CostManagement/views@2022-10-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5380,7 +5388,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       accumulated = "False"
       chart       = "StackedColumn"
@@ -5435,7 +5443,7 @@ EOT
         type      = "Usage"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5469,7 +5477,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       resourceTypes = [
         {
@@ -5479,7 +5487,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5513,7 +5521,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       administratorLogin         = "acctestun"
       administratorLoginPassword = "H@Sh1CoR3!"
@@ -5534,7 +5542,7 @@ EOT
       name     = "GP_Gen5_2"
       tier     = "GeneralPurpose"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5564,12 +5572,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       charset   = "utf8"
       collation = "utf8_general_ci"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5599,12 +5607,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       endIpAddress   = "255.255.255.255"
       startIpAddress = "0.0.0.0"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5634,12 +5642,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       ignoreMissingVnetServiceEndpoint = false
       virtualNetworkSubnetId           = ${3:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5661,19 +5669,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       administratorLogin         = "adminTerraform"
       administratorLoginPassword = "QAZwsx123"
@@ -5695,7 +5703,7 @@ EOT
       name = "Standard_B1s"
       tier = "Burstable"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5717,20 +5725,20 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.DBforMySQL/flexibleServers@2021-05-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DBforMySQL/flexibleServers@2021-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       charset   = "utf8"
       collation = "utf8_unicode_ci"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5760,12 +5768,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       endIpAddress   = "255.255.255.255"
       startIpAddress = "0.0.0.0"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5787,19 +5795,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       administratorLogin         = "acctestun"
       administratorLoginPassword = "H@Sh1CoR3!"
@@ -5820,7 +5828,7 @@ EOT
       name     = "GP_Gen5_2"
       tier     = "GeneralPurpose"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5850,14 +5858,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       administratorType = "ActiveDirectory"
       login             = "sqladmin"
       sid               = ${2:"The client_id of the  resource"}
       tenantId          = ${3:"tenant id"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5887,12 +5895,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       charset   = "utf8"
       collation = "utf8_unicode_ci"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5922,12 +5930,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       endIpAddress   = "255.255.255.255"
       startIpAddress = "0.0.0.0"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5957,12 +5965,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       ignoreMissingVnetServiceEndpoint = false
       virtualNetworkSubnetId           = ${3:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -5992,12 +6000,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       principalType = "ServicePrincipal"
       tenantId      = ${3:"tenant id"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6019,20 +6027,20 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       charset   = "UTF8"
       collation = "en_US.UTF8"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6062,12 +6070,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       endIpAddress   = "122.122.0.0"
       startIpAddress = "122.122.0.0"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6089,19 +6097,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       administratorLoginPassword      = "H@Sh1CoR3!"
       coordinatorEnablePublicIpAccess = true
@@ -6113,7 +6121,7 @@ EOT
       nodeEnablePublicIpAccess        = false
       nodeServerEdition               = "MemoryOptimized"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6135,19 +6143,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       administratorLogin         = "acctestun"
       administratorLoginPassword = "H@Sh1CoR3!"
@@ -6169,7 +6177,7 @@ EOT
       name     = "GP_Gen5_2"
       tier     = "GeneralPurpose"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6199,14 +6207,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       administratorType = "ActiveDirectory"
       login             = "sqladmin"
       sid               = ${1:"The client_id of the  resource"}
       tenantId          = ${2:"tenant id"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6228,20 +6236,20 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DBforPostgreSQL/servers@2017-12-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.DBforPostgreSQL/servers@2017-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       charset   = "UTF8"
       collation = "English_United States.1252"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6263,20 +6271,20 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.DBforPostgreSQL/servers@2017-12-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DBforPostgreSQL/servers@2017-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       endIpAddress   = "255.255.255.255"
       startIpAddress = "0.0.0.0"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6306,12 +6314,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       ignoreMissingVnetServiceEndpoint = false
       virtualNetworkSubnetId           = ${3:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6345,7 +6353,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       apiKey                            = "Disabled"
       autoGeneratedDomainNameLabelScope = "TenantReuse"
@@ -6356,7 +6364,7 @@ EOT
     sku = {
       name = "Standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6390,12 +6398,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     sku = {
       name = "EdgeP_Base"
       tier = "Standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6429,12 +6437,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       publicNetworkAccess = "Enabled"
       repoConfiguration   = null
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6464,7 +6472,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       type        = "ManagedIdentity"
       annotations = ["test"]
@@ -6474,7 +6482,7 @@ EOT
       }
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "ignore_casing",
@@ -6504,7 +6512,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       type        = "Flowlet"
@@ -6536,7 +6544,7 @@ EOT
         ]
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6558,19 +6566,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.DataFactory/factories@2018-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DataFactory/factories@2018-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       linkedServiceName = {
-        referenceName = ${2:"The name of the Microsoft.DataFactory/factories/linkedservices@2018-06-01 resource"}
+        referenceName = ${3:"The name of the Microsoft.DataFactory/factories/linkedservices@2018-06-01 resource"}
         type          = "LinkedServiceReference"
       }
       type = "Json"
@@ -6584,7 +6592,7 @@ EOT
         }
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6606,20 +6614,20 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DataFactory/factories@2018-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.DataFactory/factories@2018-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       type        = "SelfHosted"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6649,15 +6657,15 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       type        = "AzureBlobStorage"
       typeProperties = {
-        serviceEndpoint = jsondecode(${3:"TODO"}).properties.primaryEndpoints.blob
+        serviceEndpoint = ${3:"TODO"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6687,10 +6695,10 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6720,7 +6728,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       annotations = [
       ]
@@ -6734,7 +6742,7 @@ EOT
       variables = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6756,22 +6764,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.DataFactory/factories@2018-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DataFactory/factories@2018-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       pipeline = {
         parameters = {
         }
         pipelineReference = {
-          referenceName = ${1:"The name of the Microsoft.DataFactory/factories/pipelines@2018-06-01 resource"}
+          referenceName = ${3:"The name of the Microsoft.DataFactory/factories/pipelines@2018-06-01 resource"}
           type          = "PipelineReference"
         }
       }
@@ -6783,7 +6791,7 @@ EOT
         startTime      = "2022-09-21T00:00:00Z"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6805,27 +6813,27 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${4:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "Cloud"
     properties = {
-      virtualSubnetId = ${1:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+      virtualSubnetId = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
     }
     sku = {
       name = "Standard_1vCores"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6847,24 +6855,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.DataMigration/services@2018-04-19 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DataMigration/services@2018-04-19 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       sourcePlatform = "SQL"
       targetPlatform = "SQLDB"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6898,7 +6906,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       storageSettings = [
         {
@@ -6907,7 +6915,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6937,7 +6945,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       dataSourceInfo = {
         datasourceType   = "Microsoft.DBforPostgreSQL/servers/databases"
@@ -6964,7 +6972,7 @@ EOT
         policyId = ${10:"The id of the Microsoft.DataProtection/backupVaults/backupPolicies@2022-04-01 resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -6994,7 +7002,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       datasourceTypes = [
         "Microsoft.DBforPostgreSQL/servers/databases",
@@ -7052,7 +7060,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7074,24 +7082,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       vaultCriticalOperationExclusionList = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7113,15 +7121,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "identity",
@@ -7132,11 +7140,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     tags = {
       env = "Test"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7166,13 +7174,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       shareKind   = "CopyBased"
       terms       = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7194,21 +7202,21 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7242,7 +7250,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       managedResourceGroupId = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}
       parameters = {
@@ -7258,7 +7266,7 @@ EOT
     sku = {
       name = "premium"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7280,15 +7288,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Databricks/workspaces@2023-02-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Databricks/workspaces@2023-02-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       allowForwardedTraffic     = false
       allowGatewayTransit       = false
@@ -7304,11 +7312,11 @@ EOT
         ]
       }
       remoteVirtualNetwork = {
-        id = ${1:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
+        id = ${3:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
       }
       useRemoteGateways = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7342,11 +7350,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       labStorageType = "Premium"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7368,7 +7376,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.DevTestLab/labs@2018-09-15 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DevTestLab/labs@2018-09-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -7376,11 +7384,11 @@ EOT
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       dailyRecurrence = {
         time = "0100"
@@ -7397,7 +7405,7 @@ EOT
     tags = {
       environment = "Production"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7431,7 +7439,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       allowClaim              = true
       disallowPublicIpAddress = false
@@ -7454,7 +7462,7 @@ EOT
       storageType = "Standard"
       userName    = "acct5stU5er"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7488,7 +7496,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       subnetOverrides = [
@@ -7500,7 +7508,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7534,7 +7542,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       dailyRecurrence = {
         time = "0100"
@@ -7553,7 +7561,7 @@ EOT
     tags = {
       environment = "Production"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7587,13 +7595,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       publicNetworkAccess = "Enabled"
       sku                 = "Standard"
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7615,30 +7623,30 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.DeviceUpdate/accounts@2022-10-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DeviceUpdate/accounts@2022-10-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${5:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      accountName       = ${2:"The name of the Microsoft.DeviceUpdate/accounts@2022-10-01 resource"}
+      accountName       = ${4:"The name of the Microsoft.DeviceUpdate/accounts@2022-10-01 resource"}
       enableDiagnostics = false
       iotHubs = [
         {
-          resourceId = ${3:"The id of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
+          resourceId = ${5:"The id of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
         },
       ]
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7660,19 +7668,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       cloudToDevice = {
       }
@@ -7696,7 +7704,7 @@ EOT
       capacity = 1
       name     = "S1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7726,12 +7734,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       certificate = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlEYnpDQ0FsZWdBd0lCQWdJSkFJempSRDM2c0liYk1BMEdDU3FHU0liM0RRRUJDd1VBTUUweEN6QUpCZ05WDQpCQVlUQWxWVE1STXdFUVlEVlFRSURBcFRiMjFsTFZOMFlYUmxNUkl3RUFZRFZRUUtEQWwwWlhKeVlXWnZjbTB4DQpGVEFUQmdOVkJBTU1ESFJsY25KaFptOXliUzVwYnpBZ0Z3MHhOekEwTWpFeU1EQTFNamRhR0E4eU1URTNNRE15DQpPREl3TURVeU4xb3dUVEVMTUFrR0ExVUVCaE1DVlZNeEV6QVJCZ05WQkFnTUNsTnZiV1V0VTNSaGRHVXhFakFRDQpCZ05WQkFvTUNYUmxjbkpoWm05eWJURVZNQk1HQTFVRUF3d01kR1Z5Y21GbWIzSnRMbWx2TUlJQklqQU5CZ2txDQpoa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQTNMOUw1c3pUNCtGTHlrVEZOeXlQankvazNCUVRZQWZSDQpRelAyZGhuc3VVS20zY2RQQzBOeVord0VYSVVHaG9ETzJZRzZFWUNoT2w4ZnNEcURPamxvU1VHS3FZdysrbmxwDQpISXVVZ0p4OEl4eEcyWGtBTENqRlU3RW1GK3c3a243NmQwZXpwRUlZeG5MUCtLRzJEVm9ybm9FdDFhTGh2MU1MDQptcGdFWlpQaERiTVNMaFNZV2VUVlJNYXlYTHdxdGZnbkR1bVFTQis4ZC8xSnVKcXJTSTRwRDEySm96VlRoemI2DQpoc2pmYjZSTVg0ZXBQbXJHbjBQYlRQRUVBNmF3bXN4QkNYQjBzMTNuTlF0L08waExNMmFnd3ZBeW96aWxRVitzDQo2MTZDa2drNkRKb1VrcVpoRHk3dlBZTUlSU3I5OGZCd3M2emtyVjZ0VExqbUQ4eEF2b2JlUFFJREFRQUJvMUF3DQpUakFkQmdOVkhRNEVGZ1FVWElxTzQyMXpNTW1iY1JSWDl3Y3RaRkNRdVBJd0h3WURWUjBqQkJnd0ZvQVVYSXFPDQo0MjF6TU1tYmNSUlg5d2N0WkZDUXVQSXdEQVlEVlIwVEJBVXdBd0VCL3pBTkJna3Foa2lHOXcwQkFRc0ZBQU9DDQpBUUVBcjgyTmVUM0JZSk9LTGxVTDZPbTVMalVGNjZld2NKakc5bHRkdnlRd1ZuZU1jcTd0NVVBUHhnQ2h6cU5SDQpWazRkYThQemtYcGpCSnlXZXpIdXBkSk5YM1hxZVVrMmtTeHFRNi9nbWhxdmZJM3k3ZGpyd29PNmp2TUVZMjZXDQpxdGtUTk9SV0RQM1RISkpWaW1DM3pWK0tNVTVVQlZyRXpoT1ZoSFNVNzA5bEJQNzVvMEJCbjN4R3NQcVNxOWs4DQpJb3RJRmZ5QWM2YStYUDMrWk1wdmg3d3FBVW1sN3ZXYTV3bGNYRXhDeDM5aDFiYWxmRFNMR05DNHN3V1BDcDlBDQpNblFSMHArdk1heTloTlAxRWgrOVFZVWFpMTRkNUtTM2NGVitLeEUxY0pSNUhEL2lMbHRubk9FYnBNc0IwZVZPDQpaV2tGdkU3WTVsVzBvVlNBZmluNVR3VEpNUT09DQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0t"
       isVerified  = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7753,19 +7761,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       allocationPolicy    = "Hashed"
       enableDataResidency = false
@@ -7777,7 +7785,7 @@ EOT
       capacity = 1
       name     = "S1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7807,11 +7815,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       certificate = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlEYnpDQ0FsZWdBd0lCQWdJSkFJempSRDM2c0liYk1BMEdDU3FHU0liM0RRRUJDd1VBTUUweEN6QUpCZ05WDQpCQVlUQWxWVE1STXdFUVlEVlFRSURBcFRiMjFsTFZOMFlYUmxNUkl3RUFZRFZRUUtEQWwwWlhKeVlXWnZjbTB4DQpGVEFUQmdOVkJBTU1ESFJsY25KaFptOXliUzVwYnpBZ0Z3MHhOekEwTWpFeU1EQTFNamRhR0E4eU1URTNNRE15DQpPREl3TURVeU4xb3dUVEVMTUFrR0ExVUVCaE1DVlZNeEV6QVJCZ05WQkFnTUNsTnZiV1V0VTNSaGRHVXhFakFRDQpCZ05WQkFvTUNYUmxjbkpoWm05eWJURVZNQk1HQTFVRUF3d01kR1Z5Y21GbWIzSnRMbWx2TUlJQklqQU5CZ2txDQpoa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQTNMOUw1c3pUNCtGTHlrVEZOeXlQankvazNCUVRZQWZSDQpRelAyZGhuc3VVS20zY2RQQzBOeVord0VYSVVHaG9ETzJZRzZFWUNoT2w4ZnNEcURPamxvU1VHS3FZdysrbmxwDQpISXVVZ0p4OEl4eEcyWGtBTENqRlU3RW1GK3c3a243NmQwZXpwRUlZeG5MUCtLRzJEVm9ybm9FdDFhTGh2MU1MDQptcGdFWlpQaERiTVNMaFNZV2VUVlJNYXlYTHdxdGZnbkR1bVFTQis4ZC8xSnVKcXJTSTRwRDEySm96VlRoemI2DQpoc2pmYjZSTVg0ZXBQbXJHbjBQYlRQRUVBNmF3bXN4QkNYQjBzMTNuTlF0L08waExNMmFnd3ZBeW96aWxRVitzDQo2MTZDa2drNkRKb1VrcVpoRHk3dlBZTUlSU3I5OGZCd3M2emtyVjZ0VExqbUQ4eEF2b2JlUFFJREFRQUJvMUF3DQpUakFkQmdOVkhRNEVGZ1FVWElxTzQyMXpNTW1iY1JSWDl3Y3RaRkNRdVBJd0h3WURWUjBqQkJnd0ZvQVVYSXFPDQo0MjF6TU1tYmNSUlg5d2N0WkZDUXVQSXdEQVlEVlIwVEJBVXdBd0VCL3pBTkJna3Foa2lHOXcwQkFRc0ZBQU9DDQpBUUVBcjgyTmVUM0JZSk9LTGxVTDZPbTVMalVGNjZld2NKakc5bHRkdnlRd1ZuZU1jcTd0NVVBUHhnQ2h6cU5SDQpWazRkYThQemtYcGpCSnlXZXpIdXBkSk5YM1hxZVVrMmtTeHFRNi9nbWhxdmZJM3k3ZGpyd29PNmp2TUVZMjZXDQpxdGtUTk9SV0RQM1RISkpWaW1DM3pWK0tNVTVVQlZyRXpoT1ZoSFNVNzA5bEJQNzVvMEJCbjN4R3NQcVNxOWs4DQpJb3RJRmZ5QWM2YStYUDMrWk1wdmg3d3FBVW1sN3ZXYTV3bGNYRXhDeDM5aDFiYWxmRFNMR05DNHN3V1BDcDlBDQpNblFSMHArdk1heTloTlAxRWgrOVFZVWFpMTRkNUtTM2NGVitLeEUxY0pSNUhEL2lMbHRubk9FYnBNc0IwZVZPDQpaV2tGdkU3WTVsVzBvVlNBZmluNVR3VEpNUT09DQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0t"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7833,15 +7841,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "identity",
@@ -7852,8 +7860,8 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
-  })`,	
+		        Value: `body = {
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7875,23 +7883,23 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DigitalTwins/digitalTwinsInstances@2020-12-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.DigitalTwins/digitalTwinsInstances@2020-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       authenticationType        = "KeyBased"
       deadLetterSecret          = ""
       endpointType              = "ServiceBus"
-      primaryConnectionString   = jsondecode(${3:"TODO"}).primaryConnectionString
-      secondaryConnectionString = jsondecode(${3:"TODO"}).secondaryConnectionString
+      primaryConnectionString   = ${2:"TODO"}
+      secondaryConnectionString = ${3:"TODO"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7902,8 +7910,10 @@ EOT
 		        Value: `response_export_values    = ["*"]`,	
 	        },
             {
-		        Name:  "ignore_body_changes",
-		        Value: `ignore_body_changes            = ["properties.primaryConnectionString", "properties.secondaryConnectionString"]`,	
+		        Name:  "lifecycle",
+		        Value: `lifecycle {
+    ignore_changes = [${5:TODO}, ${6:TODO}]
+  }`,	
 	        },
 	
 	    },
@@ -7929,7 +7939,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "GlobalDocumentDB"
     properties = {
       capabilities = [
@@ -7964,7 +7974,7 @@ EOT
       virtualNetworkRules = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -7986,23 +7996,23 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DocumentDB/databaseAccounts@2021-10-15 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.DocumentDB/databaseAccounts@2021-10-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       options = {
       }
       resource = {
-        id = ${3:"The name of the resource"}
+        id = ${2:"The name of the resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8032,7 +8042,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       options = {
       }
@@ -8040,7 +8050,7 @@ EOT
         id = ${3:"The name of the resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8062,21 +8072,21 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DocumentDB/databaseAccounts/gremlinDatabases@2023-04-15 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.DocumentDB/databaseAccounts/gremlinDatabases@2023-04-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       options = {
         throughput = 400
       }
       resource = {
-        id = ${3:"The name of the resource"}
+        id = ${1:"The name of the resource"}
         partitionKey = {
           kind = "Hash"
           paths = [
@@ -8085,7 +8095,7 @@ EOT
         }
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8115,7 +8125,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       options = {
       }
@@ -8123,7 +8133,7 @@ EOT
         id = ${3:"The name of the resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8153,13 +8163,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       instanceCount = 1
       instanceSize  = "Cosmos.D4s"
       serviceType   = "SqlDedicatedGateway"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8189,7 +8199,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       options = {
         throughput = 400
@@ -8198,7 +8208,7 @@ EOT
         id = ${3:"The name of the resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8228,7 +8238,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       options = {
       }
@@ -8242,7 +8252,7 @@ EOT
         }
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8264,24 +8274,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       options = {
       }
       resource = {
         body = "  \tfunction () {\n\t\tvar context = getContext();\n\t\tvar response = context.getResponse();\n\t\tresponse.setBody('Hello, World');\n\t}\n"
-        id   = ${1:"The name of the resource"}
+        id   = ${3:"The name of the resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8303,26 +8313,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       options = {
       }
       resource = {
         body             = "function trigger(){}"
-        id               = ${3:"The name of the resource"}
+        id               = ${2:"The name of the resource"}
         triggerOperation = "All"
         triggerType      = "Pre"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8352,7 +8362,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       options = {
       }
@@ -8361,7 +8371,7 @@ EOT
         id   = ${3:"The name of the resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8391,13 +8401,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      principalId      = jsondecode(${2:"TODO"}).identity.principalId
+      principalId      = ${2:"TODO"}
       roleDefinitionId = ${3:"The id of the Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions@2021-10-15 resource"}
       scope            = ${4:"The id of the Microsoft.DocumentDB/databaseAccounts@2021-10-15 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8427,7 +8437,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       assignableScopes = [
         ${2:"The id of the Microsoft.DocumentDB/databaseAccounts@2021-10-15 resource"},
@@ -8442,7 +8452,7 @@ EOT
       roleName = ${3:"The name of the resource"}
       type     = "CustomRole"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8472,7 +8482,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       options = {
       }
@@ -8480,7 +8490,7 @@ EOT
         id = ${3:"The name of the resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8502,19 +8512,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       autoCreateTopicWithFirstSubscription = true
       autoDeleteTopicWithLastSubscription  = true
@@ -8523,7 +8533,7 @@ EOT
       inputSchemaMapping                   = null
       publicNetworkAccess                  = "Enabled"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8545,11 +8555,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id                 = ${2:"The id of the Microsoft.EventGrid/domains@2021-12-01 resource"}`,	
+		        Value: `parent_id                 = ${1:"The id of the Microsoft.EventGrid/domains@2021-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name                      = "${1:The name of the resource}"`,	
+		        Value: `name                      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8571,22 +8581,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       deadLetterDestination = null
       destination = {
         endpointType = "EventHub"
         properties = {
           deliveryAttributeMappings = null
-          resourceId                = ${1:"The id of the Microsoft.EventHub/namespaces/eventhubs@2021-11-01 resource"}
+          resourceId                = ${3:"The id of the Microsoft.EventHub/namespaces/eventhubs@2021-11-01 resource"}
         }
       }
       eventDeliverySchema = "EventGridSchema"
@@ -8603,7 +8613,7 @@ EOT
         maxDeliveryAttempts      = 10
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8637,12 +8647,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       source    = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}
       topicType = "Microsoft.Resources.ResourceGroups"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8664,26 +8674,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       disableLocalAuth    = false
       inputSchema         = "EventGridSchema"
       inputSchemaMapping  = null
       publicNetworkAccess = "Enabled"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8717,12 +8727,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     sku = {
       capacity = 1
       name     = "Dedicated"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8756,7 +8766,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       disableLocalAuth     = false
       isAutoInflateEnabled = false
@@ -8768,7 +8778,7 @@ EOT
       name     = "Standard"
       tier     = "Standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8798,7 +8808,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       rights = [
         "Listen",
@@ -8806,7 +8816,7 @@ EOT
         "Manage",
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8828,19 +8838,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.EventHub/namespaces@2022-01-01-preview resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.EventHub/namespaces@2022-01-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      partnerNamespace = ${3:"The id of the Microsoft.EventHub/namespaces@2022-01-01-preview resource"}
+      partnerNamespace = ${1:"The id of the Microsoft.EventHub/namespaces@2022-01-01-preview resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8870,13 +8880,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       messageRetentionInDays = 1
       partitionCount         = 2
       status                 = "Active"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8906,13 +8916,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       rights = [
         "Send",
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8942,11 +8952,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       userMetadata = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -8976,12 +8986,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       schemaCompatibility = "Forward"
       schemaType          = "Avro"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9003,25 +9013,25 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
     tags = {
       foo = "bar"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9055,7 +9065,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       guestConfiguration = {
         assignmentType = ""
@@ -9071,7 +9081,7 @@ EOT
         version     = "1.*"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9093,19 +9103,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${7:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${5:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${6:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${7:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       clusterDefinition = {
         componentVersion = {
@@ -9172,17 +9182,17 @@ EOT
       storageProfile = {
         storageaccounts = [
           {
-            container  = ${3:"The name of the Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01 resource"}
+            container  = ${1:"The name of the Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01 resource"}
             isDefault  = true
-            key        = jsondecode(${4:"TODO"}).keys[0].value
-            name       = "${${5:"The name of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}}.blob.core.windows.net"
-            resourceId = ${6:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+            key        = ${2:"TODO"}
+            name       = "${${3:"The name of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}}.blob.core.windows.net"
+            resourceId = ${4:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
           },
         ]
       }
       tier = "standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9212,23 +9222,23 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     sku = {
       name = "F0"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9262,7 +9272,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "fhir"
     properties = {
       accessPolicies = [
@@ -9279,7 +9289,7 @@ EOT
       }
       publicNetworkAccess = "Enabled"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9331,23 +9341,23 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.HealthcareApis/workspaces@2022-12-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.HealthcareApis/workspaces@2022-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       publicNetworkAccess = "Enabled"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9381,14 +9391,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "fhir-R4"
     properties = {
       acrConfiguration = {
       }
       authenticationConfiguration = {
-        audience          = jsondecode(${1:"TODO"}).properties.authenticationConfiguration.audience
-        authority         = jsondecode(${1:"TODO"}).properties.authenticationConfiguration.authority
+        audience          = ${1:"TODO"}
+        authority         = ${2:"TODO"}
         smartProxyEnabled = false
       }
       corsConfiguration = {
@@ -9401,7 +9411,7 @@ EOT
         ]
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9423,19 +9433,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.HealthcareApis/workspaces@2022-12-01 resource"}`,	
+		        Value: `parent_id = ${5:"The id of the Microsoft.HealthcareApis/workspaces@2022-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${6:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       deviceMapping = {
         content = {
@@ -9445,12 +9455,12 @@ EOT
         }
       }
       ingestionEndpointConfiguration = {
-        consumerGroup                   = ${4:"The id of the Microsoft.EventHub/namespaces/eventhubs/consumerGroups@2021-11-01 resource"}
-        eventHubName                    = ${5:"The name of the Microsoft.EventHub/namespaces/eventhubs@2021-11-01 resource"}
-        fullyQualifiedEventHubNamespace = "${${6:"The name of the Microsoft.EventHub/namespaces@2022-01-01-preview resource"}}.servicebus.windows.net"
+        consumerGroup                   = ${2:"The id of the Microsoft.EventHub/namespaces/eventhubs/consumerGroups@2021-11-01 resource"}
+        eventHubName                    = ${3:"The name of the Microsoft.EventHub/namespaces/eventhubs@2021-11-01 resource"}
+        fullyQualifiedEventHubNamespace = "${${4:"The name of the Microsoft.EventHub/namespaces@2022-01-01-preview resource"}}.servicebus.windows.net"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9472,19 +9482,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.HealthcareApis/workspaces/iotConnectors@2022-12-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.HealthcareApis/workspaces/iotConnectors@2022-12-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       fhirMapping = {
         content = {
@@ -9493,10 +9503,10 @@ EOT
           templateType = "CollectionFhirTemplate"
         }
       }
-      fhirServiceResourceId          = ${3:"The id of the Microsoft.HealthcareApis/workspaces/fhirServices@2022-12-01 resource"}
+      fhirServiceResourceId          = ${4:"The id of the Microsoft.HealthcareApis/workspaces/fhirServices@2022-12-01 resource"}
       resourceIdentityResolutionType = "Create"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9530,12 +9540,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       publicNetworkAccess = "Disabled"
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9569,7 +9579,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       armRoleReceivers = [
       ]
@@ -9596,7 +9606,7 @@ EOT
       webhookReceivers = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9618,11 +9628,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${5:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${6:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -9630,17 +9640,17 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       actions = {
         actionGroups = [
           {
-            actionGroupId = ${3:"The id of the Microsoft.Insights/actionGroups@2023-01-01 resource"}
+            actionGroupId = ${1:"The id of the Microsoft.Insights/actionGroups@2023-01-01 resource"}
             webhookProperties = {
             }
           },
           {
-            actionGroupId = ${4:"The id of the Microsoft.Insights/actionGroups@2023-01-01 resource"}
+            actionGroupId = ${2:"The id of the Microsoft.Insights/actionGroups@2023-01-01 resource"}
             webhookProperties = {
               from = "terraform test"
               to   = "microsoft azure"
@@ -9695,11 +9705,11 @@ EOT
       description = "This is just a test acceptance."
       enabled     = true
       scopes = [
-        ${5:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"},
-        ${6:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"},
+        ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"},
+        ${4:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"},
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9721,19 +9731,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${5:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       enabled = true
       notifications = [
@@ -9754,7 +9764,7 @@ EOT
                 dividePerInstance = true
                 metricName        = "Percentage CPU"
                 metricNamespace   = ""
-                metricResourceUri = ${1:"The id of the Microsoft.Compute/virtualMachineScaleSets@2023-03-01 resource"}
+                metricResourceUri = ${4:"The id of the Microsoft.Compute/virtualMachineScaleSets@2023-03-01 resource"}
                 operator          = "GreaterThan"
                 statistic         = "Average"
                 threshold         = 75
@@ -9772,9 +9782,9 @@ EOT
           ]
         },
       ]
-      targetResourceUri = ${1:"The id of the Microsoft.Compute/virtualMachineScaleSets@2023-03-01 resource"}
+      targetResourceUri = ${4:"The id of the Microsoft.Compute/virtualMachineScaleSets@2023-03-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9808,7 +9818,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "web"
     properties = {
       Application_Type                = "web"
@@ -9820,7 +9830,7 @@ EOT
       publicNetworkAccessForIngestion = "Enabled"
       publicNetworkAccessForQuery     = "Enabled"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9842,26 +9852,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       networkAcls = {
         publicNetworkAccess = "Enabled"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9883,20 +9893,20 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      dataCollectionRuleId = ${1:"The id of the Microsoft.Insights/dataCollectionRules@2022-06-01 resource"}
+      dataCollectionRuleId = ${3:"The id of the Microsoft.Insights/dataCollectionRules@2022-06-01 resource"}
       description          = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9930,7 +9940,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       dataFlows = [
         {
@@ -9949,7 +9959,7 @@ EOT
         }
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -9979,7 +9989,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       eventHubAuthorizationRuleId = ${3:"The id of the Microsoft.EventHub/namespaces/authorizationRules@2021-11-01 resource"}
       eventHubName                = ${4:"The name of the Microsoft.EventHub/namespaces@2022-01-01-preview resource"}
@@ -10004,7 +10014,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10026,11 +10036,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = "/subscriptions/${${1:"subscription id"}}"`,	
+		        Value: `parent_id = "/subscriptions/${${2:"subscription id"}}"`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -10038,7 +10048,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       categories = [
         "Action",
@@ -10051,9 +10061,9 @@ EOT
         days    = 7
         enabled = true
       }
-      storageAccountId = ${3:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+      storageAccountId = ${1:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10087,7 +10097,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       actions = [
       ]
@@ -10126,7 +10136,7 @@ EOT
       terraform = "Coolllll"
       test      = "123"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10160,10 +10170,10 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10185,19 +10195,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Insights/privateLinkScopes@2019-10-17-preview resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Insights/privateLinkScopes@2019-10-17-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      linkedResourceId = ${1:"The id of the Microsoft.Insights/components@2020-02-02 resource"}
+      linkedResourceId = ${3:"The id of the Microsoft.Insights/components@2020-02-02 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10223,19 +10233,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       action = {
         criteria = [
@@ -10259,10 +10269,10 @@ EOT
       source = {
         authorizedResources = [
         ]
-        dataSourceId = ${2:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}
+        dataSourceId = ${4:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10284,19 +10294,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${5:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${6:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "standard"
     properties = {
       Description = ""
@@ -10308,7 +10318,7 @@ EOT
           Id = "us-tx-sn1-azr"
         },
       ]
-      Name = ${1:"The name of the resource"}
+      Name = ${4:"The name of the resource"}
       Request = {
         FollowRedirects = false
         Headers = [
@@ -10326,7 +10336,7 @@ EOT
         RequestUrl             = "http://microsoft.com"
       }
       RetryEnabled       = false
-      SyntheticMonitorId = ${1:"The name of the resource"}
+      SyntheticMonitorId = ${4:"The name of the resource"}
       Timeout            = 30
       ValidationRules = {
         ExpectedHttpStatusCode = 200
@@ -10334,9 +10344,9 @@ EOT
       }
     }
     tags = {
-      "hidden-link:${${3:"The id of the Microsoft.Insights/components@2020-02-02 resource"}}" = "Resource"
+      "hidden-link:${${6:"The id of the Microsoft.Insights/components@2020-02-02 resource"}}" = "Resource"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10358,19 +10368,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       galleries = [
         {
@@ -10399,7 +10409,7 @@ EOT
       }
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10433,7 +10443,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "shared"
     properties = {
       category       = "workbook"
@@ -10441,7 +10451,7 @@ EOT
       serializedData = "{\"fallbackResourceIds\":[\"Azure Monitor\"],\"isLocked\":false,\"items\":[{\"content\":{\"json\":\"Test2022\"},\"name\":\"text - 0\",\"type\":1}],\"version\":\"Notebook/1.0\"}"
       sourceId       = "azure monitor"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10475,7 +10485,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       displayName         = ${4:"The name of the resource"}
       publicNetworkAccess = "Enabled"
@@ -10485,7 +10495,7 @@ EOT
     sku = {
       name = "ST1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10507,7 +10517,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
@@ -10515,27 +10525,27 @@ EOT
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${4:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       createMode            = "default"
       enablePurgeProtection = false
       enableSoftDelete      = true
       initialAdminObjectIds = [
-        ${2:"The object_id of the  resource"},
+        ${1:"The object_id of the  resource"},
       ]
       publicNetworkAccess       = "Enabled"
       softDeleteRetentionInDays = 90
-      tenantId                  = ${3:"tenant id"}
+      tenantId                  = ${2:"tenant id"}
     }
     sku = {
       family = "B"
       name   = "Standard_B1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10569,7 +10579,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       accessPolicies = [
         {
@@ -10604,7 +10614,7 @@ EOT
       softDeleteRetentionInDays = 7
       tenantId                  = ${5:"tenant id"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10634,12 +10644,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       autoUpgradeMinorVersion = true
       extensionType           = "microsoft.flux"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10661,19 +10671,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       enableAutoStop                = true
       enableDiskEncryption          = false
@@ -10692,7 +10702,7 @@ EOT
       name     = "Dev(No SLA)_Standard_D11_v2"
       tier     = "Basic"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10714,23 +10724,23 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Kusto/clusters@2022-12-29 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Kusto/clusters@2022-12-29 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "ReadWrite"
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10760,14 +10770,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       principalId   = ${3:"The client_id of the  resource"}
       principalType = "App"
       role          = "Viewer"
       tenantId      = ${4:"tenant id"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10797,13 +10807,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       continueOnErrors = false
       forceUpdateTag   = "9e2e7874-aa37-7041-81b7-06397f03a37d"
       scriptContent    = ".create table TestTable(Id:string, Name:string, _ts:long, _timestamp:datetime)\n.create table TestTable ingestion json mapping \"TestMapping\"\n'['\n'    {\"column\":\"Id\",\"path\":\"$.id\"},'\n'    {\"column\":\"Name\",\"path\":\"$.name\"},'\n'    {\"column\":\"_ts\",\"path\":\"$._ts\"},'\n'    {\"column\":\"_timestamp\",\"path\":\"$._ts\", \"transform\":\"DateTimeFromUnixSeconds\"}'\n']'\n.alter table TestTable policy ingestionbatching \"{'MaximumBatchingTimeSpan': '0:0:10', 'MaximumNumberOfItems': 10000}\"\n"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10825,20 +10835,20 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Kusto/clusters@2023-05-02 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Kusto/clusters@2023-05-02 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       groupId               = "blob"
-      privateLinkResourceId = ${2:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+      privateLinkResourceId = ${3:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10860,22 +10870,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Kusto/clusters@2023-05-02 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Kusto/clusters@2023-05-02 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      principalId   = ${3:"The client_id of the  resource"}
+      principalId   = ${1:"The client_id of the  resource"}
       principalType = "App"
       role          = "AllDatabasesViewer"
-      tenantId      = ${4:"tenant id"}
+      tenantId      = ${2:"tenant id"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10897,26 +10907,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${4:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       allowedRegions = [
-        ${1:"location"},
+        ${4:"location"},
       ]
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -10950,7 +10960,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       autoShutdownProfile = {
         shutdownOnDisconnect     = "Disabled"
@@ -10991,7 +11001,7 @@ EOT
       }
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11021,12 +11031,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       stopAt     = "2023-06-30T04:33:55Z"
       timeZoneId = "America/Los_Angeles"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11056,12 +11066,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       additionalUsageQuota = "PT0S"
       email                = "terraform-acctest@hashicorp.com"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11102,11 +11112,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = "This is new load test"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "tags",
@@ -11138,13 +11148,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
     sku = {
       name = "Basic"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11166,15 +11176,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Logic/integrationAccounts@2019-05-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Logic/integrationAccounts@2019-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       agreementType = "AS2"
       content = {
@@ -11315,14 +11325,14 @@ EOT
         qualifier = "AS2Identity"
         value     = "FabrikamDC"
       }
-      guestPartner = ${1:"The name of the Microsoft.Logic/integrationAccounts/partners@2019-05-01 resource"}
+      guestPartner = ${3:"The name of the Microsoft.Logic/integrationAccounts/partners@2019-05-01 resource"}
       hostIdentity = {
         qualifier = "AS2Identity"
         value     = "FabrikamNY"
       }
-      hostPartner = ${2:"The name of the Microsoft.Logic/integrationAccounts/partners@2019-05-01 resource"}
+      hostPartner = ${4:"The name of the Microsoft.Logic/integrationAccounts/partners@2019-05-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11344,22 +11354,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Logic/integrationAccounts@2019-05-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Logic/integrationAccounts@2019-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       batchGroupName = "TestBatchGroup"
       releaseCriteria = {
         messageCount = 80
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11381,21 +11391,21 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Logic/integrationAccounts@2019-05-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Logic/integrationAccounts@2019-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       content     = "<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"\n                xmlns:msxsl=\"urn:schemas-microsoft-com:xslt\"\n                xmlns:var=\"http://schemas.microsoft.com/BizTalk/2003/var\"\n                exclude-result-prefixes=\"msxsl var s0 userCSharp\"\n                version=\"1.0\"\n                xmlns:ns0=\"http://BizTalk_Server_Project4.StringFunctoidsDestinationSchema\"\n                xmlns:s0=\"http://BizTalk_Server_Project4.StringFunctoidsSourceSchema\"\n                xmlns:userCSharp=\"http://schemas.microsoft.com/BizTalk/2003/userCSharp\">\n<xsl:import href=\"http://btsfunctoids.blob.core.windows.net/functoids/functoids.xslt\" />\n<xsl:output omit-xml-declaration=\"yes\"\n            method=\"xml\"\n            version=\"1.0\" />\n<xsl:template match=\"/\">\n<xsl:apply-templates select=\"/s0:Root\" />\n</xsl:template>\n<xsl:template match=\"/s0:Root\">\n<xsl:variable name=\"var:v1\"\n              select=\"userCSharp:StringFind(string(StringFindSource/text()) , &quot;SearchString&quot;)\" />\n<xsl:variable name=\"var:v2\"\n              select=\"userCSharp:StringLeft(string(StringLeftSource/text()) , &quot;2&quot;)\" />\n<xsl:variable name=\"var:v3\"\n              select=\"userCSharp:StringRight(string(StringRightSource/text()) , &quot;2&quot;)\" />\n<xsl:variable name=\"var:v4\"\n              select=\"userCSharp:StringUpperCase(string(UppercaseSource/text()))\" />\n<xsl:variable name=\"var:v5\"\n              select=\"userCSharp:StringLowerCase(string(LowercaseSource/text()))\" />\n<xsl:variable name=\"var:v6\"\n              select=\"userCSharp:StringSize(string(SizeSource/text()))\" />\n<xsl:variable name=\"var:v7\"\n              select=\"userCSharp:StringSubstring(string(StringExtractSource/text()) , &quot;0&quot; , &quot;2&quot;)\" />\n<xsl:variable name=\"var:v8\"\n              select=\"userCSharp:StringConcat(string(StringConcatSource/text()))\" />\n<xsl:variable name=\"var:v9\"\n              select=\"userCSharp:StringTrimLeft(string(StringLeftTrimSource/text()))\" />\n<xsl:variable name=\"var:v10\"\n              select=\"userCSharp:StringTrimRight(string(StringRightTrimSource/text()))\" />\n<ns0:Root>\n<StringFindDestination>\n<xsl:value-of select=\"$var:v1\" />\n</StringFindDestination>\n<StringLeftDestination>\n<xsl:value-of select=\"$var:v2\" />\n</StringLeftDestination>\n<StringRightDestination>\n<xsl:value-of select=\"$var:v3\" />\n</StringRightDestination>\n<UppercaseDestination>\n<xsl:value-of select=\"$var:v4\" />\n</UppercaseDestination>\n<LowercaseDestination>\n<xsl:value-of select=\"$var:v5\" />\n</LowercaseDestination>\n<SizeDestination>\n<xsl:value-of select=\"$var:v6\" />\n</SizeDestination>\n<StringExtractDestination>\n<xsl:value-of select=\"$var:v7\" />\n</StringExtractDestination>\n<StringConcatDestination>\n<xsl:value-of select=\"$var:v8\" />\n</StringConcatDestination>\n<StringLeftTrimDestination>\n<xsl:value-of select=\"$var:v9\" />\n</StringLeftTrimDestination>\n<StringRightTrimDestination>\n<xsl:value-of select=\"$var:v10\" />\n</StringRightTrimDestination>\n</ns0:Root>\n</xsl:template>\n</xsl:stylesheet>\n"
       contentType = "application/xml"
       mapType     = "Xslt"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11425,7 +11435,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       content = {
         b2b = {
@@ -11439,7 +11449,7 @@ EOT
       }
       partnerType = "B2B"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11469,13 +11479,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       content     = "<xs:schema xmlns:b=\"http://schemas.microsoft.com/BizTalk/2003\"\n           xmlns=\"http://Inbound_EDI.OrderFile\"\n           targetNamespace=\"http://Inbound_EDI.OrderFile\"\n           xmlns:xs=\"http://www.w3.org/2001/XMLSchema\">\n<xs:annotation>\n<xs:appinfo>\n<b:schemaInfo default_pad_char=\" \"\n              count_positions_by_byte=\"false\"\n              parser_optimization=\"speed\"\n              lookahead_depth=\"3\"\n              suppress_empty_nodes=\"false\"\n              generate_empty_nodes=\"true\"\n              allow_early_termination=\"false\"\n              early_terminate_optional_fields=\"false\"\n              allow_message_breakup_of_infix_root=\"false\"\n              compile_parse_tables=\"false\"\n              standard=\"Flat File\"\n              root_reference=\"OrderFile\" />\n<schemaEditorExtension:schemaInfo namespaceAlias=\"b\"\n                                  extensionClass=\"Microsoft.BizTalk.FlatFileExtension.FlatFileExtension\"\n                                  standardName=\"Flat File\"\n                                  xmlns:schemaEditorExtension=\"http://schemas.microsoft.com/BizTalk/2003/SchemaEditorExtensions\" />\n</xs:appinfo>\n</xs:annotation>\n<xs:element name=\"OrderFile\">\n<xs:annotation>\n<xs:appinfo>\n<b:recordInfo structure=\"delimited\"\n              preserve_delimiter_for_empty_data=\"true\"\n              suppress_trailing_delimiters=\"false\"\n              sequence_number=\"1\" />\n</xs:appinfo>\n</xs:annotation>\n<xs:complexType>\n<xs:sequence>\n<xs:annotation>\n<xs:appinfo>\n<b:groupInfo sequence_number=\"0\" />\n</xs:appinfo>\n</xs:annotation>\n<xs:element name=\"Order\">\n<xs:annotation>\n<xs:appinfo>\n<b:recordInfo sequence_number=\"1\"\n              structure=\"delimited\"\n              preserve_delimiter_for_empty_data=\"true\"\n              suppress_trailing_delimiters=\"false\"\n              child_delimiter_type=\"hex\"\n              child_delimiter=\"0x0D 0x0A\"\n              child_order=\"infix\" />\n</xs:appinfo>\n</xs:annotation>\n<xs:complexType>\n<xs:sequence>\n<xs:annotation>\n<xs:appinfo>\n<b:groupInfo sequence_number=\"0\" />\n</xs:appinfo>\n</xs:annotation>\n<xs:element name=\"Header\">\n<xs:annotation>\n<xs:appinfo>\n<b:recordInfo sequence_number=\"1\"\n              structure=\"delimited\"\n              preserve_delimiter_for_empty_data=\"true\"\n              suppress_trailing_delimiters=\"false\"\n              child_delimiter_type=\"char\"\n              child_delimiter=\"|\"\n              child_order=\"infix\"\n              tag_name=\"HDR|\" />\n</xs:appinfo>\n</xs:annotation>\n<xs:complexType>\n<xs:sequence>\n<xs:annotation>\n<xs:appinfo>\n<b:groupInfo sequence_number=\"0\" />\n</xs:appinfo>\n</xs:annotation>\n<xs:element name=\"PODate\"\n            type=\"xs:string\">\n<xs:annotation>\n<xs:appinfo>\n<b:fieldInfo sequence_number=\"1\"\n             justification=\"left\" />\n</xs:appinfo>\n</xs:annotation>\n</xs:element>\n<xs:element name=\"PONumber\"\n            type=\"xs:string\">\n<xs:annotation>\n<xs:appinfo>\n<b:fieldInfo justification=\"left\"\n             sequence_number=\"2\" />\n</xs:appinfo>\n</xs:annotation>\n</xs:element>\n<xs:element name=\"CustomerID\"\n            type=\"xs:string\">\n<xs:annotation>\n<xs:appinfo>\n<b:fieldInfo sequence_number=\"3\"\n             justification=\"left\" />\n</xs:appinfo>\n</xs:annotation>\n</xs:element>\n<xs:element name=\"CustomerContactName\"\n            type=\"xs:string\">\n<xs:annotation>\n<xs:appinfo>\n<b:fieldInfo sequence_number=\"5\"\n             justification=\"left\" />\n</xs:appinfo>\n</xs:annotation>\n</xs:element>\n<xs:element name=\"CustomerContactPhone\"\n            type=\"xs:string\">\n<xs:annotation>\n<xs:appinfo>\n<b:fieldInfo sequence_number=\"5\"\n             justification=\"left\" />\n</xs:appinfo>\n</xs:annotation>\n</xs:element>\n</xs:sequence>\n</xs:complexType>\n</xs:element>\n<xs:element minOccurs=\"1\"\n            maxOccurs=\"unbounded\"\n            name=\"LineItems\">\n<xs:annotation>\n<xs:appinfo>\n<b:recordInfo sequence_number=\"2\"\n              structure=\"delimited\"\n              preserve_delimiter_for_empty_data=\"true\"\n              suppress_trailing_delimiters=\"false\"\n              child_delimiter_type=\"char\"\n              child_delimiter=\"|\"\n              child_order=\"infix\"\n              tag_name=\"DTL|\" />\n</xs:appinfo>\n</xs:annotation>\n<xs:complexType>\n<xs:sequence>\n<xs:annotation>\n<xs:appinfo>\n<b:groupInfo sequence_number=\"0\" />\n</xs:appinfo>\n</xs:annotation>\n<xs:element name=\"PONumber\"\n            type=\"xs:string\">\n<xs:annotation>\n<xs:appinfo>\n<b:fieldInfo sequence_number=\"1\"\n             justification=\"left\" />\n</xs:appinfo>\n</xs:annotation>\n</xs:element>\n<xs:element name=\"ItemOrdered\"\n            type=\"xs:string\">\n<xs:annotation>\n<xs:appinfo>\n<b:fieldInfo sequence_number=\"2\"\n             justification=\"left\" />\n</xs:appinfo>\n</xs:annotation>\n</xs:element>\n<xs:element name=\"Quantity\"\n            type=\"xs:string\">\n<xs:annotation>\n<xs:appinfo>\n<b:fieldInfo sequence_number=\"3\"\n             justification=\"left\" />\n</xs:appinfo>\n</xs:annotation>\n</xs:element>\n<xs:element name=\"UOM\"\n            type=\"xs:string\">\n<xs:annotation>\n<xs:appinfo>\n<b:fieldInfo sequence_number=\"4\"\n             justification=\"left\" />\n</xs:appinfo>\n</xs:annotation>\n</xs:element>\n<xs:element name=\"Price\"\n            type=\"xs:string\">\n<xs:annotation>\n<xs:appinfo>\n<b:fieldInfo sequence_number=\"5\"\n             justification=\"left\" />\n</xs:appinfo>\n</xs:annotation>\n</xs:element>\n<xs:element name=\"ExtendedPrice\"\n            type=\"xs:string\">\n<xs:annotation>\n<xs:appinfo>\n<b:fieldInfo sequence_number=\"6\"\n             justification=\"left\" />\n</xs:appinfo>\n</xs:annotation>\n</xs:element>\n<xs:element name=\"Description\"\n            type=\"xs:string\">\n<xs:annotation>\n<xs:appinfo>\n<b:fieldInfo sequence_number=\"7\"\n             justification=\"left\" />\n</xs:appinfo>\n</xs:annotation>\n</xs:element>\n</xs:sequence>\n</xs:complexType>\n</xs:element>\n</xs:sequence>\n</xs:complexType>\n</xs:element>\n</xs:sequence>\n</xs:complexType>\n</xs:element>\n</xs:schema>\n"
       contentType = "application/xml"
       schemaType  = "Xml"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11505,11 +11515,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       content = "\t{\n       \"controlNumber\": \"1234\"\n    }\n"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11543,7 +11553,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       definition = {
         "$schema" = "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#"
@@ -11558,7 +11568,7 @@ EOT
       }
       state = "Enabled"
     }
-  })`,	
+  }`,	
 	        },
 	
 	    },
@@ -11572,15 +11582,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${5:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${6:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "identity",
@@ -11591,19 +11601,19 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      applicationInsights = ${1:"The id of the Microsoft.Insights/components@2020-02-02 resource"}
-      keyVault            = ${2:"The id of the Microsoft.KeyVault/vaults@2021-10-01 resource"}
+      applicationInsights = ${4:"The id of the Microsoft.Insights/components@2020-02-02 resource"}
+      keyVault            = ${5:"The id of the Microsoft.KeyVault/vaults@2021-10-01 resource"}
       publicNetworkAccess = "Disabled"
-      storageAccount      = ${3:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+      storageAccount      = ${6:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
       v1LegacyMode        = false
     }
     sku = {
       name = "Basic"
       tier = "Basic"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11629,19 +11639,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.MachineLearningServices/workspaces@2022-05-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.MachineLearningServices/workspaces@2022-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       computeLocation  = "westeurope"
       computeType      = "ComputeInstance"
@@ -11651,7 +11661,7 @@ EOT
         vmSize = "STANDARD_D2_V2"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11673,21 +11683,21 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     location = "westeurope"
     properties = {
-      maintenanceConfigurationId = ${3:"The id of the Microsoft.Maintenance/maintenanceConfigurations@2022-07-01-preview resource"}
-      resourceId                 = ${4:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}
+      maintenanceConfigurationId = ${2:"The id of the Microsoft.Maintenance/maintenanceConfigurations@2022-07-01-preview resource"}
+      resourceId                 = ${3:"The id of the Microsoft.Compute/virtualMachines@2023-03-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11713,19 +11723,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       extensionProperties = {
       }
@@ -11733,7 +11743,7 @@ EOT
       namespace        = "Microsoft.Maintenance"
       visibility       = "Custom"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11785,11 +11795,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -11797,11 +11807,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     sku = {
       name = "G2"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11835,11 +11845,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       storageUnits = 1
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11861,29 +11871,29 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${4:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       publicNetworkAccess = "Enabled"
       storageAccounts = [
         {
-          id   = ${1:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+          id   = ${4:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
           type = "Primary"
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11913,12 +11923,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       tracks = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11948,11 +11958,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -11974,21 +11984,21 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Media/mediaServices/assets@2022-08-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Media/mediaServices/assets@2022-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       firstQuality = {
         bitrate = 0
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12018,7 +12028,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = "My Policy Description"
       options = [
@@ -12042,7 +12052,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12064,19 +12074,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Media/mediaServices@2021-11-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Media/mediaServices@2021-11-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       input = {
         accessControl = {
@@ -12094,7 +12104,7 @@ EOT
         streamingProtocol        = "RTMP"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12128,14 +12138,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       scaleUnits = 1
     }
     tags = {
       env = "test"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12165,12 +12175,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       assetName           = ${2:"The name of the Microsoft.Media/mediaServices/assets@2022-08-01 resource"}
       streamingPolicyName = "Predefined_ClearStreamingOnly"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12200,7 +12210,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       noEncryption = {
         enabledProtocols = {
@@ -12211,7 +12221,7 @@ EOT
         }
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12233,15 +12243,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Media/mediaServices@2021-11-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Media/mediaServices@2021-11-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       outputs = [
@@ -12255,7 +12265,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12277,24 +12287,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${4:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       publicNetworkAccess     = "Enabled"
-      utilityStorageAccountId = ${4:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+      utilityStorageAccountId = ${1:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
 	
 	    },
@@ -12308,22 +12318,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Migrate/migrateProjects@2020-05-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Migrate/migrateProjects@2020-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       summary = {
         instanceType  = "Servers"
         migratedCount = 0
       }
     }
-  })`,	
+  }`,	
 	        },
 	
 	    },
@@ -12379,7 +12389,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       publicLandMobileNetworkIdentifier = {
         mcc = "001"
@@ -12387,7 +12397,7 @@ EOT
       }
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12421,11 +12431,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12459,7 +12469,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       pccRules = [
         {
@@ -12485,7 +12495,7 @@ EOT
       servicePrecedence = 0
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12507,22 +12517,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${6:"The id of the Microsoft.MobileNetwork/mobileNetworks@2022-11-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.MobileNetwork/mobileNetworks@2022-11-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${7:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${8:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       defaultSlice = {
-        id = ${1:"The id of the Microsoft.MobileNetwork/mobileNetworks/slices@2022-11-01 resource"}
+        id = ${4:"The id of the Microsoft.MobileNetwork/mobileNetworks/slices@2022-11-01 resource"}
       }
       registrationTimer = 3240
       sliceConfigurations = [
@@ -12534,11 +12544,11 @@ EOT
               allocationAndRetentionPriorityLevel = 9
               allowedServices = [
                 {
-                  id = ${2:"The id of the Microsoft.MobileNetwork/mobileNetworks/services@2022-11-01 resource"}
+                  id = ${5:"The id of the Microsoft.MobileNetwork/mobileNetworks/services@2022-11-01 resource"}
                 },
               ]
               dataNetwork = {
-                id = ${3:"The id of the Microsoft.MobileNetwork/mobileNetworks/dataNetworks@2022-11-01 resource"}
+                id = ${6:"The id of the Microsoft.MobileNetwork/mobileNetworks/dataNetworks@2022-11-01 resource"}
               }
               defaultSessionType             = "IPv4"
               maximumNumberOfBufferedPackets = 10
@@ -12551,10 +12561,10 @@ EOT
             },
           ]
           defaultDataNetwork = {
-            id = ${3:"The id of the Microsoft.MobileNetwork/mobileNetworks/dataNetworks@2022-11-01 resource"}
+            id = ${6:"The id of the Microsoft.MobileNetwork/mobileNetworks/dataNetworks@2022-11-01 resource"}
           }
           slice = {
-            id = ${1:"The id of the Microsoft.MobileNetwork/mobileNetworks/slices@2022-11-01 resource"}
+            id = ${4:"The id of the Microsoft.MobileNetwork/mobileNetworks/slices@2022-11-01 resource"}
           }
         },
       ]
@@ -12566,7 +12576,7 @@ EOT
     tags = {
       key = "value"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12600,11 +12610,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12638,14 +12648,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       snssai = {
         sst = 1
       }
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12667,19 +12677,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${5:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       controlPlaneAccessInterface = {
       }
@@ -12688,19 +12698,19 @@ EOT
       }
       platform = {
         azureStackEdgeDevice = {
-          id = ${4:"The id of the Microsoft.DataBoxEdge/dataBoxEdgeDevices@2022-03-01 resource"}
+          id = ${1:"The id of the Microsoft.DataBoxEdge/dataBoxEdgeDevices@2022-03-01 resource"}
         }
         type = "AKS-HCI"
       }
       sites = [
         {
-          id = ${5:"The id of the Microsoft.MobileNetwork/mobileNetworks/sites@2022-11-01 resource"}
+          id = ${2:"The id of the Microsoft.MobileNetwork/mobileNetworks/sites@2022-11-01 resource"}
         },
       ]
       sku   = "G0"
       ueMtu = 1440
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12734,13 +12744,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       userPlaneAccessInterface = {
       }
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12762,26 +12772,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${4:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       mobileNetwork = {
-        id = ${1:"The id of the Microsoft.MobileNetwork/mobileNetworks@2022-11-01 resource"}
+        id = ${4:"The id of the Microsoft.MobileNetwork/mobileNetworks@2022-11-01 resource"}
       }
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12803,24 +12813,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       publicNetworkAccess = "Enabled"
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12854,7 +12864,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       activeDirectories = [
       ]
@@ -12862,7 +12872,7 @@ EOT
     tags = {
       SkipASMAzSecPack = "true"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12896,7 +12906,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       serviceLevel = "Standard"
       size         = 4.398046511104e+12
@@ -12904,7 +12914,7 @@ EOT
     tags = {
       SkipASMAzSecPack = "true"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -12926,19 +12936,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.NetApp/netAppAccounts/capacityPools@2022-05-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.NetApp/netAppAccounts/capacityPools@2022-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       avsDataStore  = "Enabled"
       creationToken = "my-unique-file-path-230630034120103726"
@@ -12964,7 +12974,7 @@ EOT
       ]
       serviceLevel             = "Standard"
       snapshotDirectoryVisible = true
-      subnetId                 = ${2:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+      subnetId                 = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
       usageThreshold           = 1.073741824e+11
       volumeType               = ""
     }
@@ -12973,7 +12983,7 @@ EOT
     }
     zones = [
     ]
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13037,7 +13047,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       dailySchedule = {
         hour            = 22
@@ -13062,7 +13072,7 @@ EOT
         snapshotsToKeep = 1
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13096,7 +13106,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       customRules = [
       ]
@@ -13120,7 +13130,7 @@ EOT
         state                  = "Enabled"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13154,7 +13164,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       bandwidthInGbps = 10
       billingType     = "MeteredData"
@@ -13164,7 +13174,7 @@ EOT
     tags = {
       ENV = "Test"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13198,7 +13208,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       customRules = {
         rules = [
@@ -13261,7 +13271,7 @@ EOT
     sku = {
       name = "Premium_AzureFrontDoor"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13295,7 +13305,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       authenticationCertificates = [
       ]
@@ -13418,7 +13428,7 @@ EOT
       urlPathMaps = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13440,15 +13450,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id                 = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id                 = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name                      = "${3:The name of the resource}"`,	
+		        Value: `name                      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location                  = "${1:location}"`,	
+		        Value: `location                  = "${2:location}"`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13482,7 +13492,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       additionalProperties = {
       }
@@ -13505,7 +13515,7 @@ EOT
       }
       threatIntelMode = "Deny"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13527,19 +13537,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${5:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       disableCopyPaste    = false
       enableFileCopy      = false
@@ -13551,10 +13561,10 @@ EOT
           name = "ip-configuration"
           properties = {
             publicIPAddress = {
-              id = ${3:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
+              id = ${4:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
             }
             subnet = {
-              id = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+              id = ${5:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
             }
           }
         },
@@ -13564,7 +13574,7 @@ EOT
     sku = {
       name = "Basic"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13628,7 +13638,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       dnsResolverOutboundEndpoints = [
         {
@@ -13637,7 +13647,7 @@ EOT
       ]
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13667,7 +13677,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       domainName          = "onprem.local."
       forwardingRuleState = "Enabled"
@@ -13679,7 +13689,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13701,22 +13711,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Network/dnsForwardingRulesets@2022-07-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Network/dnsForwardingRulesets@2022-07-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       metadata = null
       virtualNetwork = {
-        id = ${2:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
+        id = ${3:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13738,26 +13748,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${4:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       virtualNetwork = {
-        id = ${1:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
+        id = ${4:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
       }
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13779,31 +13789,31 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/dnsResolvers@2022-07-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Network/dnsResolvers@2022-07-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${4:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       ipConfigurations = [
         {
           privateIpAllocationMethod = "Dynamic"
           subnet = {
-            id = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+            id = ${1:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
           }
         },
       ]
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13837,14 +13847,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       subnet = {
         id = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
       }
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13904,7 +13914,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       ARecords = [
         {
@@ -13920,7 +13930,7 @@ EOT
       targetResource = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13950,7 +13960,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       AAAARecords = [
         {
@@ -13966,7 +13976,7 @@ EOT
       targetResource = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -13988,15 +13998,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Network/dnsZones@2018-05-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Network/dnsZones@2018-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       TTL = 300
       caaRecords = [
@@ -14024,7 +14034,7 @@ EOT
       metadata = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14046,18 +14056,18 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/dnsZones@2018-05-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Network/dnsZones@2018-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       CNAMERecord = {
-        cname = "${${3:"The name of the resource"}}.webpubsub.azure.com"
+        cname = "${${2:"The name of the resource"}}.webpubsub.azure.com"
       }
       TTL = 3600
       metadata = {
@@ -14065,7 +14075,7 @@ EOT
       targetResource = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14095,7 +14105,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       MXRecords = [
         {
@@ -14111,7 +14121,7 @@ EOT
       metadata = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14141,7 +14151,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       NSRecords = [
         {
@@ -14155,7 +14165,7 @@ EOT
       metadata = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14177,15 +14187,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/dnsZones@2018-05-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Network/dnsZones@2018-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       PTRRecords = [
         {
@@ -14199,7 +14209,7 @@ EOT
       metadata = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14229,7 +14239,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       SRVRecords = [
         {
@@ -14249,7 +14259,7 @@ EOT
       metadata = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14279,7 +14289,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       TTL = 300
       TXTRecords = [
@@ -14299,7 +14309,7 @@ EOT
       metadata = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14333,7 +14343,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       authorizationKey = ""
       bandwidthInGbps  = 5
@@ -14346,7 +14356,7 @@ EOT
       name   = "Premium_MeteredData"
       tier   = "Premium"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14380,10 +14390,10 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14413,7 +14423,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       azureASN                   = 12076
       gatewayManagerEtag         = ""
@@ -14425,7 +14435,7 @@ EOT
       state                      = "Enabled"
       vlanId                     = 100
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14447,25 +14457,25 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/expressRouteCircuits/peerings@2022-07-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Network/expressRouteCircuits/peerings@2022-07-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       addressPrefix = "192.169.8.0/29"
       expressRouteCircuitPeering = {
-        id = ${3:"The id of the Microsoft.Network/expressRouteCircuits/peerings@2022-07-01 resource"}
+        id = ${1:"The id of the Microsoft.Network/expressRouteCircuits/peerings@2022-07-01 resource"}
       }
       peerExpressRouteCircuitPeering = {
-        id = ${4:"The id of the Microsoft.Network/expressRouteCircuits/peerings@2022-07-01 resource"}
+        id = ${2:"The id of the Microsoft.Network/expressRouteCircuits/peerings@2022-07-01 resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14487,19 +14497,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       allowNonVirtualWanTraffic = false
       autoScaleConfiguration = {
@@ -14508,10 +14518,10 @@ EOT
         }
       }
       virtualHub = {
-        id = ${3:"The id of the Microsoft.Network/virtualHubs@2022-07-01 resource"}
+        id = ${4:"The id of the Microsoft.Network/virtualHubs@2022-07-01 resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14541,7 +14551,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       enableInternetSecurity = false
       expressRouteCircuitPeering = {
@@ -14552,7 +14562,7 @@ EOT
       }
       routingWeight = 0
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14582,10 +14592,10 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14607,23 +14617,23 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       threatIntelMode = "Alert"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14645,20 +14655,20 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/firewallPolicies@2022-07-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Network/firewallPolicies@2022-07-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       priority        = 500
       ruleCollections = []
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14680,19 +14690,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       ipAddresses = [
       ]
@@ -14700,7 +14710,7 @@ EOT
     tags = {
       env = "prod"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14734,7 +14744,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       frontendIPConfigurations = [
         {
@@ -14751,7 +14761,7 @@ EOT
       name = "Standard"
       tier = "Regional"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14781,10 +14791,10 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14818,7 +14828,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       gatewayIpAddress = "168.62.225.23"
       localNetworkAddressSpace = {
@@ -14827,7 +14837,7 @@ EOT
         ]
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14861,14 +14871,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       idleTimeoutInMinutes = 10
     }
     sku = {
       name = "Standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14890,19 +14900,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${4:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       enableAcceleratedNetworking = false
       enableIPForwarding          = false
@@ -14914,13 +14924,13 @@ EOT
             privateIPAddressVersion   = "IPv4"
             privateIPAllocationMethod = "Dynamic"
             subnet = {
-              id = ${1:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+              id = ${2:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
             }
           }
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14950,11 +14960,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       networkManagerId = ${3:"The id of the Microsoft.Network/networkManagers@2022-09-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -14976,19 +14986,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = ""
       networkManagerScopeAccesses = [
@@ -14998,11 +15008,11 @@ EOT
         managementGroups = [
         ]
         subscriptions = [
-          ${4:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"},
+          ${2:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"},
         ]
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15032,7 +15042,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       appliesToGroups = [
         {
@@ -15047,12 +15057,12 @@ EOT
       hubs = [
         {
           resourceId   = ${4:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
-          resourceType = jsondecode(${5:"TODO"}).type
+          resourceType = ${5:"TODO"}
         },
       ]
       isGlobal = "False"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15074,18 +15084,18 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/networkManagers@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Network/networkManagers@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15107,19 +15117,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Network/networkManagers/networkGroups@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Network/networkManagers/networkGroups@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      resourceId = ${2:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
+      resourceId = ${3:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15141,20 +15151,20 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/networkManagers@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Network/networkManagers@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      resourceId = ${3:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"}
-      tenantId   = jsondecode(${4:"TODO"}).tenantId
+      resourceId = ${1:"The id of the Microsoft.Resources/subscriptions@2021-01-01 resource"}
+      tenantId   = ${2:"TODO"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15184,11 +15194,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       applyOnNetworkIntentPolicyBasedServices = []
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15210,23 +15220,23 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/networkManagers/securityAdminConfigurations@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Network/networkManagers/securityAdminConfigurations@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       appliesToGroups = [
         {
-          networkGroupId = ${3:"The id of the Microsoft.Network/networkManagers/networkGroups@2022-09-01 resource"}
+          networkGroupId = ${1:"The id of the Microsoft.Network/networkManagers/networkGroups@2022-09-01 resource"}
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15248,15 +15258,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/networkManagers/securityAdminConfigurations/ruleCollections@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Network/networkManagers/securityAdminConfigurations/ruleCollections@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "Custom"
     properties = {
       access                = "Deny"
@@ -15268,7 +15278,7 @@ EOT
       sourcePortRanges      = []
       sources               = []
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15290,19 +15300,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       containerNetworkInterfaceConfigurations = [
         {
@@ -15313,7 +15323,7 @@ EOT
                 name = "acctestipconfig-230630033653886950"
                 properties = {
                   subnet = {
-                    id = ${2:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+                    id = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
                   }
                 }
               },
@@ -15322,7 +15332,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15356,12 +15366,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       securityRules = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15391,7 +15401,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       access                   = "Allow"
       destinationAddressPrefix = "*"
@@ -15409,7 +15419,7 @@ EOT
       sourceAddressPrefix = "*"
       sourcePortRange     = "*"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15443,7 +15453,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       isRoutingPreferenceInternet = false
       p2SConnectionConfigurations = [
@@ -15467,7 +15477,7 @@ EOT
         id = ${5:"The id of the Microsoft.Network/vpnServerConfigurations@2022-07-01 resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15535,7 +15545,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       aRecords = [
         {
@@ -15549,7 +15559,7 @@ EOT
       }
       ttl = 300
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15571,15 +15581,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Network/privateDnsZones@2018-09-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Network/privateDnsZones@2018-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       aaaaRecords = [
         {
@@ -15593,7 +15603,7 @@ EOT
       }
       ttl = 300
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15623,7 +15633,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       cnameRecord = {
         cname = "contoso.com"
@@ -15632,7 +15642,7 @@ EOT
       }
       ttl = 300
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15662,7 +15672,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       metadata = {
       }
@@ -15678,7 +15688,7 @@ EOT
       ]
       ttl = 300
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15708,7 +15718,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       metadata = {
       }
@@ -15722,7 +15732,7 @@ EOT
       ]
       ttl = 300
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15752,7 +15762,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       metadata = {
       }
@@ -15772,7 +15782,7 @@ EOT
       ]
       ttl = 300
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15802,7 +15812,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       metadata = {
       }
@@ -15822,7 +15832,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15856,14 +15866,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       registrationEnabled = false
       virtualNetwork = {
         id = ${3:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15897,7 +15907,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       autoApproval = {
         subscriptions = [
@@ -15922,7 +15932,7 @@ EOT
       ]
       loadBalancerFrontendIpConfigurations = [
         {
-          id = jsondecode(${5:"TODO"}).properties.frontendIPConfigurations[0].id
+          id = ${5:"TODO"}
         },
       ]
       visibility = {
@@ -15930,7 +15940,7 @@ EOT
         ]
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -15952,19 +15962,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       ddosSettings = {
         protectionMode = "VirtualNetworkInherited"
@@ -15977,7 +15987,7 @@ EOT
       name = "Standard"
       tier = "Regional"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16011,7 +16021,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       prefixLength           = 30
       publicIPAddressVersion = "IPv4"
@@ -16022,7 +16032,7 @@ EOT
     zones = [
       "1",
     ]
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16056,12 +16066,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       rules = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16095,7 +16105,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       disableBgpRoutePropagation = false
       routes = [
@@ -16109,7 +16119,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16139,12 +16149,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       addressPrefix = "10.1.0.0/16"
       nextHopType   = "VnetLocal"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16178,11 +16188,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       securityProviderName = "ZScaler"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16204,22 +16214,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16253,7 +16263,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       dnsConfig = {
         relativeName = "acctest-tmp-230630034107605443"
@@ -16271,7 +16281,7 @@ EOT
       }
       trafficRoutingMethod = "Weighted"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16301,7 +16311,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       customHeaders = [
       ]
@@ -16311,7 +16321,7 @@ EOT
       targetResourceId = ${3:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
       weight           = 3
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16341,7 +16351,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       customHeaders = [
       ]
@@ -16351,7 +16361,7 @@ EOT
       target = "www.example.com"
       weight = 3
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16373,15 +16383,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Network/trafficManagerProfiles@2018-08-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Network/trafficManagerProfiles@2018-08-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       customHeaders = [
       ]
@@ -16389,10 +16399,10 @@ EOT
       minChildEndpoints = 5
       subnets = [
       ]
-      targetResourceId = ${3:"The id of the Microsoft.Network/trafficManagerProfiles@2018-08-01 resource"}
+      targetResourceId = ${1:"The id of the Microsoft.Network/trafficManagerProfiles@2018-08-01 resource"}
       weight           = 3
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16426,7 +16436,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       addressPrefix        = "10.0.0.0/24"
       hubRoutingPreference = "ExpressRoute"
@@ -16437,7 +16447,7 @@ EOT
         id = ${4:"The id of the Microsoft.Network/virtualWans@2022-07-01 resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16459,22 +16469,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Network/virtualHubs@2022-07-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Network/virtualHubs@2022-07-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       enableInternetSecurity = false
       remoteVirtualNetwork = {
-        id = ${1:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
+        id = ${3:"The id of the Microsoft.Network/virtualNetworks@2022-07-01 resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16504,7 +16514,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       privateIPAddress          = "10.5.1.18"
       privateIPAllocationMethod = "Static"
@@ -16515,7 +16525,7 @@ EOT
         id = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16537,19 +16547,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${5:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       activeActive           = false
       enableBgp              = false
@@ -16561,10 +16571,10 @@ EOT
           properties = {
             privateIPAllocationMethod = "Dynamic"
             publicIPAddress = {
-              id = ${1:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
+              id = ${4:"The id of the Microsoft.Network/publicIPAddresses@2022-07-01 resource"}
             }
             subnet = {
-              id = ${2:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+              id = ${5:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
             }
           }
         },
@@ -16575,7 +16585,7 @@ EOT
       }
       vpnType = "RouteBased"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16605,7 +16615,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       externalMappings = [
         {
@@ -16620,7 +16630,7 @@ EOT
       mode = "EgressSnat"
       type = "Static"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16642,19 +16652,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       addressSpace = {
         addressPrefixes = [
@@ -16668,7 +16678,7 @@ EOT
       subnets = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16679,8 +16689,10 @@ EOT
 		        Value: `response_export_values    = ["*"]`,	
 	        },
             {
-		        Name:  "ignore_body_changes",
-		        Value: `ignore_body_changes            = ["properties.subnets"]`,	
+		        Name:  "lifecycle",
+		        Value: `lifecycle {
+    ignore_changes = [${4:TODO}]
+  }`,	
 	        },
 	
 	    },
@@ -16702,11 +16714,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       addressPrefix = "10.0.2.0/24"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16740,14 +16752,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       allowBranchToBranchTraffic     = true
       disableVpnEncryption           = false
       office365LocalBreakoutCategory = "None"
       type                           = "Standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16781,7 +16793,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       enableBgpRouteTranslationForNat = false
       isRoutingPreferenceInternet     = false
@@ -16790,7 +16802,7 @@ EOT
       }
       vpnGatewayScaleUnit = 1
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16820,15 +16832,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Network/vpnGateways@2022-07-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Network/vpnGateways@2022-07-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       externalMappings = [
         {
@@ -16843,7 +16855,7 @@ EOT
       mode = "EgressSnat"
       type = "Static"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16873,7 +16885,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       enableInternetSecurity = false
       remoteVpnSite = {
@@ -16918,7 +16930,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -16952,7 +16964,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       radiusClientRootCertificates = [
       ]
@@ -16981,7 +16993,7 @@ EOT
         "IkeV2",
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17003,15 +17015,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Network/vpnServerConfigurations@2022-07-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Network/vpnServerConfigurations@2022-07-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       isDefault = false
       policyMembers = [
@@ -17023,7 +17035,7 @@ EOT
       ]
       priority = 0
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17045,19 +17057,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       addressSpace = {
         addressPrefixes = [
@@ -17065,7 +17077,7 @@ EOT
         ]
       }
       virtualWan = {
-        id = ${4:"The id of the Microsoft.Network/virtualWans@2022-07-01 resource"}
+        id = ${2:"The id of the Microsoft.Network/virtualWans@2022-07-01 resource"}
       }
       vpnSiteLinks = [
         {
@@ -17092,7 +17104,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17114,19 +17126,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       enabled       = true
       namespaceType = "NotificationHub"
@@ -17135,7 +17147,7 @@ EOT
     sku = {
       name = "Free"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17157,22 +17169,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.NotificationHubs/namespaces@2017-04-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.NotificationHubs/namespaces@2017-04-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17202,13 +17214,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       rights = [
         "Listen",
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17249,12 +17261,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     sku = {
       capacity = 1000
       name     = "CapacityReservation"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17288,11 +17300,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17322,14 +17334,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       body        = "    let newExceptionsTimeRange = 1d;\n    let timeRangeToCheckBefore = 7d;\n    exceptions\n    | where timestamp < ago(timeRangeToCheckBefore)\n    | summarize count() by problemId\n    | join kind= rightanti (\n        exceptions\n        | where timestamp >= ago(newExceptionsTimeRange)\n        | extend stack = tostring(details[0].rawStack)\n        | summarize count(), dcount(user_AuthenticatedId), min(timestamp), max(timestamp), any(stack) by problemId\n    ) on problemId\n    | order by count_ desc\n"
       displayName = "Exceptions - New in the last 24 hours"
       related = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17363,7 +17375,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       features = {
         disableLocalAuth                            = false
@@ -17379,7 +17391,7 @@ EOT
         dailyQuotaGb = -1
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17409,7 +17421,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       destination = {
         resourceId = ${3:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
@@ -17419,7 +17431,7 @@ EOT
         "Heartbeat",
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17449,7 +17461,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "WindowsPerformanceCounter"
     properties = {
       counterName     = "CPU"
@@ -17457,7 +17469,7 @@ EOT
       intervalSeconds = 10
       objectName      = "CPU"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17487,11 +17499,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       resourceId = ${2:"The id of the Microsoft.Automation/automationAccounts@2021-06-22 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17521,13 +17533,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       storageAccountIds = [
         ${2:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"},
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17557,7 +17569,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       category      = "Saved Search Test Category"
       displayName   = "Create or Update Saved Search Test"
@@ -17566,7 +17578,7 @@ EOT
       tags = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17596,14 +17608,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       storageAccount = {
         id  = ${3:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
-        key = jsondecode(${4:"TODO"}).keys[0].value
+        key = ${4:"TODO"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17625,19 +17637,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       links = [
         {
@@ -17654,7 +17666,7 @@ EOT
       tleLine2  = "2 23455  99.0090 272.6745 0008546 223.1686 136.8816 14.11711747148495"
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17684,7 +17696,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       filters = {
         locations = [
@@ -17694,7 +17706,7 @@ EOT
       policyDefinitionReferenceId = ""
       resourceDiscoveryMode       = "ExistingNonCompliant"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17732,12 +17744,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       lenses = {
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17771,7 +17783,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       administration = {
         members = [
@@ -17783,7 +17795,7 @@ EOT
     sku = {
       name = "A1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17805,15 +17817,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "identity",
@@ -17824,11 +17836,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       publicNetworkAccess = "Enabled"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17862,14 +17874,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       publicNetworkAccess = "Enabled"
     }
     sku = {
       name = "Standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17899,7 +17911,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       backupManagementType = "AzureStorage"
       retentionPolicy = {
@@ -17924,7 +17936,7 @@ EOT
       timeZone     = "UTC"
       workLoadType = "AzureFileShare"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17954,12 +17966,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       resourceGuardResourceId = ${3:"The id of the Microsoft.DataProtection/resourceGuards@2022-04-01 resource"}
     }
     type = "Microsoft.RecoveryServices/vaults/backupResourceGuardProxies"
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -17981,22 +17993,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.RecoveryServices/vaults@2022-10-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.RecoveryServices/vaults@2022-10-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       customDetails = {
         instanceType = "Azure"
-        location     = ${2:"location"}
+        location     = ${3:"location"}
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18026,10 +18038,10 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18051,15 +18063,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.RecoveryServices/vaults@2022-10-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.RecoveryServices/vaults@2022-10-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       providerSpecificInput = {
         appConsistentFrequencyInMinutes   = 240
@@ -18069,7 +18081,7 @@ EOT
         recoveryPointHistoryInMinutes     = 1440
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18091,26 +18103,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
     sku = {
       name = "Standard"
       tier = "Standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18140,14 +18152,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       rights = [
         "Listen",
         "Send",
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18177,12 +18189,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       requiresClientAuthorization = true
       userMetadata                = "metadatatest"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18212,14 +18224,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       rights = [
         "Listen",
         "Send",
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18241,19 +18253,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "AzurePowerShell"
     properties = {
       azPowerShellVersion  = "8.3"
@@ -18264,7 +18276,7 @@ EOT
       supportingScriptUris = null
       timeout              = "P1D"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18294,7 +18306,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       mode = "Complete"
       template = {
@@ -18347,7 +18359,7 @@ EOT
         }
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18399,7 +18411,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       authOptions = {
         apiKeyOnly = {
@@ -18424,7 +18436,7 @@ EOT
     tags = {
       environment = "staging"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18446,21 +18458,21 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Search/searchServices@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Search/searchServices@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       groupId               = "blob"
-      privateLinkResourceId = ${3:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
+      privateLinkResourceId = ${2:"The id of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
       requestMessage        = "please approve"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18490,14 +18502,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       assessmentType = "CustomerManaged"
       description    = "Test Description"
       displayName    = "Test Display Name"
       severity       = "Medium"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18519,28 +18531,28 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       displayName = "Iot Security Solution"
       iotHubs = [
-        ${2:"The id of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"},
+        ${4:"The id of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"},
       ]
       status                  = "Enabled"
       unmaskedIpLoggingStatus = "Disabled"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18570,14 +18582,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       alertNotifications = "On"
       alertsToAdmins     = "On"
       email              = "basic@example.com"
       phone              = "+1-555-555-5555"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18599,7 +18611,7 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = "/subscriptions/${${3:"subscription id"}}"`,	
+		        Value: `parent_id = "/subscriptions/${${1:"subscription id"}}"`,	
 	        },
             {
 		        Name:  "name",
@@ -18607,12 +18619,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      scope       = "/subscriptions/${${1:"subscription id"}}"
-      workspaceId = ${2:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}
+      scope       = "/subscriptions/${${2:"subscription id"}}"
+      workspaceId = ${3:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18642,7 +18654,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "NRT"
     properties = {
       description         = ""
@@ -18657,7 +18669,7 @@ EOT
       techniques = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18691,7 +18703,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       actions = [
         {
@@ -18714,7 +18726,7 @@ EOT
         triggersWhen = "Created"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18740,15 +18752,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.OperationalInsights/workspaces@2022-10-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "MicrosoftThreatIntelligence"
     properties = {
       dataTypes = {
@@ -18761,9 +18773,9 @@ EOT
           state          = "enabled"
         }
       }
-      tenantId = ${4:"tenant id"}
+      tenantId = ${2:"tenant id"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18775,7 +18787,7 @@ EOT
 	        },
             {
 		        Name:  "depends_on",
-		        Value: `depends_on                = [${1:"The onboardingState of the Microsoft.SecurityInsights/onboardingStates@2023-06-01-preview resource"}]`,	
+		        Value: `depends_on                = [${3:"The onboardingState of the Microsoft.SecurityInsights/onboardingStates@2023-06-01-preview resource"}]`,	
 	        },
 	
 	    },
@@ -18797,14 +18809,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       contentId            = ${3:"The name of the resource"}
       contentSchemaVersion = "2.0"
       kind                 = "AnalyticsRule"
       parentId             = ${4:"The id of the Microsoft.SecurityInsights/alertRules@2022-10-01-preview resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18834,11 +18846,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       customerManagedKey = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18868,14 +18880,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       displayName    = "test"
       itemsSearchKey = "k1"
       provider       = "Microsoft"
       source         = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18909,13 +18921,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       itemsKeyValue = {
         k1 = "v1"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18949,7 +18961,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       disableLocalAuth    = false
       publicNetworkAccess = "Enabled"
@@ -18960,7 +18972,7 @@ EOT
       name     = "Standard"
       tier     = "Standard"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -18982,21 +18994,21 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ServiceBus/namespaces@2022-01-01-preview resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.ServiceBus/namespaces@2022-01-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       rights = [
         "Listen",
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19018,15 +19030,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ServiceBus/namespaces@2022-01-01-preview resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.ServiceBus/namespaces@2022-01-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       deadLetteringOnMessageExpiration = false
       enableBatchedOperations          = true
@@ -19038,7 +19050,7 @@ EOT
       requiresSession                  = false
       status                           = "Active"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19060,21 +19072,21 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ServiceBus/namespaces/queues@2021-06-01-preview resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.ServiceBus/namespaces/queues@2021-06-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       rights = [
         "Send",
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19104,7 +19116,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       enableBatchedOperations    = false
       enableExpress              = false
@@ -19114,7 +19126,7 @@ EOT
       status                     = "Active"
       supportOrdering            = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19144,13 +19156,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       rights = [
         "Send",
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19172,15 +19184,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.ServiceBus/namespaces/topics@2021-06-01-preview resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.ServiceBus/namespaces/topics@2021-06-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       clientAffineProperties = {
       }
@@ -19192,7 +19204,7 @@ EOT
       requiresSession                           = false
       status                                    = "Active"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19222,7 +19234,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       correlationFilter = {
         contentType      = "test_content_type"
@@ -19236,7 +19248,7 @@ EOT
       }
       filterType = "CorrelationFilter"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19270,7 +19282,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       addOnFeatures = [
       ]
@@ -19297,7 +19309,7 @@ EOT
       upgradeMode      = "Automatic"
       vmImage          = "Windows"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19319,19 +19331,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:location}"`,	
+		        Value: `location  = "${4:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       addonFeatures = [
         "DnsService",
@@ -19340,7 +19352,7 @@ EOT
       adminUserName             = "testUser"
       clientConnectionPort      = 12345
       clusterUpgradeCadence     = "Wave0"
-      dnsName                   = ${3:"The name of the resource"}
+      dnsName                   = ${1:"The name of the resource"}
       httpGatewayConnectionPort = 23456
       loadBalancingRules = [
         {
@@ -19379,7 +19391,7 @@ EOT
     tags = {
       Test = "value"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19401,15 +19413,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.ServiceFabric/managedClusters@2021-05-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.ServiceFabric/managedClusters@2021-05-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       applicationPorts = {
         endPort   = 9000
@@ -19437,7 +19449,7 @@ EOT
       ]
       vmSize = "Standard_DS2_v2"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19467,7 +19479,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       authInfo = {
         authType = "systemAssignedIdentity"
@@ -19479,7 +19491,7 @@ EOT
         type               = "AzureResource"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19501,19 +19513,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       cors = {
       }
@@ -19569,7 +19581,7 @@ EOT
       capacity = 1
       name     = "Standard_S1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19599,13 +19611,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       groupId               = "vault"
       privateLinkResourceId = ${3:"The id of the Microsoft.KeyVault/vaults@2021-10-01 resource"}
       requestMessage        = "please approve"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19639,7 +19651,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       disableAadAuth      = false
       disableLocalAuth    = false
@@ -19652,7 +19664,7 @@ EOT
       capacity = 1
       name     = "Standard_S1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19682,13 +19694,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       anonymousConnectPolicy = "Deny"
       eventListeners = [
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19710,20 +19722,20 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.SignalRService/webPubSub@2023-02-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.SignalRService/webPubSub@2023-02-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       groupId               = "vault"
-      privateLinkResourceId = ${3:"The id of the Microsoft.KeyVault/vaults@2021-10-01 resource"}
+      privateLinkResourceId = ${1:"The id of the Microsoft.KeyVault/vaults@2021-10-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19745,24 +19757,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${4:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${5:location}"`,	
+		        Value: `location  = "${3:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       authorizations = [
         {
-          principalId      = ${1:"The object_id of the  resource"}
-          roleDefinitionId = jsondecode(${2:"TODO"}).value[0].name
+          principalId      = ${4:"The object_id of the  resource"}
+          roleDefinitionId = ${5:"TODO"}
         },
       ]
       description    = "Test Managed App Definition"
@@ -19771,7 +19783,7 @@ EOT
       lockLevel      = "ReadOnly"
       packageFileUri = "https://github.com/Azure/azure-managedapp-samples/raw/master/Managed Application Sample Packages/201-managed-storage-account/managedstorage.zip"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19793,22 +19805,22 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${2:The location of the Microsoft.Resources/resourceGroups@2022-09-01 resource}"`,	
+		        Value: `location  = "${3:The location of the Microsoft.Resources/resourceGroups@2022-09-01 resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       licenseType = "LicenseIncluded"
-      subnetId    = ${3:"The id of the Microsoft.Network/virtualNetworks/subnets@2023-04-01 resource"}
+      subnetId    = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2023-04-01 resource"}
       vCores      = 8
     }
     sku = {
@@ -19816,7 +19828,7 @@ EOT
       name   = "GP_Gen5"
       tier   = "GeneralPurpose"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "timeouts",
@@ -19850,7 +19862,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       administratorLogin            = "mradministrator"
       administratorLoginPassword    = "thisIsDog11"
@@ -19859,7 +19871,7 @@ EOT
       restrictOutboundNetworkAccess = "Disabled"
       version                       = "12.0"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19889,14 +19901,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       administratorType = "ActiveDirectory"
       login             = "sqladmin"
       sid               = ${2:"The client_id of the  resource"}
       tenantId          = ${3:"tenant id"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19930,7 +19942,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       collation                     = "SQL_LATIN1_GENERAL_CP1_CI_AS"
       createMode                    = "Default"
@@ -19939,7 +19951,7 @@ EOT
       requestedServiceObjectiveName = "S0"
       zoneRedundant                 = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -19999,13 +20011,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       dtu       = 50
       edition   = "Basic"
       storageMB = 5000
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20027,20 +20039,20 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Sql/servers@2015-05-01-preview resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Sql/servers@2015-05-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       endIpAddress   = "255.255.255.255"
       startIpAddress = "0.0.0.0"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20062,23 +20074,23 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Sql/servers@2021-02-01-preview resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Sql/servers@2021-02-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
-      databaseId = ${4:"The id of the Microsoft.Sql/servers/databases@2021-02-01-preview resource"}
+      databaseId = ${3:"The id of the Microsoft.Sql/servers/databases@2021-02-01-preview resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20108,12 +20120,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       password = "test"
       username = "test"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20143,10 +20155,10 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20168,20 +20180,20 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Sql/servers@2021-02-01-preview resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Sql/servers@2021-02-01-preview resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       ignoreMissingVnetServiceEndpoint = false
-      virtualNetworkSubnetId           = ${3:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+      virtualNetworkSubnetId           = ${1:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20215,7 +20227,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "StorageV2"
     properties = {
       accessTier                   = "Hot"
@@ -20247,7 +20259,7 @@ EOT
     sku = {
       name = "Standard_LRS"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20277,13 +20289,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       metadata = {
         key = "value"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "response_export_values",
@@ -20301,19 +20313,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Storage/storageAccounts/fileServices@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Storage/storageAccounts/fileServices@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       accessTier = "Cool"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "response_export_values",
@@ -20339,7 +20351,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       policy = {
         rules = [
@@ -20379,7 +20391,7 @@ EOT
         ]
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20409,13 +20421,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       metadata = {
         key = "value"
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "response_export_values",
@@ -20441,11 +20453,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       signedIdentifiers = []
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "response_export_values",
@@ -20463,31 +20475,31 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       cacheSizeGB = 3072
       networkSettings = {
         mtu       = 1500
         ntpServer = "time.windows.com"
       }
-      subnet = ${4:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
+      subnet = ${3:"The id of the Microsoft.Network/virtualNetworks/subnets@2022-07-01 resource"}
     }
     sku = {
       name = "Standard_2G"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20521,11 +20533,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
 
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20555,14 +20567,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       endpointType = "NfsMount"
       export       = ""
       host         = "192.168.0.1"
       nfsVersion   = "NFSauto"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20584,18 +20596,18 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.StorageMover/storageMovers@2023-03-01 resource"}`,	
+		        Value: `parent_id = ${1:"The id of the Microsoft.StorageMover/storageMovers@2023-03-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${2:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20617,23 +20629,23 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       incomingTrafficPolicy = "AllowAllTraffic"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20681,24 +20693,24 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     sku = {
       capacity = 36
       name     = "Default"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20728,19 +20740,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${3:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       cluster = {
       }
@@ -20763,7 +20775,7 @@ EOT
         }
       }
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20785,15 +20797,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.StreamAnalytics/streamingJobs@2020-03-01 resource"}`,	
+		        Value: `parent_id = ${2:"The id of the Microsoft.StreamAnalytics/streamingJobs@2020-03-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       properties = {
         binding = {
@@ -20814,7 +20826,7 @@ EOT
       }
       type = "Scalar"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20844,14 +20856,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       datasource = {
         properties = {
           consumerGroupName      = "$Default"
           endpoint               = "messages/events"
           iotHubNamespace        = ${3:"The name of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
-          sharedAccessPolicyKey  = jsondecode(${4:"TODO"}).value[0].primaryKey
+          sharedAccessPolicyKey  = ${4:"TODO"}
           sharedAccessPolicyName = "iothubowner"
         }
         type = "Microsoft.Devices/IotHubs"
@@ -20862,7 +20874,7 @@ EOT
       }
       type = "Stream"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20892,11 +20904,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       datasource = {
         properties = {
-          accountKey   = jsondecode(${3:"TODO"}).keys[0].value
+          accountKey   = ${3:"TODO"}
           accountName  = ${4:"The name of the Microsoft.Storage/storageAccounts@2021-09-01 resource"}
           batchSize    = 100
           partitionKey = "foo"
@@ -20907,7 +20919,7 @@ EOT
       }
       serialization = null
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -20959,15 +20971,15 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${5:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${5:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${1:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "identity",
@@ -20978,18 +20990,18 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       defaultDataLakeStorage = {
-        accountUrl = jsondecode(${2:"TODO"}).properties.primaryEndpoints.dfs
-        filesystem = ${3:"The name of the Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01 resource"}
+        accountUrl = ${3:"TODO"}
+        filesystem = ${4:"The name of the Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01 resource"}
       }
       managedVirtualNetwork         = ""
       publicNetworkAccess           = "Enabled"
       sqlAdministratorLogin         = "sqladminuser"
       sqlAdministratorLoginPassword = "H@Sh1CoR3!"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21023,7 +21035,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       autoPause = {
         enabled = false
@@ -21046,7 +21058,7 @@ EOT
       sparkEventsFolder           = "/events"
       sparkVersion                = "2.4"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21076,12 +21088,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       endIpAddress   = "255.255.255.255"
       startIpAddress = "0.0.0.0"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21111,12 +21123,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description = "test"
       type        = "SelfHosted"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21150,14 +21162,14 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       createMode = "Default"
     }
     sku = {
       name = "DW100c"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21187,7 +21199,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       importance                   = "normal"
       maxResourcePercent           = 100
@@ -21195,7 +21207,7 @@ EOT
       minResourcePercent           = 0
       minResourcePercentPerRequest = 3
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21225,11 +21237,11 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       memberName = "dbo"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21263,7 +21275,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "Gen1"
     properties = {
       dataRetentionTime            = "P30D"
@@ -21273,7 +21285,7 @@ EOT
       capacity = 1
       name     = "S1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21303,7 +21315,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       description       = ""
       principalObjectId = "aGUID"
@@ -21311,7 +21323,7 @@ EOT
         "Reader",
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21333,29 +21345,29 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.TimeSeriesInsights/environments@2020-05-15 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.TimeSeriesInsights/environments@2020-05-15 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${5:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${6:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     kind = "Microsoft.IoTHub"
     properties = {
       consumerGroupName     = "test"
-      eventSourceResourceId = ${4:"The id of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
-      iotHubName            = ${5:"The name of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
+      eventSourceResourceId = ${1:"The id of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
+      iotHubName            = ${2:"The name of the Microsoft.Devices/IotHubs@2022-04-30-preview resource"}
       keyName               = "iothubowner"
-      sharedAccessKey       = jsondecode(${6:"TODO"}).value[0].primaryKey
+      sharedAccessKey       = ${3:"TODO"}
       timestampPropertyName = ""
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21389,7 +21401,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       dataStringComparisonBehavior = "Ordinal"
       keyProperties = [
@@ -21399,7 +21411,7 @@ EOT
         },
       ]
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21433,7 +21445,7 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       hyperV         = false
       perSiteScaling = false
@@ -21443,7 +21455,7 @@ EOT
     sku = {
       name = "S1"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21465,19 +21477,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${2:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${3:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${4:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       clientAffinityEnabled = false
       clientCertEnabled     = false
@@ -21485,7 +21497,7 @@ EOT
       enabled               = true
       httpsOnly             = false
       publicNetworkAccess   = "Enabled"
-      serverFarmId          = ${1:"The id of the Microsoft.Web/serverfarms@2022-09-01 resource"}
+      serverFarmId          = ${3:"The id of the Microsoft.Web/serverfarms@2022-09-01 resource"}
       siteConfig = {
         acrUseManagedIdentityCreds       = false
         alwaysOn                         = true
@@ -21507,7 +21519,7 @@ EOT
       }
       vnetRouteAllEnabled = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21537,12 +21549,12 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       blob                      = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNzakNDQVpvQ0NRQ01kdDdEdnlnUHREQU5CZ2txaGtpRzl3MEJBUXNGQURBYk1Sa3dGd1lEVlFRRERCQmgKY0drdWRHVnljbUZtYjNKdExtbHZNQjRYRFRFNE1EY3dOVEV3TXpNek1Gb1hEVEk0TURjd01qRXdNek16TUZvdwpHekVaTUJjR0ExVUVBd3dRWVhCcExuUmxjbkpoWm05eWJTNXBiekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFECmdnRVBBRENDQVFvQ2dnRUJBS1FXMzMyT2wyOENzaWRBaGVEMWFMOVVsOEpXbktMZGFWeEtaM3NzbDVDWGpQRE8KbU03SVhrMFNnYlFuVUM4bElsUEZaaURHYlExc0I2T1RNdW42Wlo0aXBMcDgwZHRsMHJvQ0x0Q25EUU9CR3pDTgpBckNZQW9YUnVyamtYRVk3dHBEMHd3dFU3MiszN2gzSFE0ZzBWUzZWSXRKQ3FKOVFBRFYrSE8yWld1WlRlejcwCk1ob0w2T0xmWlA3SEdZZEpES2dmRVZORjVYbGJWek5BR2tESUpGZGhqTnh5R0d1NU5mc20xcGZRaEF5dW5razcKSlZhbWpVZzVJb2pSZG82M0lTOXd3ek1PZGVHU0FiQmNzSmZZZUNmVmcya3VwUjhxMFRtWit4OTNSbW1PbGJTaQo2NmtFWXhSelo5WUNRZUhKbW4xWWZKOTJCcENVaXk5QTZaMWlhS1VDQXdFQUFUQU5CZ2txaGtpRzl3MEJBUXNGCkFBT0NBUUVBSjdKaGxlY1A3SjQ4d0kyUUhUTWJBTWtrV0J2L2lXcTEvUUlGNHVnSDNaYjVQb3JPditOZmhRMEwKbFdpdy9Tek44QWU5NXZVaXhBR1lITVNhMjhvdW1NNUsxT3NxS0VrVklvMUFvQkg4bkJ6K1ZjVHBSRC9tSFhvdApBSFBBWnQ5ajVMcWVIWCtlblI2UmJJTkFmM2puK1lVM01kVmUwTXNBRGRGQVNWRGZqbVFQMlI3bzlhSmIvUXFPCmczYlpCV3NpQkRFSVNmeWFIMitwZ1VNN3d0d0VvRldtRU1sZ2pMSzFNUkJzMWNEWlhxbkhhQ2QvcnMrTm1XVjkKbmFFdTd4NWZ5UU9rNEhvemtwd2VSK0p4MXNCbFRSc2E0OS9xU0h0LzZVTEtmTzAxL2NUczRpRjcxeWtYUGJoMwpLajljSTJ1bzlhWXRYa3hraEtyR3lVcEE3RkpxV3c9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
       publicCertificateLocation = "Unknown"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21564,19 +21576,19 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Web/sites@2022-09-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Web/sites@2022-09-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${1:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       clientAffinityEnabled    = false
       clientCertEnabled        = false
@@ -21585,7 +21597,7 @@ EOT
       enabled                  = true
       httpsOnly                = false
       publicNetworkAccess      = "Enabled"
-      serverFarmId             = ${4:"The id of the Microsoft.Web/serverfarms@2022-09-01 resource"}
+      serverFarmId             = ${2:"The id of the Microsoft.Web/serverfarms@2022-09-01 resource"}
       siteConfig = {
         acrUseManagedIdentityCreds       = false
         alwaysOn                         = true
@@ -21607,7 +21619,7 @@ EOT
       }
       vnetRouteAllEnabled = false
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21629,26 +21641,26 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${1:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${2:The name of the resource}"`,	
+		        Value: `name      = "${1:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
-		        Value: `location  = "${3:location}"`,	
+		        Value: `location  = "${2:location}"`,	
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
     }
     sku = {
       name = "Free"
       tier = "Free"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
@@ -21670,11 +21682,11 @@ EOT
 	        },
             {
 		        Name:  "parent_id",
-		        Value: `parent_id = ${4:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
+		        Value: `parent_id = ${3:"The id of the Microsoft.Resources/resourceGroups@2020-06-01 resource"}`,	
 	        },
             {
 		        Name:  "name",
-		        Value: `name      = "${1:The name of the resource}"`,	
+		        Value: `name      = "${4:The name of the resource}"`,	
 	        },
             {
 		        Name:  "location",
@@ -21682,13 +21694,13 @@ EOT
 	        },
             {
 		        Name:  "body",
-		        Value: `body = jsonencode({
+		        Value: `body = {
     properties = {
       actionGroups = {
         customEmailSubject   = ""
         customWebhookPayload = ""
         groupIds = [
-          ${2:"The id of the Microsoft.Insights/actionGroups@2023-01-01 resource"},
+          ${1:"The id of the Microsoft.Insights/actionGroups@2023-01-01 resource"},
         ]
       }
       description = ""
@@ -21697,12 +21709,12 @@ EOT
       }
       frequency = "PT1M"
       scope = [
-        ${3:"The id of the Microsoft.Insights/components@2020-02-02 resource"},
+        ${2:"The id of the Microsoft.Insights/components@2020-02-02 resource"},
       ]
       severity = "Sev0"
       state    = "Enabled"
     }
-  })`,	
+  }`,	
 	        },
             {
 		        Name:  "schema_validation_enabled",
