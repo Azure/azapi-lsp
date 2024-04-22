@@ -114,6 +114,9 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 		switch token.Type {
 		case hclsyntax.TokenOBrace: // {
 			top := len(stack) - 1
+			if top < 0 {
+				return nil
+			}
 			state := stack[top]
 			key := state.GetCurrentKey()
 			if state.ExpectKey {
@@ -145,6 +148,9 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			})
 		case hclsyntax.TokenCBrace: // }
 			top := len(stack) - 1
+			if top < 0 {
+				return nil
+			}
 			state := stack[top]
 			if !state.ExpectKey {
 				log.Printf("[WARN] expect value but got }")
@@ -161,6 +167,9 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			stack = stack[0:top]
 		case hclsyntax.TokenOBrack: // [
 			top := len(stack) - 1
+			if top < 0 {
+				return nil
+			}
 			state := stack[top]
 			if state.ExpectKey {
 				log.Printf("[WARN] expect key but got [")
@@ -190,6 +199,9 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			})
 		case hclsyntax.TokenCBrack: // ]
 			top := len(stack) - 1
+			if top < 0 {
+				return nil
+			}
 			state := stack[top]
 			if state.Value != nil && *state.Value != "" && strings.Contains(*state.Value, "[") {
 				updateStateValue(&stack[top], token)
@@ -211,6 +223,9 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			stack = stack[0:top]
 		case hclsyntax.TokenQuotedLit:
 			top := len(stack) - 1
+			if top < 0 {
+				return nil
+			}
 			if stack[top].ExpectKey {
 				foundKey(&stack[top], token)
 				stack[top].CurrentHclNode.KeyValueFormat = QuotedKeyEqualValue
@@ -219,6 +234,9 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			}
 		case hclsyntax.TokenIdent:
 			top := len(stack) - 1
+			if top < 0 {
+				return nil
+			}
 			if stack[top].ExpectKey {
 				foundKey(&stack[top], token)
 			} else {
@@ -226,6 +244,9 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			}
 		case hclsyntax.TokenColon: // :
 			top := len(stack) - 1
+			if top < 0 {
+				return nil
+			}
 			if stack[top].ExpectEqual {
 				if stack[top].ExpectKey {
 					log.Printf("[WARN] expect key but got =")
@@ -240,6 +261,9 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			}
 		case hclsyntax.TokenEqual: // =
 			top := len(stack) - 1
+			if top < 0 {
+				return nil
+			}
 			if stack[top].ExpectEqual {
 				if stack[top].ExpectKey {
 					log.Printf("[WARN] expect key but got =")
@@ -252,6 +276,9 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			}
 		case hclsyntax.TokenNewline:
 			top := len(stack) - 1
+			if top < 0 {
+				return nil
+			}
 			state := stack[top]
 			if !state.ExpectKey {
 				if stack[top].Index == nil {
@@ -271,6 +298,9 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			}
 		case hclsyntax.TokenComma:
 			top := len(stack) - 1
+			if top < 0 {
+				return nil
+			}
 			state := stack[top]
 			if !state.ExpectKey {
 				if state.Index == nil {
@@ -295,6 +325,9 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 			comment := string(token.Bytes)
 			if strings.HasSuffix(comment, "\n") {
 				top := len(stack) - 1
+				if top < 0 {
+					return nil
+				}
 				state := stack[top]
 				if !state.ExpectKey {
 					if stack[top].Index == nil {
@@ -314,10 +347,10 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 				}
 			}
 		default:
-			if len(stack) == 0 {
-				break
-			}
 			top := len(stack) - 1
+			if top < 0 {
+				return nil
+			}
 			if !stack[top].ExpectEqual {
 				updateStateValue(&stack[top], token)
 			}
