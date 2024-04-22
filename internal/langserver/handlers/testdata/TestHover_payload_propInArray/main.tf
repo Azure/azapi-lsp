@@ -3,7 +3,7 @@ resource "azapi_resource" "route" {
   name      = "henglu38"
   parent_id = azapi_resource.gateway.id
 
-  payload = {
+  body = {
     properties = {
       appResourceId = azapi_resource.app.id
       routes = [

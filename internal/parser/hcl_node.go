@@ -314,6 +314,9 @@ func BuildHclNode(tokens hclsyntax.Tokens) *HclNode {
 				}
 			}
 		default:
+			if len(stack) == 0 {
+				break
+			}
 			top := len(stack) - 1
 			if !stack[top].ExpectEqual {
 				updateStateValue(&stack[top], token)

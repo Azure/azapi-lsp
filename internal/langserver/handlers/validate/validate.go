@@ -70,11 +70,10 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 	if bodyAttribute := parser.AttributeWithName(block, "body"); bodyAttribute != nil {
 		attribute = bodyAttribute
 		hclNode = parser.JsonEncodeExpressionToHclNode(src, attribute.Expr)
-	}
-	if payloadAttribute := parser.AttributeWithName(block, "payload"); payloadAttribute != nil {
-		attribute = payloadAttribute
-		tokens, _ := hclsyntax.LexExpression(src[attribute.Expr.Range().Start.Byte:attribute.Expr.Range().End.Byte], "", attribute.Expr.Range().Start)
-		hclNode = parser.BuildHclNode(tokens)
+		if hclNode == nil {
+			tokens, _ := hclsyntax.LexExpression(src[attribute.Expr.Range().Start.Byte:attribute.Expr.Range().End.Byte], "", attribute.Expr.Range().Start)
+			hclNode = parser.BuildHclNode(tokens)
+		}
 	}
 	if attribute == nil || hclNode == nil {
 		return nil
@@ -83,6 +82,9 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 	if dummy, ok := hclNode.Children["dummy"]; ok {
 		dummy.KeyRange = attribute.NameRange
 		if nameAttribute := parser.AttributeWithName(block, "name"); nameAttribute != nil {
+			if dummy.Children == nil {
+				dummy.Children = make(map[string]*parser.HclNode)
+			}
 			dummy.Children["name"] = &parser.HclNode{
 				Value:      parser.ToLiteral(nameAttribute.Expr),
 				Key:        "name",

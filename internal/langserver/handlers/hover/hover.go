@@ -47,23 +47,6 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 						}
 					}
 				}
-			case "payload":
-				if parser.ContainsPos(attribute.NameRange, pos) {
-					return Hover(property.Name, property.Modifier, property.Type, property.Description, attribute.NameRange)
-				}
-
-				bodyDef := tfschema.BodyDefinitionFromBlock(block)
-				if bodyDef == nil {
-					return nil
-				}
-
-				tokens, _ := hclsyntax.LexExpression(data[attribute.Expr.Range().Start.Byte:attribute.Expr.Range().End.Byte], filename, attribute.Expr.Range().Start)
-				hclNode := parser.BuildHclNode(tokens)
-				if hclNode == nil {
-					break
-				}
-
-				return hoverOnBody(hclNode, pos, bodyDef)
 			case "body":
 				if parser.ContainsPos(attribute.NameRange, pos) {
 					return Hover(property.Name, property.Modifier, property.Type, property.Description, attribute.NameRange)
@@ -75,6 +58,10 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 				}
 
 				hclNode := parser.JsonEncodeExpressionToHclNode(data, attribute.Expr)
+				if hclNode == nil {
+					tokens, _ := hclsyntax.LexExpression(data[attribute.Expr.Range().Start.Byte:attribute.Expr.Range().End.Byte], filename, attribute.Expr.Range().Start)
+					hclNode = parser.BuildHclNode(tokens)
+				}
 				if hclNode == nil {
 					break
 				}

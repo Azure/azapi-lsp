@@ -75,18 +75,8 @@ func init() {
 					Type:                  "string <JSON>",
 					Description:           "A JSON object that contains the request body used to create and update azure resource.",
 					CompletionNewText:     `body = $0`,
-					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{bodyJsonencodeFuncCandidate()}),
-					GenericCandidatesFunc: bodyCandidates,
-				},
-
-				{
-					Name:                  "payload",
-					Modifier:              "Optional",
-					Type:                  "dynamic",
-					Description:           "A dynamic attribute that contains the request body used to create and update azure resource.",
-					CompletionNewText:     `payload = $0`,
 					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{dynamicPlaceholderCandidate()}),
-					GenericCandidatesFunc: payloadCandidates,
+					GenericCandidatesFunc: bodyCandidates,
 				},
 
 				{
@@ -191,18 +181,8 @@ func init() {
 					Type:                  "string <JSON>",
 					Description:           "A JSON object that contains the request body used to create and update azure resource.",
 					CompletionNewText:     `body = $0`,
-					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{bodyJsonencodeFuncCandidate()}),
-					GenericCandidatesFunc: bodyCandidates,
-				},
-
-				{
-					Name:                  "payload",
-					Modifier:              "Optional",
-					Type:                  "dynamic",
-					Description:           "A dynamic attribute that contains the request body used to create and update azure resource.",
-					CompletionNewText:     `payload = $0`,
 					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{dynamicPlaceholderCandidate()}),
-					GenericCandidatesFunc: payloadCandidates,
+					GenericCandidatesFunc: bodyCandidates,
 				},
 
 				{
@@ -329,18 +309,8 @@ func init() {
 					Type:                  "string <JSON>",
 					Description:           "A JSON object that contains the request body.",
 					CompletionNewText:     `body = $0`,
-					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{bodyJsonencodeFuncCandidate()}),
-					GenericCandidatesFunc: bodyCandidates,
-				},
-
-				{
-					Name:                  "payload",
-					Modifier:              "Optional",
-					Type:                  "dynamic",
-					Description:           "A dynamic attribute that contains the request body used to create and update azure resource.",
-					CompletionNewText:     `payload = $0`,
 					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{dynamicPlaceholderCandidate()}),
-					GenericCandidatesFunc: payloadCandidates,
+					GenericCandidatesFunc: bodyCandidates,
 				},
 
 				{
@@ -396,18 +366,8 @@ func init() {
 					Type:                  "string <JSON>",
 					Description:           "A JSON object that contains the request body.",
 					CompletionNewText:     `body = $0`,
-					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{bodyJsonencodeFuncCandidate()}),
-					GenericCandidatesFunc: bodyCandidates,
-				},
-
-				{
-					Name:                  "payload",
-					Modifier:              "Optional",
-					Type:                  "dynamic",
-					Description:           "A dynamic attribute that contains the request body used to create and update azure resource.",
-					CompletionNewText:     `payload = $0`,
 					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{dynamicPlaceholderCandidate()}),
-					GenericCandidatesFunc: payloadCandidates,
+					GenericCandidatesFunc: bodyCandidates,
 				},
 
 				{

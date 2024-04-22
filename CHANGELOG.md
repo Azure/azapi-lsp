@@ -1,10 +1,10 @@
 ## v1.13.0 (unreleased)
 ENHANCEMENTS:
 - Support the new bicep types.
-- `azapi_resource` resource: Support for the `payload` property.
-- `azapi_update_resource` resource: Support for the `payload` property.
-- `azapi_resource_action` resource: Support for the `payload` property.
-- `azapi_resource_action` data source: Support for the `payload` property.
+- `azapi_resource` resource: The `body` field supports dynamic schema.
+- `azapi_update_resource` resource: The `body` field supports dynamic schema.
+- `azapi_resource_action` resource: The `body` field supports dynamic schema.
+- `azapi_resource_action` data source: The `body` field supports dynamic schema. d
 
 ## v1.12.0
 ENHANCEMENTS:

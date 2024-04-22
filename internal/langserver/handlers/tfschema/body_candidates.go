@@ -30,28 +30,9 @@ func bodyCandidates(data []byte, filename string, block *hclsyntax.Block, attrib
 
 	hclNode := parser.JsonEncodeExpressionToHclNode(data, attribute.Expr)
 	if hclNode == nil {
-		return nil
+		tokens, _ := hclsyntax.LexExpression(data[attribute.Expr.Range().Start.Byte:attribute.Expr.Range().End.Byte], filename, attribute.Expr.Range().Start)
+		hclNode = parser.BuildHclNode(tokens)
 	}
-
-	return buildCandidates(hclNode, filename, pos, bodyDef)
-}
-
-func payloadCandidates(data []byte, filename string, block *hclsyntax.Block, attribute *hclsyntax.Attribute, pos hcl.Pos, property *Property) []lsp.CompletionItem {
-	if attribute.Expr != nil {
-		if _, ok := attribute.Expr.(*hclsyntax.LiteralValueExpr); ok && parser.ToLiteral(attribute.Expr) == nil {
-			if property != nil {
-				return property.ValueCandidatesFunc(nil, editRangeFromExprRange(attribute.Expr, pos))
-			}
-		}
-	}
-
-	bodyDef := BodyDefinitionFromBlock(block)
-	if bodyDef == nil {
-		return nil
-	}
-
-	tokens, _ := hclsyntax.LexExpression(data[attribute.Expr.Range().Start.Byte:attribute.Expr.Range().End.Byte], filename, attribute.Expr.Range().Start)
-	hclNode := parser.BuildHclNode(tokens)
 	if hclNode == nil {
 		return nil
 	}
