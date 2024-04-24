@@ -1,10 +1,11 @@
-## v1.13.0 (unreleased)
+## v1.13.0
 ENHANCEMENTS:
 - Support the new bicep types.
 - `azapi_resource` resource: The `body` field supports dynamic schema.
 - `azapi_update_resource` resource: The `body` field supports dynamic schema.
 - `azapi_resource_action` resource: The `body` field supports dynamic schema.
-- `azapi_resource_action` data source: The `body` field supports dynamic schema. d
+- `azapi_resource_action` data source: The `body` field supports dynamic schema.
+- Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/48ce933ad85391b60ee02cf83e17c9b28d31a7b1
 
 ## v1.12.0
 ENHANCEMENTS:
