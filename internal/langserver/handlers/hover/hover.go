@@ -30,6 +30,7 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 		if resource == nil {
 			return nil
 		}
+		// hover on an attribute
 		if attribute := parser.AttributeAtPos(block, pos); attribute != nil {
 			property := resource.GetProperty(attribute.Name)
 			if property == nil {
@@ -73,21 +74,47 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 				}
 				return Hover(property.Name, property.Modifier, property.Type, property.Description, attribute.NameRange)
 			}
-		} else {
-			if subBody := parser.BlockAtPos(block.Body, pos); subBody != nil {
-				property := resource.GetProperty(subBody.Type)
-				if property == nil {
-					return nil
-				}
-				if attribute := parser.AttributeAtPos(subBody, pos); attribute != nil {
-					for _, p := range property.NestedProperties {
-						if p.Name == attribute.Name {
-							return Hover(p.Name, p.Modifier, p.Type, p.Description, attribute.NameRange)
-						}
+		}
+
+		// hover on a block
+		if nestedBlock := parser.BlockAtPos(block.Body, pos); nestedBlock != nil {
+			property := resource.GetProperty(nestedBlock.Type)
+			if property == nil {
+				return nil
+			}
+			if attribute := parser.AttributeAtPos(nestedBlock, pos); attribute != nil {
+				for _, p := range property.NestedProperties {
+					if p.Name == attribute.Name {
+						return Hover(p.Name, p.Modifier, p.Type, p.Description, attribute.NameRange)
 					}
-				} else {
-					return Hover(property.Name, property.Modifier, property.Type, property.Description, subBody.TypeRange)
 				}
+			} else {
+				return Hover(property.Name, property.Modifier, property.Type, property.Description, nestedBlock.TypeRange)
+			}
+		}
+
+		// hover on the resource definition
+		if block.DefRange().ContainsPos(pos) {
+			typeValue := ""
+			if typeAttribute := parser.AttributeWithName(block, "type"); typeAttribute != nil {
+				if v := parser.ToLiteral(typeAttribute.Expr); v != nil && len(*v) != 0 {
+					typeValue = *v
+				}
+			}
+			azureResourceType := ""
+			if parts := strings.Split(typeValue, "@"); len(parts) >= 2 {
+				azureResourceType = parts[0]
+			}
+			if azureResourceType == "" {
+				return nil
+			}
+			return &lsp.Hover{
+				Range: ilsp.HCLRangeToLSP(block.DefRange()),
+				Contents: lsp.MarkupContent{
+					Kind: lsp.Markdown,
+					Value: fmt.Sprintf(`%s %s '%s'   
+[View Documentation](https://learn.microsoft.com/en-us/azure/templates/%s?pivots=deployment-language-terraform)`, block.Type, strings.Join(block.Labels, "."), typeValue, strings.ToLower(azureResourceType)),
+				},
 			}
 		}
 	}
