@@ -8,11 +8,12 @@ import (
 var _ TypeBase = &ResourceType{}
 
 type ResourceType struct {
-	Type       string
-	Name       string
-	ScopeTypes []ScopeType
-	Body       *TypeReference
-	Flags      []ResourceTypeFlag
+	Type               string
+	Name               string
+	ScopeTypes         []ScopeType
+	ReadOnlyScopeTypes []ScopeType
+	Body               *TypeReference
+	Flags              []ResourceTypeFlag
 }
 
 func (t *ResourceType) GetWriteOnly(body interface{}) interface{} {
@@ -95,7 +96,23 @@ func (t *ResourceType) UnmarshalJSON(body []byte) error {
 				t.ScopeTypes = scopeTypes
 			}
 		case "readOnlyScopes":
-			// NOTE: we're intentionally not parsing this field since it's not used in azapi
+			if v != nil {
+				var scopeType int
+				err := json.Unmarshal(*v, &scopeType)
+				if err != nil {
+					return err
+				}
+				scopeTypes := make([]ScopeType, 0)
+				for _, f := range PossibleScopeTypeValues() {
+					if scopeType&int(f) != 0 {
+						scopeTypes = append(scopeTypes, f)
+					}
+				}
+				if scopeType == 0 {
+					scopeTypes = append(scopeTypes, Unknown)
+				}
+				t.ReadOnlyScopeTypes = scopeTypes
+			}
 		case "body":
 			if v != nil {
 				var typeRef TypeReference

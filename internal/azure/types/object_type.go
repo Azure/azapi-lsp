@@ -24,25 +24,24 @@ func (t *ObjectType) GetWriteOnly(body interface{}) interface{} {
 	// check body type
 	bodyMap, ok := body.(map[string]interface{})
 	if !ok {
-		return nil
+		return body
 	}
 
 	res := make(map[string]interface{})
 	for key, def := range t.Properties {
 		if _, ok := bodyMap[key]; ok {
-			if !def.IsReadOnly() && def.Type != nil && def.Type.Type != nil {
+			if (def.IsRequired() || (!def.IsReadOnly() && !def.IsDeployTimeConstant())) && def.Type != nil && def.Type.Type != nil {
 				res[key] = (*def.Type.Type).GetWriteOnly(bodyMap[key])
 			}
 		}
 	}
 
 	if t.AdditionalProperties != nil && t.AdditionalProperties.Type != nil {
-		if additionalProps := (*t.AdditionalProperties.Type).GetWriteOnly(body); additionalProps != nil {
-			if additionalMap, ok := additionalProps.(map[string]interface{}); ok {
-				for key, value := range additionalMap {
-					res[key] = value
-				}
+		for key, value := range bodyMap {
+			if _, ok := t.Properties[key]; ok {
+				continue
 			}
+			res[key] = (*t.AdditionalProperties.Type).GetWriteOnly(value)
 		}
 	}
 	return res
@@ -86,7 +85,10 @@ func (t *ObjectType) Validate(body interface{}, path string) []error {
 
 	// check properties required in schema, but not in body
 	for key, value := range t.Properties {
-		if value.IsRequired() && bodyMap[key] == nil {
+		if !value.IsRequired() {
+			continue
+		}
+		if _, ok := bodyMap[key]; !ok {
 			// skip name in body
 			if path == "" && key == "name" {
 				continue
@@ -120,6 +122,15 @@ func (o ObjectProperty) IsRequired() bool {
 func (o ObjectProperty) IsReadOnly() bool {
 	for _, value := range o.Flags {
 		if value == ReadOnly {
+			return true
+		}
+	}
+	return false
+}
+
+func (o ObjectProperty) IsDeployTimeConstant() bool {
+	for _, value := range o.Flags {
+		if value == DeployTimeConstant {
 			return true
 		}
 	}

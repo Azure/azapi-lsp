@@ -40,7 +40,7 @@ func (t *DiscriminatedObjectType) GetWriteOnly(body interface{}) interface{} {
 	}
 
 	if discriminator, ok := bodyMap[t.Discriminator].(string); ok {
-		if t.Elements[discriminator].Type != nil {
+		if t.Elements[discriminator] != nil && t.Elements[discriminator].Type != nil {
 			if additionalProps := (*t.Elements[discriminator].Type).GetWriteOnly(body); additionalProps != nil {
 				if additionalMap, ok := additionalProps.(map[string]interface{}); ok {
 					for key, value := range additionalMap {
@@ -51,7 +51,15 @@ func (t *DiscriminatedObjectType) GetWriteOnly(body interface{}) interface{} {
 			}
 		}
 	}
-	return nil
+
+	// if the discriminator's type is not in the embedded schema, add unchecked properties to res
+	for key, value := range bodyMap {
+		if _, ok := t.BaseProperties[key]; ok {
+			continue
+		}
+		res[key] = value
+	}
+	return res
 }
 
 func (t *DiscriminatedObjectType) Validate(body interface{}, path string) []error {
@@ -86,7 +94,10 @@ func (t *DiscriminatedObjectType) Validate(body interface{}, path string) []erro
 
 	// check required base properties
 	for key, value := range t.BaseProperties {
-		if value.IsRequired() && bodyMap[key] == nil {
+		if !value.IsRequired() {
+			continue
+		}
+		if _, ok := bodyMap[key]; !ok {
 			errors = append(errors, utils.ErrorShouldDefine(path+"."+key))
 		}
 	}

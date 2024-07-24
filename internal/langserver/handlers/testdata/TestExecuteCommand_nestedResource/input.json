@@ -1,0 +1,38 @@
+{
+  "name": "acctest-sn-private-240530173443928447",
+  "id": "/subscriptions/0b1f6471-1bf0-4dda-aec3-cb9272f09590/resourceGroups/acctestRG-databricks-240530173443928447/providers/Microsoft.Network/virtualNetworks/acctest-vnet-240530173443928447/subnets/acctest-sn-private-240530173443928447",
+  "etag": "W/\"b1dbffb3-0a4f-42a8-ac22-0b6a04d76810\"",
+  "properties": {
+    "provisioningState": "Succeeded",
+    "addressPrefix": "10.0.2.0/24",
+    "networkSecurityGroup": {
+      "id": "/subscriptions/0b1f6471-1bf0-4dda-aec3-cb9272f09590/resourceGroups/acctestRG-databricks-240530173443928447/providers/Microsoft.Network/networkSecurityGroups/acctest-nsg-240530173443928447"
+    },
+    "networkIntentPolicies": [
+      {
+        "id": "/subscriptions/0b1f6471-1bf0-4dda-aec3-cb9272f09590/resourceGroups/ACCTESTRG-DATABRICKS-240530173443928447/providers/Microsoft.Network/networkIntentPolicies/ADB-EASTUS-DP-TO-CP-PL-2D0CEECC9F3EDAAC0D844BB8"
+      }
+    ],
+    "serviceEndpoints": [],
+    "delegations": [
+      {
+        "name": "acctest",
+        "id": "/subscriptions/0b1f6471-1bf0-4dda-aec3-cb9272f09590/resourceGroups/acctestRG-databricks-240530173443928447/providers/Microsoft.Network/virtualNetworks/acctest-vnet-240530173443928447/subnets/acctest-sn-private-240530173443928447/delegations/acctest",
+        "etag": "W/\"b1dbffb3-0a4f-42a8-ac22-0b6a04d76810\"",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "serviceName": "Microsoft.Databricks/workspaces",
+          "actions": [
+            "Microsoft.Network/virtualNetworks/subnets/join/action",
+            "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+            "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
+          ]
+        },
+        "type": "Microsoft.Network/virtualNetworks/subnets/delegations"
+      }
+    ],
+    "privateEndpointNetworkPolicies": "Enabled",
+    "privateLinkServiceNetworkPolicies": "Enabled"
+  },
+  "type": "Microsoft.Network/virtualNetworks/subnets"
+}
