@@ -43,6 +43,15 @@ func (svc *service) Initialize(ctx context.Context, params lsp.InitializeParams)
 			DocumentSymbolProvider:     false,
 			WorkspaceSymbolProvider:    false,
 			Workspace:                  nil,
+
+			ExecuteCommandProvider: &lsp.ExecuteCommandOptions{
+				Commands: []string{
+					"azapi.convertJsonToAzapi",
+				},
+				WorkDoneProgressOptions: lsp.WorkDoneProgressOptions{
+					WorkDoneProgress: true,
+				},
+			},
 		},
 	}
 

@@ -170,6 +170,14 @@ func (svc *service) Assigner() (jrpc2.Assigner, error) {
 
 			return handle(ctx, req, lh.TextDocumentCodeAction)
 		},
+		"workspace/executeCommand": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
+			err := session.CheckInitializationIsConfirmed()
+			if err != nil {
+				return nil, err
+			}
+
+			return handle(ctx, req, svc.WorkspaceExecuteCommand)
+		},
 		"shutdown": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
 			err := session.Shutdown(req)
 			if err != nil {

@@ -1,0 +1,13 @@
+{
+  "id": "/subscriptions/0000000/resourceGroups/app-rg5wg5lo7sa2hxrh6bs6",
+  "name": "app-rg5wg5lo7sa2hxrh6bs6",
+  "type": "Microsoft.Resources/resourceGroups",
+  "location": "eastus",
+  "tags": {
+    "DateCreated": "2024-05-07T12:24:37Z",
+    "Creator": "jiasli@microsoft.com"
+  },
+  "properties": {
+    "provisioningState": "Succeeded"
+  }
+}
