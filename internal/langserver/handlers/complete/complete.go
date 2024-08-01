@@ -66,6 +66,13 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 				candidateList = append(candidateList, snippets.CodeSampleCandidates(block, editRange)...)
 			}
 		}
+	} else {
+		editRange := lsp.Range{
+			Start: ilsp.HCLPosToLSP(pos),
+			End:   ilsp.HCLPosToLSP(pos),
+		}
+		editRange.Start.Character = 0
+		candidateList = append(candidateList, snippets.TemplateCandidates(editRange)...)
 	}
 
 	sort.Slice(candidateList, func(i, j int) bool { return candidateList[i].SortText < candidateList[j].SortText })

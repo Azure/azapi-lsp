@@ -1,0 +1,1179 @@
+[
+  {
+    "label": "azapi-aks-cluster",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"aksCluster\" {\n  type      = \"Microsoft.ContainerService/managedClusters@2021-03-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n\n  identity {\n    type = \"SystemAssigned\"\n  }\n\n  body = {\n    properties = {\n      kubernetesVersion = \"1.19.7\"\n      dnsPrefix         = \"dnsprefix\"\n      enableRBAC        = true\n      agentPoolProfiles = [\n        {\n          name   = \"agentpool\"\n          count  = 3\n          vmSize = \"Standard_DS2_v2\"\n          osType = \"Linux\"\n          mode   = \"System\"\n        }\n      ]\n      linuxProfile = {\n        adminUsername = \"adminUserName\"\n        ssh = {\n          publicKeys = [\n            {\n              keyData = \"REQUIRED\"\n            }\n          ]\n        }\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-aks-cluster",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:aksCluster}\" {\n  type      = \"Microsoft.ContainerService/managedClusters@2021-03-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n\n  identity {\n    type = \"SystemAssigned\"\n  }\n\n  body = {\n    properties = {\n      kubernetesVersion = ${4|\"1.19.7\",\"1.19.6\",\"1.18.14\",\"1.18.10\",\"1.17.16\",\"1.17.13\"|}\n      dnsPrefix         = ${5:\"dnsprefix\"}\n      enableRBAC        = true\n      agentPoolProfiles = [\n        {\n          name   = \"agentpool\"\n          count  = ${6:3}\n          vmSize = ${7:\"Standard_DS2_v2\"}\n          osType = \"Linux\"\n          mode   = \"System\"\n        }\n      ]\n      linuxProfile = {\n        adminUsername = ${8:\"adminUserName\"}\n        ssh = {\n          publicKeys = [\n            {\n              keyData = ${9:\"REQUIRED\"}\n            }\n          ]\n        }\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-api-management-instance",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"apiManagementInstance\" {\n  type      = \"Microsoft.ApiManagement/service@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    sku = {\n      capacity = 0\n      name     = \"Developer\"\n    }\n    properties = {\n      virtualNetworkType = \"None\"\n      publisherEmail     = \"publisherEmail@contoso.com\"\n      publisherName      = \"publisherName\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-api-management-instance",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:apiManagementInstance}\" {\n  type      = \"Microsoft.ApiManagement/service@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    sku = {\n      capacity = ${4|0,1|}\n      name     = ${5|\"Developer\",\"Consumption\"|}\n    }\n    properties = {\n      virtualNetworkType = ${6:\"None\"}\n      publisherEmail     = ${7:\"publisherEmail@contoso.com\"}\n      publisherName      = ${8:\"publisherName\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-app-gateway",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"applicationGateway\" {\n  type      = \"Microsoft.Network/applicationGateways@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      sku = {\n        name     = \"Standard_Small\"\n        tier     = \"Standard\"\n        capacity = \"capacity\"\n      }\n      gatewayIPConfigurations = [\n        {\n          name = \"name\"\n          properties = {\n            subnet = {\n              id = \"id\"\n            }\n          }\n        }\n      ]\n      frontendIPConfigurations = [\n        {\n          name = \"name\"\n          properties = {\n            publicIPAddress = {\n              id = \"id\"\n            }\n          }\n        }\n      ]\n      frontendPorts = [\n        {\n          name = \"name\"\n          properties = {\n            port = \"port\"\n          }\n        }\n      ]\n      backendAddressPools = [\n        {\n          name = \"name\"\n        }\n      ]\n      backendHttpSettingsCollection = [\n        {\n          name = \"name\"\n          properties = {\n            port                = \"port\"\n            protocol            = \"Http\"\n            cookieBasedAffinity = \"Disabled\"\n          }\n        }\n      ]\n      httpListeners = [\n        {\n          name = \"name\"\n          properties = {\n            frontendIPConfiguration = {\n              id = \"id\"\n            }\n            frontendPort = {\n              id = \"id\"\n            }\n            protocol       = \"Http\"\n            sslCertificate = null\n          }\n        }\n      ]\n      requestRoutingRules = [\n        {\n          name = \"name\"\n          properties = {\n            ruleType = \"Basic\"\n            httpListener = {\n              id = \"id\"\n            }\n            backendAddressPool = {\n              id = \"id\"\n            }\n            backendHttpSettings = {\n              id = \"id\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-app-gateway",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:applicationGateway}\" {\n  type       = \"Microsoft.Network/applicationGateways@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name       = ${2:\"name\"}\n  location   = ${3:\"location\"}\n  body = {\n    properties = {\n      sku = {\n        name     = ${4|\"Standard_Small\",\"Standard_Medium\",\"Standard_Large\",\"WAF_Medium\",\"WAF_Large\",\"Standard_v2\",\"WAF_v2\"|}\n        tier     = ${5|\"Standard\",\"WAF\",\"Standard_v2\",\"WAF_v2\"|}\n        capacity = ${6:\"capacity\"}\n      }\n      gatewayIPConfigurations = [\n        {\n          name = ${7:\"name\"}\n          properties = {\n            subnet = {\n              id = ${8:\"id\"}\n            }\n          }\n        }\n      ]\n      frontendIPConfigurations = [\n        {\n          name = ${9:\"name\"}\n          properties = {\n            publicIPAddress = {\n              id = ${10:\"id\"}\n            }\n          }\n        }\n      ]\n      frontendPorts = [\n        {\n          name = ${11:\"name\"}\n          properties = {\n            port = ${12:\"port\"}\n          }\n        }\n      ]\n      backendAddressPools = [\n        {\n          name = ${13:\"name\"}\n        }\n      ]\n      backendHttpSettingsCollection = [\n        {\n          name = ${14:\"name\"}\n          properties = {\n            port               = ${15:\"port\"}\n            protocol           = ${16|\"Http\",\"Https\"|}\n            cookieBasedAffinity = \"Disabled\"\n          }\n        }\n      ]\n      httpListeners = [\n        {\n          name = ${17:\"name\"}\n          properties = {\n            frontendIPConfiguration = {\n              id = ${18:\"id\"}\n            }\n            frontendPort = {\n              id = ${19:\"id\"}\n            }\n            protocol       = ${20|\"Http\",\"Https\"|}\n            sslCertificate = null\n          }\n        }\n      ]\n      requestRoutingRules = [\n        {\n          name = ${21:\"name\"}\n          properties = {\n            ruleType = ${22|\"Basic\",\"PathBasedRouting\"|}\n            httpListener = {\n              id = ${23:\"id\"}\n            }\n            backendAddressPool = {\n              id = ${24:\"id\"}\n            }\n            backendHttpSettings = {\n              id = ${25:\"id\"}\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-app-gateway-waf",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"applicationGatewayFirewall\" {\n  type      = \"Microsoft.Network/ApplicationGatewayWebApplicationFirewallPolicies@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      policySettings = {\n        requestBodyCheck       = true\n        maxRequestBodySizeInKb = \"maxRequestBodySizeInKb\"\n        fileUploadLimitInMb    = \"fileUploadLimitInMb\"\n        state                  = \"Enabled\"\n        mode                   = \"Detection\"\n      }\n      managedRules = {\n        managedRuleSets = [\n          {\n            ruleSetType    = \"ruleSetType\"\n            ruleSetVersion = \"ruleSetVersion\"\n          }\n        ]\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-app-gateway-waf",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:applicationGatewayFirewall}\" {\n  type      = \"Microsoft.Network/ApplicationGatewayWebApplicationFirewallPolicies@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      policySettings = {\n        requestBodyCheck        = ${4|true,false|}\n        maxRequestBodySizeInKb  = ${5:\"maxRequestBodySizeInKb\"}\n        fileUploadLimitInMb     = ${6:\"fileUploadLimitInMb\"}\n        state                  = ${7|\"Enabled\",\"Disabled\"|}\n        mode                   = ${8|\"Detection\",\"Prevention\"|}\n      }\n      managedRules = {\n        managedRuleSets = [\n          {\n            ruleSetType    = ${9:\"ruleSetType\"}\n            ruleSetVersion = ${10:\"ruleSetVersion\"}\n          }\n        ]\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-app-insights",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"appInsightsComponents\" {\n  type      = \"Microsoft.Insights/components@2020-02-02\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    kind = \"web\"\n    properties = {\n      Application_Type = \"web\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-app-insights",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:appInsightsComponents}\" {\n  type      = \"Microsoft.Insights/components@2020-02-02\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    kind = \"web\"\n    properties = {\n      Application_Type = ${4|\"web\",\"other\"|}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-app-insights-alert-rules",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"appInsightsAlertRules\" {\n  type      = \"Microsoft.Insights/alertrules@2016-03-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      name        = \"name\"\n      description = \"description\"\n      isEnabled   = false\n      condition = {\n        failedLocationCount = \"failedLocationCount\"\n        \"odata.type\"        = \"Microsoft.Azure.Management.Insights.Models.LocationThresholdRuleCondition\"\n        dataSource = {\n          \"odata.type\" = \"Microsoft.Azure.Management.Insights.Models.RuleManagementEventDataSource\"\n          resourceUri  = \"resourceUri\"\n        }\n        windowSize = \"windowSize\"\n      }\n      action = {\n        \"odata.type\"        = \"Microsoft.Azure.Management.Insights.Models.RuleEmailAction\"\n        sendToServiceOwners = true\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-app-insights-alert-rules",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:appInsightsAlertRules}\" {\n  type      = \"Microsoft.Insights/alertrules@2016-03-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      name        = ${4:\"name\"}\n      description = ${5:\"description\"}\n      isEnabled   = false\n      condition = {\n        failedLocationCount = ${6:\"failedLocationCount\"}\n        \"odata.type\"        = ${7|\"Microsoft.Azure.Management.Insights.Models.LocationThresholdRuleCondition\",\"Microsoft.Azure.Management.Insights.Models.ManagementEventRuleCondition\",\"Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition\"|}\n        dataSource = {\n          \"odata.type\" = ${8|\"Microsoft.Azure.Management.Insights.Models.RuleManagementEventDataSource\",\"Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource\"|}\n          resourceUri = ${9:\"resourceUri\"}\n        }\n        windowSize = ${10:\"windowSize\"}\n      }\n      action = {\n        \"odata.type\"         = ${11|\"Microsoft.Azure.Management.Insights.Models.RuleEmailAction\",\"Microsoft.Azure.Management.Insights.Models.RuleWebhookAction\"|}\n        sendToServiceOwners = true\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-app-insights-auto-scale-settings",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"appInsightsAutoScaleSettings\" {\n  type      = \"Microsoft.Insights/autoscalesettings@2015-04-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  tags = {\n    Application_Type           = \"web\"\n    \"hidden-link:appServiceId\" = \"Resource\"\n  }\n  body = {\n    properties = {\n      name = \"name\"\n      profiles = [\n        {\n          name = \"name\"\n          capacity = {\n            minimum = \"minimum\"\n            maximum = \"maximum\"\n            default = \"default\"\n          }\n          rules = [\n            {\n              metricTrigger = {\n                metricName        = \"name\"\n                metricResourceUri = \"metricResourceUri\"\n                timeGrain         = \"PT1M\"\n                statistic         = \"Average\"\n                timeWindow        = \"PT10M\"\n                timeAggregation   = \"Average\"\n                operator          = \"GreaterThan\"\n                threshold         = 80\n              }\n              scaleAction = {\n                direction = \"Increase\"\n                type      = \"ChangeCount\"\n                value     = \"value\"\n                cooldown  = \"PT10M\"\n              }\n            },\n            {\n              metricTrigger = {\n                metricName        = \"metricName\"\n                metricResourceUri = \"metricResourceUri\"\n                timeGrain         = \"PT1M\"\n                statistic         = \"Average\"\n                timeWindow        = \"PT1H\"\n                timeAggregation   = \"Average\"\n                operator          = \"LessThan\"\n                threshold         = 60\n              }\n              scaleAction = {\n                direction = \"Decrease\"\n                type      = \"ChangeCount\"\n                value     = \"value\"\n                cooldown  = \"PT1H\"\n              }\n            }\n          ]\n        }\n      ]\n      enabled           = false\n      targetResourceUri = \"targetResourceUri\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-app-insights-auto-scale-settings",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:appInsightsAutoScaleSettings}\" {\n  type      = \"Microsoft.Insights/autoscalesettings@2015-04-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  tags = {\n    Application_Type = ${4|\"web\",\"other\"|}\n    \"hidden-link:${5:appServiceId}\" = \"Resource\"\n  }\n  body = {\n    properties = {\n      name = ${6:\"name\"}\n      profiles = [\n        {\n          name = ${7:\"name\"}\n          capacity = {\n            minimum = ${8:\"minimum\"}\n            maximum = ${9:\"maximum\"}\n            default = ${10:\"default\"}\n          }\n          rules = [\n            {\n              metricTrigger = {\n                metricName         = ${11:\"name\"}\n                metricResourceUri  = ${12:\"metricResourceUri\"}\n                timeGrain          = \"PT1M\"\n                statistic          = \"Average\"\n                timeWindow         = \"PT10M\"\n                timeAggregation    = \"Average\"\n                operator           = \"GreaterThan\"\n                threshold          = 80\n              }\n              scaleAction = {\n                direction = \"Increase\"\n                type      = \"ChangeCount\"\n                value     = ${13:\"value\"}\n                cooldown  = \"PT10M\"\n              }\n            },\n            {\n              metricTrigger = {\n                metricName         = ${14:\"metricName\"}\n                metricResourceUri  = ${15:\"metricResourceUri\"}\n                timeGrain          = \"PT1M\"\n                statistic          = \"Average\"\n                timeWindow         = \"PT1H\"\n                timeAggregation    = \"Average\"\n                operator           = \"LessThan\"\n                threshold          = 60\n              }\n              scaleAction = {\n                direction = \"Decrease\"\n                type      = \"ChangeCount\"\n                value     = ${16:\"value\"}\n                cooldown  = \"PT1H\"\n              }\n            }\n          ]\n        }\n      ]\n      enabled = false\n      targetResourceUri = ${17:\"targetResourceUri\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-app-plan",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"appServicePlan\" {\n  type      = \"Microsoft.Web/serverfarms@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    sku = {\n      name     = \"F1\"\n      capacity = 1\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-app-plan",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:appServicePlan}\" {\n  type      = \"Microsoft.Web/serverfarms@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    sku = {\n      name     = \"F1\"\n      capacity = 1\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-app-security-group",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"applicationSecurityGroup\" {\n  type      = \"Microsoft.Network/applicationSecurityGroups@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body      = {}\n}\n```"
+    },
+    "sortText": "2_azapi-app-security-group",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:applicationSecurityGroup}\" {\n  type      = \"Microsoft.Network/applicationSecurityGroups@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body     = {}\n}"
+    }
+  },
+  {
+    "label": "azapi-automation-account",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"automationAccount\" {\n  type      = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      sku = {\n        name = \"Free\"\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-automation-account",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:automationAccount}\" {\n  type      = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      sku = {\n        name = ${4|\"Free\",\"Basic\"|}\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-automation-cert",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = \"name\"\n}\n\nresource \"azapi_resource\" \"automationCertificate\" {\n  type      = \"Microsoft.Automation/automationAccounts/certificates@2019-06-01\"\n  name      = \"name\"\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      base64Value = \"base64Value\"\n      description = \"description\"\n      thumbprint = \"thumbprint\"\n      isExportable = true\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-automation-cert",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = ${1:\"name\"}\n}\n\nresource \"azapi_resource\" \"${2:automationCertificate}\" {\n  type      = \"Microsoft.Automation/automationAccounts/certificates@2019-06-01\"\n  name      = ${3:\"name\"}\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      base64Value = ${4:\"base64Value\"}\n      description = ${5:\"description\"}\n      thumbprint = ${6:\"thumbprint\"}\n      isExportable = ${7|true,false|}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-automation-cred",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = \"name\"\n}\n\nresource \"azapi_resource\" \"automationCredential\" {\n  type      = \"Microsoft.Automation/automationAccounts/credentials@2019-06-01\"\n  name      = \"name\"\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      userName    = \"userName\"\n      password    = \"password\"\n      description = \"description\"\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-automation-cred",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = ${1:\"name\"}\n}\n\nresource \"azapi_resource\" \"${2:automationCredential}\" {\n  type      = \"Microsoft.Automation/automationAccounts/credentials@2019-06-01\"\n  name      = ${3:\"name\"}\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      userName    = ${4:\"userName\"}\n      password    = ${5:\"password\"}\n      description = ${6:\"description\"}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-automation-job-schedule",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = \"name\"\n}\n\nresource \"azapi_resource\" \"automationJobSchedule\" {\n  type      = \"Microsoft.Automation/automationAccounts/jobSchedules@2019-06-01\"\n  name      = \"name\"\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      schedule = {\n        name = \"name\"\n      }\n      runbook = {\n        name = \"name\"\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-automation-job-schedule",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = ${1:\"name\"}\n}\n\nresource \"azapi_resource\" \"${2:automationJobSchedule}\" {\n  type      = \"Microsoft.Automation/automationAccounts/jobSchedules@2019-06-01\"\n  name      = ${3:\"name\"}\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      schedule = {\n        name = ${4:\"name\"}\n      }\n      runbook = {\n        name = ${5:\"name\"}\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-automation-module",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = \"name\"\n}\n\nresource \"azapi_resource\" \"automationAccountVariable\" {\n  type      = \"Microsoft.Automation/automationAccounts/modules@2019-06-01\"\n  name      = \"name\"\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      contentLink = {\n        uri = \"https://content-url.nupkg\"\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-automation-module",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = ${1:\"name\"}\n}\n\nresource \"azapi_resource\" \"${2:automationAccountVariable}\" {\n  type      = \"Microsoft.Automation/automationAccounts/modules@2019-06-01\"\n  name      = ${3:\"name\"}\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      contentLink = {\n        uri = ${4:\"https://content-url.nupkg\"}\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-automation-runbook",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = \"name\"\n}\n\nresource \"azapi_resource\" \"automationRunbook\" {\n  type      = \"Microsoft.Automation/automationAccounts/runbooks@2019-06-01\"\n  name      = \"name\"\n  location  = \"location\"\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      logVerbose = true\n      logProgress = true\n      runbookType = \"Script\"\n      publishContentLink = {\n        uri = \"uri\"\n        version = \"1.0.0.0\"\n      }\n      description = \"description\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-automation-runbook",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = ${1:\"name\"}\n}\n\nresource \"azapi_resource\" \"${2:automationRunbook}\" {\n  type      = \"Microsoft.Automation/automationAccounts/runbooks@2019-06-01\"\n  name      = ${3:\"name\"}\n  location  = ${4:\"location\"}\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      logVerbose = ${5|true,false|}\n      logProgress = ${6|true,false|}\n      runbookType = ${7|\"Script\",\"Graph\",\"PowerShellWorkflow\",\"PowerShell\",\"GraphPowerShellWorkflow\",\"GraphPowerShell\"}\n      publishContentLink = {\n        uri = ${8:\"uri\"}\n        version = ${9:\"1.0.0.0\"}\n      }\n      description = ${10:\"description\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-automation-schedule",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = \"name\"\n}\n\nresource \"azapi_resource\" \"automationSchedule\" {\n  type      = \"Microsoft.Automation/automationAccounts/schedules@2019-06-01\"\n  name      = \"name\"\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      description = \"description\"\n      startTime = \"startTime\"\n      interval = \"interval\"\n      frequency = \"OneTime\" \n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-automation-schedule",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = ${1:\"name\"}\n}\n\nresource \"azapi_resource\" \"${2:automationSchedule}\" {\n  type      = \"Microsoft.Automation/automationAccounts/schedules@2019-06-01\"\n  name      = ${3:\"name\"}\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      description = ${4:\"description\"}\n      startTime = ${5:\"startTime\"}\n      interval = ${6:\"interval\"}\n      frequency = ${7|\"OneTime\",\"Day\",\"Hour\",\"Week\",\"Month\"|} \n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-automation-variable",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = \"name\"\n}\n\nresource \"azapi_resource\" \"automationVariable\" {\n  type      = \"Microsoft.Automation/automationAccounts/variables@2019-06-01\"\n  name      = \"name\"\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      value       = \"value\"\n      description = \"description\"\n      isEncrypted = true\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-automation-variable",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"automationAccount\" {\n  type = \"Microsoft.Automation/automationAccounts@2019-06-01\"\n  name = ${1:\"name\"}\n}\n\nresource \"azapi_resource\" \"${2:automationVariable}\" {\n  type      = \"Microsoft.Automation/automationAccounts/variables@2019-06-01\"\n  name      = ${3:\"name\"}\n  parent_id = azapi_resource.automationAccount.id\n  body = {\n    properties = {\n      value       = ${4:\"value\"}\n      description = ${5:\"description\"}\n      isEncrypted = ${6|true,false|}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-availability-set",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"availabilitySet\" {\n  type      = \"Microsoft.Compute/availabilitySets@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body      = {}\n}\n```"
+    },
+    "sortText": "2_azapi-availability-set",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:availabilitySet}\" {\n  type      = \"Microsoft.Compute/availabilitySets@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {}\n}"
+    }
+  },
+  {
+    "label": "azapi-container-group",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"containerGroup\" {\n  type      = \"Microsoft.ContainerInstance/containerGroups@2021-03-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      containers = [\n        {\n          name = \"containername\"\n          properties = {\n            image = \"mcr.microsoft.com/azuredocs/aci-helloworld:latest\"\n            ports = [\n              {\n                port = 80\n              }\n            ]\n            resources = {\n              requests = {\n                cpu        = 1\n                memoryInGB = 4\n              }\n            }\n          }\n        }\n      ]\n      restartPolicy = \"OnFailure\"\n      osType        = \"Linux\"\n      ipAddress = {\n        type = \"Public\"\n        ports = [\n          {\n            protocol = \"TCP\"\n            port     = 80\n          }\n        ]\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-container-group",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:containerGroup}\" {\n  type  = \"Microsoft.ContainerInstance/containerGroups@2021-03-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      containers = [\n        {\n          name = ${4:\"containername\"}\n          properties = {\n            image = ${5:\"mcr.microsoft.com/azuredocs/aci-helloworld:latest\"}\n            ports = [\n              {\n                port = ${6:80}\n              }\n            ]\n            resources = {\n              requests = {\n                cpu = ${7:1}\n                memoryInGB = ${8:4}\n              }\n            }\n          }\n        }\n      ]\n      restartPolicy = ${9|\"OnFailure\",\"Always\",\"Never\"|}\n      osType = ${10|\"Linux\",\"Windows\"|}\n      ipAddress = {\n        type = \"Public\"\n        ports = [\n          {\n            protocol = ${11|\"TCP\",\"UDP\"|}\n            port = ${12:80}\n          }\n        ]\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-container-registry",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"containerRegistry\" {\n  type      = \"Microsoft.ContainerRegistry/registries@2021-06-01-preview\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    sku = {\n      name = \"Basic\"\n    }\n    properties = {\n      adminUserEnabled = true\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-container-registry",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:containerRegistry}\" {\n  type  = \"Microsoft.ContainerRegistry/registries@2021-06-01-preview\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    sku = {\n      name = ${4|\"Basic\",\"Standard\",\"Premium\"|}\n    }\n    properties = {\n      adminUserEnabled = ${5|true,false|}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-cosmos-account",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"cosmosDbAccount\" {\n  type      = \"Microsoft.DocumentDB/databaseAccounts@2021-03-15\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    kind = \"GlobalDocumentDB\"\n    properties = {\n      consistencyPolicy = {\n        defaultConsistencyLevel = \"Eventual\"\n        maxStalenessPrefix      = 1\n        maxIntervalInSeconds    = 5\n      }\n      locations = [\n        {\n          locationName     = \"location\"\n          failoverPriority = 0\n        }\n      ]\n      databaseAccountOfferType = \"Standard\"\n      enableAutomaticFailover  = true\n      capabilities = [\n        {\n          name = \"EnableTable\"\n        }\n      ]\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-cosmos-account",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:cosmosDbAccount}\" {\n  type  = \"Microsoft.DocumentDB/databaseAccounts@2021-03-15\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    kind = ${4|\"GlobalDocumentDB\",\"MongoDB\",\"Parse\"|}\n    properties = {\n      consistencyPolicy = {\n        defaultConsistencyLevel = ${5|\"Eventual\",\"Session\",\"BoundedStaleness\",\"Strong\",\"ConsistentPrefix\"|}\n        maxStalenessPrefix = ${6:1}\n        maxIntervalInSeconds = ${7:5}\n      }\n      locations = [\n        {\n          locationName = ${3:\"location\"}\n          failoverPriority = ${8:0}\n        }\n      ]\n      databaseAccountOfferType = \"Standard\"\n      enableAutomaticFailover = ${9|true,false|}\n      capabilities = [\n        {\n          name = ${10|\"EnableTable\",\"EnableGremlin\"}\n        }\n      ]\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-cosmos-cassandra-keyspace",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"cassandraKeyspace\" {\n  type      = \"Microsoft.DocumentDB/databaseAccounts/cassandraKeyspaces@2021-06-15\"\n  parent_id = \"The ID of `Microsoft.DocumentDB/databaseAccounts`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      resource = {\n        id = \"id\"\n      }\n      options = {\n        throughput = \"throughput\"\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-cosmos-cassandra-keyspace",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:cassandraKeyspace}\" {\n  type  = \"Microsoft.DocumentDB/databaseAccounts/cassandraKeyspaces@2021-06-15\"\n  parent_id = \"The ID of `Microsoft.DocumentDB/databaseAccounts`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      resource = {\n        id = ${3:\"id\"}\n      }\n      options = {\n        throughput = ${4:\"throughput\"}\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-cosmos-cassandra-table",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"cassandraKeyspace\" {\n  type = \"Microsoft.DocumentDB/databaseAccounts/cassandraKeyspaces@2021-06-15\"\n  name = \"name\"\n  body = {\n    properties = {\n      resource = {\n        id = \"id\"\n      }\n      options = {}\n    }\n  }\n}\n\nresource \"azapi_resource\" \"cassandraKeyspaceTable\" {\n  type      = \"Microsoft.DocumentDB/databaseAccounts/cassandraKeyspaces/tables@2021-06-15\"\n  parent_id = azapi_resource.cassandraKeyspace.id\n  name      = \"name\"\n  body = {\n    properties = {\n      resource = {\n        id = \"id\"\n      }\n      options = {}\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-cosmos-cassandra-table",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"cassandraKeyspace\" {\n  type = \"Microsoft.DocumentDB/databaseAccounts/cassandraKeyspaces@2021-06-15\"\n  name = ${1:\"name\"}\n  body = {\n    properties = {\n      resource = {\n        id = ${2:\"id\"}\n      }\n      options = {}\n    }\n  }\n}\n\nresource \"azapi_resource\" \"${3:cassandraKeyspaceTable}\" {\n  type      = \"Microsoft.DocumentDB/databaseAccounts/cassandraKeyspaces/tables@2021-06-15\"\n  parent_id = azapi_resource.cassandraKeyspace.id\n  name      = ${4:\"name\"}\n  body = {\n    properties = {\n      resource = {\n        id = ${5:\"id\"}\n      }\n      options = {}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-cosmos-gremlin-database",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"gremlinDb\" {\n  type      = \"Microsoft.DocumentDB/databaseAccounts/gremlinDatabases@2021-06-15\"\n  parent_id = \"The ID of `Microsoft.DocumentDB/databaseAccounts`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      resource = {\n        id = \"id\"\n      }\n      options = {\n        throughput = \"throughput\"\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-cosmos-gremlin-database",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:gremlinDb}\" {\n  type  = \"Microsoft.DocumentDB/databaseAccounts/gremlinDatabases@2021-06-15\"\n  parent_id = \"The ID of `Microsoft.DocumentDB/databaseAccounts`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      resource = {\n        id = ${3:\"id\"}\n      }\n      options = {\n        throughput = ${4:\"throughput\"}\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-cosmos-gremlin-graph",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"gremlinDb\" {\n  type = \"Microsoft.DocumentDB/databaseAccounts/gremlinDatabases@2021-06-15\"\n  name = \"name\"\n  body = {\n    properties = {\n      resource = {\n        id = \"id\"\n      }\n      options = {\n        throughput = \"throughput\"\n      }\n    }\n  }\n}\n\nresource \"azapi_resource\" \"cosmosDbGremlinGraph\" {\n  type = \"Microsoft.DocumentDB/databaseAccounts/gremlinDatabases/graphs@2021-06-15\"\n  parent_id = azapi_resource.gremlinDb.id\n  name = \"name\"\n  body = {\n    properties = {\n      resource = {\n        id = \"id\"\n        partitionKey = {\n          paths = [\n            \"paths\"\n          ]\n          kind = \"Hash\"\n        }\n        indexingPolicy = {\n          indexingMode = \"consistent\"\n          includedPaths = [\n            {\n              path = \"path\"\n              indexes = [\n                {\n                  kind = \"Hash\"\n                  dataType = \"String\"\n                  precision = -1\n                }\n              ]\n            }\n          ]\n          excludedPaths = [\n            {\n              path = \"path\"\n            }\n          ]\n        }\n      }\n      options = {\n        throughput = \"throughput\"\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-cosmos-gremlin-graph",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"gremlinDb\" {\n  type = \"Microsoft.DocumentDB/databaseAccounts/gremlinDatabases@2021-06-15\"\n  name = ${1:\"name\"}\n  body = {\n    properties = {\n      resource = {\n        id = ${2:\"id\"}\n      }\n      options = {\n        throughput = ${3:\"throughput\"}\n      }\n    }\n  }\n}\n\nresource \"azapi_resource\" \"${4:cosmosDbGremlinGraph}\" {\n  type = \"Microsoft.DocumentDB/databaseAccounts/gremlinDatabases/graphs@2021-06-15\"\n  parent_id = azapi_resource.gremlinDb.id\n  name = ${5:\"name\"}\n  body = {\n    properties = {\n      resource = {\n        id = ${6:\"id\"}\n        partitionKey = {\n          paths = [\n            ${7:\"paths\"}\n          ]\n          kind = \"${8|Hash,Range|}\"\n        }\n        indexingPolicy = {\n          indexingMode = \"${9|consistent,lazy,none|}\"\n          includedPaths = [\n            {\n              path = ${10:\"path\"}\n              indexes = [\n                {\n                  kind = \"${11|Hash,Range,Spatial|}\"\n                  dataType = \"${12|String,Number,Point,Polygon,LineString,MultiPolygon|}\"\n                  precision = ${13:-1}\n                }\n              ]\n            }\n          ]\n          excludedPaths = [\n            {\n              path = ${14:\"path\"}\n            }\n          ]\n        }\n      }\n      options = {\n        throughput = ${15:\"throughput\"}\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-cosmos-mongo-database",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"mongoDb\" {\n  type      = \"Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2021-06-15\"\n  parent_id = \"The ID of `Microsoft.DocumentDB/databaseAccounts`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      resource = {\n        id = \"id\"\n      }\n      options = {}\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-cosmos-mongo-database",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:mongoDb}\" {\n  type  = \"Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2021-06-15\"\n  parent_id = \"The ID of `Microsoft.DocumentDB/databaseAccounts`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      resource = {\n        id = ${3:\"id\"}\n      }\n      options = {}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-cosmos-sql-container",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"sqlDb\" {\n  type = \"Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-06-15\"\n  name = \"name\"\n  body = {\n    properties = {\n      resource = {\n        id = \"id\"\n      }\n      options = {}\n    }\n  }\n}\n\nresource \"azapi_resource\" \"sqlContainerName\" {\n  type = \"Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2021-06-15\"\n  parent_id = azapi_resource.sqlDb.id\n  name = \"name\"\n  body = {\n    properties = {\n      resource = {\n        id = \"id\"\n        partitionKey = {\n          paths = [\n            \"paths\"\n          ]\n          kind = \"Hash\"\n        }\n        indexingPolicy = {\n          indexingMode = \"consistent\"\n          includedPaths = [\n            {\n              path = \"path\"\n              indexes = [\n                {\n                  kind = \"Hash\"\n                  dataType = \"String\"\n                  precision = \"precision\"\n                }\n              ]\n            }\n          ]\n          excludedPaths = [\n            {\n              path = \"path\"\n            }\n          ]\n        }\n      }\n      options = {}\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-cosmos-sql-container",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"sqlDb\" {\n  type = \"Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-06-15\"\n  name = ${1:\"name\"}\n  body = {\n    properties = {\n      resource = {\n        id = ${2:\"id\"}\n      }\n      options = {}\n    }\n  }\n}\n\nresource \"azapi_resource\" \"${3:sqlContainerName}\" {\n  type = \"Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2021-06-15\"\n  parent_id = azapi_resource.sqlDb.id\n  name = ${4:\"name\"}\n  body = {\n    properties = {\n      resource = {\n        id = ${5:\"id\"}\n        partitionKey = {\n          paths = [\n            ${6:\"paths\"}\n          ]\n          kind = ${7|\"Hash\",\"Range\"|}\n        }\n        indexingPolicy = {\n          indexingMode = ${8|\"consistent\",\"lazy\",\"none\"|}\n          includedPaths = [\n            {\n              path = ${9:\"path\"}\n              indexes = [\n                {\n                  kind = ${10|\"Hash\",\"Range\",\"Spatial\"|}\n                  dataType = ${11|\"String\",\"Number\",\"Point\",\"Polygon\",\"LineString\",\"MultiPolygon\"|}\n                  precision = ${12:\"precision\"}\n                }\n              ]\n            }\n          ]\n          excludedPaths = [\n            {\n              path = ${13:\"path\"}\n            }\n          ]\n        }\n      }\n      options = {}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-cosmos-sql-database",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"sqlDb\" {\n  type      = \"Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-06-15\"\n  parent_id = \"The ID of `Microsoft.DocumentDB/databaseAccounts`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      resource = {\n        id = \"id\"\n      }\n      options = {\n        throughput = \"throughput\"\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-cosmos-sql-database",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:sqlDb}\" {\n  type  = \"Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-06-15\"\n  parent_id = \"The ID of `Microsoft.DocumentDB/databaseAccounts`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      resource = {\n        id = ${3:\"id\"}\n      }\n      options = {\n        throughput = ${4:\"throughput\"}\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-cosmos-tablestorage-table",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"cosmosTable\" {\n  type      = \"Microsoft.DocumentDB/databaseAccounts/tables@2021-06-15\"\n  parent_id = \"The ID of `Microsoft.DocumentDB/databaseAccounts`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      resource = {\n        id = \"id\"\n      }\n      options = {\n        throughput = \"throughput\"\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-cosmos-tablestorage-table",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:cosmosTable}\" {\n  type  = \"Microsoft.DocumentDB/databaseAccounts/tables@2021-06-15\"\n  parent_id = \"The ID of `Microsoft.DocumentDB/databaseAccounts`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      resource = {\n        id = ${3:\"id\"}\n      }\n      options = {\n        throughput = ${4:\"throughput\"}\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-data-lake",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"dataLakeStore\" {\n  type      = \"Microsoft.DataLakeStore/accounts@2016-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      newTier         = \"Consumption\"\n      encryptionState = \"Enabled\"\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-data-lake",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:dataLakeStore}\" {\n  type  = \"Microsoft.DataLakeStore/accounts@2016-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      newTier = ${4|\"Consumption\",\"Commitment_1TB\",\"Commitment_10TB\",\"Commitment_100TB\",\"Commitment_500TB\",\"Commitment_1PB\",\"Commitment_5PB\"|}\n      encryptionState = ${5|\"Enabled\",\"Disabled\"|}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-dns-record",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"dnsZone\" {\n  type     = \"Microsoft.Network/dnsZones@2018-05-01\"\n  name     = \"name\"\n  location = \"location\"\n}\n\nresource \"azapi_resource\" \"dnsRecord\" {\n  type      = \"Microsoft.Network/dnsZones/A@2018-05-01\"\n  name      = \"name\"\n  parent_id = azapi_resource.dnsZone.id\n  body = {\n    properties = {\n      TTL = 3600\n      ARecords = []\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-dns-record",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"dnsZone\" {\n  type     = \"Microsoft.Network/dnsZones@2018-05-01\"\n  name     = ${1:\"name\"}\n  location = ${2:\"location\"}\n}\n\nresource \"azapi_resource\" \"${3:dnsRecord}\" {\n  type      = \"Microsoft.Network/dnsZones/${4|A,AAAA,CNAME,MX,NS,PTR,SOA,SRV,TXT|}@2018-05-01\"\n  name      = ${5:\"name\"}\n  parent_id = azapi_resource.dnsZone.id\n  body = {\n    properties = {\n      TTL = 3600\n      ${6|ARecords,AAAARecords,MXRecords,NSRecords,PTRRecords,SRVRecords,TXTRecords,CNAMERecord,SOARecord|} = []\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-dns-resolver",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"dnsResolvers\" {\n  type     = \"Microsoft.Network/dnsResolvers@2022-07-01\"\n  name     = \"name\"\n  location = \"location\"\n  body = {\n    properties = {\n      virtualNetwork = {\n        id = \"virtualNetworkId\"\n      }\n    }\n  }\n\n  resource \"azapi_resource\" \"inboundEndpoints\" {\n    type     = \"Microsoft.Network/dnsResolvers/inboundEndpoints@2022-07-01\"\n    name     = \"name\"\n    location = \"location\"\n    parent_id = azapi_resource.dnsResolvers.id\n    body = {\n      properties = {\n        ipConfigurations = [\n          {\n            privateIpAllocationMethod = \"Static\"\n            subnet = {\n              id = \"subnetId\"\n            }\n          }\n        ]\n      }\n    }\n  }\n\n  resource \"azapi_resource\" \"outboundEndpoints\" {\n    type     = \"Microsoft.Network/dnsResolvers/outboundEndpoints@2022-07-01\"\n    name     = \"name\"\n    location = \"location\"\n    parent_id = azapi_resource.dnsResolvers.id\n    body = {\n      properties = {\n        subnet = {\n          id = \"subnetId\"\n        }\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-dns-resolver",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:dnsResolvers}\" {\n  type     = \"Microsoft.Network/dnsResolvers@2022-07-01\"\n  name     = ${2:\"name\"}\n  location = ${3:\"location\"}\n  body = {\n    properties = {\n      virtualNetwork = {\n        id = ${4:\"virtualNetworkId\"}\n      }\n    }\n  }\n\n  resource \"azapi_resource\" \"${5:inboundEndpoints}\" {\n    type     = \"Microsoft.Network/dnsResolvers/inboundEndpoints@2022-07-01\"\n    name     = ${6:\"name\"}\n    location = ${7:\"location\"}\n    parent_id = azapi_resource.${1:dnsResolvers}.id\n    body = {\n      properties = {\n        ipConfigurations = [\n          {\n            privateIpAllocationMethod = ${8|\"Static\",\"Dynamic\"|}\n            subnet = {\n              id = ${9:\"subnetId\"}\n            }\n          }\n        ]\n      }\n    }\n  }\n\n  resource \"azapi_resource\" \"${10:outboundEndpoints}\" {\n    type     = \"Microsoft.Network/dnsResolvers/outboundEndpoints@2022-07-01\"\n    name     = ${11:\"name\"}\n    location = ${12:\"location\"}\n    parent_id = azapi_resource.${1:dnsResolvers}.id\n    body = {\n      properties = {\n        subnet = {\n          id = ${13:\"subnetId\"}\n        }\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-dns-zone",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"dnsZone\" {\n  type      = \"Microsoft.Network/dnsZones@2018-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"global\"\n}\n\n```"
+    },
+    "sortText": "2_azapi-dns-zone",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:dnsZone}\" {\n  type      = \"Microsoft.Network/dnsZones@2018-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = \"global\"\n}\n"
+    }
+  },
+  {
+    "label": "azapi-expressroute-circuit",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"expressRouteCircuit\" {\n  type      = \"Microsoft.Network/expressRouteCircuits@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    sku = {\n      family = \"MeteredData\"\n      tier   = \"Local\"\n      name   = \"Local_MeteredData\"\n    }\n    properties = {\n      serviceProviderProperties = {\n        bandwidthInMbps     = 50\n        peeringLocation     = \"Amsterdam\"\n        serviceProviderName = \"Telia Carrier\"\n      }\n      allowClassicOperations = true\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-expressroute-circuit",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:expressRouteCircuit}\" {\n  type      = \"Microsoft.Network/expressRouteCircuits@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    sku = {\n      family = ${4|\"MeteredData\",\"UnlimitedData\"|}\n      tier   = ${5|\"Local\",\"Standard\",\"Premium\"|}\n      name   = ${6|\"Local_MeteredData\",\"Standard_MeteredData\",\"Premium_MeteredData\",\"Basic_UnlimitedData\",\"Local_UnlimitedData\",\"Standard_UnlimitedData\",\"Premium_UnlimitedData\"|}\n    }\n    properties = {\n      serviceProviderProperties = {\n        bandwidthInMbps     = ${7|50,100,200,500,1000,2000,5000,10000|}\n        peeringLocation     = ${8:\"Amsterdam\"}\n        serviceProviderName = ${9:\"Telia Carrier\"}\n      }\n      allowClassicOperations = ${10|true,false|}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-expressroute-gateway",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"expressRouteGateways\" {\n  type      = \"Microsoft.Network/expressRouteGateways@2021-02-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      virtualHub = {\n        id = \"virtualHub.id\"\n      }\n      autoScaleConfiguration = {\n        bounds = {\n          min = 1\n          max = 1\n        }\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-expressroute-gateway",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:expressRouteGateways}\" {\n  type  = \"Microsoft.Network/expressRouteGateways@2021-02-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      virtualHub = {\n        id = ${4:\"virtualHub.id\"}\n      }\n      autoScaleConfiguration = {\n        bounds = {\n          min = ${5|1,2,3,4,5,6,7,8|}\n          max = ${6|1,2,3,4,5,6,7,8|}\n        }\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-firewall-classic-rules",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"firewall\" {\n  type      = \"Microsoft.Network/azureFirewalls@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      applicationRuleCollections = [\n        {\n          name = \"name\"\n          properties = {\n            priority = \"priority\"\n            action = {\n              type = \"Allow\"\n            }\n            rules = [\n              {\n                name        = \"name\"\n                description = \"description\"\n                sourceAddresses = [\n                  \"sourceAddress\"\n                ]\n                protocols = [\n                  {\n                    protocolType = \"Http\"\n                    port         = 80\n                  }\n                ]\n                targetFqdns = [\n                  \"www.microsoft.com\"\n                ]\n              }\n            ]\n          }\n        }\n      ]\n      natRuleCollections = [\n        {\n          name = \"name\"\n          properties = {\n            priority = \"priority\"\n            action = {\n              type = \"Dnat\"\n            }\n            rules = [\n              {\n                name        = \"name\"\n                description = \"description\"\n                sourceAddresses = [\n                  \"sourceAddress\"\n                ]\n                destinationAddresses = [\n                  \"destinationAddress\"\n                ]\n                destinationPorts = [\n                  \"port\"\n                ]\n                protocols = [\n                  \"TCP\"\n                ]\n                translatedAddress = \"translatedAddress\"\n                translatedPort    = \"translatedPort\"\n              }\n            ]\n          }\n        }\n      ]\n      networkRuleCollections = [\n        {\n          name = \"name\"\n          properties = {\n            priority = \"priority\"\n            action = {\n              type = \"Deny\"\n            }\n            rules = [\n              {\n                name        = \"name\"\n                description = \"description\"\n                sourceAddresses = [\n                  \"sourceAddress\"\n                ]\n                destinationAddresses = [\n                  \"destinationAddress\"\n                ]\n                destinationPorts = [\n                  \"destinationPort\"\n                ]\n                protocols = [\n                  \"TCP\"\n                ]\n              }\n            ]\n          }\n        }\n      ]\n      ipConfigurations = [\n        {\n          name = \"name\"\n          properties = {\n            subnet = {\n              id = \"id\"\n            }\n            publicIPAddress = {\n              id = \"id\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-firewall-classic-rules",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:firewall}\" {\n  type      = \"Microsoft.Network/azureFirewalls@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      applicationRuleCollections = [\n        {\n          name = ${4:\"name\"}\n          properties = {\n            priority = ${5:\"priority\"}\n            action = {\n              type = ${6|\"Allow\",\"Deny\"|}\n            }\n            rules = [\n              {\n                name = ${7:\"name\"}\n                description = ${8:\"description\"}\n                sourceAddresses = [\n                  ${9:\"sourceAddress\"}\n                ]\n                protocols = [\n                  {\n                    protocolType = ${10|\"Http\",\"Https\",\"Mssql\"|}\n                    port = ${11|80, 443, 1433|}\n                  }\n                ]\n                targetFqdns = [\n                  ${12:\"www.microsoft.com\"}\n                ]\n              }\n            ]\n          }\n        }\n      ]\n      natRuleCollections = [\n        {\n          name = ${13:\"name\"}\n          properties = {\n            priority = ${14:\"priority\"}\n            action = {\n              type = ${15|\"Dnat\",\"Snat\"|}\n            }\n            rules = [\n              {\n                name = ${16:\"name\"}\n                description = ${17:\"description\"}\n                sourceAddresses = [\n                  ${18:\"sourceAddress\"}\n                ]\n                destinationAddresses = [\n                  ${19:\"destinationAddress\"}\n                ]\n                destinationPorts = [\n                  ${20:\"port\"}\n                ]\n                protocols = [\n                  ${21|\"TCP\",\"UDP\",\"Any\",\"ICMP\"|}\n                ]\n                translatedAddress = ${22:\"translatedAddress\"}\n                translatedPort = ${23:\"translatedPort\"}\n              }\n            ]\n          }\n        }\n      ]\n      networkRuleCollections = [\n        {\n          name = ${24:\"name\"}\n          properties = {\n            priority = ${25:\"priority\"}\n            action = {\n              type = ${26|\"Deny\",\"Allow\"|}\n            }\n            rules = [\n              {\n                name = ${27:\"name\"}\n                description = ${28:\"description\"}\n                sourceAddresses = [\n                  ${29:\"sourceAddress\"}\n                ]\n                destinationAddresses = [\n                  ${30:\"destinationAddress\"}\n                ]\n                destinationPorts = [\n                  ${31:\"destinationPort\"}\n                ]\n                protocols = [\n                  ${32|\"TCP\",\"UDP\",\"Any\",\"ICMP\"|}\n                ]\n              }\n            ]\n          }\n        }\n      ]\n      ipConfigurations = [\n        {\n          name = ${33:\"name\"}\n          properties = {\n            subnet = {\n              id = ${34:\"id\"}\n            }\n            publicIPAddress = {\n              id = ${35:\"id\"}\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-firewall-policy-standard",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"firewallPolicy\" {\n  type      = \"Microsoft.Network/firewallPolicies@2021-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      sku = {\n        tier = \"Standard\"\n      }\n      dnsSettings = {\n        enableProxy = true\n      }\n      threatIntelMode = \"Alert\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-firewall-policy-standard",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:firewallPolicy}\" {\n  type      = \"Microsoft.Network/firewallPolicies@2021-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      sku = {\n        tier = \"Standard\"\n      }\n      dnsSettings = {\n        enableProxy = ${4|true,false|}\n      }\n      threatIntelMode = ${5|\"Alert\", \"Deny\", \"Off\"|} \n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-firewall-standard",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"firewall\" {\n  type      = \"Microsoft.Network/azureFirewalls@2021-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      sku = {\n        name = \"AZFW_VNet\"\n        tier = \"Standard\"\n      }\n      firewallPolicy = {\n        id = \"firewallPolicy.id\"\n      }\n      ipConfigurations = [\n        {\n          name = \"name\"\n          properties = {\n            subnet = {\n              id = \"subnet.id\"\n            }\n            publicIPAddress = {\n              id = \"publicIPAddress.id\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-firewall-standard",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:firewall}\" {\n  type       = \"Microsoft.Network/azureFirewalls@2021-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name       = ${2:\"name\"}\n  location   = ${3:\"location\"}\n  body = {\n    properties = {\n      sku = {\n        name = \"AZFW_VNet\"\n        tier = \"Standard\"\n      }\n      firewallPolicy = {\n        id = ${4:\"firewallPolicy.id\"}\n      }\n      ipConfigurations = [\n        {\n          name = ${5:\"name\"}\n          properties = {\n            subnet = {\n              id = ${6:\"subnet.id\"}\n            }\n            publicIPAddress = {\n              id = ${7:\"publicIPAddress.id\"}\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-firewall-standard-vwan",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"firewall\" {\n  type      = \"Microsoft.Network/azureFirewalls@2021-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      sku = {\n        name = \"AZFW_Hub\"\n        tier = \"Standard\"\n      }\n      firewallPolicy = {\n        id = \"firewallPolicy.id\"\n      }\n      virtualHub = {\n        id = \"virtualHub.id\"\n      }\n      hubIPAddresses = {\n        publicIPs = {\n          count = 2\n        }\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-firewall-standard-vwan",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:firewall}\" {\n  type      = \"Microsoft.Network/azureFirewalls@2021-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      sku = {\n        name = \"AZFW_Hub\"\n        tier = \"Standard\"\n      }\n      firewallPolicy = {\n        id = ${4:\"firewallPolicy.id\"}\n      }\n      virtualHub = {\n        id = ${5:\"virtualHub.id\"}\n      }\n      hubIPAddresses = {\n        publicIPs = {\n          count = ${6:2}\n        }\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-function",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"azureFunction\" {\n  type      = \"Microsoft.Web/sites@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  kind      = \"functionapp\"\n  body = {\n    properties = {\n      serverFarmId = \"serverfarms.id\"\n      siteConfig = {\n        appSettings = [\n          {\n            name = \"AzureWebJobsDashboard\"\n            value = \"DefaultEndpointsProtocol=https;AccountName=storageAccountName1};AccountKey=${6 : storageAccountKey1 \"\n          },\n          {\n            name  = \" AzureWebJobsStorage \"\n            value = \" DefaultEndpointsProtocol = https ; AccountName = storageAccountName2};AccountKey=${8 : storageAccountKey2 \"\n          },\n          {\n            name  = \" WEBSITE_CONTENTAZUREFILECONNECTIONSTRING \"\n            value = \" DefaultEndpointsProtocol = https ; AccountName = storageAccountName3};AccountKey=${10 : storageAccountKey3 \"\n          },\n          {\n            name  = \" WEBSITE_CONTENTSHARE \"\n            value = tolower(\" name \")\n          },\n          {\n            name  = \" FUNCTIONS_EXTENSION_VERSION \"\n            value = \" ~ 2 \"\n          },\n          {\n            name  = \" APPINSIGHTS_INSTRUMENTATIONKEY \"\n            value = azurerm_application_insights.example.instrumentation_key\n          },\n          {\n            name  = \" FUNCTIONS_WORKER_RUNTIME \"\n            value = \" dotnet \"\n          }\n        ]\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-function",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:azureFunction}\" {\n  type      = \"Microsoft.Web/sites@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  kind     = \"functionapp\"\n  body = {\n    properties = {\n      serverFarmId = ${4:\"serverfarms.id\"}\n      siteConfig = {\n        appSettings = [\n          {\n            name  = \"AzureWebJobsDashboard\"\n            value = \"DefaultEndpointsProtocol=https;AccountName=${5:storageAccountName1};AccountKey=${6:storageAccountKey1}\"\n          },\n          {\n            name  = \"AzureWebJobsStorage\"\n            value = \"DefaultEndpointsProtocol=https;AccountName=${7:storageAccountName2};AccountKey=${8:storageAccountKey2}\"\n          },\n          {\n            name  = \"WEBSITE_CONTENTAZUREFILECONNECTIONSTRING\"\n            value = \"DefaultEndpointsProtocol=https;AccountName=${9:storageAccountName3};AccountKey=${10:storageAccountKey3}\"\n          },\n          {\n            name  = \"WEBSITE_CONTENTSHARE\"\n            value = tolower(${11:\"name\"})\n          },\n          {\n            name  = \"FUNCTIONS_EXTENSION_VERSION\"\n            value = \"~2\"\n          },\n          {\n            name  = \"APPINSIGHTS_INSTRUMENTATIONKEY\"\n            value = azurerm_application_insights.example.instrumentation_key\n          },\n          {\n            name  = \"FUNCTIONS_WORKER_RUNTIME\"\n            value = ${13|\"dotnet\",\"node\",\"java\"|}\n          }\n        ]\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-ip",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"publicIPAddress\" {\n  type      = \"Microsoft.Network/publicIPAddresses@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      publicIPAllocationMethod = \"Dynamic\"\n      dnsSettings = {\n        domainNameLabel = \"dnsname\"\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-ip",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:publicIPAddress}\" {\n  type      = \"Microsoft.Network/publicIPAddresses@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      publicIPAllocationMethod = \"Dynamic\"\n      dnsSettings = {\n        domainNameLabel = ${4:\"dnsname\"}\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-ip-prefix",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"publicIPPrefix\" {\n  type      = \"Microsoft.Network/publicIPPrefixes@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    sku = {\n      name = \"Standard\"\n    }\n    properties = {\n      publicIPAddressVersion = \"IPv4\"\n      prefixLength           = 28\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-ip-prefix",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:publicIPPrefix}\" {\n  type  = \"Microsoft.Network/publicIPPrefixes@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    sku = {\n      name = \"Standard\"\n    }\n    properties = {\n      publicIPAddressVersion = \"IPv4\"\n      prefixLength = ${4:28}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-keyvault",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"keyVault\" {\n  type      = \"Microsoft.KeyVault/vaults@2019-09-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n\n  body = {\n    properties = {\n      enabledForDeployment         = true\n      enabledForTemplateDeployment = true\n      enabledForDiskEncryption     = true\n      tenantId                     = \"tenantId\"\n      accessPolicies = [\n        {\n          tenantId = \"tenantId\"\n          objectId = \"objectId\"\n          permissions = {\n            keys = [\n              \"get\"\n            ]\n            secrets = [\n              \"list\",\n              \"get\"\n            ]\n          }\n        }\n      ]\n      sku = {\n        name   = \"standard\"\n        family = \"A\"\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-keyvault",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:keyVault}\" {\n  type      = \"Microsoft.KeyVault/vaults@2019-09-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n\n  body = {\n    properties = {\n      enabledForDeployment         = true\n      enabledForTemplateDeployment = true\n      enabledForDiskEncryption     = true\n      tenantId                     = ${4:\"tenantId\"}\n      accessPolicies = [\n        {\n          tenantId = ${4:\"tenantId\"}\n          objectId = ${5:\"objectId\"}\n          permissions = {\n            keys = [\n              \"get\"\n            ]\n            secrets = [\n              \"list\",\n              \"get\"\n            ]\n          }\n        }\n      ]\n      sku = {\n        name   = \"standard\"\n        family = \"A\"\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-keyvault-secret",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"keyVaultSecret\" {\n  type      = \"Microsoft.KeyVault/vaults/secrets@2019-09-01\"\n  parent_id = \"The ID of `Microsoft.KeyVault/vaults`\"\n  name      = \"keyVaultName/name\"\n  body = {\n    properties = {\n      value = \"value\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-keyvault-secret",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:keyVaultSecret}\" {\n  type  = \"Microsoft.KeyVault/vaults/secrets@2019-09-01\"\n  parent_id = \"The ID of `Microsoft.KeyVault/vaults`\"\n  name  = ${2:\"keyVaultName/name\"}\n  body = {\n    properties = {\n      value = ${3:\"value\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-loadbalancer-external",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"loadBalancerExternal\" {\n  type      = \"Microsoft.Network/loadBalancers@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      frontendIPConfigurations = [\n        {\n          name = \"name\"\n          properties = {\n            publicIPAddress = {\n              id = \"publicIPAddresses.id\"\n            }\n          }\n        }\n      ]\n      backendAddressPools = [\n        {\n          name = \"name\"\n        }\n      ]\n      inboundNatRules = [\n        {\n          name = \"name\"\n          properties = {\n            frontendIPConfiguration = {\n              id = \"frontendIPConfiguration.id\"\n            }\n            protocol         = \"Tcp\"\n            frontendPort     = 50001\n            backendPort      = 3389\n            enableFloatingIP = false\n          }\n        }\n      ]\n      loadBalancingRules = [\n        {\n          name = \"name\"\n          properties = {\n            frontendIPConfiguration = {\n              id = \"frontendIPConfiguration.id\"\n            }\n            backendAddressPool = {\n              id = \"backendAddressPool.id\"\n            }\n            protocol             = \"Tcp\"\n            frontendPort         = 80\n            backendPort          = 80\n            enableFloatingIP     = false\n            idleTimeoutInMinutes = 5\n            probe = {\n              id = \"probe.id\"\n            }\n          }\n        }\n      ]\n      probes = [\n        {\n          name = \"name\"\n          properties = {\n            protocol          = \"Tcp\"\n            port              = 80\n            intervalInSeconds = 5\n            numberOfProbes    = 2\n          }\n        }\n      ]\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-loadbalancer-external",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:loadBalancerExternal}\" {\n  type  = \"Microsoft.Network/loadBalancers@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      frontendIPConfigurations = [\n        {\n          name = ${4:\"name\"}\n          properties = {\n            publicIPAddress = {\n              id = ${5:\"publicIPAddresses.id\"}\n            }\n          }\n        }\n      ]\n      backendAddressPools = [\n        {\n          name = ${6:\"name\"}\n        }\n      ]\n      inboundNatRules = [\n        {\n          name = ${7:\"name\"}\n          properties = {\n            frontendIPConfiguration = {\n              id = ${8:\"frontendIPConfiguration.id\"}\n            }\n            protocol = ${9|\"Tcp\",\"Udp\",\"All\"|} \n            frontendPort = ${10:50001}\n            backendPort = ${11:3389}\n            enableFloatingIP = false\n          }\n        }\n      ]\n      loadBalancingRules = [\n        {\n          name = ${12:\"name\"}\n          properties = {\n            frontendIPConfiguration = {\n              id = ${13:\"frontendIPConfiguration.id\"}\n            }\n            backendAddressPool = {\n              id = ${14:\"backendAddressPool.id\"}\n            }\n            protocol = ${15|\"Tcp\",\"Udp\",\"All\"|} \n            frontendPort = ${16:80}\n            backendPort = ${17:80}\n            enableFloatingIP = false\n            idleTimeoutInMinutes = 5\n            probe = {\n              id = ${18:\"probe.id\"}\n            }\n          }\n        }\n      ]\n      probes = [\n        {\n          name = ${19:\"name\"}\n          properties = {\n            protocol = ${20|\"Tcp\",\"Udp\",\"All\"|} \n            port = ${21:80}\n            intervalInSeconds = 5\n            numberOfProbes = 2\n          }\n        }\n      ]\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-loadbalancer-internal",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"loadBalancerInternal\" {\n  type      = \"Microsoft.Network/loadBalancers@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      frontendIPConfigurations = [\n        {\n          name = \"name\"\n          properties = {\n            privateIPAddress          = \"0.0.0.0\"\n            privateIPAllocationMethod = \"Static\"\n            subnet = {\n              id = \"subnet.id\"\n            }\n          }\n        }\n      ]\n      backendAddressPools = [\n        {\n          name = \"name\"\n        }\n      ]\n      loadBalancingRules = [\n        {\n          name = \"name\"\n          properties = {\n            frontendIPConfiguration = {\n              id = \"frontendIPConfiguration.id\"\n            }\n            backendAddressPool = {\n              id = \"backendAddressPool.id\"\n            }\n            protocol             = \"Tcp\"\n            frontendPort         = 80\n            backendPort          = 80\n            enableFloatingIP     = false\n            idleTimeoutInMinutes = 5\n            probe = {\n              id = \"probe.id\"\n            }\n          }\n        }\n      ]\n      probes = [\n        {\n          name = \"name\"\n          properties = {\n            protocol          = \"Tcp\"\n            port              = 80\n            intervalInSeconds = 5\n            numberOfProbes    = 2\n          }\n        }\n      ]\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-loadbalancer-internal",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:loadBalancerInternal}\" {\n  type      = \"Microsoft.Network/loadBalancers@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      frontendIPConfigurations = [\n        {\n          name = ${4:\"name\"}\n          properties = {\n            privateIPAddress         = ${5:\"0.0.0.0\"}\n            privateIPAllocationMethod = \"Static\"\n            subnet = {\n              id = ${6:\"subnet.id\"}\n            }\n          }\n        }\n      ]\n      backendAddressPools = [\n        {\n          name = ${7:\"name\"}\n        }\n      ]\n      loadBalancingRules = [\n        {\n          name = ${8:\"name\"}\n          properties = {\n            frontendIPConfiguration = {\n              id = ${9:\"frontendIPConfiguration.id\"}\n            }\n            backendAddressPool = {\n              id = ${10:\"backendAddressPool.id\"}\n            }\n            protocol               = ${11|\"Tcp\",\"Udp\",\"All\"|}\n            frontendPort           = ${12:80}\n            backendPort            = ${13:80}\n            enableFloatingIP       = false\n            idleTimeoutInMinutes   = 5\n            probe = {\n              id = ${14:\"probe.id\"}\n            }\n          }\n        }\n      ]\n      probes = [\n        {\n          name = ${15:\"name\"}\n          properties = {\n            protocol           = ${16|\"Tcp\",\"Udp\",\"All\"|}\n            port               = ${17:80}\n            intervalInSeconds  = 5\n            numberOfProbes     = 2\n          }\n        }\n      ]\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-lock",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"lock\" {\n  type      = \"Microsoft.Authorization/locks@2017-04-01\"\n  parent_id = \"The ID of `Azure Resource(Unknown scope)`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      level = \"NotSpecified\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-lock",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:lock}\" {\n  type  = \"Microsoft.Authorization/locks@2017-04-01\"\n  parent_id = \"The ID of `Azure Resource(Unknown scope)`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      level = ${3|\"NotSpecified\",\"CanNotDelete\",\"ReadOnly\"|}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-log-analytics-solution",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"logAnalyticsSolution\" {\n  type      = \"Microsoft.OperationsManagement/solutions@2015-11-01-preview\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      workspaceResourceId = \"operationalInsightsWorkspace.id\"\n      containedResources = [\n        \"view.id\"\n      ]\n    }\n    plan = {\n      name          = \"name\"\n      product       = \"product\"\n      publisher     = \"publisher\"\n      promotionCode = \"promotionCode\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-log-analytics-solution",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:logAnalyticsSolution}\" {\n  type  = \"Microsoft.OperationsManagement/solutions@2015-11-01-preview\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      workspaceResourceId = ${4:\"operationalInsightsWorkspace.id\"}\n      containedResources = [\n        ${5:\"view.id\"}\n      ]\n    }\n    plan = {\n      name = ${6:\"name\"}\n      product = ${7:\"product\"}\n      publisher = ${8:\"publisher\"}\n      promotionCode = ${9:\"promotionCode\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-log-analytics-workspace",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"logAnalyticsWorkspace\" {\n  type      = \"Microsoft.OperationalInsights/workspaces@2020-10-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      sku = {\n        name = \"Free\"\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-log-analytics-workspace",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:logAnalyticsWorkspace}\" {\n  type      = \"Microsoft.OperationalInsights/workspaces@2020-10-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      sku = {\n        name = ${4|\"Free\",\"Standard\",\"Premium\",\"Unlimited\",\"PerNode\",\"PerGB2018\",\"Standalone\"|}\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-logic-app",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"logicApp\" {\n  type      = \"Microsoft.Logic/workflows@2019-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      definition = {\n        \"$schema\"      = \"https://schema.management.azure.com/schemas/2016-06-01/Microsoft.Logic.json\"\n        contentVersion = \"1.0.0.0\"\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-logic-app",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:logicApp}\" {\n  type  = \"Microsoft.Logic/workflows@2019-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      definition = {\n        \"$schema\"       = \"https://schema.management.azure.com/schemas/2016-06-01/Microsoft.Logic.json\"\n        contentVersion  = \"1.0.0.0\"\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-logic-app-connector",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"logicAppConnector\" {\n  type      = \"Microsoft.Web/connections@2016-06-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      api = {\n        id = subscriptionResourceId(\"Microsoft.Web/locations/managedApis\", \"location\", $ { 4 : \"logicAppConnectorApi\" })\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-logic-app-connector",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:logicAppConnector}\" {\n  type      = \"Microsoft.Web/connections@2016-06-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      api = {\n        id = subscriptionResourceId(\"Microsoft.Web/locations/managedApis\", ${3:\"location\"}, ${4:\"logicAppConnectorApi\"})\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-logic-app-from-file",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"logicApp\" {\n  type      = \"Microsoft.Logic/workflows@2019-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      definition = json(file(\"REQUIRED\")).definition\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-logic-app-from-file",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:logicApp}\" {\n  type  = \"Microsoft.Logic/workflows@2019-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      definition = json(file(${4:\"REQUIRED\"})).definition\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-logic-app-integration",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"logicAppIntegrationAccount\" {\n  type      = \"Microsoft.Logic/integrationAccounts@2019-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body      = {}\n}\n```"
+    },
+    "sortText": "2_azapi-logic-app-integration",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:logicAppIntegrationAccount}\" {\n  type      = \"Microsoft.Logic/integrationAccounts@2019-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {}\n}"
+    }
+  },
+  {
+    "label": "azapi-managed-identity",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"managedIdentity\" {\n  type      = \"Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body      = {}\n}\n\n```"
+    },
+    "sortText": "2_azapi-managed-identity",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:managedIdentity}\" {\n  type      = \"Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body     = {}\n}\n"
+    }
+  },
+  {
+    "label": "azapi-media",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"mediaServices\" {\n  type      = \"Microsoft.Media/mediaServices@2020-05-01\"\n  parent_id = \"The ID of `Subscription, Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n\n  body = {\n    properties = {\n      storageAccounts = [\n        {\n          id   = \"storageAccount.id\"\n          type = \"Primary\"\n        }\n      ]\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-media",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:mediaServices}\" {\n  type      = \"Microsoft.Media/mediaServices@2020-05-01\"\n  parent_id = \"The ID of `Subscription, Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n\n  body = {\n    properties = {\n      storageAccounts = [\n        {\n          id   = ${4:\"storageAccount.id\"}\n          type = ${5|\"Primary\", \"Secondary\"|}\n        }\n      ]\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-mg",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"managementGroup\" {\n  type      = \"Microsoft.Management/managementGroups@2021-04-01\"\n  parent_id = \"The ID of `Tenant`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      displayName = \"displayName\"\n      details = {\n        parent = {\n          id = \"id\"\n        }\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-mg",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:managementGroup}\" {\n  type  = \"Microsoft.Management/managementGroups@2021-04-01\"\n  parent_id = \"The ID of `Tenant`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      displayName = ${3:\"displayName\"}\n      details = {\n        parent = {\n          id = ${4:\"id\"}\n        }\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-mysql",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"mySQLdb\" {\n  type      = \"Microsoft.DBforMySQL/servers@2017-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      administratorLogin         = \"administratorLogin\"\n      administratorLoginPassword = \"administratorLoginPassword\"\n      createMode                 = \"Default\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-mysql",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:mySQLdb}\" {\n  type  = \"Microsoft.DBforMySQL/servers@2017-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      administratorLogin = ${4:\"administratorLogin\"}\n      administratorLoginPassword = ${5:\"administratorLoginPassword\"}\n      createMode = ${6|\"Default\",\"GeoRestore\",\"PointInTimeRestore\",\"Replica\"|}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-nic",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"networkInterface\" {\n  type      = \"Microsoft.Network/networkInterfaces@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      ipConfigurations = [\n        {\n          name = \"name\"\n          properties = {\n            privateIPAllocationMethod = \"Dynamic\"\n            subnet = {\n              id = \"subnet.id\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-nic",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:networkInterface}\" {\n  type      = \"Microsoft.Network/networkInterfaces@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      ipConfigurations = [\n        {\n          name = ${4:\"name\"}\n          properties = {\n            privateIPAllocationMethod = ${5|\"Dynamic\",\"Static\"|}\n            subnet = {\n              id = ${6:\"subnet.id\"}\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-nsg",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"networkSecurityGroup\" {\n  type      = \"Microsoft.Network/networkSecurityGroups@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      securityRules = [\n        {\n          name = \"nsgRule\"\n          properties = {\n            description              = \"description\"\n            protocol                 = \"Tcp\"\n            sourcePortRange          = \"*\"\n            destinationPortRange     = \"*\"\n            sourceAddressPrefix      = \"*\"\n            destinationAddressPrefix = \"*\"\n            access                   = \"Allow\"\n            priority                 = 100\n            direction                = \"Inbound\"\n          }\n        }\n      ]\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-nsg",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:networkSecurityGroup}\" {\n  type  = \"Microsoft.Network/networkSecurityGroups@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      securityRules = [\n        {\n          name = ${4:\"nsgRule\"}\n          properties = {\n            description              = ${5:\"description\"}\n            protocol                 = ${6|\"Tcp\",\"Udp\",\"*\"|}\n            sourcePortRange          = ${7:\"*\"}\n            destinationPortRange     = ${8:\"*\"}\n            sourceAddressPrefix      = ${9:\"*\"}\n            destinationAddressPrefix = ${10:\"*\"}\n            access                   = ${11|\"Allow\",\"Deny\"|}\n            priority                 = ${12:100}\n            direction                = ${13|\"Inbound\",\"Outbound\"|}\n          }\n        }\n      ]\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-nsgrule",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"networkSecurityGroupSecurityRule\" {\n  type      = \"Microsoft.Network/networkSecurityGroups/securityRules@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Network/networkSecurityGroups`\"\n  name      = \"networkSecurityGroup/name\"\n  body = {\n    properties = {\n      description              = \"description\"\n      protocol                 = \"*\"\n      sourcePortRange          = \"sourcePortRange\"\n      destinationPortRange     = \"destinationPortRange\"\n      sourceAddressPrefix      = \"sourceAddressPrefix\"\n      destinationAddressPrefix = \"destinationAddressPrefix\"\n      access                   = \"Allow\"\n      priority                 = 100\n      direction                = \"Inbound\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-nsgrule",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:networkSecurityGroupSecurityRule}\" {\n  type  = \"Microsoft.Network/networkSecurityGroups/securityRules@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Network/networkSecurityGroups`\"\n  name  = ${2:\"networkSecurityGroup/name\"}\n  body = {\n    properties = {\n      description              = ${3:\"description\"}\n      protocol                 = ${4|\"*\",\"Ah\",\"Esp\",\"Icmp\",\"Tcp\",\"Udb\"|}\n      sourcePortRange          = ${5:\"sourcePortRange\"}\n      destinationPortRange     = ${6:\"destinationPortRange\"}\n      sourceAddressPrefix      = ${7:\"sourceAddressPrefix\"}\n      destinationAddressPrefix = ${8:\"destinationAddressPrefix\"}\n      access                   = ${9|\"Allow\",\"Deny\"|}\n      priority                 = ${10:100}\n      direction                = ${11|\"Inbound\",\"Outbound\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-plan",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"appServicePlan\" {\n  type      = \"Microsoft.Web/serverfarms@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    sku = {\n      name     = \"name\"\n      capacity = capacity\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-plan",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:appServicePlan}\" {\n  type  = \"Microsoft.Web/serverfarms@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    sku = {\n      name = ${4:\"name\"}\n      capacity = ${5:capacity}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-policy-assignment",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"policyAssignment\" {\n  type      = \"Microsoft.Authorization/policyAssignments@2020-09-01\"\n  parent_id = \"The ID of `Azure Resource(Unknown scope)`\"\n  name      = \"name\"\n  location  = \"location\"\n  identity {\n    type = \"SystemAssigned\"\n  }\n  body = {\n    properties = {\n      displayName     = \"displayName\"\n      description     = \"description\"\n      enforcementMode = \"Default\"\n      metadata = {\n        source  = \"source\"\n        version = \"0.1.0\"\n      }\n      policyDefinitionId = \"policyDefinitionId\"\n      parameters = {\n        parameterName = {\n          value = \"value\"\n        }\n      }\n      nonComplianceMessages = [\n        {\n          message = \"message\"\n        },\n        {\n          message                     = \"message\"\n          policyDefinitionReferenceId = \"policyDefinitionReferenceId\"\n        }\n      ]\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-policy-assignment",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:policyAssignment}\" {\n  type      = \"Microsoft.Authorization/policyAssignments@2020-09-01\"\n  parent_id = \"The ID of `Azure Resource(Unknown scope)`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  identity {\n    type = ${4|\"SystemAssigned\",\"None\"|}\n  }\n  body = {\n    properties = {\n      displayName      = ${5:\"displayName\"}\n      description      = ${6:\"description\"}\n      enforcementMode  = ${7|\"Default\",\"DoNotEnforce\"|}\n      metadata = {\n        source  = ${8:\"source\"}\n        version = ${9:\"0.1.0\"}\n      }\n      policyDefinitionId = ${10:\"policyDefinitionId\"}\n      parameters = {\n        ${11:parameterName} = {\n          value = ${12:\"value\"}\n        }\n      }\n      nonComplianceMessages = [\n        {\n          message = ${13:\"message\"}\n        },\n        {\n          message                        = ${14:\"message\"}\n          policyDefinitionReferenceId = ${15:\"policyDefinitionReferenceId\"}\n        }\n      ]\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-policy-definition-audit-effect",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"policyDefinition\" {\n  type      = \"Microsoft.Authorization/policyDefinitions@2020-09-01\"\n  parent_id = \"The ID of `Tenant, Microsoft.Management/managementGroups, Subscription`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      displayName = \"displayName\"\n      policyType  = \"Custom\"\n      mode        = \"All\"\n      description = \"description\"\n      metadata = {\n        version  = \"0.1.0\"\n        category = \"category\"\n        source   = \"source\"\n      }\n      parameters = {\n        parameterName = {\n          type         = \"String\"\n          defaultValue = \"defaultValue\"\n          metadata = {\n            displayName = \"displayName\"\n            description = \"description\"\n          }\n        }\n      }\n      policyRule = {\n        if = {\n          allOf = [\n            {\n              field = \"field\"\n              equals\n            }\n          ]\n        }\n        then = {\n          effect = \"Audit\"\n        }\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-policy-definition-audit-effect",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:policyDefinition}\" {\n  type  = \"Microsoft.Authorization/policyDefinitions@2020-09-01\"\n  parent_id = \"The ID of `Tenant, Microsoft.Management/managementGroups, Subscription`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      displayName = ${3:\"displayName\"}\n      policyType = ${4:\"Custom\"}\n      mode = ${5|\"All\",\"Indexed\"|}\n      description = ${6:\"description\"}\n      metadata = {\n        version = ${7:\"0.1.0\"}\n        category = ${8:\"category\"}\n        source = ${9:\"source\"}\n      }\n      parameters = {\n        ${10:parameterName} = {\n          type = ${11|\"String\",\"Array\"|}\n          defaultValue = ${12:\"defaultValue\"}\n          metadata = {\n            displayName = ${13:\"displayName\"}\n            description = ${14:\"description\"}\n          }\n        }\n      }\n      policyRule = {\n        if = {\n          ${15|allOf,anyOf|} = [\n            {\n              field = ${16:\"field\"}\n              ${17|equals,notEquals,like,notLike,match,matchInsensitively,notMatch,notMatchInsensitively,contains,notContains,in,notIn,containsKey,notContainsKey,less,lessOrEquals,greater,greaterOrEquals,exists|} = ${18:\"conditionValue\"}\n            }\n          ]\n        }\n        then = {\n          effect = ${19|\"Audit\",\"AuditIfNotExists\",\"Deny\",\"DeployIfNotExists\",\"Disabled\",\"Modify\"|}\n        }\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-policy-definition-deploy-effect",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"policyDefinition\" {\n  type      = \"Microsoft.Authorization/policyDefinitions@2020-09-01\"\n  parent_id = \"The ID of `Tenant, Microsoft.Management/managementGroups, Subscription`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      displayName = \"displayName\"\n      policyType  = \"Custom\"\n      mode        = \"All\"\n      description = \"description\"\n      metadata = {\n        version  = \"0.1.0\"\n        category = \"category\"\n        source   = \"source\"\n      }\n      parameters = {\n        parameterName = {\n          type         = \"String\"\n          defaultValue = \"defaultValue\"\n          metadata = {\n            displayName = \"displayName\"\n            description = \"description\"\n          }\n        }\n      }\n      policyRule = {\n        if = {\n          allOf = [\n            {\n              field = \"field\"\n              equals\n            }\n          ]\n        }\n        then = {\n          effect = \"Audit\"\n          details = {\n            roleDefinitionIds = [\n              \"roleDefinitionIds\"\n            ]\n            type = \"type\"\n            existenceCondition = {\n              allOf = [\n                {\n                  field = \"field\"\n                  equals\n                }\n              ]\n            }\n            deployment = {\n              properties = {\n                mode = \"incremental\"\n                template = {\n                  \"$schema\"      = \"schema\"\n                  contentVersion = \"1.0.0.0\"\n                  parameters = {\n                    parameterName = {\n                      type = \"String\"\n                      metadata = {\n                        displayName = \"displayName\"\n                        description = \"description\"\n                      }\n                    }\n                  }\n                  variables = {}\n                  resources = [\n                    {\n                      name       = \"name\"\n                      type       = \"type\"\n                      apiVersion = \"apiVersion\"\n                      location   = location\n                      properties = {}\n                    }\n                  ]\n                }\n                parameters = {\n                  parameterName = {\n                    value = \"value\"\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-policy-definition-deploy-effect",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:policyDefinition}\" {\n  type  = \"Microsoft.Authorization/policyDefinitions@2020-09-01\"\n  parent_id = \"The ID of `Tenant, Microsoft.Management/managementGroups, Subscription`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      displayName = ${3:\"displayName\"}\n      policyType = ${4:\"Custom\"}\n      mode = ${5|\"All\",\"Indexed\"|}\n      description = ${6:\"description\"}\n      metadata = {\n        version = ${7:\"0.1.0\"}\n        category = ${8:\"category\"}\n        source = ${9:\"source\"}\n      }\n      parameters = {\n        ${10:parameterName} = {\n          type = ${11|\"String\",\"Array\"|}\n          defaultValue = ${12:\"defaultValue\"}\n          metadata = {\n            displayName = ${13:\"displayName\"}\n            description = ${14:\"description\"}\n          }\n        }\n      }\n      policyRule = {\n        if = {\n          ${15|allOf,anyOf|} = [\n            {\n              field = ${16:\"field\"}\n              ${17|equals,notEquals,like,notLike,match,matchInsensitively,notMatch,notMatchInsensitively,contains,notContains,in,notIn,containsKey,notContainsKey,less,lessOrEquals,greater,greaterOrEquals,exists|} = ${18:\"conditionValue\"}\n            }\n          ]\n        }\n        then = {\n          effect = ${19|\"Audit\",\"AuditIfNotExists\",\"Deny\",\"DeployIfNotExists\",\"Disabled\",\"Modify\"|}\n          details = {\n            roleDefinitionIds = [\n              ${20:\"roleDefinitionIds\"}\n            ]\n            type = ${21:\"type\"}\n            existenceCondition = {\n              allOf = [\n                {\n                  field = ${22:\"field\"}\n                  ${23|equals,notEquals,like,notLike,match,matchInsensitively,notMatch,notMatchInsensitively,contains,notContains,in,notIn,containsKey,notContainsKey,less,lessOrEquals,greater,greaterOrEquals,exists|} = ${24:\"conditionValue\"}\n                }\n              ]\n            }\n            deployment = {\n              properties = {\n                mode = ${25|\"incremental\",\"complete\"|}\n                template = {\n                  \"$schema\" = ${26:\"schema\"}\n                  contentVersion = ${27:\"1.0.0.0\"}\n                  parameters = {\n                    ${28:parameterName} = {\n                      type = ${29|\"String\",\"Array\"|}\n                      metadata = {\n                        displayName = ${30:\"displayName\"}\n                        description = ${31:\"description\"}\n                      }\n                    }\n                  }\n                  variables = {}\n                  resources = [\n                    {\n                      name = ${32:\"name\"}\n                      type = ${33:\"type\"}\n                      apiVersion = ${34:\"apiVersion\"}\n                      location = ${35:location}\n                      properties = {}\n                    }\n                  ]\n                }\n                parameters = {\n                  ${36:parameterName} = {\n                    value = ${37:\"value\"}\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-policy-definition-modify-effect",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"policyDefinition\" {\n  type      = \"Microsoft.Authorization/policyDefinitions@2020-09-01\"\n  parent_id = \"The ID of `Tenant, Microsoft.Management/managementGroups, Subscription`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      displayName = \"displayName\"\n      policyType  = \"Custom\"\n      mode        = \"All\"\n      description = \"description\"\n      metadata = {\n        version  = \"0.1.0\"\n        category = \"category\"\n        source   = \"source\"\n      }\n      parameters = {\n        parameterName = {\n          type         = \"String\"\n          defaultValue = \"defaultValue\"\n          metadata = {\n            displayName = \"displayName\"\n            description = \"description\"\n          }\n        }\n      }\n      policyRule = {\n        if = {\n          allOf = [\n            {\n              field = \"field\"\n              \"equals\"\n            }\n          ]\n        }\n        then = {\n          effect = \"Audit\"\n          details = {\n            roleDefinitionIds = [\n              \"roleDefinitionIds\"\n            ]\n            operations = [\n              {\n                operation = \"add\"\n                field     = \"field\"\n                value     = \"value\"\n              }\n            ]\n          }\n        }\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-policy-definition-modify-effect",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:policyDefinition}\" {\n  type  = \"Microsoft.Authorization/policyDefinitions@2020-09-01\"\n  parent_id = \"The ID of `Tenant, Microsoft.Management/managementGroups, Subscription`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      displayName = ${3:\"displayName\"}\n      policyType = ${4:\"Custom\"}\n      mode = ${5|\"All\",\"Indexed\"|}\n      description = ${6:\"description\"}\n      metadata = {\n        version = ${7:\"0.1.0\"}\n        category = ${8:\"category\"}\n        source = ${9:\"source\"}\n      }\n      parameters = {\n        ${10:parameterName} = {\n          type = ${11|\"String\",\"Array\"|}\n          defaultValue = ${12:\"defaultValue\"}\n          metadata = {\n            displayName = ${13:\"displayName\"}\n            description = ${14:\"description\"}\n          }\n        }\n      }\n      policyRule = {\n        if = {\n          ${15|allOf,anyOf|} = [\n            {\n              field = ${16:\"field\"}\n              ${17|\"equals\",\"notEquals\",\"like\",\"notLike\",\"match\",\"matchInsensitively\",\"notMatch\",\"notMatchInsensitively\",\"contains\",\"notContains\",\"in\",\"notIn\",\"containsKey\",\"notContainsKey\",\"less\",\"lessOrEquals\",\"greater\",\"greaterOrEquals\",\"exists\"} = ${18:\"conditionValue\"}\n            }\n          ]\n        }\n        then = {\n          effect = ${19|\"Audit\",\"AuditIfNotExists\",\"Deny\",\"DeployIfNotExists\",\"Disabled\",\"Modify\"}\n          details = {\n            roleDefinitionIds = [\n              ${20:\"roleDefinitionIds\"}\n            ]\n            operations = [\n              {\n                operation = ${21|\"add\",\"addOrReplace\"}\n                field = ${22:\"field\"}\n                value = ${23:\"value\"}\n              }\n            ]\n          }\n        }\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-policy-exemption",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"policyExemption\" {\n  type      = \"Microsoft.Authorization/policyExemptions@2020-07-01-preview\"\n  parent_id = \"The ID of `Azure Resource(Unknown scope)`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      policyAssignmentId = \"policyAssignmentId\"\n      policyDefinitionReferenceIds = [\n        \"policyDefinitionReferenceIds\"\n      ]\n      exemptionCategory = \"Mitigated\"\n      expiresOn         = \"expiresOn\"\n      displayName       = \"displayName\"\n      description       = \"description\"\n      metadata = {\n        version = \"0.1.0\"\n        source  = \"source\"\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-policy-exemption",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:policyExemption}\" {\n  type  = \"Microsoft.Authorization/policyExemptions@2020-07-01-preview\"\n  parent_id = \"The ID of `Azure Resource(Unknown scope)`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      policyAssignmentId = ${3:\"policyAssignmentId\"}\n      policyDefinitionReferenceIds = [\n        ${4:\"policyDefinitionReferenceIds\"}\n      ]\n      exemptionCategory = ${5|\"Mitigated\",\"Waiver\"|}\n      expiresOn = ${6:\"expiresOn\"}\n      displayName = ${7:\"displayName\"}\n      description = ${8:\"description\"}\n      metadata = {\n        version = ${9:\"0.1.0\"}\n        source = ${10:\"source\"}\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-policy-guestconfig",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"virtualMachine\" {\n  type     = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name     = \"name\"\n  location = \"location\"\n}\n\nresource \"azapi_resource\" \"guestConfigAssignment\" {\n  type      = \"Microsoft.GuestConfiguration/guestConfigurationAssignments@2022-01-25\"\n  name      = \"name\"\n  parent_id = azapi_resource.virtualMachine.id\n  location  = \"location\"\n  body = {\n    properties = {\n      guestConfiguration = {\n        name            = \"configurationName\"\n        assignmentType  = \"ApplyAndMonitor\"\n        version         = \"1.*\"\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-policy-guestconfig",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"virtualMachine\" {\n  type     = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name     = ${1:\"name\"}\n  location = ${2:\"location\"}\n}\n\nresource \"azapi_resource\" \"${3:guestConfigAssignment}\" {\n  type      = \"Microsoft.GuestConfiguration/guestConfigurationAssignments@2022-01-25\"\n  name      = ${4:\"name\"}\n  parent_id = azapi_resource.virtualMachine.id\n  location  = ${2:\"location\"}\n  body = {\n    properties = {\n      guestConfiguration = {\n        name            = ${5:\"configurationName\"}\n        assignmentType  = ${6|\"ApplyAndMonitor\",\"ApplyAndAutoCorrect\",\"Audit\"|}\n        version         = ${7:\"1.*\"}\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-policy-guestconfig-hybrid",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"arcEnabledMachine\" {\n  type      = \"Microsoft.HybridCompute/machines@2021-05-20\"\n  name      = \"name\"\n  location  = \"location\"\n}\n\nresource \"azapi_resource\" \"guestConfigAssignment\" {\n  type      = \"Microsoft.GuestConfiguration/guestConfigurationAssignments@2022-01-25\"\n  name      = \"name\"\n  parent_id = azapi_resource.arcEnabledMachine.id\n  location  = \"location\"\n  body = {\n    properties = {\n      guestConfiguration = {\n        name            = \"configurationName\"\n        assignmentType  = \"ApplyAndMonitor\"\n        version         = \"1.*\"\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-policy-guestconfig-hybrid",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"arcEnabledMachine\" {\n  type      = \"Microsoft.HybridCompute/machines@2021-05-20\"\n  name      = ${1:\"name\"}\n  location  = ${2:\"location\"}\n}\n\nresource \"azapi_resource\" \"${3:guestConfigAssignment}\" {\n  type      = \"Microsoft.GuestConfiguration/guestConfigurationAssignments@2022-01-25\"\n  name      = ${4:\"name\"}\n  parent_id = azapi_resource.arcEnabledMachine.id\n  location  = ${2:\"location\"}\n  body = {\n    properties = {\n      guestConfiguration = {\n        name            = ${5:\"configurationName\"}\n        assignmentType  = ${6|\"ApplyAndMonitor\",\"ApplyAndAutoCorrect\",\"Audit\"|}\n        version         = ${7:\"1.*\"}\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-policy-guestconfig-params",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"virtualMachine\" {\n  type     = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name     = \"name\"\n  location = \"location\"\n}\n\nresource \"azapi_resource\" \"guestConfigAssignment\" {\n  type     = \"Microsoft.GuestConfiguration/guestConfigurationAssignments@2022-01-25\"\n  name     = \"name\"\n  parent_id = azapi_resource.virtualMachine.id\n  location = \"location\"\n  body = {\n    properties = {\n      guestConfiguration = {\n        name             = \"configurationName\"\n        assignmentType   = \"ApplyAndMonitor\"\n        version          = \"1.*\"\n        configurationParameter = [\n          {\n            name  = \"parameter1[dscResourceType]dscResourceName;propertyName\"\n            value = \"parameter1Value\"\n          },\n          {\n            name  = \"parameter2[dscResourceType]dscResourceName;propertyName\"\n            value = \"parameter2Value\"\n          }\n        ]\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-policy-guestconfig-params",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"virtualMachine\" {\n  type     = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name     = ${1:\"name\"}\n  location = ${2:\"location\"}\n}\n\nresource \"azapi_resource\" \"${3:guestConfigAssignment}\" {\n  type     = \"Microsoft.GuestConfiguration/guestConfigurationAssignments@2022-01-25\"\n  name     = ${4:\"name\"}\n  parent_id = azapi_resource.virtualMachine.id\n  location = ${2:\"location\"}\n  body = {\n    properties = {\n      guestConfiguration = {\n        name             = ${5:\"configurationName\"}\n        assignmentType   = ${6|\"ApplyAndMonitor\",\"ApplyAndAutoCorrect\",\"Audit\"|}\n        version          = ${7:\"1.*\"}\n        configurationParameter = [\n          {\n            name  = ${8:\"parameter1[dscResourceType]dscResourceName;propertyName\"}\n            value = ${9:\"parameter1Value\"}\n          },\n          {\n            name  = ${10:\"parameter2[dscResourceType]dscResourceName;propertyName\"}\n            value = ${11:\"parameter2Value\"}\n          }\n        ]\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-policy-remediation",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"policyRemediation\" {\n  type      = \"Microsoft.PolicyInsights/remediations@2019-07-01\"\n  parent_id = \"The ID of `Azure Resource(Unknown scope)`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      policyAssignmentId          = \"policyAssignmentId\"\n      policyDefinitionReferenceId = \"policyDefinitionReferenceId\"\n      resourceDiscoveryMode       = \"ExistingNonCompliant\"\n      filters = {\n        locations = [\n          \"location\"\n        ]\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-policy-remediation",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:policyRemediation}\" {\n  type  = \"Microsoft.PolicyInsights/remediations@2019-07-01\"\n  parent_id = \"The ID of `Azure Resource(Unknown scope)`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      policyAssignmentId = ${3:\"policyAssignmentId\"}\n      policyDefinitionReferenceId = ${4:\"policyDefinitionReferenceId\"}\n      resourceDiscoveryMode = ${5|\"ExistingNonCompliant\",\"ReEvaluateCompliance\"|}\n      filters = {\n        locations = [\n          ${6:\"location\"}\n        ]\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-policyset-definition",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"policySetDefinition\" {\n  type      = \"Microsoft.Authorization/policySetDefinitions@2020-09-01\"\n  parent_id = \"The ID of `Tenant, Microsoft.Management/managementGroups, Subscription`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      displayName = \"displayName\"\n      policyType  = \"Custom\"\n      description = \"description\"\n      metadata = {\n        version  = \"0.1.0\"\n        category = \"category\"\n        source   = \"source\"\n      }\n      parameters = {\n        parameterName = {\n          type = \"String\"\n          metadata = {\n            displayName = \"displayName\"\n            description = \"description\"\n          }\n        }\n      }\n      policyDefinitions = [\n        {\n          policyDefinitionId          = \"policyDefinitionId\"\n          policyDefinitionReferenceId = \"policyDefinitionReferenceId\"\n          parameters = {\n            parameterName = {\n              value = \"value\"\n            }\n          }\n        },\n        {\n          policyDefinitionId          = \"policyDefinitionId\"\n          policyDefinitionReferenceId = \"policyDefinitionReferenceId\"\n          parameters = {\n            parameterName = {\n              value = \"value\"\n            }\n          }\n        }\n      ]\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-policyset-definition",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:policySetDefinition}\" {\n  type  = \"Microsoft.Authorization/policySetDefinitions@2020-09-01\"\n  parent_id = \"The ID of `Tenant, Microsoft.Management/managementGroups, Subscription`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      displayName = ${3:\"displayName\"}\n      policyType = ${4:\"Custom\"}\n      description = ${5:\"description\"}\n      metadata = {\n        version = ${6:\"0.1.0\"}\n        category = ${7:\"category\"}\n        source = ${8:\"source\"}\n      }\n      parameters = {\n        ${9:parameterName} = {\n          type = ${10|\"String\",\"Array\"|}\n          metadata = {\n            displayName = ${11:\"displayName\"}\n            description = ${12:\"description\"}\n          }\n        }\n      }\n      policyDefinitions = [\n        {\n          policyDefinitionId = ${13:\"policyDefinitionId\"}\n          policyDefinitionReferenceId = ${14:\"policyDefinitionReferenceId\"}\n          parameters = {\n            ${15:parameterName} = {\n              value = ${16:\"value\"}\n            }\n          }\n        },\n        {\n          policyDefinitionId = ${17:\"policyDefinitionId\"}\n          policyDefinitionReferenceId = ${18:\"policyDefinitionReferenceId\"}\n          parameters = {\n            ${19:parameterName} = {\n              value = ${20:\"value\"}\n            }\n          }\n        }\n      ]\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-private-endpoint",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"privateEndpoint\" {\n  type      = \"Microsoft.Network/privateEndpoints@2022-01-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = name\n  location  = location\n  body = {\n    properties = {\n      privateLinkServiceConnections = [\n        {\n          name = name\n          properties = {\n            privateLinkServiceId = privateLinkServiceId\n            groupIds = [\n              groupId\n            ]\n          }\n        }\n      ]\n      subnet = {\n        id = subnetId\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-private-endpoint",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:privateEndpoint}\" {\n  type      = \"Microsoft.Network/privateEndpoints@2022-01-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:name}\n  location  = ${3:location}\n  body = {\n    properties = {\n      privateLinkServiceConnections = [\n        {\n          name = ${4:name}\n          properties = {\n            privateLinkServiceId = ${5:privateLinkServiceId}\n            groupIds = [\n              ${6:groupId}\n            ]\n          }\n        }\n      ]\n      subnet = {\n        id = ${7:subnetId}\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-recovery-service-vault",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"recoveryServiceVault\" {\n  type      = \"Microsoft.RecoveryServices/vaults@2021-01-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    sku = {\n      name = \"RS0\"\n      tier = \"Standard\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-recovery-service-vault",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:recoveryServiceVault}\" {\n  type      = \"Microsoft.RecoveryServices/vaults@2021-01-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    sku = {\n      name = ${4|\"RS0\",\"Standard\"|}\n      tier = ${5:\"Standard\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-redis",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"redisCache\" {\n  type      = \"Microsoft.Cache/Redis@2019-07-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      sku = {\n        name     = \"Basic\"\n        family   = \"C\"\n        capacity = 0\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-redis",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:redisCache}\" {\n  type  = \"Microsoft.Cache/Redis@2019-07-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      sku = {\n        name = \"Basic\"\n        family = \"C\"\n        capacity = 0\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-rg",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"resourceGroup\" {\n  type      = \"Microsoft.Resources/resourceGroups@2021-04-01\"\n  parent_id = \"The ID of `Subscription`\"\n  name      = \"name\"\n  location  = \"location\"\n  body      = {} # Resource group does not require additional properties in the body\n}\n\n```"
+    },
+    "sortText": "2_azapi-rg",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:resourceGroup}\" {\n  type      = \"Microsoft.Resources/resourceGroups@2021-04-01\"\n  parent_id = \"The ID of `Subscription`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body     = {}  # Resource group does not require additional properties in the body\n}\n"
+    }
+  },
+  {
+    "label": "azapi-role-assignment",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"roleAssignment\" {\n  type      = \"Microsoft.Authorization/roleAssignments@2020-10-01-preview\"\n  parent_id = \"The ID of `Azure Resource(Unknown scope)`\"\n  name      = \"name\"\n  body = {\n    properties = {\n      roleDefinitionId = \"roleDefinitionId\"\n      principalId      = \"principalId\"\n      principalType    = \"ServicePrincipal\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-role-assignment",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:roleAssignment}\" {\n  type  = \"Microsoft.Authorization/roleAssignments@2020-10-01-preview\"\n  parent_id = \"The ID of `Azure Resource(Unknown scope)`\"\n  name  = ${2:\"name\"}\n  body = {\n    properties = {\n      roleDefinitionId = ${3:\"roleDefinitionId\"}\n      principalId = ${4:\"principalId\"}\n      principalType = ${5|\"ServicePrincipal\",\"Group\",\"User\"|}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-route-server",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"virtualHub\" {\n  type      = \"Microsoft.Network/virtualHubs@2021-02-01\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      sku = \"Standard\"\n    }\n  }\n}\n\nresource \"azapi_resource\" \"ipConfiguration\" {\n  type      = \"Microsoft.Network/virtualHubs/ipConfigurations@2021-02-01\"\n  name      = \"name\"\n  parent_id = azapi_resource.virtualHub.id\n  body = {\n    properties = {\n      subnet = {\n        id = \"subnet.id\"\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-route-server",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"virtualHub\" {\n  type      = \"Microsoft.Network/virtualHubs@2021-02-01\"\n  name      = ${1:\"name\"}\n  location  = ${2:\"location\"}\n  body = {\n    properties = {\n      sku = \"Standard\"\n    }\n  }\n}\n\nresource \"azapi_resource\" \"${3:ipConfiguration}\" {\n  type      = \"Microsoft.Network/virtualHubs/ipConfigurations@2021-02-01\"\n  name      = ${4:\"name\"}\n  parent_id = azapi_resource.virtualHub.id\n  body = {\n    properties = {\n      subnet = {\n        id = ${5:\"subnet.id\"}\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-route-table",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"routeTable\" {\n  type      = \"Microsoft.Network/routeTables@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      routes = [\n        {\n          name = \"name\"\n          properties = {\n            addressPrefix    = \"destinationCIDR\"\n            nextHopType      = \"VirtualNetworkGateway\"\n            nextHopIpAddress = \"nextHopIp\"\n          }\n        }\n      ]\n      disableBgpRoutePropagation = true\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-route-table",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:routeTable}\" {\n  type       = \"Microsoft.Network/routeTables@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name       = ${2:\"name\"}\n  location   = ${3:\"location\"}\n  body = {\n    properties = {\n      routes = [\n        {\n          name = ${4:\"name\"}\n          properties = {\n            addressPrefix   = ${5:\"destinationCIDR\"}\n            nextHopType     = ${6|\"VirtualNetworkGateway\",\"VnetLocal\",\"Internet\",\"VirtualAppliance\",\"None\"|}\n            nextHopIpAddress = ${7:\"nextHopIp\"}\n          }\n        }\n      ]\n      disableBgpRoutePropagation = ${8|true,false|}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-route-table-route",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"routeTableRoute\" {\n  type      = \"Microsoft.Network/routeTables/routes@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Network/routeTables`\"\n  name      = \"routeTableName/name\"\n  body = {\n    properties = {\n      addressPrefix    = \"addressPrefix\"\n      nextHopType      = \"VirtualNetworkGateway\"\n      nextHopIpAddress = \"nextHopIp\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-route-table-route",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:routeTableRoute}\" {\n  type  = \"Microsoft.Network/routeTables/routes@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Network/routeTables`\"\n  name  = ${2:\"routeTableName/name\"}\n  body = {\n    properties = {\n      addressPrefix = ${3:\"addressPrefix\"}\n      nextHopType = ${4|\"VirtualNetworkGateway\",\"VnetLocal\",\"Internet\",\"VirtualAppliance\",\"None\"|}\n      nextHopIpAddress = ${5:\"nextHopIp\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-scoped-lock",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"lock\" {\n  type = \"Microsoft.Authorization/locks@2017-04-01\"\n  name = \"name\"\n  parent_id = scopeResource\n  body = {\n    properties = {\n      level = \"NotSpecified\"\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-scoped-lock",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:lock}\" {\n  type = \"Microsoft.Authorization/locks@2017-04-01\"\n  name = ${2:\"name\"}\n  parent_id = ${3:scopeResource}\n  body = {\n    properties = {\n      level = ${4|\"NotSpecified\",\"CanNotDelete\",\"ReadOnly\"|}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-service-bus",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"serviceBusNamespace\" {\n  type      = \"Microsoft.ServiceBus/namespaces@2021-06-01-preview\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    sku = {\n      name     = \"Basic\"\n      capacity = 1\n      tier     = \"Basic\"\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-service-bus",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:serviceBusNamespace}\" {\n  type      = \"Microsoft.ServiceBus/namespaces@2021-06-01-preview\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    sku = {\n      name     = ${4|\"Basic\",\"Standard\",\"Premium\"|}\n      capacity = ${5:1}\n      tier     = ${6|\"Basic\",\"Standard\",\"Premium\"|}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-shared-image-gallery",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"sharedImageGallery\" {\n  type      = \"Microsoft.Compute/galleries@2020-09-30\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      description = \"description\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-shared-image-gallery",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:sharedImageGallery}\" {\n  type      = \"Microsoft.Compute/galleries@2020-09-30\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      description = ${4:\"description\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-sql",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"sqlServer\" {\n  type     = \"Microsoft.Sql/servers@2014-04-01\"\n  name     = \"name\"\n  location = \"location\"\n}\n\nresource \"azapi_resource\" \"sqlServerDatabase\" {\n  type      = \"Microsoft.Sql/servers/databases@2014-04-01\"\n  name      = \"name\"\n  location  = \"location\"\n  parent_id = azapi_resource.sqlServer.id\n  body = {\n    properties = {\n      collation                      = \"collation\"\n      edition                        = \"Basic\" \n      maxSizeBytes                   = \"maxSizeBytes\"\n      requestedServiceObjectiveName  = \"Basic\" \n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-sql",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"sqlServer\" {\n  type     = \"Microsoft.Sql/servers@2014-04-01\"\n  name     = ${1:\"name\"}\n  location = ${2:\"location\"}\n}\n\nresource \"azapi_resource\" \"${3:sqlServerDatabase}\" {\n  type      = \"Microsoft.Sql/servers/databases@2014-04-01\"\n  name      = ${4:\"name\"}\n  location  = ${2:\"location\"}\n  parent_id = azapi_resource.sqlServer.id\n  body = {\n    properties = {\n      collation                      = ${5:\"collation\"}\n      edition                        = ${6|\"Basic\",\"Business\",\"BusinessCritical\",\"DataWarehouse\",\"Free\",\"GeneralPurpose\",\"Hyperscale\",\"Premium\",\"PremiumRS\",\"Standard\",\"Stretch\",\"System\",\"System2\",\"Web\"|} \n      maxSizeBytes                   = ${7:\"maxSizeBytes\"}\n      requestedServiceObjectiveName  = ${8|\"Basic\",\"DS100\",\"DS1000\",\"DS1200\",\"DS1500\",\"DS200\",\"DS2000\",\"DS300\",\"DS400\",\"DS500\",\"DS600\",\"DW100\",\"DW1000\",\"DW10000c\",\"DW1000c\",\"DW1200\",\"DW1500\",\"DW15000c\",\"DW1500c\",\"DW200\",\"DW2000\",\"DW2000c\",\"DW2500c\",\"DW300\",\"DW3000\",\"DW30000c\",\"DW3000c\",\"DW400\",\"DW500\",\"DW5000c\",\"DW600\",\"DW6000\",\"DW6000c\",\"DW7500c\",\"ElasticPool\",\"Free\",\"P1\",\"P11\",\"P15\",\"P2\",\"P3\",\"P4\",\"P6\",\"PRS1\",\"PRS2\",\"PRS4\",\"PRS6\",\"S0\",\"S1\",\"S12\",\"S2\",\"S3\",\"S4\",\"S6\",\"S7\",\"S9\",\"System\",\"System0\",\"System1\",\"System2\",\"System2L\",\"System3\",\"System3L\",\"System4\",\"System4L\"|} \n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-sql-db-import",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"sqlServerDatabase\" {\n  type     = \"Microsoft.Sql/servers/databases@2014-04-01\"\n  name     = \"name\"\n  location = \"location\"\n}\n\nresource \"azapi_resource\" \"sqlDatabaseImport\" {\n  type      = \"Microsoft.Sql/servers/databases/extensions@2014-04-01\"\n  name      = \"import\"\n  parent_id = azapi_resource.sqlServerDatabase.id\n  body = {\n    properties = {\n      storageKeyType              = \"StorageAccessKey\"\n      storageKey                  = \"storageKey\"\n      storageUri                  = \"storageUri\"\n      administratorLogin          = \"administratorLogin\"\n      administratorLoginPassword  = \"administratorLoginPassword\"\n      operationMode               = \"Import\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-sql-db-import",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"sqlServerDatabase\" {\n  type     = \"Microsoft.Sql/servers/databases@2014-04-01\"\n  name     = ${1:\"name\"}\n  location = ${2:\"location\"}\n}\n\nresource \"azapi_resource\" \"${3:sqlDatabaseImport}\" {\n  type      = \"Microsoft.Sql/servers/databases/extensions@2014-04-01\"\n  name      = \"import\"\n  parent_id = azapi_resource.sqlServerDatabase.id\n  body = {\n    properties = {\n      storageKeyType              = ${4|\"StorageAccessKey\",\"SharedAccessKey\"|}\n      storageKey                  = ${5:\"storageKey\"}\n      storageUri                  = ${6:\"storageUri\"}\n      administratorLogin          = ${7:\"administratorLogin\"}\n      administratorLoginPassword  = ${8:\"administratorLoginPassword\"}\n      operationMode               = \"Import\"\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-sql-server-firewall-rules",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"sqlServer\" {\n  type      = \"Microsoft.Sql/servers@2021-02-01-preview\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      administratorLogin         = \"administratorLogin\"\n      administratorLoginPassword = \"administratorLoginPassword\"\n    }\n  }\n}\n\nresource \"azapi_resource\" \"sqlServerFirewallRules\" {\n  type      = \"Microsoft.Sql/servers/firewallRules@2021-02-01-preview\"\n  name      = \"name\"\n  parent_id = azapi_resource.sqlServer.id\n  body = {\n    properties = {\n      startIpAddress = \"startIpAddress\"\n      endIpAddress   = \"endIpAddress\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-sql-server-firewall-rules",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"sqlServer\" {\n  type      = \"Microsoft.Sql/servers@2021-02-01-preview\"\n  name      = ${1:\"name\"}\n  location  = ${2:\"location\"}\n  body = {\n    properties = {\n      administratorLogin         = ${3:\"administratorLogin\"}\n      administratorLoginPassword = ${4:\"administratorLoginPassword\"}\n    }\n  }\n}\n\nresource \"azapi_resource\" \"${5:sqlServerFirewallRules}\" {\n  type      = \"Microsoft.Sql/servers/firewallRules@2021-02-01-preview\"\n  name      = ${6:\"name\"}\n  parent_id = azapi_resource.sqlServer.id\n  body = {\n    properties = {\n      startIpAddress = ${7:\"startIpAddress\"}\n      endIpAddress   = ${8:\"endIpAddress\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-storage",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"storageaccount\" {\n  type      = \"Microsoft.Storage/storageAccounts@2021-02-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    kind = \"StorageV2\"\n    sku = {\n      name = \"Premium_LRS\"\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-storage",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:storageaccount}\" {\n  type      = \"Microsoft.Storage/storageAccounts@2021-02-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    kind = ${4|\"StorageV2\",\"Storage\",\"BlobStorage\",\"BlockBlobStorage\",\"FileStorage\"|}\n    sku = {\n      name = ${5:\"Premium_LRS\"}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-template-spec",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"templateSpec\" {\n  type      = \"Microsoft.Resources/templateSpecs@2021-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      description = \"description\"\n      displayName = \"displayName\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-template-spec",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:templateSpec}\" {\n  type      = \"Microsoft.Resources/templateSpecs@2021-05-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      description = ${4:\"description\"}\n      displayName = ${5:\"displayName\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-traffic-manager",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"trafficManagerProfile\" {\n  type      = \"Microsoft.Network/trafficManagerProfiles@2018-08-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"global\"\n  body = {\n    properties = {\n      profileStatus        = \"Enabled\"\n      trafficRoutingMethod = \"Performance\"\n      dnsConfig = {\n        relativeName = \"dnsConfigRelativeName\"\n        ttl          = 30\n      }\n      monitorConfig = {\n        protocol                  = \"HTTP\"\n        port                      = 80\n        path                      = \"path\"\n        intervalInSeconds         = 30\n        timeoutInSeconds          = 5\n        toleratedNumberOfFailures = 3\n      }\n      endpoints = [\n        {\n          properties = {\n            targetResourceId = \"targetResourceId\"\n            endpointStatus   = \"Enabled\"\n            weight           = 100\n            priority         = 1\n          }\n        }\n      ]\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-traffic-manager",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:trafficManagerProfile}\" {\n  type      = \"Microsoft.Network/trafficManagerProfiles@2018-08-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = \"global\"\n  body = {\n    properties = {\n      profileStatus         = \"Enabled\"\n      trafficRoutingMethod  = ${3|\"Performance\",\"Priority\",\"Weighted\",\"Geographic\"|}\n      dnsConfig = {\n        relativeName = ${4:\"dnsConfigRelativeName\"}\n        ttl          = 30\n      }\n      monitorConfig = {\n        protocol                 = ${5|\"HTTP\",\"HTTPS\",\"TCP\"|}\n        port                     = ${6:80}\n        path                     = ${7:\"path\"}\n        intervalInSeconds        = ${8:30}\n        timeoutInSeconds         = ${9:5}\n        toleratedNumberOfFailures = ${10:3}\n      }\n      endpoints = [\n        {\n          properties = {\n            targetResourceId = ${11:\"targetResourceId\"}\n            endpointStatus   = ${12|\"Enabled\",\"Disabled\"|}\n            weight           = ${13:100}\n            priority         = ${14:1}\n          }\n        }\n      ]\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-virtual-wan",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"virtualWan\" {\n  type      = \"Microsoft.Network/virtualWans@2020-07-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      type                           = \"Standard\"\n      disableVpnEncryption           = false\n      allowBranchToBranchTraffic     = true\n      allowVnetToVnetTraffic         = true\n      office365LocalBreakoutCategory = \"Optimize\"\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-virtual-wan",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:virtualWan}\" {\n  type      = \"Microsoft.Network/virtualWans@2020-07-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      type = ${4|\"Standard\",\"Basic\"|}\n      disableVpnEncryption = false\n      allowBranchToBranchTraffic = true\n      allowVnetToVnetTraffic = true\n      office365LocalBreakoutCategory = ${5|\"Optimize\",\"OptimizeAndAllow\",\"All\",\"None\"}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-vm-dsc",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"virtualMachine\" {\n  type     = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name     = \"name\"\n  location = location\n}\n\nresource \"azapi_resource\" \"windowsVMDsc\" {\n  type      = \"Microsoft.Compute/virtualMachines/extensions@2020-12-01\"\n  name      = \"name\"\n  location  = location\n  parent_id = azapi_resource.virtualMachine.id\n  body = {\n    properties = {\n      publisher               = \"Microsoft.Powershell\"\n      type                    = \"DSC\"\n      typeHandlerVersion      = \"2.9\"\n      autoUpgradeMinorVersion = true\n      settings = {\n        modulesUrl           = \"modulesUrl\"\n        sasToken             = \"sasToken\"\n        configurationFunction = \"configurationFunction\"\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-vm-dsc",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"virtualMachine\" {\n  type     = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name     = ${1:\"name\"}\n  location = ${2:location}\n}\n\nresource \"azapi_resource\" \"${3:windowsVMDsc}\" {\n  type      = \"Microsoft.Compute/virtualMachines/extensions@2020-12-01\"\n  name      = ${4:\"name\"}\n  location  = ${2:location}\n  parent_id = azapi_resource.virtualMachine.id\n  body = {\n    properties = {\n      publisher               = \"Microsoft.Powershell\"\n      type                    = \"DSC\"\n      typeHandlerVersion      = \"2.9\"\n      autoUpgradeMinorVersion = true\n      settings = {\n        modulesUrl           = ${5:\"modulesUrl\"}\n        sasToken             = ${6:\"sasToken\"}\n        configurationFunction = ${7:\"configurationFunction\"}\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-vm-linux-guestconfig-ext",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"virtualMachine\" {\n  type      = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name      = \"name\"\n  location  = \"location\"\n  identity {\n    type = \"SystemAssigned\"\n  }\n}\n\nresource \"azapi_resource\" \"windowsVMGuestConfigExtension\" {\n  type      = \"Microsoft.Compute/virtualMachines/extensions@2020-12-01\"\n  name      = \"AzurePolicyforLinux\"\n  location  = \"location\"\n  parent_id = azapi_resource.virtualMachine.id\n  body = {\n    properties = {\n      publisher                  = \"Microsoft.GuestConfiguration\"\n      type                       = \"ConfigurationforLinux\"\n      typeHandlerVersion         = \"1.0\"\n      autoUpgradeMinorVersion    = true\n      enableAutomaticUpgrade     = true\n      settings                   = {}\n      protectedSettings          = {}\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-vm-linux-guestconfig-ext",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"virtualMachine\" {\n  type      = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name      = ${1:\"name\"}\n  location  = ${2:\"location\"}\n  identity {\n    type = \"SystemAssigned\"\n  }\n}\n\nresource \"azapi_resource\" \"${3:windowsVMGuestConfigExtension}\" {\n  type      = \"Microsoft.Compute/virtualMachines/extensions@2020-12-01\"\n  name      = \"AzurePolicyforLinux\"\n  location  = ${2:\"location\"}\n  parent_id = azapi_resource.virtualMachine.id\n  body = {\n    properties = {\n      publisher                  = \"Microsoft.GuestConfiguration\"\n      type                       = \"ConfigurationforLinux\"\n      typeHandlerVersion         = \"1.0\"\n      autoUpgradeMinorVersion    = true\n      enableAutomaticUpgrade     = true\n      settings                   = {}\n      protectedSettings          = {}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-vm-script-linux",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"virtualMachine\" {\n  type     = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name     = \"name\"\n  location = location\n}\n\nresource \"azapi_resource\" \"linuxVMExtensions\" {\n  type      = \"Microsoft.Compute/virtualMachines/extensions@2019-07-01\"\n  name      = \"name\"\n  location  = location\n  parent_id = azapi_resource.virtualMachine.id\n  body = {\n    properties = {\n      publisher                 = \"Microsoft.Azure.Extensions\"\n      type                      = \"CustomScript\"\n      typeHandlerVersion        = \"2.1\"\n      autoUpgradeMinorVersion   = true\n      settings = {\n        fileUris = [\n          \"fileUris\"\n        ]\n      }\n      protectedSettings = {\n        commandToExecute = \"sh customScript.sh\"\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-vm-script-linux",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"virtualMachine\" {\n  type     = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name     = ${1:\"name\"}\n  location = ${2:location}\n}\n\nresource \"azapi_resource\" \"${3:linuxVMExtensions}\" {\n  type      = \"Microsoft.Compute/virtualMachines/extensions@2019-07-01\"\n  name      = ${4:\"name\"}\n  location  = ${2:location}\n  parent_id = azapi_resource.virtualMachine.id\n  body = {\n    properties = {\n      publisher                 = \"Microsoft.Azure.Extensions\"\n      type                      = \"CustomScript\"\n      typeHandlerVersion        = \"2.1\"\n      autoUpgradeMinorVersion   = true\n      settings = {\n        fileUris = [\n          ${5:\"fileUris\"}\n        ]\n      }\n      protectedSettings = {\n        commandToExecute = \"sh ${6:customScript.sh}\"\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-vm-script-windows",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"virtualMachine\" {\n  type     = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name     = \"name\"\n  location = location\n}\n\nresource \"azapi_resource\" \"windowsVMExtensions\" {\n  type      = \"Microsoft.Compute/virtualMachines/extensions@2020-12-01\"\n  name      = \"name\"\n  location  = location\n  parent_id = azapi_resource.virtualMachine.id\n  body = {\n    properties = {\n      publisher               = \"Microsoft.Compute\"\n      type                    = \"CustomScriptExtension\"\n      typeHandlerVersion      = \"1.10\"\n      autoUpgradeMinorVersion = true\n      settings = {\n        fileUris = [\n          \"fileUris\"\n        ]\n      }\n      protectedSettings = {\n        commandToExecute = \"powershell -ExecutionPolicy Bypass -file customScript.ps1\"\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-vm-script-windows",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"virtualMachine\" {\n  type     = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name     = ${1:\"name\"}\n  location = ${2:location}\n}\n\nresource \"azapi_resource\" \"${3:windowsVMExtensions}\" {\n  type      = \"Microsoft.Compute/virtualMachines/extensions@2020-12-01\"\n  name      = ${4:\"name\"}\n  location  = ${2:location}\n  parent_id = azapi_resource.virtualMachine.id\n  body = {\n    properties = {\n      publisher               = \"Microsoft.Compute\"\n      type                    = \"CustomScriptExtension\"\n      typeHandlerVersion      = \"1.10\"\n      autoUpgradeMinorVersion = true\n      settings = {\n        fileUris = [\n          ${5:\"fileUris\"}\n        ]\n      }\n      protectedSettings = {\n        commandToExecute = \"powershell -ExecutionPolicy Bypass -file ${6:customScript.ps1}\"\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-vm-ubuntu",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"ubuntuVM\" {\n  type      = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      hardwareProfile = {\n        vmSize = \"Standard_A2_v2\"\n      }\n      osProfile = {\n        computerName  = \"computerName\"\n        adminUsername = \"adminUsername\"\n        adminPassword = \"adminPassword\"\n      }\n      storageProfile = {\n        imageReference = {\n          publisher = \"Canonical\"\n          offer     = \"UbuntuServer\"\n          sku       = \"16.04-LTS\"\n          version   = \"latest\"\n        }\n        osDisk = {\n          name         = \"name\"\n          caching      = \"ReadWrite\"\n          createOption = \"FromImage\"\n        }\n      }\n      networkProfile = {\n        networkInterfaces = [\n          {\n            id = \"id\"\n          }\n        ]\n      }\n      diagnosticsProfile = {\n        bootDiagnostics = {\n          enabled    = true\n          storageUri = \"storageUri\"\n        }\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-vm-ubuntu",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:ubuntuVM}\" {\n  type      = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      hardwareProfile = {\n        vmSize = \"Standard_A2_v2\"\n      }\n      osProfile = {\n        computerName  = ${4:\"computerName\"}\n        adminUsername = ${5:\"adminUsername\"}\n        adminPassword = ${6:\"adminPassword\"}\n      }\n      storageProfile = {\n        imageReference = {\n          publisher = \"Canonical\"\n          offer     = \"UbuntuServer\"\n          sku       = \"16.04-LTS\"\n          version   = \"latest\"\n        }\n        osDisk = {\n          name         = ${7:\"name\"}\n          caching      = \"ReadWrite\"\n          createOption = \"FromImage\"\n        }\n      }\n      networkProfile = {\n        networkInterfaces = [\n          {\n            id = ${8:\"id\"}\n          }\n        ]\n      }\n      diagnosticsProfile = {\n        bootDiagnostics = {\n          enabled    = true\n          storageUri = ${9:\"storageUri\"}\n        }\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-vm-windows",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"windowsVM\" {\n  type      = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      hardwareProfile = {\n        vmSize = \"Standard_A2_v2\"\n      }\n      osProfile = {\n        computerName  = \"computerName\"\n        adminUsername = \"adminUsername\"\n        adminPassword = \"adminPassword\"\n      }\n      storageProfile = {\n        imageReference = {\n          publisher = \"MicrosoftWindowsServer\"\n          offer     = \"WindowsServer\"\n          sku       = \"2012-R2-Datacenter\"\n          version   = \"latest\"\n        }\n        osDisk = {\n          name         = \"name\"\n          caching      = \"ReadWrite\"\n          createOption = \"FromImage\"\n        }\n      }\n      networkProfile = {\n        networkInterfaces = [\n          {\n            id = \"id\"\n          }\n        ]\n      }\n      diagnosticsProfile = {\n        bootDiagnostics = {\n          enabled    = true\n          storageUri = \"storageUri\"\n        }\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-vm-windows",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:windowsVM}\" {\n  type       = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name       = ${2:\"name\"}\n  location   = ${3:\"location\"}\n  body = {\n    properties = {\n      hardwareProfile = {\n        vmSize = \"Standard_A2_v2\"\n      }\n      osProfile = {\n        computerName  = ${4:\"computerName\"}\n        adminUsername = ${5:\"adminUsername\"}\n        adminPassword = ${6:\"adminPassword\"}\n      }\n      storageProfile = {\n        imageReference = {\n          publisher = \"MicrosoftWindowsServer\"\n          offer     = \"WindowsServer\"\n          sku       = \"2012-R2-Datacenter\"\n          version   = \"latest\"\n        }\n        osDisk = {\n          name         = ${7:\"name\"}\n          caching      = \"ReadWrite\"\n          createOption = \"FromImage\"\n        }\n      }\n      networkProfile = {\n        networkInterfaces = [\n          {\n            id = ${8:\"id\"}\n          }\n        ]\n      }\n      diagnosticsProfile = {\n        bootDiagnostics = {\n          enabled    = true\n          storageUri = ${9:\"storageUri\"}\n        }\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-vm-windows-diagnostics",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"windowsVMDiagnostics\" {\n  type      = \"Microsoft.Compute/virtualMachines/extensions@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Compute/virtualMachines`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      publisher               = \"Microsoft.Azure.Diagnostics\"\n      type                    = \"IaaSDiagnostics\"\n      typeHandlerVersion      = \"1.5\"\n      autoUpgradeMinorVersion = true\n      settings = {\n        xmlCfg         = base64(\"<WadCfg> <DiagnosticMonitorConfiguration overallQuotaInMB=\\\"4096\\\" xmlns=\\\"http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration\\\"> <DiagnosticInfrastructureLogs scheduledTransferLogLevelFilter=\\\"Error\\\"/> <Logs scheduledTransferPeriod=\\\"PT1M\\\" scheduledTransferLogLevelFilter=\\\"Error\\\" /> <Directories scheduledTransferPeriod=\\\"PT1M\\\"> <IISLogs containerName =\\\"wad-iis-logfiles\\\" /> <FailedRequestLogs containerName =\\\"wad-failedrequestlogs\\\" /> </Directories> <WindowsEventLog scheduledTransferPeriod=\\\"PT1M\\\" > <DataSource name=\\\"Application!*\\\" /> </WindowsEventLog> <CrashDumps containerName=\\\"wad-crashdumps\\\" dumpType=\\\"Mini\\\"> <CrashDumpConfiguration processName=\\\"WaIISHost.exe\\\"/> <CrashDumpConfiguration processName=\\\"WaWorkerHost.exe\\\"/> <CrashDumpConfiguration processName=\\\"w3wp.exe\\\"/> </CrashDumps> <PerformanceCounters scheduledTransferPeriod=\\\"PT1M\\\"> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\Memory\\\\\\\\\\\\\\\\Available MBytes\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\Web Service(_Total)\\\\\\\\\\\\\\\\ISAPI Extension Requests/sec\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\Web Service(_Total)\\\\\\\\\\\\\\\\Bytes Total/Sec\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\ASP.NET Applications(__Total__)\\\\\\\\\\\\\\\\Requests/Sec\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\ASP.NET Applications(__Total__)\\\\\\\\\\\\\\\\Errors Total/Sec\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\ASP.NET\\\\\\\\\\\\\\\\Requests Queued\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\ASP.NET\\\\\\\\\\\\\\\\Requests Rejected\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\Processor(_Total)\\\\\\\\\\\\\\\\% Processor Time\\\" sampleRate=\\\"PT3M\\\" /> </PerformanceCounters> </DiagnosticMonitorConfiguration> </WadCfg>\")\n        storageAccount = \"storageAccount\"\n      }\n      protectedSettings = {\n        storageAccountName     = \"storageAccountName\"\n        storageAccountKey      = \"storageAccountKey\"\n        storageAccountEndPoint = \"storageAccountEndPoint\"\n      }\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-vm-windows-diagnostics",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:windowsVMDiagnostics}\" {\n  type  = \"Microsoft.Compute/virtualMachines/extensions@2020-12-01\"\n  parent_id = \"The ID of `Microsoft.Compute/virtualMachines`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      publisher = \"Microsoft.Azure.Diagnostics\"\n      type = \"IaaSDiagnostics\"\n      typeHandlerVersion = \"1.5\"\n      autoUpgradeMinorVersion = true\n      settings = {\n        xmlCfg = base64(\"<WadCfg> <DiagnosticMonitorConfiguration overallQuotaInMB=\\\"4096\\\" xmlns=\\\"http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration\\\"> <DiagnosticInfrastructureLogs scheduledTransferLogLevelFilter=\\\"Error\\\"/> <Logs scheduledTransferPeriod=\\\"PT1M\\\" scheduledTransferLogLevelFilter=\\\"Error\\\" /> <Directories scheduledTransferPeriod=\\\"PT1M\\\"> <IISLogs containerName =\\\"wad-iis-logfiles\\\" /> <FailedRequestLogs containerName =\\\"wad-failedrequestlogs\\\" /> </Directories> <WindowsEventLog scheduledTransferPeriod=\\\"PT1M\\\" > <DataSource name=\\\"Application!*\\\" /> </WindowsEventLog> <CrashDumps containerName=\\\"wad-crashdumps\\\" dumpType=\\\"Mini\\\"> <CrashDumpConfiguration processName=\\\"WaIISHost.exe\\\"/> <CrashDumpConfiguration processName=\\\"WaWorkerHost.exe\\\"/> <CrashDumpConfiguration processName=\\\"w3wp.exe\\\"/> </CrashDumps> <PerformanceCounters scheduledTransferPeriod=\\\"PT1M\\\"> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\Memory\\\\\\\\\\\\\\\\Available MBytes\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\Web Service(_Total)\\\\\\\\\\\\\\\\ISAPI Extension Requests/sec\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\Web Service(_Total)\\\\\\\\\\\\\\\\Bytes Total/Sec\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\ASP.NET Applications(__Total__)\\\\\\\\\\\\\\\\Requests/Sec\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\ASP.NET Applications(__Total__)\\\\\\\\\\\\\\\\Errors Total/Sec\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\ASP.NET\\\\\\\\\\\\\\\\Requests Queued\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\ASP.NET\\\\\\\\\\\\\\\\Requests Rejected\\\" sampleRate=\\\"PT3M\\\" /> <PerformanceCounterConfiguration counterSpecifier=\\\"\\\\\\\\\\\\\\\\Processor(_Total)\\\\\\\\\\\\\\\\% Processor Time\\\" sampleRate=\\\"PT3M\\\" /> </PerformanceCounters> </DiagnosticMonitorConfiguration> </WadCfg>\")\n        storageAccount = ${4:\"storageAccount\"}\n      }\n      protectedSettings = {\n        storageAccountName = ${5:\"storageAccountName\"}\n        storageAccountKey = ${6:\"storageAccountKey\"}\n        storageAccountEndPoint = ${7:\"storageAccountEndPoint\"}\n      }\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-vm-windows-guestconfig-ext",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"virtualMachine\" {\n  type     = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name     = \"name\"\n  location = location\n  identity {\n    type = \"SystemAssigned\"\n  }\n}\n\nresource \"azapi_resource\" \"windowsVMGuestConfigExtension\" {\n  type      = \"Microsoft.Compute/virtualMachines/extensions@2020-12-01\"\n  name      = \"AzurePolicyforWindows\"\n  parent_id = azapi_resource.virtualMachine.id\n  location  = location\n  body = {\n    properties = {\n      publisher                = \"Microsoft.GuestConfiguration\"\n      type                     = \"ConfigurationforWindows\"\n      typeHandlerVersion       = \"1.0\"\n      autoUpgradeMinorVersion  = true\n      enableAutomaticUpgrade   = true\n      settings                 = {}\n      protectedSettings        = {}\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-vm-windows-guestconfig-ext",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"virtualMachine\" {\n  type     = \"Microsoft.Compute/virtualMachines@2020-12-01\"\n  name     = ${1:\"name\"}\n  location = ${2:location}\n  identity {\n    type = \"SystemAssigned\"\n  }\n}\n\nresource \"azapi_resource\" \"${3:windowsVMGuestConfigExtension}\" {\n  type      = \"Microsoft.Compute/virtualMachines/extensions@2020-12-01\"\n  name      = \"AzurePolicyforWindows\"\n  parent_id = azapi_resource.virtualMachine.id\n  location  = ${2:location}\n  body = {\n    properties = {\n      publisher                = \"Microsoft.GuestConfiguration\"\n      type                     = \"ConfigurationforWindows\"\n      typeHandlerVersion       = \"1.0\"\n      autoUpgradeMinorVersion  = true\n      enableAutomaticUpgrade   = true\n      settings                 = {}\n      protectedSettings        = {}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-vnet",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"virtualNetwork\" {\n  type      = \"Microsoft.Network/virtualNetworks@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      addressSpace = {\n        addressPrefixes = [\n          \"10.0.0.0/16\"\n        ]\n      }\n      subnets = [\n        {\n          name = \"Subnet-1\"\n          properties = {\n            addressPrefix = \"10.0.0.0/24\"\n          }\n        }\n        {\n          name = \"Subnet-2\"\n          properties = {\n            addressPrefix = \"10.0.1.0/24\"\n          }\n        }\n      ]\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-vnet",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:virtualNetwork}\" {\n  type  = \"Microsoft.Network/virtualNetworks@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      addressSpace = {\n        addressPrefixes = [\n          \"10.0.0.0/16\"\n        ]\n      }\n      subnets = [\n        {\n          name = \"Subnet-1\"\n          properties = {\n            addressPrefix = \"10.0.0.0/24\"\n          }\n        }\n        {\n          name = \"Subnet-2\"\n          properties = {\n            addressPrefix = \"10.0.1.0/24\"\n          }\n        }\n      ]\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-vnet-peering",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"peering\" {\n  type      = \"Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-07-01\"\n  parent_id = \"The ID of `Microsoft.Network/virtualNetworks`\"\n  name      = \"virtualNetwork/name\"\n  body = {\n    properties = {\n      allowVirtualNetworkAccess = true\n      allowForwardedTraffic     = true\n      allowGatewayTransit       = true\n      useRemoteGateways         = true\n      remoteVirtualNetwork = {\n        id = \"virtualNetworks.id\"\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-vnet-peering",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:peering}\" {\n  type  = \"Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-07-01\"\n  parent_id = \"The ID of `Microsoft.Network/virtualNetworks`\"\n  name  = ${2:\"virtualNetwork/name\"}\n  body = {\n    properties = {\n      allowVirtualNetworkAccess = ${3|true,false|}\n      allowForwardedTraffic = ${4|true,false|}\n      allowGatewayTransit = ${5|true,false|}\n      useRemoteGateways = ${6|true,false|}\n      remoteVirtualNetwork = {\n        id = ${7:\"virtualNetworks.id\"}\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-vpn-local-gateway",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"localNetworkGateway\" {\n  type      = \"Microsoft.Network/localNetworkGateways@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      localNetworkAddressSpace = {\n        addressPrefixes = [\n          \"REQUIRED\"\n        ]\n      }\n      gatewayIpAddress = \"gatewayIpAddress\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-vpn-local-gateway",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:localNetworkGateway}\" {\n  type  = \"Microsoft.Network/localNetworkGateways@2019-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      localNetworkAddressSpace = {\n        addressPrefixes = [\n          ${4:\"REQUIRED\"}\n        ]\n      }\n      gatewayIpAddress = ${5:\"gatewayIpAddress\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-vpn-vnet-connection",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"vpnVnetConnection\" {\n  type      = \"Microsoft.Network/connections@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      virtualNetworkGateway1 = {\n        id         = \"virtualNetworkGateways.id\"\n        properties = {}\n      }\n      localNetworkGateway2 = {\n        id         = \"localNetworkGateways.id\"\n        properties = {}\n      }\n      connectionType = \"IPsec\"\n      routingWeight  = 0\n      sharedKey      = \"sharedkey\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-vpn-vnet-connection",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:vpnVnetConnection}\" {\n  type  = \"Microsoft.Network/connections@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      virtualNetworkGateway1 = {\n        id = ${4:\"virtualNetworkGateways.id\"}\n        properties = {}\n      }\n      localNetworkGateway2 = {\n        id = ${5:\"localNetworkGateways.id\"}\n        properties = {}\n      }\n      connectionType = ${6|\"IPsec\",\"Vnet2Vnet\",\"ExpressRoute\",\"VPNClient\"|}\n      routingWeight = ${7:0}\n      sharedKey = ${8:\"sharedkey\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-vpn-vnet-gateway",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"virtualNetworkGateway\" {\n  type      = \"Microsoft.Network/virtualNetworkGateways@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      ipConfigurations = [\n        {\n          name = \"name\"\n          properties = {\n            privateIPAllocationMethod = \"Dynamic\"\n            subnet = {\n              id = \"subnet.id\"\n            }\n            publicIPAddress = {\n              id = \"publicIPAdresses.id\"\n            }\n          }\n        }\n      ]\n      sku = {\n        name = \"Basic\"\n        tier = \"Basic\"\n      }\n      gatewayType = \"Vpn\"\n      vpnType     = \"PolicyBased\"\n      enableBgp   = true\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-vpn-vnet-gateway",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:virtualNetworkGateway}\" {\n  type  = \"Microsoft.Network/virtualNetworkGateways@2020-11-01\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      ipConfigurations = [\n        {\n          name = ${4:\"name\"}\n          properties = {\n            privateIPAllocationMethod = \"Dynamic\"\n            subnet = {\n              id = ${5:\"subnet.id\"}\n            }\n            publicIPAddress = {\n              id = ${6:\"publicIPAdresses.id\"}\n            }\n          }\n        }\n      ]\n      sku = {\n        name = ${7|\"Basic\",\"HighPerformance\",\"Standard\",\"UltraPerformance\",\"VpnGw1\",\"VpnGw2\",\"VpnGw3\",\"VpnGw1AZ\",\"VpnGw2AZ\",\"VpnGw3AZ\",\"ErGw1AZ\",\"ErGw2AZ\",\"ErGw3AZ\"}\n        tier = ${8|\"Basic\",\"HighPerformance\",\"Standard\",\"UltraPerformance\",\"VpnGw1\",\"VpnGw2\",\"VpnGw3\",\"VpnGw1AZ\",\"VpnGw2AZ\",\"VpnGw3AZ\",\"ErGw1AZ\",\"ErGw2AZ\",\"ErGw3AZ\"}\n      }\n      gatewayType = ${9|\"Vpn\",\"ExpressRoute\"}\n      vpnType = ${10|\"PolicyBased\",\"RouteBased\"}\n      enableBgp = ${11|true,false|}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-web-app",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"webApplication\" {\n  type      = \"Microsoft.Web/sites@2021-01-15\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  tags = {\n    \"hidden-related:${azurerm_resource_group.example.id}/providers/Microsoft.Web/serverfarms/appServicePlan\" = \"Resource\"\n  }\n  body = {\n    properties = {\n      serverFarmId = \"webServerFarms.id\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-web-app",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:webApplication}\" {\n  type      = \"Microsoft.Web/sites@2021-01-15\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  tags = {\n    \"hidden-related:${azurerm_resource_group.example.id}/providers/Microsoft.Web/serverfarms/${4:appServicePlan}\" = \"Resource\"\n  }\n  body = {\n    properties = {\n      serverFarmId = ${5:\"webServerFarms.id\"}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-web-app-deploy",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"webApplication\" {\n  type     = \"Microsoft.Web/sites@2020-12-01\"\n  name     = \"name\"\n  location = \"location\"\n}\n\nresource \"azapi_resource\" \"webApplicationExtension\" {\n  type      = \"Microsoft.Web/sites/extensions@2020-12-01\"\n  parent_id = azapi_resource.webApplication.id\n  name      = \"MSDeploy\"\n  body = {\n    properties = {\n      packageUri      = \"packageUri\"\n      dbType          = \"None\"\n      connectionString = \"connectionString\"\n      setParameters   = {\n        \"IIS Web Application Name\" = \"name\"\n      }\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-web-app-deploy",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"webApplication\" {\n  type     = \"Microsoft.Web/sites@2020-12-01\"\n  name     = ${1:\"name\"}\n  location = ${2:\"location\"}\n}\n\nresource \"azapi_resource\" \"${3:webApplicationExtension}\" {\n  type      = \"Microsoft.Web/sites/extensions@2020-12-01\"\n  parent_id = azapi_resource.webApplication.id\n  name      = \"MSDeploy\"\n  body = {\n    properties = {\n      packageUri      = ${4:\"packageUri\"}\n      dbType          = \"None\"\n      connectionString = ${5:\"connectionString\"}\n      setParameters   = {\n        \"IIS Web Application Name\" = ${6:\"name\"}\n      }\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-wvd-appgroup",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"applicationGroup\" {\n  type      = \"Microsoft.DesktopVirtualization/applicationgroups@2021-07-12\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      friendlyName         = \"friendlyName\"\n      applicationGroupType = \"Desktop\"\n      hostPoolArmPath      = \"desktopVirtualizationHostPools.id\"\n    }\n  }\n}\n\n```"
+    },
+    "sortText": "2_azapi-wvd-appgroup",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:applicationGroup}\" {\n  type      = \"Microsoft.DesktopVirtualization/applicationgroups@2021-07-12\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      friendlyName           = ${4:\"friendlyName\"}\n      applicationGroupType   = ${5|\"Desktop\",\"RemoteApp\"|}\n      hostPoolArmPath        = ${6:\"desktopVirtualizationHostPools.id\"}\n    }\n  }\n}\n"
+    }
+  },
+  {
+    "label": "azapi-wvd-hostpool",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"hostPool\" {\n  type      = \"Microsoft.DesktopVirtualization/hostpools@2021-07-12\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      friendlyName          = \"hostpoolFriendlyName\"\n      hostPoolType          = \"Personal\"\n      loadBalancerType      = \"BreadthFirst\"\n      preferredAppGroupType = \"Desktop\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-wvd-hostpool",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:hostPool}\" {\n  type      = \"Microsoft.DesktopVirtualization/hostpools@2021-07-12\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      friendlyName          = ${4:\"hostpoolFriendlyName\"}\n      hostPoolType          = ${5|\"Personal\",\"Pooled\"|}\n      loadBalancerType      = ${6|\"BreadthFirst\",\"DepthFirst\",\"Persistent\"|}\n      preferredAppGroupType = ${7|\"Desktop\",\"RailApplications\",\"None\"|}\n    }\n  }\n}"
+    }
+  },
+  {
+    "label": "azapi-wvd-workspace",
+    "documentation": {
+      "kind": "markdown",
+      "value": "```terraform\nresource \"azapi_resource\" \"workSpace\" {\n  type      = \"Microsoft.DesktopVirtualization/workspaces@2021-07-12\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name      = \"name\"\n  location  = \"location\"\n  body = {\n    properties = {\n      friendlyName = \"friendlyName\"\n    }\n  }\n}\n```"
+    },
+    "sortText": "2_azapi-wvd-workspace",
+    "textEdit": {
+      "newText": "resource \"azapi_resource\" \"${1:workSpace}\" {\n  type  = \"Microsoft.DesktopVirtualization/workspaces@2021-07-12\"\n  parent_id = \"The ID of `Microsoft.Resources/resourceGroups`\"\n  name  = ${2:\"name\"}\n  location  = ${3:\"location\"}\n  body = {\n    properties = {\n      friendlyName = ${4:\"friendlyName\"}\n    }\n  }\n}"
+    }
+  }
+]
