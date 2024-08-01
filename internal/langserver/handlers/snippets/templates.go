@@ -26,7 +26,12 @@ type DocumentationModel struct {
 	Value string `json:"value"`
 }
 
+var templateCandidates []lsp.CompletionItem
+
 func TemplateCandidates(editRange lsp.Range) []lsp.CompletionItem {
+	if len(templateCandidates) != 0 {
+		return templateCandidates
+	}
 	templates := make([]CompletionModel, 0)
 	data, err := templateJSON.ReadFile("templates.json")
 	if err != nil {
@@ -37,9 +42,8 @@ func TemplateCandidates(editRange lsp.Range) []lsp.CompletionItem {
 		return nil
 	}
 
-	candidates := make([]lsp.CompletionItem, 0)
 	for _, template := range templates {
-		candidates = append(candidates, lsp.CompletionItem{
+		templateCandidates = append(templateCandidates, lsp.CompletionItem{
 			Label:  template.Label,
 			Kind:   lsp.SnippetCompletion,
 			Detail: "Code Sample",
@@ -56,5 +60,5 @@ func TemplateCandidates(editRange lsp.Range) []lsp.CompletionItem {
 			},
 		})
 	}
-	return candidates
+	return templateCandidates
 }
