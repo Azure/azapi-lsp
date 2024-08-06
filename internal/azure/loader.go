@@ -86,8 +86,8 @@ func GetResourceDefinition(resourceType, apiVersion string) (*types.ResourceType
 	return nil, fmt.Errorf("failed to find resource type %s api-version %s in azure schema index", resourceType, apiVersion)
 }
 
-func ListResourceFunctions(resourceType, apiVersion string) ([]FunctionDefinition, error) {
-	res := make([]FunctionDefinition, 0)
+func ListResourceFunctions(resourceType, apiVersion string) ([]*FunctionDefinition, error) {
+	res := make([]*FunctionDefinition, 0)
 	azureSchema := GetAzureSchema()
 	if azureSchema == nil {
 		return nil, fmt.Errorf("failed to load azure schema index")
