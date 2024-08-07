@@ -30,6 +30,9 @@ var templateCandidates []lsp.CompletionItem
 
 func TemplateCandidates(editRange lsp.Range) []lsp.CompletionItem {
 	if len(templateCandidates) != 0 {
+		for i := range templateCandidates {
+			templateCandidates[i].TextEdit.Range = editRange
+		}
 		return templateCandidates
 	}
 	templates := make([]CompletionModel, 0)
