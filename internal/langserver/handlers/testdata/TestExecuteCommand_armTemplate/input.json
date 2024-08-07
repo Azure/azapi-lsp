@@ -1,0 +1,76 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "Spring_acctest_sc_123_name": {
+      "defaultValue": "acctest-sc-123",
+      "type": "String"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.AppPlatform/Spring",
+      "apiVersion": "2024-05-01-preview",
+      "name": "[parameters('Spring_acctest_sc_123_name')]",
+      "location": "westeurope",
+      "sku": {
+        "name": "S0",
+        "tier": "Standard"
+      },
+      "properties": {
+        "zoneRedundant": false,
+        "networkProfile": {
+          "outboundType": "loadBalancer"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.AppPlatform/Spring/apps",
+      "apiVersion": "2024-05-01-preview",
+      "name": "[concat(parameters('Spring_acctest_sc_123_name'), '/acctest-sca-123')]",
+      "location": "westeurope",
+      "dependsOn": [
+        "[resourceId('Microsoft.AppPlatform/Spring', parameters('Spring_acctest_sc_123_name'))]"
+      ],
+      "properties": {
+        "addonConfigs": {
+          "applicationConfigurationService": {},
+          "configServer": {},
+          "serviceRegistry": {}
+        },
+        "public": false,
+        "httpsOnly": false,
+        "temporaryDisk": {
+          "sizeInGB": 5,
+          "mountPath": "/tmp"
+        },
+        "persistentDisk": {
+          "sizeInGB": 0,
+          "mountPath": "/persistent"
+        },
+        "customPersistentDisks": [],
+        "enableEndToEndTLS": false,
+        "testEndpointAuthState": "Enabled",
+        "ingressSettings": {
+          "readTimeoutInSeconds": 300,
+          "sendTimeoutInSeconds": 60,
+          "sessionCookieMaxAge": 0,
+          "sessionAffinity": "None",
+          "backendProtocol": "Default"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.AppPlatform/Spring/configServers",
+      "apiVersion": "2024-05-01-preview",
+      "name": "[concat(parameters('Spring_acctest_sc_123_name'), '/default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.AppPlatform/Spring', parameters('Spring_acctest_sc_123_name'))]"
+      ],
+      "properties": {
+        "configServer": {}
+      }
+    }
+  ]
+}

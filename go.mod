@@ -6,6 +6,7 @@ require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.12.0
 	github.com/apparentlymart/go-textseg v1.0.0
 	github.com/creachadair/jrpc2 v0.32.0
+	github.com/expr-lang/expr v1.16.9
 	github.com/gertd/go-pluralize v0.2.1
 	github.com/google/go-cmp v0.5.8
 	github.com/hashicorp/go-version v1.3.0
