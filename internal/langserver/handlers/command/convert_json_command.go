@@ -30,7 +30,7 @@ func (c ConvertJsonCommand) Handle(ctx context.Context, params CommandArgs) (int
 		return nil, fmt.Errorf("unable to unmarshal JSON content: %w", err)
 	}
 
-	result := content
+	result := ""
 	if model["$schema"] != nil {
 		result, err = convertARMTemplate(content)
 		if err != nil {
