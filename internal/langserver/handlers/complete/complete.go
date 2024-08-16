@@ -66,7 +66,9 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 				candidateList = append(candidateList, snippets.CodeSampleCandidates(block, editRange)...)
 			}
 		}
-	} else {
+	}
+	// the cursor is not in a block
+	if block == nil {
 		editRange := lsp.Range{
 			Start: ilsp.HCLPosToLSP(pos),
 			End:   ilsp.HCLPosToLSP(pos),

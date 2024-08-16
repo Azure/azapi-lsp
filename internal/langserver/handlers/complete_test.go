@@ -653,6 +653,53 @@ func TestCompletion_template(t *testing.T) {
 	}
 }
 
+func TestCompletion_templateInsideOtherResource(t *testing.T) {
+	tmpDir := TempDir(t)
+	InitPluginCache(t, tmpDir.Dir())
+
+	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
+	stop := ls.Start(t)
+	defer stop()
+
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ls.Call(t, &langserver.CallRequest{
+		Method: "initialize",
+		ReqParams: fmt.Sprintf(`{
+		"capabilities": {},
+		"rootUri": %q,
+		"processId": 12345
+	}`, tmpDir.URI()),
+	})
+	ls.Notify(t, &langserver.CallRequest{
+		Method:    "initialized",
+		ReqParams: "{}",
+	})
+	ls.Call(t, &langserver.CallRequest{
+		Method:    "textDocument/didOpen",
+		ReqParams: buildReqParamsTextDocument(string(config), tmpDir.URI()),
+	})
+
+	rawResponse := ls.Call(t, &langserver.CallRequest{
+		Method:    "textDocument/completion",
+		ReqParams: buildReqParamsCompletion(2, 3, tmpDir.URI()),
+	})
+
+	var result map[string]interface{}
+	err = json.Unmarshal(rawResponse.Result, &result)
+	if err != nil {
+		t.Fatalf("failed to unmarshal response: %v", err)
+	}
+
+	items := result["items"].([]interface{})
+	if len(items) != 0 {
+		t.Fatalf("expected 0 items, got %d", len(items))
+	}
+}
+
 func buildReqParamsCompletion(line int, character int, uri string) string {
 	param := make(map[string]interface{})
 	textDocument := make(map[string]interface{})
