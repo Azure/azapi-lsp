@@ -29,8 +29,7 @@ func initializeResponse(t *testing.T, commandPrefix string) string {
 				"/",
 				"@",
 				"{",
-				"\"",
-				"\n"
+				"\""
 			  ],
 			  "completionItem": {}
 			},
