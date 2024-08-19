@@ -67,6 +67,15 @@ func CandidatesAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logg
 			}
 		}
 	}
+	// the cursor is not in a block
+	if block == nil {
+		editRange := lsp.Range{
+			Start: ilsp.HCLPosToLSP(pos),
+			End:   ilsp.HCLPosToLSP(pos),
+		}
+		editRange.Start.Character = 0
+		candidateList = append(candidateList, snippets.TemplateCandidates(editRange)...)
+	}
 
 	sort.Slice(candidateList, func(i, j int) bool { return candidateList[i].SortText < candidateList[j].SortText })
 	return candidateList

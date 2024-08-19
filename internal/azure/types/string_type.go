@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"regexp"
-	
+
 	"github.com/Azure/azapi-lsp/internal/utils"
 )
 
@@ -24,15 +24,23 @@ func (s *StringType) AsTypeBase() *TypeBase {
 }
 
 func (s *StringType) Validate(body interface{}, path string) []error {
+	if body == nil {
+		return nil
+	}
 	v, ok := body.(string)
 	if !ok {
 		return []error{utils.ErrorMismatch(path, "string", fmt.Sprintf("%T", body))}
 	}
+	if v == "" {
+		// unknown values will be converted to "", skip validation for now
+		// TODO: improve the validation to support unknown values
+		return nil
+	}
 	if s.MinLength != nil && len(v) < *s.MinLength {
-		return []error{utils.ErrorCommon(path, fmt.Sprintf("string length is less than %d", s.MinLength))}
+		return []error{utils.ErrorCommon(path, fmt.Sprintf("string length is less than %d", *s.MinLength))}
 	}
 	if s.MaxLength != nil && len(v) > *s.MaxLength {
-		return []error{utils.ErrorCommon(path, fmt.Sprintf("string length is greater than %d", s.MaxLength))}
+		return []error{utils.ErrorCommon(path, fmt.Sprintf("string length is greater than %d", *s.MaxLength))}
 	}
 	if s.Pattern != "" {
 		isMatch, err := regexp.Match(s.Pattern, []byte(v))

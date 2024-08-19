@@ -29,8 +29,7 @@ func initializeResponse(t *testing.T, commandPrefix string) string {
 				"/",
 				"@",
 				"{",
-				"\"",
-				"\n"
+				"\""
 			  ],
 			  "completionItem": {}
 			},
@@ -40,6 +39,12 @@ func initializeResponse(t *testing.T, commandPrefix string) string {
 			  "codeActionKinds": [
 				"source.formatAll.terraform"
 			  ]
+			},
+			"executeCommandProvider": {
+				"commands": [
+					"azapi.convertJsonToAzapi"
+				],
+				"workDoneProgress": true
 			}
 		  },
 		  "serverInfo": {

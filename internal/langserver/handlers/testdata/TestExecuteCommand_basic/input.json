@@ -1,0 +1,138 @@
+{
+  "id": "/subscriptions/0000000/resourcegroups/acctestRG-aks-240626160102776968/providers/Microsoft.ContainerService/managedClusters/acctestaks240626160102776968",
+  "location": "eastus",
+  "name": "acctestaks240626160102776968",
+  "type": "Microsoft.ContainerService/ManagedClusters",
+  "properties": {
+    "provisioningState": "Failed",
+    "powerState": {
+      "code": "Running"
+    },
+    "kubernetesVersion": "1.28",
+    "currentKubernetesVersion": "1.28.9",
+    "dnsPrefix": "acctestaks240626160102776968",
+    "fqdn": "acctestaks240626160102776968-yrgehxbt.hcp.eastus.azmk8s.io",
+    "azurePortalFQDN": "acctestaks240626160102776968-yrgehxbt.portal.hcp.eastus.azmk8s.io",
+    "agentPoolProfiles": [
+      {
+        "name": "np",
+        "count": 3,
+        "vmSize": "Standard_DS2_v2",
+        "osDiskSizeGB": 128,
+        "osDiskType": "Managed",
+        "kubeletDiskType": "OS",
+        "maxPods": 30,
+        "type": "VirtualMachineScaleSets",
+        "enableAutoScaling": false,
+        "scaleDownMode": "Delete",
+        "provisioningState": "Failed",
+        "powerState": {
+          "code": "Running"
+        },
+        "orchestratorVersion": "1.28",
+        "currentOrchestratorVersion": "1.28.9",
+        "enableNodePublicIP": false,
+        "mode": "System",
+        "enableEncryptionAtHost": false,
+        "enableUltraSSD": false,
+        "osType": "Linux",
+        "osSKU": "Ubuntu",
+        "nodeImageVersion": "AKSUbuntu-2204gen2containerd-202406.07.0",
+        "upgradeSettings": {
+          "maxSurge": "10%"
+        },
+        "enableFIPS": false
+      }
+    ],
+    "linuxProfile": {
+      "adminUsername": "acctestuser240626160102776968",
+      "ssh": {
+        "publicKeys": [
+          {
+            "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqaZoyiz1qbdOQ8xEf6uEu1cCwYowo5FHtsBhqLoDnnp7KUTEBN+L2NxRIfQ781rxV6Iq5jSav6b2Q8z5KiseOlvKA/RF2wqU0UPYqQviQhLmW6THTpmrv/YkUCuzxDpsH7DUDhZcwySLKVVe0Qm3+5N2Ta6UYH3lsDf9R9wTP2K/+vAnflKebuypNlmocIvakFWoZda18FOmsOoIVXQ8HWFNCuw9ZCunMSN62QGamCe3dL5cXlkgHYv7ekJE15IA9aOJcM7e90oeTqo+7HTcWfdu0qQqPWY5ujyMw/llas8tsXY85LFqRnr3gJ02bAscjc477+X+j/gkpFoN1QEmt terraform@demo.tld"
+          }
+        ]
+      }
+    },
+    "windowsProfile": {
+      "adminUsername": "azureuser",
+      "licenseType": "None",
+      "enableCSIProxy": true,
+      "gmsaProfile": {
+        "enabled": true,
+        "dnsServer": "",
+        "rootDomainName": ""
+      }
+    },
+    "servicePrincipalProfile": {
+      "clientId": "msi"
+    },
+    "nodeResourceGroup": "MC_acctestRG-aks-240626160102776968_acctestaks240626160102776968_eastus",
+    "enableRBAC": true,
+    "supportPlan": "KubernetesOfficial",
+    "networkProfile": {
+      "networkPlugin": "azure",
+      "networkPolicy": "azure",
+      "networkDataplane": "azure",
+      "loadBalancerSku": "standard",
+      "loadBalancerProfile": {
+        "managedOutboundIPs": {
+          "count": 1
+        },
+        "backendPoolType": "nodeIPConfiguration"
+      },
+      "serviceCidr": "10.10.0.0/16",
+      "dnsServiceIP": "10.10.0.10",
+      "outboundType": "loadBalancer",
+      "serviceCidrs": [
+        "10.10.0.0/16"
+      ],
+      "ipFamilies": [
+        "IPv4"
+      ]
+    },
+    "maxAgentPools": 100,
+    "autoUpgradeProfile": {
+      "upgradeChannel": "none",
+      "nodeOSUpgradeChannel": "NodeImage"
+    },
+    "disableLocalAccounts": false,
+    "securityProfile": {
+      "imageCleaner": {
+        "enabled": false,
+        "intervalHours": 48
+      }
+    },
+    "storageProfile": {
+      "diskCSIDriver": {
+        "enabled": true
+      },
+      "fileCSIDriver": {
+        "enabled": true
+      },
+      "snapshotController": {
+        "enabled": true
+      }
+    },
+    "oidcIssuerProfile": {
+      "enabled": false
+    },
+    "workloadAutoScalerProfile": {},
+    "azureMonitorProfile": {
+      "metrics": {
+        "enabled": false,
+        "kubeStateMetrics": {}
+      }
+    },
+    "resourceUID": "667bb0c8d448120001d4df07"
+  },
+  "identity": {
+    "type": "SystemAssigned",
+    "principalId": "4b2e8fa7-6157-40e8-b574-0c8647a1dc60",
+    "tenantId": "54826b22-38d6-4fb2-bad9-b7b93a3e9c5a"
+  },
+  "sku": {
+    "name": "Base",
+    "tier": "Free"
+  }
+}

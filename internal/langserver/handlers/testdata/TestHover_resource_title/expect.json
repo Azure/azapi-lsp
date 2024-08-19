@@ -1,0 +1,20 @@
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "result": {
+    "contents": {
+      "kind": "markdown",
+      "value": "resource azapi_resource.test 'Microsoft.DataFactory/factories@2018-06-01'   \n[View Documentation](https://learn.microsoft.com/en-us/azure/templates/microsoft.datafactory/factories?pivots=deployment-language-terraform)"
+    },
+    "range": {
+      "start": {
+        "line": 0,
+        "character": 0
+      },
+      "end": {
+        "line": 0,
+        "character": 34
+      }
+    }
+  }
+}
