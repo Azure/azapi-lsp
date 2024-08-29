@@ -1,3 +1,12 @@
+## v2.0.0-beta
+FEATURES:
+- Support `workspace/executeCommand` protocol which can convert ARMTemplate and resource JSON content to azapi configuration.
+- `azapi_resource` resource: Support `replace_triggers_external_values` field which is used to trigger a replacement of the resource.
+- `azapi` resources and data sources: Support `retry` field, which is used to specify the retry configuration.
+- `azapi` resources and data sources: Support `headers` and `query_parameters` fields, which are used to specify the headers and query parameters.
+- `azapi` resources and data sources: The `response_export_values` field supports JMESPath expressions.
+
+
 ## v1.15.0
 ENHANCEMENTS:
 - Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/5ccee7fe1b353e40ed86bfc530ee185faa43a288
