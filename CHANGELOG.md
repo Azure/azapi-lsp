@@ -6,6 +6,8 @@ FEATURES:
 - `azapi` resources and data sources: Support `headers` and `query_parameters` fields, which are used to specify the headers and query parameters.
 - `azapi` resources and data sources: The `response_export_values` field supports JMESPath expressions.
 
+ENHANCEMENTS:
+- Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/7492c6d0a12a07f97b955661bf6df83d51bbb14d
 
 ## v1.15.0
 ENHANCEMENTS:
