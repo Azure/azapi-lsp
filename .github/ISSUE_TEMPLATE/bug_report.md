@@ -21,7 +21,7 @@ Find this in the VS Code UI: Extensions Pane -> Installed -> HashiCorp Terraform
 ### Language Server
 <!--
 Find this from the first few lines of relevant Output pane:
-View -> Output -> terraform-ls
+View -> Output -> Terraform Azapi Provider
 -->
 ```
 

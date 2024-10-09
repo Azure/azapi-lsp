@@ -74,7 +74,7 @@ func (c *VersionCommand) Run(args []string) int {
 
 func (c *VersionCommand) Help() string {
 	helpText := `
-Usage: terraform-ls version [-json]
+Usage: azapi-lsp version [-json]
 
 ` + c.Synopsis() + "\n\n" + helpForFlags(c.flags())
 

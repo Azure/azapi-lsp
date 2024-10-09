@@ -95,7 +95,7 @@ func (c *ServeCommand) Run(args []string) int {
 		logger.Printf("Custom request concurrency set to %d", c.reqConcurrency)
 	}
 
-	logger.Printf("Starting terraform-ls %s", c.Version)
+	logger.Printf("Starting azapi-lsp %s", c.Version)
 
 	ctx = lsctx.WithLanguageServerVersion(ctx, c.Version)
 
@@ -168,7 +168,7 @@ func writeMemoryProfileInto(rawPath string) error {
 
 func (c *ServeCommand) Help() string {
 	helpText := `
-Usage: terraform-ls serve [options]
+Usage: azapi-lsp serve [options]
 
 ` + c.Synopsis() + "\n\n" + helpForFlags(c.flags())
 

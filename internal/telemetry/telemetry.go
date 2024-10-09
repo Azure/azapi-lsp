@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	lsp "github.com/Azure/azapi-lsp/internal/protocol"
-	tfaddr "github.com/hashicorp/terraform-registry-address"
 )
 
 type Telemetry struct {
@@ -34,14 +33,4 @@ func (t *Telemetry) SendEvent(ctx context.Context, name string, properties map[s
 		Name:       name,
 		Properties: properties,
 	})
-}
-
-func IsPublicProvider(addr tfaddr.Provider) bool {
-	if addr.Hostname == tfaddr.DefaultRegistryHost {
-		return true
-	}
-	if addr.IsDefault() || addr.IsLegacy() || addr.IsBuiltIn() {
-		return true
-	}
-	return false
 }
