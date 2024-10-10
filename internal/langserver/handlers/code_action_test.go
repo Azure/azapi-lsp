@@ -105,11 +105,11 @@ func TestCodeAction_migrateToAzapi(t *testing.T) {
 
 	expected := []protocol.CodeAction{
 		{
-			Title: "Migrate to Azapi Provider",
+			Title: "Migrate to AzAPI Provider",
 			Kind:  "refactor.rewrite",
 			Edit:  protocol.WorkspaceEdit{},
 			Command: &protocol.Command{
-				Title:     "Migrate to Azapi Provider",
+				Title:     "Migrate to AzAPI Provider",
 				Command:   "azapi.aztfmigrate",
 				Arguments: []json.RawMessage{[]byte(reqParams)},
 			},

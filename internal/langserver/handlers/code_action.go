@@ -90,7 +90,7 @@ func (h *logHandler) textDocumentCodeAction(ctx context.Context, params lsp.Code
 	if hasAzapiResources {
 		title = "Migrate to AzureRM Provider"
 	} else {
-		title = "Migrate to Azapi Provider"
+		title = "Migrate to AzAPI Provider"
 	}
 
 	argument, _ := json.Marshal(params)
