@@ -218,7 +218,7 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 	}
 
 	for index, r := range resources {
-		reportProgress(ctx, fmt.Sprintf("Migrating resource %d/%d...", index+1, len(resources)), 40+int(50.0*index/len(resources)))
+		reportProgress(ctx, fmt.Sprintf("Migrating resource %d/%d...", index+1, len(resources)), 40+uint32(50.0*index/len(resources)))
 		if err := r.GenerateNewConfig(tempTerraform); err != nil {
 			log.Printf("[ERROR] %+v", err)
 			_ = clientNotifier.Notify(ctx, "window/showMessage", lsp.ShowMessageParams{
@@ -340,7 +340,7 @@ provider "azapi" {
 	return config
 }
 
-func reportProgress(ctx context.Context, message string, percentage int) {
+func reportProgress(ctx context.Context, message string, percentage uint32) {
 	clientCaller, err := context2.ClientCaller(ctx)
 	if err != nil {
 		log.Printf("[ERROR] failed to get client caller: %+v", err)
@@ -382,7 +382,7 @@ func reportProgress(ctx context.Context, message string, percentage int) {
 				Kind:        "report",
 				Cancellable: false,
 				Message:     message,
-				Percentage:  uint32(percentage),
+				Percentage:  percentage,
 			},
 		})
 	}

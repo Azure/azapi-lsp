@@ -105,10 +105,15 @@ func (te *TokenEncoder) encodeTokenOfIndex(i int) []uint32 {
 		deltaStartChar := token.Range.Start.Column - 1 - previousStartChar
 
 		data = append(data, []uint32{
+			// #nosec G105
 			uint32(deltaLine),
+			// #nosec G105
 			uint32(deltaStartChar),
+			// #nosec G105
 			uint32(tokenLength),
+			// #nosec G105
 			uint32(tokenTypeIdx),
+			// #nosec G105
 			uint32(modifierBitMask),
 		}...)
 	} else {
