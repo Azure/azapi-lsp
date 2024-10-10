@@ -52,6 +52,7 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 	}
 
 	reportProgress(ctx, "Parsing Terraform configurations...", 0)
+	defer reportProgress(ctx, "Migration completed.", 100)
 
 	fs, err := lsctx.DocumentStorage(ctx)
 	if err != nil {
@@ -100,8 +101,14 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 	}
 
 	// parsing the document
-	syntaxDoc, _ := hclsyntax.ParseConfig(data, "", hcl.InitialPos)
-	writeDoc, _ := hclwrite.ParseConfig(data, "", hcl.InitialPos)
+	syntaxDoc, diags := hclsyntax.ParseConfig(data, "", hcl.InitialPos)
+	if diags.HasErrors() {
+		return nil, fmt.Errorf("parsing the HCL file: %s", diags.Error())
+	}
+	writeDoc, diags := hclwrite.ParseConfig(data, "", hcl.InitialPos)
+	if diags.HasErrors() {
+		return nil, fmt.Errorf("parsing the HCL file: %s", diags.Error())
+	}
 	syntaxBlockMap := map[string]*hclsyntax.Block{}
 	writeBlockMap := map[string]*hclwrite.Block{}
 
@@ -109,12 +116,14 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 	if !ok {
 		return nil, fmt.Errorf("failed to parse HCL syntax")
 	}
+	addresses := make([]string, 0)
 	for _, block := range body.Blocks {
 		if startPos.Position().Byte <= block.Range().Start.Byte && block.Range().End.Byte <= endPos.Position().Byte {
 			if block.Type != "resource" {
 				continue
 			}
 			address := strings.Join(block.Labels, ".")
+			addresses = append(addresses, address)
 			syntaxBlockMap[address] = block
 		}
 	}
@@ -249,7 +258,20 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 
 	// update config
 	emptyFile := hclwrite.NewEmptyFile()
+	outputs := make([]types.Output, 0)
+	resourcesMap := make(map[string]types.AzureResource)
 	for _, r := range resources {
+		if r.IsMigrated() {
+			outputs = append(outputs, r.Outputs()...)
+		}
+		resourcesMap[r.OldAddress(nil)] = r
+	}
+
+	for _, addr := range addresses {
+		r := resourcesMap[addr]
+		if r == nil {
+			continue
+		}
 		if !r.IsMigrated() {
 			emptyFile.Body().AppendBlock(writeBlockMap[r.OldAddress(nil)])
 			emptyFile.Body().AppendNewline()
@@ -270,6 +292,7 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 			emptyFile.Body().AppendNewline()
 		}
 		if migratedBlock := r.MigratedBlock(); migratedBlock != nil {
+			types.ReplaceOutputs(migratedBlock, outputs)
 			emptyFile.Body().AppendBlock(migratedBlock)
 			emptyFile.Body().AppendNewline()
 		}
@@ -288,8 +311,6 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 			},
 		},
 	})
-
-	reportProgress(ctx, "Migration completed.", 100)
 
 	return nil, nil
 }

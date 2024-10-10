@@ -4,6 +4,10 @@ github.com/Azure/aztfmigrate v1.15.1-0.20241008023126-5d1f089351ad h1:b09oirToeb
 github.com/Azure/aztfmigrate v1.15.1-0.20241008023126-5d1f089351ad/go.mod h1:XqyslKnttA4clKBJ837VOTSAsj0nBvr6MUIOnvrIRIQ=
 github.com/Azure/aztfmigrate v1.15.1-0.20241010052938-f55ac2833cd3 h1:ou4lFpnCzxTCtEtwCvIPRIYS+iRS4yXKGUQj/hpsnX0=
 github.com/Azure/aztfmigrate v1.15.1-0.20241010052938-f55ac2833cd3/go.mod h1:bQOrvrR/2/X6rtJDGH7ARJXZT3cmTMGC6QXIDb4rMxE=
+github.com/Azure/aztfmigrate v1.15.1-0.20241010074100-daaa4f34b510 h1:ncxS1gQGJWL2ki1WUWfYe9rU61pv9kjKBNGgmTPGQKc=
+github.com/Azure/aztfmigrate v1.15.1-0.20241010074100-daaa4f34b510/go.mod h1:bQOrvrR/2/X6rtJDGH7ARJXZT3cmTMGC6QXIDb4rMxE=
+github.com/Azure/aztfmigrate v1.15.1-0.20241010081637-fcc6b9d0f7dc h1:xh3lnKKz2irii5amvw3endArzp5tylwOv2AGnjYu8os=
+github.com/Azure/aztfmigrate v1.15.1-0.20241010081637-fcc6b9d0f7dc/go.mod h1:bQOrvrR/2/X6rtJDGH7ARJXZT3cmTMGC6QXIDb4rMxE=
 github.com/Azure/azure-sdk-for-go/sdk/azcore v1.14.0 h1:nyQWyZvwGTvunIMxi1Y9uXkcyr+I7TeNrr/foo4Kpk8=
 github.com/Azure/azure-sdk-for-go/sdk/azcore v1.14.0/go.mod h1:l38EPgmsp71HHLq9j7De57JcKOWPyhrsW1Awm1JS6K0=
 github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.7.0 h1:tfLQ34V6F7tVSwoTf/4lH5sE0o6eCJuNDTmH09nDpbc=
