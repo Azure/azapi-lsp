@@ -32,9 +32,9 @@ func HCLRangeToLSP(rng hcl.Range) lsp.Range {
 
 func HCLPosToLSP(pos hcl.Pos) lsp.Position {
 	return lsp.Position{
-		// #nosec G105
+		// #nosec G115
 		Line: uint32(pos.Line - 1),
-		// #nosec G105
+		// #nosec G115
 		Character: uint32(pos.Column - 1),
 	}
 }
