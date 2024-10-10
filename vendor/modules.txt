@@ -1,7 +1,7 @@
 # dario.cat/mergo v1.0.1
 ## explicit; go 1.13
 dario.cat/mergo
-# github.com/Azure/aztfmigrate v1.15.1-0.20241008023126-5d1f089351ad
+# github.com/Azure/aztfmigrate v1.15.1-0.20241010052938-f55ac2833cd3
 ## explicit; go 1.22.0
 github.com/Azure/aztfmigrate/azurerm
 github.com/Azure/aztfmigrate/azurerm/coverage
