@@ -218,6 +218,7 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 	}
 
 	for index, r := range resources {
+		// #nosec G115
 		reportProgress(ctx, fmt.Sprintf("Migrating resource %d/%d...", index+1, len(resources)), 40+uint32(50.0*index/len(resources)))
 		if err := r.GenerateNewConfig(tempTerraform); err != nil {
 			log.Printf("[ERROR] %+v", err)

@@ -134,10 +134,15 @@ func (te *TokenEncoder) encodeTokenOfIndex(i int) []uint32 {
 			}
 
 			data = append(data, []uint32{
+				// #nosec G115
 				uint32(deltaLine),
+				// #nosec G115
 				uint32(deltaStartChar),
+				// #nosec G115
 				uint32(length),
+				// #nosec G115
 				uint32(tokenTypeIdx),
+				// #nosec G115
 				uint32(modifierBitMask),
 			}...)
 
