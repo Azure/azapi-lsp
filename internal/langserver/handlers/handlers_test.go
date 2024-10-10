@@ -37,12 +37,13 @@ func initializeResponse(t *testing.T, commandPrefix string) string {
 			"declarationProvider": false,
 			"codeActionProvider": {
 			  "codeActionKinds": [
-				"source.formatAll.terraform"
+				"refactor.rewrite"
 			  ]
 			},
 			"executeCommandProvider": {
 				"commands": [
-					"azapi.convertJsonToAzapi"
+					"azapi.convertJsonToAzapi",
+					"azapi.aztfmigrate"
 				],
 				"workDoneProgress": true
 			}
@@ -141,7 +142,7 @@ func TestEOF(t *testing.T) {
 //
 // The returned filehandler is the parent tmp dir
 func TempDir(t *testing.T, nested ...string) lsp.FileHandler {
-	tmpDir := filepath.Join(os.TempDir(), "terraform-ls", t.Name())
+	tmpDir := filepath.Join(os.TempDir(), "azapi-lsp", t.Name())
 	err := os.MkdirAll(tmpDir, 0o755)
 	if err != nil && !os.IsExist(err) {
 		t.Fatal(err)

@@ -1,3 +1,8 @@
+## Unreleased
+FEATURES:
+- Support `refactor/rewrite` code action which can trigger the command to convert resources between `azapi` and `azurerm` providers.
+- Support `aztfmigrate` command which can convert resources between `azapi` and `azurerm` providers.
+
 ## v2.0.0-beta
 FEATURES:
 - Support `workspace/executeCommand` protocol which can convert ARMTemplate and resource JSON content to azapi configuration.

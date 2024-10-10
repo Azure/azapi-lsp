@@ -27,10 +27,12 @@ type service struct {
 	sessCtx     context.Context
 	stopSession context.CancelFunc
 
-	fs            filesystem.Filesystem
-	telemetry     telemetry.Sender
-	server        session.Server
-	diagsNotifier *diagnostics.Notifier
+	fs             filesystem.Filesystem
+	telemetry      telemetry.Sender
+	server         session.Server
+	diagsNotifier  *diagnostics.Notifier
+	clientCaller   session.ClientCaller
+	clientNotifier session.ClientNotifier
 
 	additionalHandlers map[string]rpch.Func
 }
@@ -176,6 +178,9 @@ func (svc *service) Assigner() (jrpc2.Assigner, error) {
 				return nil, err
 			}
 
+			ctx = lsctx.WithClientCaller(ctx, svc.clientCaller)
+			ctx = lsctx.WithClientNotifier(ctx, svc.clientNotifier)
+			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
 			return handle(ctx, req, svc.WorkspaceExecuteCommand)
 		},
 		"shutdown": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {
@@ -219,6 +224,8 @@ func (svc *service) Assigner() (jrpc2.Assigner, error) {
 
 func (svc *service) configureSessionDependencies() error {
 	svc.diagsNotifier = diagnostics.NewNotifier(svc.server, svc.logger)
+	svc.clientCaller = svc.server
+	svc.clientNotifier = svc.server
 	return nil
 }
 

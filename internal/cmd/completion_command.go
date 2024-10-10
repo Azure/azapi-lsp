@@ -116,7 +116,7 @@ func (c *CompletionCommand) Run(args []string) int {
 
 func (c *CompletionCommand) Help() string {
 	helpText := `
-Usage: terraform-ls completion [options] [path]
+Usage: azapi-lsp completion [options] [path]
 
 ` + c.Synopsis() + "\n\n" + helpForFlags(c.flags())
 	return strings.TrimSpace(helpText)

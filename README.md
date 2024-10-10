@@ -1,4 +1,4 @@
-# Terraform AzApi Provider Language Server
+# Terraform AzAPI Provider Language Server
 
 Experimental version of [terraform-provider-azapi](https://github.com/Azure/terraform-provider-azapi) language server.
 

@@ -538,7 +538,7 @@ func TestFilesystem_HasOpenFiles(t *testing.T) {
 }
 
 func TempDir(t *testing.T) string {
-	tmpDir := filepath.Join(os.TempDir(), "terraform-ls", t.Name())
+	tmpDir := filepath.Join(os.TempDir(), "azapi-lsp", t.Name())
 
 	err := os.MkdirAll(tmpDir, 0o755)
 	if err != nil {
