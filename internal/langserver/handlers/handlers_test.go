@@ -37,12 +37,13 @@ func initializeResponse(t *testing.T, commandPrefix string) string {
 			"declarationProvider": false,
 			"codeActionProvider": {
 			  "codeActionKinds": [
-				"source.formatAll.terraform"
+				"refactor.rewrite"
 			  ]
 			},
 			"executeCommandProvider": {
 				"commands": [
-					"azapi.convertJsonToAzapi"
+					"azapi.convertJsonToAzapi",
+					"azapi.aztfmigrate"
 				],
 				"workDoneProgress": true
 			}

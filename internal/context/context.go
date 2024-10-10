@@ -2,9 +2,9 @@ package context
 
 import (
 	"context"
-
 	"github.com/Azure/azapi-lsp/internal/filesystem"
 	"github.com/Azure/azapi-lsp/internal/langserver/diagnostics"
+	"github.com/Azure/azapi-lsp/internal/langserver/session"
 )
 
 type contextKey struct {
@@ -19,6 +19,7 @@ var (
 	ctxDs            = &contextKey{"document storage"}
 	ctxDiagsNotifier = &contextKey{"diagnostics notifier"}
 	ctxLsVersion     = &contextKey{"language server version"}
+	ctxClientCaller  = &contextKey{Name: "client caller"}
 )
 
 func missingContextErr(ctxKey *contextKey) *MissingContextErr {
@@ -61,4 +62,30 @@ func LanguageServerVersion(ctx context.Context) (string, bool) {
 		return "", false
 	}
 	return version, true
+}
+
+func WithClientCaller(ctx context.Context, clientCaller session.ClientCaller) context.Context {
+	return context.WithValue(ctx, ctxClientCaller, clientCaller)
+}
+
+func ClientCaller(ctx context.Context) (session.ClientCaller, error) {
+	clientCaller, ok := ctx.Value(ctxClientCaller).(session.ClientCaller)
+	if !ok {
+		return nil, missingContextErr(ctxClientCaller)
+	}
+
+	return clientCaller, nil
+}
+
+func WithClientNotifier(ctx context.Context, clientNotifier session.ClientNotifier) context.Context {
+	return context.WithValue(ctx, ctxClientCaller, clientNotifier)
+}
+
+func ClientNotifier(ctx context.Context) (session.ClientNotifier, error) {
+	clientNotifier, ok := ctx.Value(ctxClientCaller).(session.ClientNotifier)
+	if !ok {
+		return nil, missingContextErr(ctxClientCaller)
+	}
+
+	return clientNotifier, nil
 }

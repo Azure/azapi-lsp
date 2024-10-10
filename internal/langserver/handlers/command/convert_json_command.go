@@ -18,7 +18,8 @@ type ConvertJsonResponse struct {
 	HCLContent string `json:"hclcontent"`
 }
 
-func (c ConvertJsonCommand) Handle(ctx context.Context, params CommandArgs) (interface{}, error) {
+func (c ConvertJsonCommand) Handle(ctx context.Context, arguments []json.RawMessage) (interface{}, error) {
+	params := ParseCommandArgs(arguments)
 	content, ok := params.GetString("jsoncontent")
 	if !ok {
 		return nil, nil

@@ -1,14 +1,18 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
+	"os"
+	"reflect"
 	"testing"
 
 	"github.com/Azure/azapi-lsp/internal/langserver"
 	"github.com/Azure/azapi-lsp/internal/langserver/session"
+	"github.com/Azure/azapi-lsp/internal/protocol"
 )
 
-func TestLangServer_codeActionWithoutInitialization(t *testing.T) {
+func TestCodeAction_withoutInitialization(t *testing.T) {
 	ls := langserver.NewLangServerMock(t, NewMockSession(nil))
 	stop := ls.Start(t)
 	defer stop()
@@ -26,21 +30,39 @@ func TestLangServer_codeActionWithoutInitialization(t *testing.T) {
 	}, session.SessionNotInitialized.Err())
 }
 
-func TestLangServer_codeAction_basic(t *testing.T) {
-	// code action is not implemented yet
-	t.SkipNow()
+func TestCodeAction_migrateToAzureRM(t *testing.T) {
 	tmpDir := TempDir(t)
+	InitPluginCache(t, tmpDir.Dir())
 
 	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
 	stop := ls.Start(t)
 	defer stop()
 
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+	reqParams := buildReqParamsCodeAction(6, 1, 19, 2, tmpDir.URI())
+
+	expected := []protocol.CodeAction{
+		{
+			Title: "Migrate to AzureRM Provider",
+			Kind:  "refactor.rewrite",
+			Edit:  protocol.WorkspaceEdit{},
+			Command: &protocol.Command{
+				Title:     "Migrate to AzureRM Provider",
+				Command:   "azapi.aztfmigrate",
+				Arguments: []json.RawMessage{[]byte(reqParams)},
+			},
+		},
+	}
+
 	ls.Call(t, &langserver.CallRequest{
 		Method: "initialize",
 		ReqParams: fmt.Sprintf(`{
-	    "capabilities": {},
-	    "rootUri": %q,
-	    "processId": 12345
+		"capabilities": {},
+		"rootUri": %q,
+		"processId": 12345
 	}`, tmpDir.URI()),
 	})
 	ls.Notify(t, &langserver.CallRequest{
@@ -48,130 +70,101 @@ func TestLangServer_codeAction_basic(t *testing.T) {
 		ReqParams: "{}",
 	})
 	ls.Call(t, &langserver.CallRequest{
-		Method: "textDocument/didOpen",
-		ReqParams: fmt.Sprintf(`{
-		"textDocument": {
-			"version": 0,
-			"languageId": "terraform",
-			"text": "provider  \"test\"   {\n\n      }\n",
-			"uri": "%s/main.tf"
-		}
-	}`, tmpDir.URI()),
+		Method:    "textDocument/didOpen",
+		ReqParams: buildReqParamsTextDocument(string(config), tmpDir.URI()),
 	})
-	ls.CallAndExpectResponse(t, &langserver.CallRequest{
-		Method: "textDocument/codeAction",
-		ReqParams: fmt.Sprintf(`{
-			"textDocument": { "uri": "%s/main.tf" },
-			"range": {
-				"start": { "line": 0, "character": 0 },
-				"end": { "line": 1, "character": 0 }
-			},
-			"context": { "diagnostics": [], "only": ["source.formatAll.terraform"] }
-		}`, tmpDir.URI()),
-	}, fmt.Sprintf(`{
-			"jsonrpc": "2.0",
-			"id": 3,
-			"result": [
-				{
-					"title": "Format Document",
-					"kind": "source.formatAll.terraform",
-					"edit":{
-						"changes":{
-							"%s/main.tf": [
-								{
-									"range": {
-										"start": {
-											"line": 0,
-											"character": 0
-										},
-										"end": {
-											"line": 1,
-											"character": 0
-										}
-									},
-									"newText": "provider \"test\" {\n"
-								},
-								{
-									"range": {
-										"start": {
-											"line": 2,
-											"character": 0
-										},
-										"end": {
-											"line": 3,
-											"character": 0
-										}
-									},
-									"newText": "}\n"
-								}
-							]
-						}
-					}
-				}
-			]
-		}`, tmpDir.URI()))
+
+	rawResponse := ls.Call(t, &langserver.CallRequest{
+		Method:    "textDocument/codeAction",
+		ReqParams: reqParams,
+	})
+
+	var result []protocol.CodeAction
+	err = json.Unmarshal(rawResponse.Result, &result)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("expected %v, got %v", expected, result)
+	}
 }
 
-func TestLangServer_codeAction_no_code_action_requested(t *testing.T) {
+func TestCodeAction_migrateToAzapi(t *testing.T) {
 	tmpDir := TempDir(t)
+	InitPluginCache(t, tmpDir.Dir())
 
-	tests := []struct {
-		name    string
-		request *langserver.CallRequest
-		want    string
-	}{
+	ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
+	stop := ls.Start(t)
+	defer stop()
+
+	config, err := os.ReadFile(fmt.Sprintf("./testdata/%s/main.tf", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+	reqParams := buildReqParamsCodeAction(1, 1, 4, 2, tmpDir.URI())
+
+	expected := []protocol.CodeAction{
 		{
-			name: "no code action requested",
-			request: &langserver.CallRequest{
-				Method: "textDocument/codeAction",
-				ReqParams: fmt.Sprintf(`{
-						"textDocument": { "uri": "%s/main.tf" },
-						"range": {
-							"start": { "line": 0, "character": 0 },
-							"end": { "line": 1, "character": 0 }
-						},
-						"context": { "diagnostics": [], "only": [""] }
-					}`, tmpDir.URI()),
+			Title: "Migrate to Azapi Provider",
+			Kind:  "refactor.rewrite",
+			Edit:  protocol.WorkspaceEdit{},
+			Command: &protocol.Command{
+				Title:     "Migrate to Azapi Provider",
+				Command:   "azapi.aztfmigrate",
+				Arguments: []json.RawMessage{[]byte(reqParams)},
 			},
-			want: `{
-				"jsonrpc": "2.0",
-				"id": 3,
-				"result": null
-			}`,
 		},
 	}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			ls := langserver.NewLangServerMock(t, NewMockSession(&MockSessionInput{}))
-			stop := ls.Start(t)
-			defer stop()
+	ls.Call(t, &langserver.CallRequest{
+		Method: "initialize",
+		ReqParams: fmt.Sprintf(`{
+		"capabilities": {},
+		"rootUri": %q,
+		"processId": 12345
+	}`, tmpDir.URI()),
+	})
+	ls.Notify(t, &langserver.CallRequest{
+		Method:    "initialized",
+		ReqParams: "{}",
+	})
+	ls.Call(t, &langserver.CallRequest{
+		Method:    "textDocument/didOpen",
+		ReqParams: buildReqParamsTextDocument(string(config), tmpDir.URI()),
+	})
 
-			ls.Call(t, &langserver.CallRequest{
-				Method: "initialize",
-				ReqParams: fmt.Sprintf(`{
-					"capabilities": {},
-					"rootUri": %q,
-					"processId": 123456
-			}`, tmpDir.URI()),
-			})
-			ls.Notify(t, &langserver.CallRequest{
-				Method:    "initialized",
-				ReqParams: "{}",
-			})
-			ls.Call(t, &langserver.CallRequest{
-				Method: "textDocument/didOpen",
-				ReqParams: fmt.Sprintf(`{
-				"textDocument": {
-					"version": 0,
-					"languageId": "terraform",
-					"text": "provider  \"test\"   {\n\n      }\n",
-					"uri": "%s/main.tf"
-				}
-			}`, tmpDir.URI()),
-			})
+	rawResponse := ls.Call(t, &langserver.CallRequest{
+		Method:    "textDocument/codeAction",
+		ReqParams: reqParams,
+	})
 
-			ls.CallAndExpectResponse(t, tt.request, tt.want)
-		})
+	var result []protocol.CodeAction
+	err = json.Unmarshal(rawResponse.Result, &result)
+	if err != nil {
+		t.Fatal(err)
 	}
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("expected %v, got %v", expected, result)
+	}
+}
+
+func buildReqParamsCodeAction(startLine, startCharacter, endLine, endCharacter int, uri string) string {
+	param := protocol.CodeActionParams{
+		TextDocument: protocol.TextDocumentIdentifier{
+			URI: protocol.DocumentURI(fmt.Sprintf("%s/main.tf", uri)),
+		},
+		Range: protocol.Range{
+			Start: protocol.Position{
+				Line:      uint32(startLine - 1),
+				Character: uint32(startCharacter - 1),
+			},
+			End: protocol.Position{
+				Line:      uint32(endLine - 1),
+				Character: uint32(endCharacter - 1),
+			},
+		},
+		Context: protocol.CodeActionContext{},
+	}
+	paramJson, _ := json.Marshal(param)
+	return string(paramJson)
 }

@@ -10,9 +10,17 @@ import (
 
 var handlerMap = map[string]command.CommandHandler{}
 
+const CommandConvertJsonToAzapi = "azapi.convertJsonToAzapi"
+const CommandAztfMigrate = "azapi.aztfmigrate"
+
+func availableCommands() []string {
+	return []string{CommandConvertJsonToAzapi, CommandAztfMigrate}
+}
+
 func init() {
 	handlerMap = make(map[string]command.CommandHandler)
-	handlerMap["azapi.convertJsonToAzapi"] = command.ConvertJsonCommand{}
+	handlerMap[CommandConvertJsonToAzapi] = command.ConvertJsonCommand{}
+	handlerMap[CommandAztfMigrate] = command.AztfMigrateCommand{}
 }
 
 func (svc *service) WorkspaceExecuteCommand(ctx context.Context, params lsp.ExecuteCommandParams) (interface{}, error) {
@@ -27,5 +35,5 @@ func (svc *service) WorkspaceExecuteCommand(ctx context.Context, params lsp.Exec
 	if !ok {
 		return nil, fmt.Errorf("command %q not found", params.Command)
 	}
-	return handler.Handle(ctx, command.ParseCommandArgs(params.Arguments))
+	return handler.Handle(ctx, params.Arguments)
 }

@@ -7,8 +7,7 @@ import (
 )
 
 const (
-	// SourceFormatAllTerraform is a Terraform specific format code action.
-	SourceFormatAllTerraform = "source.formatAll.terraform"
+	RefactorRewrite = "refactor.rewrite"
 )
 
 type CodeActions map[lsp.CodeActionKind]bool
@@ -30,7 +29,7 @@ type CodeActions map[lsp.CodeActionKind]bool
 // A user should be able to set `source.formatAll` to true, and source.formatAll.terraform to false to allow all
 // files to be formatted, but not terraform files (or vice versa).
 var SupportedCodeActions = CodeActions{
-	SourceFormatAllTerraform: true,
+	RefactorRewrite: true,
 }
 
 func (c CodeActions) AsSlice() []lsp.CodeActionKind {
