@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"runtime"
 	"strings"
 
 	context2 "github.com/Azure/azapi-lsp/internal/context"
@@ -66,6 +67,12 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 
 	// creating temp workspace
 	workingDirectory := path.Dir(strings.TrimPrefix(string(params.TextDocument.URI), "file://"))
+	if runtime.GOOS == "windows" {
+		workingDirectory = strings.ReplaceAll(workingDirectory, "%3A", ":")
+		workingDirectory = strings.ReplaceAll(workingDirectory, "/", "\\")
+		workingDirectory = strings.TrimPrefix(workingDirectory, "\\")
+	}
+	log.Printf("[INFO] working directory: %s", workingDirectory)
 	tempDir := filepath.Join(workingDirectory, tempFolderName)
 	if err := os.MkdirAll(tempDir, 0750); err != nil {
 		return nil, fmt.Errorf("creating temp workspace %q: %+v", tempDir, err)
