@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -66,13 +67,7 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 	}
 
 	// creating temp workspace
-	workingDirectory := path.Dir(strings.TrimPrefix(string(params.TextDocument.URI), "file://"))
-	if runtime.GOOS == "windows" {
-		workingDirectory = strings.ReplaceAll(workingDirectory, "%3A", ":")
-		workingDirectory = strings.ReplaceAll(workingDirectory, "/", "\\")
-		workingDirectory = strings.TrimPrefix(workingDirectory, "\\")
-	}
-	log.Printf("[INFO] working directory: %s", workingDirectory)
+	workingDirectory := getWorkingDirectory(string(params.TextDocument.URI), runtime.GOOS)
 	tempDir := filepath.Join(workingDirectory, tempFolderName)
 	if err := os.MkdirAll(tempDir, 0750); err != nil {
 		return nil, fmt.Errorf("creating temp workspace %q: %+v", tempDir, err)
@@ -415,4 +410,14 @@ func reportProgress(ctx context.Context, message string, percentage uint32) {
 			},
 		})
 	}
+}
+
+func getWorkingDirectory(uri string, os string) string {
+	workingDirectory := path.Dir(strings.TrimPrefix(uri, "file://"))
+	if os == "windows" {
+		workingDirectory, _ = url.QueryUnescape(workingDirectory)
+		workingDirectory = strings.ReplaceAll(workingDirectory, "/", "\\")
+		workingDirectory = strings.TrimPrefix(workingDirectory, "\\")
+	}
+	return workingDirectory
 }
