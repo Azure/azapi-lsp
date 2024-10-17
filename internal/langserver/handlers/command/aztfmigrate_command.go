@@ -195,22 +195,6 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 			resource.ResourceType = resourceTypes[0]
 			resources = append(resources, resource)
 
-		case *types.AzapiUpdateResource:
-			resourceTypes, exact, err := azurerm.GetAzureRMResourceType(resource.Id)
-			if err != nil {
-				log.Printf("failed to get resource type for %s: %v", resource.Id, err)
-				continue
-			}
-			if len(resourceTypes) == 0 {
-				log.Printf("failed to get resource type for %s", resource.Id)
-				continue
-			}
-			if !exact {
-				log.Printf("multiple resource types found for %s: %v", resource.Id, resourceTypes)
-			}
-			resource.ResourceType = resourceTypes[0]
-			resources = append(resources, resource)
-
 		case *types.AzurermResource:
 			if len(resource.Instances) == 0 {
 				continue
@@ -272,14 +256,16 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 	for _, addr := range addresses {
 		r := resourcesMap[addr]
 		if r == nil {
+			emptyFile.Body().AppendBlock(writeBlockMap[addr])
+			emptyFile.Body().AppendNewline()
+			continue
+		}
+		if writeBlockMap[r.OldAddress(nil)] == nil {
 			continue
 		}
 		if !r.IsMigrated() {
 			emptyFile.Body().AppendBlock(writeBlockMap[r.OldAddress(nil)])
 			emptyFile.Body().AppendNewline()
-			continue
-		}
-		if writeBlockMap[r.OldAddress(nil)] == nil {
 			continue
 		}
 
