@@ -3,7 +3,7 @@ module github.com/Azure/azapi-lsp
 go 1.22.0
 
 require (
-	github.com/Azure/aztfmigrate v1.15.1-0.20241010081637-fcc6b9d0f7dc
+	github.com/Azure/aztfmigrate v1.15.1-0.20241017071650-067a517e275f
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.14.0
 	github.com/apparentlymart/go-textseg v1.0.0
 	github.com/creachadair/jrpc2 v0.32.0
@@ -32,6 +32,7 @@ require (
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/automation/armautomation v0.9.0 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/botservice/armbotservice v1.2.0 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cdn/armcdn v1.1.1 // indirect
+	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cognitiveservices/armcognitiveservices v1.6.0 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5 v5.7.0 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/costmanagement/armcostmanagement/v2 v2.1.0 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory/v7 v7.0.0 // indirect
@@ -88,10 +89,10 @@ require (
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.34.0 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/magodo/armid v0.0.0-20240524082432-7ce06ae46c33 // indirect
-	github.com/magodo/aztft v0.3.1-0.20240802001407-2834614c6d9c // indirect
+	github.com/magodo/aztft v0.3.1-0.20241011060757-310738ca90dd // indirect
 	github.com/magodo/tfadd v0.10.1-0.20240902124619-bd18a56f410d // indirect
 	github.com/magodo/tfpluginschema v0.0.0-20240902090353-0525d7d8c1c2 // indirect
-	github.com/magodo/tfstate v0.0.0-20240829105815-03d52976fa13 // indirect
+	github.com/magodo/tfstate v0.0.0-20241016043929-2c95177bf0e6 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect

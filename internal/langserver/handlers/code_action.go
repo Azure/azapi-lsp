@@ -73,7 +73,7 @@ func (h *logHandler) textDocumentCodeAction(ctx context.Context, params lsp.Code
 				continue
 			}
 			address := strings.Join(block.Labels, ".")
-			if strings.HasPrefix(address, "azapi") {
+			if strings.HasPrefix(address, "azapi_resource.") {
 				hasAzapiResources = true
 			}
 			if strings.HasPrefix(address, "azurerm") {
