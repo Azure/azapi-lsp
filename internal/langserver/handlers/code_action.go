@@ -13,14 +13,12 @@ import (
 )
 
 func (h *logHandler) TextDocumentCodeAction(ctx context.Context, params lsp.CodeActionParams) []lsp.CodeAction {
-	//ca, err := h.textDocumentCodeAction(ctx, params)
-	//if err != nil {
-	//	h.logger.Printf("code action failed: %s", err)
-	//}
-	//
-	//return ca
+	ca, err := h.textDocumentCodeAction(ctx, params)
+	if err != nil {
+		h.logger.Printf("code action failed: %s", err)
+	}
 
-	return nil
+	return ca
 }
 
 func (h *logHandler) textDocumentCodeAction(ctx context.Context, params lsp.CodeActionParams) ([]lsp.CodeAction, error) {
