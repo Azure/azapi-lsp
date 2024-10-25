@@ -53,7 +53,7 @@ func init() {
 					Type:                "string <resource-type>@<api-version>",
 					Description:         "Azure Resource Manager type.",
 					CompletionNewText:   `type = "$0"`,
-					ValueCandidatesFunc: resourceTypeCandidates,
+					ValueCandidatesFunc: typeCandidates,
 				},
 
 				{
@@ -252,7 +252,7 @@ func init() {
 					Type:                "string <resource-type>@<api-version>",
 					Description:         "Azure Resource Manager type.",
 					CompletionNewText:   `type = "$0"`,
-					ValueCandidatesFunc: resourceTypeCandidates,
+					ValueCandidatesFunc: typeCandidates,
 				},
 
 				{
@@ -504,7 +504,7 @@ func init() {
 					Type:                "string <resource-type>@<api-version>",
 					Description:         "Azure Resource Manager type.",
 					CompletionNewText:   `type = "$0"`,
-					ValueCandidatesFunc: dataSourceTypeCandidates,
+					ValueCandidatesFunc: typeCandidates,
 				},
 
 				{
@@ -567,7 +567,7 @@ func init() {
 					Type:                "string <resource-type>@<api-version>",
 					Description:         "Azure Resource Manager type.",
 					CompletionNewText:   `type = "$0"`,
-					ValueCandidatesFunc: resourceTypeCandidates,
+					ValueCandidatesFunc: typeCandidates,
 				},
 
 				{
@@ -642,7 +642,7 @@ func init() {
 					Type:                "string <resource-type>@<api-version>",
 					Description:         "Azure Resource Manager type.",
 					CompletionNewText:   `type = "$0"`,
-					ValueCandidatesFunc: resourceTypeCandidates,
+					ValueCandidatesFunc: typeCandidates,
 				},
 
 				{
@@ -717,7 +717,7 @@ func init() {
 					Type:                "string <resource-type>@<api-version>",
 					Description:         "Azure Resource Manager type.",
 					CompletionNewText:   `type = "$0"`,
-					ValueCandidatesFunc: dataSourceTypeCandidates,
+					ValueCandidatesFunc: typeCandidates,
 				},
 
 				{
@@ -764,7 +764,7 @@ func init() {
 					Type:                "string <resource-type>@<api-version>",
 					Description:         "Azure Resource Manager type.",
 					CompletionNewText:   `type = "$0"`,
-					ValueCandidatesFunc: dataSourceTypeCandidates,
+					ValueCandidatesFunc: typeCandidates,
 				},
 
 				{

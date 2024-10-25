@@ -60,24 +60,10 @@ func valueCandidates(values []string, r lsp.Range, isOrdered bool) []lsp.Complet
 	return candidates
 }
 
-func resourceTypeCandidates(prefix *string, r lsp.Range) []lsp.CompletionItem {
-	return typeCandidates(prefix, r, false)
-}
-
-func dataSourceTypeCandidates(prefix *string, r lsp.Range) []lsp.CompletionItem {
-	return typeCandidates(prefix, r, true)
-}
-
-func typeCandidates(prefix *string, r lsp.Range, allowReadOnly bool) []lsp.CompletionItem {
+func typeCandidates(prefix *string, r lsp.Range) []lsp.CompletionItem {
 	candidates := make([]lsp.CompletionItem, 0)
 	if prefix == nil || !strings.Contains(*prefix, "@") {
-		for resourceType, resource := range azure.GetAzureSchema().Resources {
-			if len(resource.Definitions) > 0 {
-				def, err := resource.Definitions[0].GetDefinition()
-				if err == nil && def.IsReadOnly() && !allowReadOnly {
-					continue
-				}
-			}
+		for resourceType, _ := range azure.GetAzureSchema().Resources {
 			candidates = append(candidates, lsp.CompletionItem{
 				Label: fmt.Sprintf(`"%s"`, resourceType),
 				Kind:  lsp.ValueCompletion,
