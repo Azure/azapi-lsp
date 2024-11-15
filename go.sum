@@ -14,6 +14,10 @@ github.com/Azure/aztfmigrate v1.15.1-0.20241017064424-2fbe8d4d45ab h1:MP6GbC7MVZ
 github.com/Azure/aztfmigrate v1.15.1-0.20241017064424-2fbe8d4d45ab/go.mod h1:gITltwxgnRx5ByF4Xx0aJYbkE9pD8c1mH1gKFAV/nl0=
 github.com/Azure/aztfmigrate v1.15.1-0.20241017071650-067a517e275f h1:Hm8Tf4qwQ54/cU9yrWLGNIuUUMPKAY+HMVTGnLl+oBg=
 github.com/Azure/aztfmigrate v1.15.1-0.20241017071650-067a517e275f/go.mod h1:gITltwxgnRx5ByF4Xx0aJYbkE9pD8c1mH1gKFAV/nl0=
+github.com/Azure/aztfmigrate v1.15.1-0.20241111062752-fe732ae54b0f h1:3oD42LSzI0T3Urvx8mq+5ophlMfsLyIuFsDhLn40iTw=
+github.com/Azure/aztfmigrate v1.15.1-0.20241111062752-fe732ae54b0f/go.mod h1:gITltwxgnRx5ByF4Xx0aJYbkE9pD8c1mH1gKFAV/nl0=
+github.com/Azure/aztfmigrate v1.15.1-0.20241113022352-4681ae5d18c0 h1:QyBOJ3ZArhtWOmcuStXjkOi4ncpi/ZTbFuHHY2gcUzY=
+github.com/Azure/aztfmigrate v1.15.1-0.20241113022352-4681ae5d18c0/go.mod h1:gITltwxgnRx5ByF4Xx0aJYbkE9pD8c1mH1gKFAV/nl0=
 github.com/Azure/azure-sdk-for-go/sdk/azcore v1.14.0 h1:nyQWyZvwGTvunIMxi1Y9uXkcyr+I7TeNrr/foo4Kpk8=
 github.com/Azure/azure-sdk-for-go/sdk/azcore v1.14.0/go.mod h1:l38EPgmsp71HHLq9j7De57JcKOWPyhrsW1Awm1JS6K0=
 github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.7.0 h1:tfLQ34V6F7tVSwoTf/4lH5sE0o6eCJuNDTmH09nDpbc=

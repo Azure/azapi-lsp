@@ -271,12 +271,11 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 
 		emptyFile.Body().AppendUnstructuredTokens(types.CommentOutBlock(writeBlockMap[r.OldAddress(nil)]))
 		emptyFile.Body().AppendNewline()
-		if removedBlock := r.RemovedBlock(); removedBlock != nil {
-			emptyFile.Body().AppendBlock(removedBlock)
-			emptyFile.Body().AppendNewline()
-		}
-		if importBlock := r.ImportBlock(); importBlock != nil {
-			emptyFile.Body().AppendBlock(importBlock)
+		for _, blockToAdd := range r.StateUpdateBlocks() {
+			if blockToAdd == nil {
+				continue
+			}
+			emptyFile.Body().AppendBlock(blockToAdd)
 			emptyFile.Body().AppendNewline()
 		}
 		if migratedBlock := r.MigratedBlock(); migratedBlock != nil {
