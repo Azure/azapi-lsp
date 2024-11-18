@@ -63,7 +63,7 @@ func valueCandidates(values []string, r lsp.Range, isOrdered bool) []lsp.Complet
 func typeCandidates(prefix *string, r lsp.Range) []lsp.CompletionItem {
 	candidates := make([]lsp.CompletionItem, 0)
 	if prefix == nil || !strings.Contains(*prefix, "@") {
-		for resourceType, _ := range azure.GetAzureSchema().Resources {
+		for resourceType := range azure.GetAzureSchema().Resources {
 			candidates = append(candidates, lsp.CompletionItem{
 				Label: fmt.Sprintf(`"%s"`, resourceType),
 				Kind:  lsp.ValueCompletion,
