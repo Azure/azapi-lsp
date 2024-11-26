@@ -35,5 +35,9 @@ func (svc *service) WorkspaceExecuteCommand(ctx context.Context, params lsp.Exec
 	if !ok {
 		return nil, fmt.Errorf("command %q not found", params.Command)
 	}
-	return handler.Handle(ctx, params.Arguments)
+	out, err := handler.Handle(ctx, params.Arguments)
+	if err != nil {
+		return nil, fmt.Errorf("error handling command %q: %w", params.Command, err)
+	}
+	return out, nil
 }

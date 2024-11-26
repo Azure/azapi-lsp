@@ -70,7 +70,7 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 	workingDirectory := getWorkingDirectory(string(params.TextDocument.URI), runtime.GOOS)
 	tempDir := filepath.Join(workingDirectory, tempFolderName)
 	if err := os.MkdirAll(tempDir, 0750); err != nil {
-		return nil, fmt.Errorf("creating temp workspace %q: %+v", tempDir, err)
+		return nil, fmt.Errorf("failed to create temp workspace %q, please check the permission: %w", tempDir, err)
 	}
 	defer func() {
 		err := os.RemoveAll(path.Join(tempDir, "terraform.tfstate"))
@@ -160,7 +160,11 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 	options = append(options, tfexec.Out(planfile))
 	_, err = terraform.GetExec().Plan(ctx, options...)
 	if err != nil {
-		return nil, err
+		_ = clientNotifier.Notify(ctx, "window/showMessage", lsp.ShowMessageParams{
+			Type:    lsp.Error,
+			Message: fmt.Sprintf("Failed to run Terraform plan: %v", err),
+		})
+		return nil, nil
 	}
 	plan, err := terraform.GetExec().ShowPlanFile(ctx, planfile)
 	if err != nil {
@@ -201,6 +205,14 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 			}
 			resources = append(resources, resource)
 		}
+	}
+
+	if len(resources) == 0 {
+		_ = clientNotifier.Notify(ctx, "window/showMessage", lsp.ShowMessageParams{
+			Type:    lsp.Error,
+			Message: "No resources found in the selected range. Please check whether the target resource is deployed.",
+		})
+		return nil, nil
 	}
 
 	tempTerraform, err := tf.NewTerraform(tempDir, false)
