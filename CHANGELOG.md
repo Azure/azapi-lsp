@@ -1,8 +1,11 @@
-## Unreleased
+## v2.1.0
 
 FEATURES:
 - Support `refactor/rewrite` code action which can trigger the command to convert resources between `azapi` and `azurerm` providers.
 - Support `aztfmigrate` command which can convert resources between `azapi` and `azurerm` providers.
+
+ENHANCEMENTS:
+- Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/401bed53e5495fb79f6c3357d9befb9fea158b1f
 
 ## v2.0.1
  
