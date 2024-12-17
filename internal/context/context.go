@@ -5,6 +5,7 @@ import (
 	"github.com/Azure/azapi-lsp/internal/filesystem"
 	"github.com/Azure/azapi-lsp/internal/langserver/diagnostics"
 	"github.com/Azure/azapi-lsp/internal/langserver/session"
+	"github.com/Azure/azapi-lsp/internal/telemetry"
 )
 
 type contextKey struct {
@@ -20,6 +21,7 @@ var (
 	ctxDiagsNotifier = &contextKey{"diagnostics notifier"}
 	ctxLsVersion     = &contextKey{"language server version"}
 	ctxClientCaller  = &contextKey{Name: "client caller"}
+	ctxTelemetry     = &contextKey{"telemetry"}
 )
 
 func missingContextErr(ctxKey *contextKey) *MissingContextErr {
@@ -88,4 +90,17 @@ func ClientNotifier(ctx context.Context) (session.ClientNotifier, error) {
 	}
 
 	return clientNotifier, nil
+}
+
+func WithTelemetry(ctx context.Context, telemetry telemetry.Sender) context.Context {
+	return context.WithValue(ctx, ctxTelemetry, telemetry)
+}
+
+func Telemetry(ctx context.Context) (telemetry.Sender, error) {
+	tel, ok := ctx.Value(ctxTelemetry).(telemetry.Sender)
+	if !ok {
+		return nil, missingContextErr(ctxTelemetry)
+	}
+
+	return tel, nil
 }

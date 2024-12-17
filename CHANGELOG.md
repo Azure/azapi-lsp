@@ -1,3 +1,8 @@
+## v2.2.0 (unreleased)
+
+FEATURES:
+- Support collecting telemetry data.
+
 ## v2.1.0
 
 FEATURES:

@@ -43,7 +43,8 @@ func initializeResponse(t *testing.T, commandPrefix string) string {
 			"executeCommandProvider": {
 				"commands": [
 					"azapi.convertJsonToAzapi",
-					"azapi.aztfmigrate"
+					"azapi.aztfmigrate",
+					"azapi.telemetry"
 				],
 				"workDoneProgress": true
 			}

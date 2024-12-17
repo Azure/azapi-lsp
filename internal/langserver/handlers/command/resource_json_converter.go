@@ -1,6 +1,7 @@
 package command
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -8,6 +9,7 @@ import (
 
 	"github.com/Azure/azapi-lsp/internal/azure"
 	"github.com/Azure/azapi-lsp/internal/azure/types"
+	"github.com/Azure/azapi-lsp/internal/telemetry"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclwrite"
@@ -29,7 +31,7 @@ type identityModel struct {
 	UserAssignedIdentities map[string]interface{} `json:"userAssignedIdentities"`
 }
 
-func convertResourceJson(input string) (string, error) {
+func convertResourceJson(ctx context.Context, input string, telemetrySender telemetry.Sender) (string, error) {
 	var model resourceModel
 	err := json.Unmarshal([]byte(input), &model)
 	if err != nil {
@@ -51,6 +53,12 @@ func convertResourceJson(input string) (string, error) {
 	if parts := strings.Split(typeValue, "@"); len(parts) == 2 {
 		apiVersion = parts[1]
 	}
+
+	telemetrySender.SendEvent(ctx, "ConvertJsonToAzapi", map[string]interface{}{
+		"status": "completed",
+		"kind":   "resource-json",
+		"type":   typeValue,
+	})
 
 	importBlock := hclwrite.NewBlock("import", nil)
 	importBlock.Body().SetAttributeValue("id", cty.StringVal(fmt.Sprintf("%s?api-version=%s", model.ID, apiVersion)))

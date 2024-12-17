@@ -1,6 +1,7 @@
 package hover
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"strings"
@@ -12,11 +13,12 @@ import (
 	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
 	"github.com/Azure/azapi-lsp/internal/parser"
 	lsp "github.com/Azure/azapi-lsp/internal/protocol"
+	"github.com/Azure/azapi-lsp/internal/telemetry"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 )
 
-func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *lsp.Hover {
+func HoverAtPos(ctx context.Context, data []byte, filename string, pos hcl.Pos, logger *log.Logger, sender telemetry.Sender) *lsp.Hover {
 	file, _ := hclsyntax.ParseConfig(data, filename, hcl.InitialPos)
 	body, isHcl := file.Body.(*hclsyntax.Body)
 	if !isHcl {
@@ -108,6 +110,10 @@ func HoverAtPos(data []byte, filename string, pos hcl.Pos, logger *log.Logger) *
 			if azureResourceType == "" {
 				return nil
 			}
+			sender.SendEvent(ctx, "textDocument/hover", map[string]interface{}{
+				"kind": "resource-definition",
+				"type": typeValue,
+			})
 			return &lsp.Hover{
 				Range: ilsp.HCLRangeToLSP(block.DefRange()),
 				Contents: lsp.MarkupContent{

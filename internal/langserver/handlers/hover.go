@@ -3,9 +3,8 @@ package handlers
 import (
 	"context"
 
-	"github.com/Azure/azapi-lsp/internal/langserver/handlers/hover"
-
 	lsctx "github.com/Azure/azapi-lsp/internal/context"
+	"github.com/Azure/azapi-lsp/internal/langserver/handlers/hover"
 	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
 	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 )
@@ -36,9 +35,18 @@ func (svc *service) TextDocumentHover(ctx context.Context, params lsp.TextDocume
 		return nil, err
 	}
 
+	telemetrySender, err := lsctx.Telemetry(ctx)
+	if err != nil {
+		return nil, err
+	}
+
 	svc.logger.Printf("Looking for hover data at %q -> %#v", doc.Filename(), fPos.Position())
-	hoverData := hover.HoverAtPos(data, doc.Filename(), fPos.Position(), svc.logger)
+	hoverData := hover.HoverAtPos(ctx, data, doc.Filename(), fPos.Position(), svc.logger, telemetrySender)
 	svc.logger.Printf("received hover data: %#v", hoverData)
+
+	if hoverData != nil {
+		telemetrySender.SendEvent(ctx, "textDocument/hover", nil)
+	}
 
 	return hoverData, nil
 }

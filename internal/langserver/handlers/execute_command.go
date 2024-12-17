@@ -12,15 +12,17 @@ var handlerMap = map[string]command.CommandHandler{}
 
 const CommandConvertJsonToAzapi = "azapi.convertJsonToAzapi"
 const CommandAztfMigrate = "azapi.aztfmigrate"
+const CommandTelemetry = "azapi.telemetry"
 
 func availableCommands() []string {
-	return []string{CommandConvertJsonToAzapi, CommandAztfMigrate}
+	return []string{CommandConvertJsonToAzapi, CommandAztfMigrate, CommandTelemetry}
 }
 
 func init() {
 	handlerMap = make(map[string]command.CommandHandler)
 	handlerMap[CommandConvertJsonToAzapi] = command.ConvertJsonCommand{}
 	handlerMap[CommandAztfMigrate] = command.AztfMigrateCommand{}
+	handlerMap[CommandTelemetry] = command.TelemetryCommand{}
 }
 
 func (svc *service) WorkspaceExecuteCommand(ctx context.Context, params lsp.ExecuteCommandParams) (interface{}, error) {

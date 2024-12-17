@@ -43,6 +43,13 @@ func (svc *service) TextDocumentComplete(ctx context.Context, params lsp.Complet
 		IsIncomplete: false,
 		Items:        complete.CandidatesAtPos(data, doc.Filename(), fPos.Position(), svc.logger),
 	}
-	svc.logger.Printf("received candidates: %#v", candidates)
+
+	if len(candidates.Items) > 0 {
+		telemetrySender, err := lsctx.Telemetry(ctx)
+		if err != nil {
+			return candidates, err
+		}
+		telemetrySender.SendEvent(ctx, "textDocument/completion", nil)
+	}
 	return candidates, err
 }
