@@ -1,10 +1,12 @@
 package command
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"strings"
 
+	"github.com/Azure/azapi-lsp/internal/telemetry"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclwrite"
@@ -69,7 +71,7 @@ func (c *Context) String() string {
 	return result
 }
 
-func convertARMTemplate(input string) (string, error) {
+func convertARMTemplate(ctx context.Context, input string, telemetrySender telemetry.Sender) (string, error) {
 	var model ARMTemplateModel
 	err := json.Unmarshal([]byte(input), &model)
 	if err != nil {
@@ -94,7 +96,17 @@ func convertARMTemplate(input string) (string, error) {
 		c.AppendBlock(varBlock)
 	}
 
+	typeSet := make(map[string]bool)
 	for _, resource := range model.Resources {
+		typeValue := ""
+		if resource["type"] != nil {
+			typeValue = resource["type"].(string)
+		}
+		if resource["apiVersion"] != nil {
+			typeValue = fmt.Sprintf("%s@%s", typeValue, resource["apiVersion"].(string))
+		}
+		typeSet[typeValue] = true
+
 		res := flattenARMExpression(resource)
 		data, err := json.MarshalIndent(res, "", "  ")
 		if err != nil {
@@ -110,6 +122,16 @@ func convertARMTemplate(input string) (string, error) {
 		}
 		c.AppendBlock(resourceBlock)
 	}
+
+	types := make([]string, 0)
+	for t := range typeSet {
+		types = append(types, t)
+	}
+	telemetrySender.SendEvent(ctx, "ConvertJsonToAzapi", map[string]interface{}{
+		"status": "completed",
+		"kind":   "arm-template",
+		"type":   strings.Join(types, ","),
+	})
 
 	return c.String(), nil
 }

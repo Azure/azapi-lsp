@@ -1,6 +1,7 @@
 package snippets
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
@@ -80,6 +81,16 @@ func CodeSampleCandidates(block *hclsyntax.Block, editRange lsp.Range) []lsp.Com
 		if newText == "" {
 			return nil
 		}
+
+		event := lsp.TelemetryEvent{
+			Version: lsp.TelemetryFormatVersion,
+			Name:    "textDocument/completion",
+			Properties: map[string]interface{}{
+				"kind": "code-sample",
+				"type": typeValue,
+			},
+		}
+		data, _ := json.Marshal(event)
 		return []lsp.CompletionItem{
 			{
 				Label:  "code sample",
@@ -95,6 +106,11 @@ func CodeSampleCandidates(block *hclsyntax.Block, editRange lsp.Range) []lsp.Com
 				TextEdit: &lsp.TextEdit{
 					Range:   editRange,
 					NewText: newText,
+				},
+				Command: &lsp.Command{
+					Title:     "",
+					Command:   "azapi.telemetry",
+					Arguments: []json.RawMessage{data},
 				},
 			},
 		}

@@ -6,6 +6,8 @@ import (
 	"log"
 )
 
+var _ Sender = &NoopSender{}
+
 type NoopSender struct {
 	Logger *log.Logger
 }

@@ -46,6 +46,16 @@ func TemplateCandidates(editRange lsp.Range) []lsp.CompletionItem {
 	}
 
 	for _, template := range templates {
+		event := lsp.TelemetryEvent{
+			Version: lsp.TelemetryFormatVersion,
+			Name:    "textDocument/completion",
+			Properties: map[string]interface{}{
+				"kind":  "template",
+				"label": template.Label,
+			},
+		}
+		data, _ := json.Marshal(event)
+
 		templateCandidates = append(templateCandidates, lsp.CompletionItem{
 			Label:  template.Label,
 			Kind:   lsp.SnippetCompletion,
@@ -60,6 +70,11 @@ func TemplateCandidates(editRange lsp.Range) []lsp.CompletionItem {
 			TextEdit: &lsp.TextEdit{
 				Range:   editRange,
 				NewText: template.TextEdit.NewText,
+			},
+			Command: &lsp.Command{
+				Title:     "",
+				Command:   "azapi.telemetry",
+				Arguments: []json.RawMessage{data},
 			},
 		})
 	}

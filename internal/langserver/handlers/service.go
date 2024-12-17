@@ -146,6 +146,7 @@ func (svc *service) Assigner() (jrpc2.Assigner, error) {
 
 			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
 			ctx = ilsp.WithClientCapabilities(ctx, cc)
+			ctx = lsctx.WithTelemetry(ctx, svc.telemetry)
 
 			return handle(ctx, req, svc.TextDocumentComplete)
 		},
@@ -158,6 +159,7 @@ func (svc *service) Assigner() (jrpc2.Assigner, error) {
 			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
 			ctx = ilsp.WithClientCapabilities(ctx, cc)
 			ctx = ilsp.ContextWithClientName(ctx, &clientName)
+			ctx = lsctx.WithTelemetry(ctx, svc.telemetry)
 
 			return handle(ctx, req, svc.TextDocumentHover)
 		},
@@ -181,6 +183,8 @@ func (svc *service) Assigner() (jrpc2.Assigner, error) {
 			ctx = lsctx.WithClientCaller(ctx, svc.clientCaller)
 			ctx = lsctx.WithClientNotifier(ctx, svc.clientNotifier)
 			ctx = lsctx.WithDocumentStorage(ctx, svc.fs)
+			ctx = lsctx.WithTelemetry(ctx, svc.telemetry)
+
 			return handle(ctx, req, svc.WorkspaceExecuteCommand)
 		},
 		"shutdown": func(ctx context.Context, req *jrpc2.Request) (interface{}, error) {

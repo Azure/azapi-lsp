@@ -4,6 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+
+	lsctx "github.com/Azure/azapi-lsp/internal/context"
 	pluralize "github.com/gertd/go-pluralize"
 )
 
@@ -25,21 +27,44 @@ func (c ConvertJsonCommand) Handle(ctx context.Context, arguments []json.RawMess
 		return nil, nil
 	}
 
+	telemetrySender, err := lsctx.Telemetry(ctx)
+	if err != nil {
+		return nil, err
+	}
+
 	var model map[string]interface{}
-	err := json.Unmarshal([]byte(content), &model)
+	err = json.Unmarshal([]byte(content), &model)
 	if err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON content: %w", err)
 	}
 
 	result := ""
 	if model["$schema"] != nil {
-		result, err = convertARMTemplate(content)
+		telemetrySender.SendEvent(ctx, "ConvertJsonToAzapi", map[string]interface{}{
+			"status": "started",
+			"kind":   "arm-template",
+		})
+		result, err = convertARMTemplate(ctx, content, telemetrySender)
 		if err != nil {
+			telemetrySender.SendEvent(ctx, "ConvertJsonToAzapi", map[string]interface{}{
+				"status": "failed",
+				"kind":   "arm-template",
+				"error":  err.Error(),
+			})
 			return nil, err
 		}
 	} else {
-		result, err = convertResourceJson(content)
+		telemetrySender.SendEvent(ctx, "ConvertJsonToAzapi", map[string]interface{}{
+			"status": "started",
+			"kind":   "resource-json",
+		})
+		result, err = convertResourceJson(ctx, content, telemetrySender)
 		if err != nil {
+			telemetrySender.SendEvent(ctx, "ConvertJsonToAzapi", map[string]interface{}{
+				"status": "failed",
+				"kind":   "resource-json",
+				"error":  err.Error(),
+			})
 			return nil, err
 		}
 	}

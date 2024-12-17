@@ -16,6 +16,7 @@ import (
 	lsctx "github.com/Azure/azapi-lsp/internal/context"
 	ilsp "github.com/Azure/azapi-lsp/internal/lsp"
 	lsp "github.com/Azure/azapi-lsp/internal/protocol"
+	"github.com/Azure/azapi-lsp/internal/utils"
 	"github.com/Azure/aztfmigrate/azurerm"
 	"github.com/Azure/aztfmigrate/tf"
 	"github.com/Azure/aztfmigrate/types"
@@ -43,6 +44,11 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 		}
 	}
 
+	telemetrySender, err := context2.Telemetry(ctx)
+	if err != nil {
+		return nil, err
+	}
+
 	clientCaller, err := context2.ClientCaller(ctx)
 	if err != nil {
 		return nil, err
@@ -53,6 +59,9 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 		return nil, err
 	}
 
+	telemetrySender.SendEvent(ctx, "aztfmigrate", map[string]interface{}{
+		"status": "started",
+	})
 	reportProgress(ctx, "Parsing Terraform configurations...", 0)
 	defer reportProgress(ctx, "Migration completed.", 100)
 
@@ -173,6 +182,9 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 
 	allResources := types.ListResourcesFromPlan(plan)
 	resources := make([]types.AzureResource, 0)
+
+	srcAzapiTypes := make(map[string]bool)
+	srcAzurermTypes := make(map[string]bool)
 	for _, r := range allResources {
 		if syntaxBlockMap[r.OldAddress(nil)] == nil {
 			continue
@@ -199,11 +211,15 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 			resource.ResourceType = resourceTypes[0]
 			resources = append(resources, resource)
 
+			azureResourceType := utils.GetResourceType(resourceId)
+			srcAzapiTypes[azureResourceType] = true
+
 		case *types.AzurermResource:
 			if len(resource.Instances) == 0 {
 				continue
 			}
 			resources = append(resources, resource)
+			srcAzurermTypes[resource.OldResourceType] = true
 		}
 	}
 
@@ -309,6 +325,21 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 				},
 			},
 		},
+	})
+
+	azapiTypes := make([]string, 0)
+	for t := range srcAzapiTypes {
+		azapiTypes = append(azapiTypes, t)
+	}
+	azurermTypes := make([]string, 0)
+	for t := range srcAzurermTypes {
+		azurermTypes = append(azurermTypes, t)
+	}
+	telemetrySender.SendEvent(ctx, "aztfmigrate", map[string]interface{}{
+		"status":  "completed",
+		"count":   fmt.Sprintf("%d", len(resources)),
+		"azapi":   strings.Join(azapiTypes, ","),
+		"azurerm": strings.Join(azurermTypes, ","),
 	})
 
 	return nil, nil
