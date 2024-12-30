@@ -1,7 +1,10 @@
-## v2.2.0 (unreleased)
+## v2.2.0
 
 FEATURES:
 - Support collecting telemetry data.
+
+ENHANCEMENTS:
+- Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/4da2e194de989ed72552add82b9a5ead5223695b
 
 ## v2.1.0
 
