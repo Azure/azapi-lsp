@@ -87,6 +87,34 @@
       ]
     }
   },
+  "azurerm_ai_foundry": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.MachineLearningServices",
+      "types": [
+        "workspaces"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.MachineLearningServices/workspaces"
+      ]
+    }
+  },
+  "azurerm_ai_foundry_project": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.MachineLearningServices",
+      "types": [
+        "workspaces"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.MachineLearningServices/workspaces"
+      ]
+    }
+  },
   "azurerm_ai_services": {
     "management_plane": {
       "scopes": [
@@ -1360,6 +1388,20 @@
       ]
     }
   },
+  "azurerm_arc_kubernetes_provisioned_cluster": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.Kubernetes",
+      "types": [
+        "connectedClusters"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.Kubernetes/connectedClusters"
+      ]
+    }
+  },
   "azurerm_arc_machine": {
     "management_plane": {
       "scopes": [
@@ -2614,6 +2656,36 @@
       ]
     }
   },
+  "azurerm_cognitive_account_rai_blocklist": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.CognitiveServices",
+      "types": [
+        "accounts",
+        "raiBlocklists"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.CognitiveServices/accounts/raiBlocklists"
+      ]
+    }
+  },
+  "azurerm_cognitive_account_rai_policy": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.CognitiveServices",
+      "types": [
+        "accounts",
+        "raiPolicies"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.CognitiveServices/accounts/raiPolicies"
+      ]
+    }
+  },
   "azurerm_cognitive_deployment": {
     "management_plane": {
       "scopes": [
@@ -2885,6 +2957,21 @@
       ],
       "import_specs": [
         "/subscriptions/resourceGroups/Microsoft.ContainerRegistry/registries/cacheRules"
+      ]
+    }
+  },
+  "azurerm_container_registry_credential_set": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.ContainerRegistry",
+      "types": [
+        "registries",
+        "credentialSets"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.ContainerRegistry/registries/credentialSets"
       ]
     }
   },
@@ -3413,6 +3500,21 @@
       ],
       "import_specs": [
         "/subscriptions/resourceGroups/Microsoft.Dashboard/grafana"
+      ]
+    }
+  },
+  "azurerm_dashboard_grafana_managed_private_endpoint": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.Dashboard",
+      "types": [
+        "grafana",
+        "managedPrivateEndpoints"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.Dashboard/grafana/managedPrivateEndpoints"
       ]
     }
   },
@@ -4196,6 +4298,21 @@
       ]
     }
   },
+  "azurerm_data_protection_backup_instance_mysql_flexible_server": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.DataProtection",
+      "types": [
+        "backupVaults",
+        "backupInstances"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.DataProtection/backupVaults/backupInstances"
+      ]
+    }
+  },
   "azurerm_data_protection_backup_instance_postgresql": {
     "management_plane": {
       "scopes": [
@@ -4317,6 +4434,20 @@
     }
   },
   "azurerm_data_protection_backup_vault": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.DataProtection",
+      "types": [
+        "backupVaults"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.DataProtection/backupVaults"
+      ]
+    }
+  },
+  "azurerm_data_protection_backup_vault_customer_managed_key": {
     "management_plane": {
       "scopes": [
         "/subscriptions/resourceGroups"
@@ -4638,6 +4769,21 @@
       ]
     }
   },
+  "azurerm_dev_center_attached_network": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.DevCenter",
+      "types": [
+        "devCenters",
+        "attachedNetworks"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.DevCenter/devCenters/attachedNetworks"
+      ]
+    }
+  },
   "azurerm_dev_center_catalog": {
     "management_plane": {
       "scopes": [
@@ -4738,6 +4884,21 @@
       ],
       "import_specs": [
         "/subscriptions/resourceGroups/Microsoft.DevCenter/projects/environmentTypes"
+      ]
+    }
+  },
+  "azurerm_dev_center_project_pool": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.DevCenter",
+      "types": [
+        "projects",
+        "pools"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.DevCenter/projects/pools"
       ]
     }
   },
@@ -5096,6 +5257,35 @@
       ]
     }
   },
+  "azurerm_dynatrace_monitor": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Dynatrace.Observability",
+      "types": [
+        "monitors"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Dynatrace.Observability/monitors"
+      ]
+    }
+  },
+  "azurerm_dynatrace_tag_rules": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Dynatrace.Observability",
+      "types": [
+        "monitors",
+        "tagRules"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Dynatrace.Observability/monitors/tagRules"
+      ]
+    }
+  },
   "azurerm_elastic_cloud_elasticsearch": {
     "management_plane": {
       "scopes": [
@@ -5224,6 +5414,20 @@
       ],
       "import_specs": [
         "/subscriptions/resourceGroups/Microsoft.EventGrid/topics/Microsoft.EventGrid/eventSubscriptions"
+      ]
+    }
+  },
+  "azurerm_eventgrid_namespace": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.EventGrid",
+      "types": [
+        "namespaces"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.EventGrid/namespaces"
       ]
     }
   },
@@ -5533,6 +5737,20 @@
       ],
       "import_specs": [
         "/subscriptions/resourceGroups/Microsoft.ExtendedLocation/customLocations"
+      ]
+    }
+  },
+  "azurerm_fabric_capacity": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.Fabric",
+      "types": [
+        "capacities"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.Fabric/capacities"
       ]
     }
   },
@@ -7725,6 +7943,51 @@
       ]
     }
   },
+  "azurerm_machine_learning_workspace_network_outbound_rule_fqdn": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.MachineLearningServices",
+      "types": [
+        "workspaces",
+        "outboundRules"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.MachineLearningServices/workspaces/outboundRules"
+      ]
+    }
+  },
+  "azurerm_machine_learning_workspace_network_outbound_rule_private_endpoint": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.MachineLearningServices",
+      "types": [
+        "workspaces",
+        "outboundRules"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.MachineLearningServices/workspaces/outboundRules"
+      ]
+    }
+  },
+  "azurerm_machine_learning_workspace_network_outbound_rule_service_tag": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.MachineLearningServices",
+      "types": [
+        "workspaces",
+        "outboundRules"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.MachineLearningServices/workspaces/outboundRules"
+      ]
+    }
+  },
   "azurerm_maintenance_assignment_dedicated_host": {
     "management_plane": {
       "scopes": [
@@ -8180,6 +8443,20 @@
       ]
     }
   },
+  "azurerm_mongo_cluster": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.DocumentDB",
+      "types": [
+        "mongoClusters"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.DocumentDB/mongoClusters"
+      ]
+    }
+  },
   "azurerm_monitor_aad_diagnostic_setting": {
     "management_plane": {
       "scopes": [
@@ -8538,6 +8815,22 @@
       ]
     }
   },
+  "azurerm_mssql_job": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.Sql",
+      "types": [
+        "servers",
+        "jobAgents",
+        "jobs"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.Sql/servers/jobAgents/jobs"
+      ]
+    }
+  },
   "azurerm_mssql_job_agent": {
     "management_plane": {
       "scopes": [
@@ -8566,6 +8859,55 @@
       ],
       "import_specs": [
         "/subscriptions/resourceGroups/Microsoft.Sql/servers/jobAgents/credentials"
+      ]
+    }
+  },
+  "azurerm_mssql_job_schedule": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.Sql",
+      "types": [
+        "servers",
+        "jobAgents",
+        "jobs"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.Sql/servers/jobAgents/jobs"
+      ]
+    }
+  },
+  "azurerm_mssql_job_step": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.Sql",
+      "types": [
+        "servers",
+        "jobAgents",
+        "jobs",
+        "steps"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.Sql/servers/jobAgents/jobs/steps"
+      ]
+    }
+  },
+  "azurerm_mssql_job_target_group": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.Sql",
+      "types": [
+        "servers",
+        "jobAgents",
+        "targetGroups"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.Sql/servers/jobAgents/targetGroups"
       ]
     }
   },
@@ -8966,6 +9308,36 @@
       ]
     }
   },
+  "azurerm_netapp_backup_policy": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.NetApp",
+      "types": [
+        "netAppAccounts",
+        "backupPolicies"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.NetApp/netAppAccounts/backupPolicies"
+      ]
+    }
+  },
+  "azurerm_netapp_backup_vault": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.NetApp",
+      "types": [
+        "netAppAccounts",
+        "backupVaults"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.NetApp/netAppAccounts/backupVaults"
+      ]
+    }
+  },
   "azurerm_netapp_pool": {
     "management_plane": {
       "scopes": [
@@ -9026,6 +9398,21 @@
       ],
       "import_specs": [
         "/subscriptions/resourceGroups/Microsoft.NetApp/netAppAccounts/capacityPools/volumes"
+      ]
+    }
+  },
+  "azurerm_netapp_volume_group_oracle": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.NetApp",
+      "types": [
+        "netAppAccounts",
+        "volumeGroups"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.NetApp/netAppAccounts/volumeGroups"
       ]
     }
   },
@@ -9487,6 +9874,48 @@
       ],
       "import_specs": [
         "/subscriptions/resourceGroups/Microsoft.NotificationHubs/namespaces"
+      ]
+    }
+  },
+  "azurerm_oracle_autonomous_database": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Oracle.Database",
+      "types": [
+        "autonomousDatabases"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Oracle.Database/autonomousDatabases"
+      ]
+    }
+  },
+  "azurerm_oracle_cloud_vm_cluster": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Oracle.Database",
+      "types": [
+        "cloudVmClusters"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Oracle.Database/cloudVmClusters"
+      ]
+    }
+  },
+  "azurerm_oracle_exadata_infrastructure": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Oracle.Database",
+      "types": [
+        "cloudExadataInfrastructures"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Oracle.Database/cloudExadataInfrastructures"
       ]
     }
   },
@@ -12527,6 +12956,22 @@
       ]
     }
   },
+  "azurerm_stack_hci_extension": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.AzureStackHCI",
+      "types": [
+        "clusters",
+        "arcSettings",
+        "extensions"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.AzureStackHCI/clusters/arcSettings/extensions"
+      ]
+    }
+  },
   "azurerm_stack_hci_logical_network": {
     "management_plane": {
       "scopes": [
@@ -12538,6 +12983,34 @@
       ],
       "import_specs": [
         "/subscriptions/resourceGroups/Microsoft.AzureStackHCI/logicalNetworks"
+      ]
+    }
+  },
+  "azurerm_stack_hci_marketplace_gallery_image": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.AzureStackHCI",
+      "types": [
+        "marketplaceGalleryImages"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.AzureStackHCI/marketplaceGalleryImages"
+      ]
+    }
+  },
+  "azurerm_stack_hci_network_interface": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.AzureStackHCI",
+      "types": [
+        "networkInterfaces"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.AzureStackHCI/networkInterfaces"
       ]
     }
   },
@@ -12699,6 +13172,34 @@
       ]
     }
   },
+  "azurerm_storage_account_queue_properties": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.Storage",
+      "types": [
+        "storageAccounts"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.Storage/storageAccounts"
+      ]
+    }
+  },
+  "azurerm_storage_account_static_website": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.Storage",
+      "types": [
+        "storageAccounts"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.Storage/storageAccounts"
+      ]
+    }
+  },
   "azurerm_storage_blob": {
     "management_plane": {
       "scopes": [
@@ -12737,6 +13238,9 @@
         "storageAccounts",
         "blobServices",
         "containers"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.Storage/storageAccounts/blobServices/containers"
       ]
     }
   },
@@ -12937,6 +13441,9 @@
         "storageAccounts",
         "fileServices",
         "shares"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.Storage/storageAccounts/fileServices/shares"
       ]
     }
   },
@@ -14038,6 +14545,20 @@
       ]
     }
   },
+  "azurerm_trusted_signing_account": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.CodeSigning",
+      "types": [
+        "codeSigningAccounts"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.CodeSigning/codeSigningAccounts"
+      ]
+    }
+  },
   "azurerm_user_assigned_identity": {
     "management_plane": {
       "scopes": [
@@ -14049,6 +14570,20 @@
       ],
       "import_specs": [
         "/subscriptions/resourceGroups/Microsoft.ManagedIdentity/userAssignedIdentities"
+      ]
+    }
+  },
+  "azurerm_video_indexer_account": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.VideoIndexer",
+      "types": [
+        "accounts"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.VideoIndexer/accounts"
       ]
     }
   },
@@ -14430,6 +14965,20 @@
       ],
       "import_specs": [
         "/subscriptions/resourceGroups/Microsoft.Network/networkWatchers/packetCaptures"
+      ]
+    }
+  },
+  "azurerm_virtual_machine_scale_set_standby_pool": {
+    "management_plane": {
+      "scopes": [
+        "/subscriptions/resourceGroups"
+      ],
+      "provider": "Microsoft.StandbyPool",
+      "types": [
+        "standbyVirtualMachinePools"
+      ],
+      "import_specs": [
+        "/subscriptions/resourceGroups/Microsoft.StandbyPool/standbyVirtualMachinePools"
       ]
     }
   },
