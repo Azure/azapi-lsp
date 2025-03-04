@@ -3,7 +3,7 @@ module github.com/Azure/azapi-lsp
 go 1.23.0
 
 require (
-	github.com/Azure/aztfmigrate v1.15.1-0.20250227042733-c21045529abd
+	github.com/Azure/aztfmigrate v1.15.1-0.20250304070708-bd64aaa3affc
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.17.0
 	github.com/apparentlymart/go-textseg v1.0.0
 	github.com/creachadair/jrpc2 v0.32.0
