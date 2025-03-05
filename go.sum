@@ -1,7 +1,7 @@
 dario.cat/mergo v1.0.1 h1:Ra4+bf83h2ztPIQYNP99R6m+Y7KfnARDfID+a+vLl4s=
 dario.cat/mergo v1.0.1/go.mod h1:uNxQE+84aUszobStD9th8a29P2fMDhsBdgRYvZOxGmk=
-github.com/Azure/aztfmigrate v1.15.1-0.20250227042733-c21045529abd h1:bA8ZJtLWPpd2ta+fFUkqVOk7e+L2t5br3BcU1iqLUK4=
-github.com/Azure/aztfmigrate v1.15.1-0.20250227042733-c21045529abd/go.mod h1:d/awmWc/Yh2z4Mq1vGc1WQ5+naU93SXpZrsXROEJpg8=
+github.com/Azure/aztfmigrate v1.15.1-0.20250304070708-bd64aaa3affc h1:BDWNCJzpkJNGrJliCVN2Gp1J26mFN66NaSnXyCm/dP0=
+github.com/Azure/aztfmigrate v1.15.1-0.20250304070708-bd64aaa3affc/go.mod h1:d/awmWc/Yh2z4Mq1vGc1WQ5+naU93SXpZrsXROEJpg8=
 github.com/Azure/azure-sdk-for-go/sdk/azcore v1.17.0 h1:g0EZJwz7xkXQiZAI5xi9f3WWFYBlX1CPTrR+NDToRkQ=
 github.com/Azure/azure-sdk-for-go/sdk/azcore v1.17.0/go.mod h1:XCW7KnZet0Opnr7HccfUw1PLc4CjHqpcaxW8DHklNkQ=
 github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.7.0 h1:tfLQ34V6F7tVSwoTf/4lH5sE0o6eCJuNDTmH09nDpbc=
