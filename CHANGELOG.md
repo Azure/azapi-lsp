@@ -1,3 +1,9 @@
+## v2.4.0 (unreleased)
+
+ENHANCEMENTS:
+- `azapi` resources/data sources: Update embedded schema to the latest version.
+
+
 ## v2.3.0
 
 ENHANCEMENTS:
