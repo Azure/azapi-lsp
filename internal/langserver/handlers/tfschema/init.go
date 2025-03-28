@@ -10,8 +10,16 @@ func init() {
 		Modifier:          "Optional",
 		Type:              "block",
 		Description:       "Configuration block for custom retry policy.",
-		CompletionNewText: "retry {\n\tinterval_seconds = $1\n\tmax_interval_seconds = $2\n\tmultiplier = $3\n\trandomization_factor = $4\n}",
+		CompletionNewText: "retry = {\n\terror_message_regex = [$0]\n}",
 		NestedProperties: []Property{
+			{
+				Name:              "error_message_regex",
+				Modifier:          "Required",
+				Type:              "list<string>",
+				Description:       "A list of regular expressions to match against error messages. If any of the regular expressions match, the request will be retried.",
+				CompletionNewText: "error_message_regex = [$0]",
+			},
+
 			{
 				Name:              "interval_seconds",
 				Modifier:          "Optional",
@@ -607,11 +615,27 @@ func init() {
 				},
 
 				{
+					Name:              "locks",
+					Modifier:          "Optional",
+					Type:              "list<string>",
+					Description:       "A list of ARM resource IDs which are used to avoid create/modify/delete azapi resources at the same time.",
+					CompletionNewText: `locks = [$0]`,
+				},
+
+				{
 					Name:              "response_export_values",
 					Modifier:          "Optional",
 					Type:              "list<string> or map<string, string>",
 					Description:       "The attribute can accept either a list or a map of path that needs to be exported from response body.",
 					CompletionNewText: `response_export_values = [$0]`,
+				},
+
+				{
+					Name:              "sensitive_response_export_values",
+					Modifier:          "Optional",
+					Type:              "list<string> or map<string, string>",
+					Description:       "The attribute can accept either a list or a map of path that needs to be exported from response body as sensitive.",
+					CompletionNewText: `sensitive_response_export_values = [$0]`,
 				},
 
 				retryProperty,
@@ -687,6 +711,14 @@ func init() {
 					Type:              "list<string> or map<string, string>",
 					Description:       "The attribute can accept either a list or a map of path that needs to be exported from response body.",
 					CompletionNewText: `response_export_values = [$0]`,
+				},
+
+				{
+					Name:              "sensitive_response_export_values",
+					Modifier:          "Optional",
+					Type:              "list<string> or map<string, string>",
+					Description:       "The attribute can accept either a list or a map of path that needs to be exported from response body as sensitive.",
+					CompletionNewText: `sensitive_response_export_values = [$0]`,
 				},
 
 				retryProperty,
@@ -789,6 +821,89 @@ func init() {
 					Type:              "string",
 					Description:       "The ID of an existing azure source.\n\nConfiguring `name` and `parent_id` is an alternative way to configure `resource_id`.",
 					CompletionNewText: `resource_id = $0`,
+				},
+			},
+		},
+		Resource{
+			Name: "ephemeral.azapi_resource_action",
+			Properties: []Property{
+				{
+					Name:                "type",
+					Modifier:            "Required",
+					Type:                "string <resource-type>@<api-version>",
+					Description:         "Azure Resource Manager type.",
+					CompletionNewText:   `type = "$0"`,
+					ValueCandidatesFunc: typeCandidates,
+				},
+
+				{
+					Name:              "resource_id",
+					Modifier:          "Required",
+					Type:              "string",
+					Description:       "The ID of an existing azure source.",
+					CompletionNewText: `resource_id = $0`,
+				},
+
+				{
+					Name:                  "action",
+					Modifier:              "Optional",
+					Type:                  "string",
+					Description:           "Specifies the name of the azure resource action.",
+					CompletionNewText:     `action = "$0"`,
+					GenericCandidatesFunc: actionCandidates,
+				},
+
+				{
+					Name:                "method",
+					Modifier:            "Optional",
+					Type:                "string",
+					Description:         "Specifies the Http method of the azure resource action. Defaults to `POST`",
+					CompletionNewText:   `method = $0`,
+					ValueCandidatesFunc: dataSourceHttpMethodCandidates,
+				},
+
+				{
+					Name:                  "body",
+					Modifier:              "Optional",
+					Type:                  "dynamic",
+					Description:           "An HCL object that contains the request body.",
+					CompletionNewText:     `body = $0`,
+					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{dynamicPlaceholderCandidate()}),
+					GenericCandidatesFunc: bodyCandidates,
+				},
+
+				{
+					Name:              "locks",
+					Modifier:          "Optional",
+					Type:              "list<string>",
+					Description:       "A list of ARM resource IDs which are used to avoid create/modify/delete azapi resources at the same time.",
+					CompletionNewText: `locks = [$0]`,
+				},
+
+				{
+					Name:              "response_export_values",
+					Modifier:          "Optional",
+					Type:              "list<string> or map<string, string>",
+					Description:       "The attribute can accept either a list or a map of path that needs to be exported from response body.",
+					CompletionNewText: `response_export_values = [$0]`,
+				},
+
+				retryProperty,
+
+				{
+					Name:              "headers",
+					Modifier:          "Optional",
+					Type:              "map<string, string>",
+					Description:       "A mapping of headers which should be sent with the request.",
+					CompletionNewText: `headers = $0`,
+				},
+
+				{
+					Name:              "query_parameters",
+					Modifier:          "Optional",
+					Type:              "map<string, list<string>>",
+					Description:       "A mapping of query parameters which should be sent with the request.",
+					CompletionNewText: `query_parameters = $0`,
 				},
 			},
 		},

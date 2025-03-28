@@ -337,7 +337,7 @@
               "character": 2
             }
           },
-          "newText": "retry {\n\tinterval_seconds = $1\n\tmax_interval_seconds = $2\n\tmultiplier = $3\n\trandomization_factor = $4\n}"
+          "newText": "retry = {\n\terror_message_regex = [$0]\n}"
         },
         "command": {
           "title": "Suggest",
