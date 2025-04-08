@@ -247,7 +247,7 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 			log.Printf("[ERROR] %+v", err)
 			_ = clientNotifier.Notify(ctx, "window/showMessage", lsp.ShowMessageParams{
 				Type:    lsp.Error,
-				Message: "Failed to generate new config for " + r.OldAddress(nil),
+				Message: fmt.Sprintf("Failed to generate new config for %s: %v", r.OldAddress(nil), err),
 			})
 		}
 	}
