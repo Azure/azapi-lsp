@@ -3,13 +3,13 @@ package cmd
 import (
 	"flag"
 	"fmt"
-	"github.com/Azure/aztfmigrate/helper"
 	"log"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
 
+	"github.com/Azure/aztfmigrate/helper"
 	"github.com/Azure/aztfmigrate/tf"
 	"github.com/Azure/aztfmigrate/types"
 	"github.com/hashicorp/hcl/v2/hclwrite"

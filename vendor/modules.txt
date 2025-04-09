@@ -1,7 +1,7 @@
 # dario.cat/mergo v1.0.1
 ## explicit; go 1.13
 dario.cat/mergo
-# github.com/Azure/aztfmigrate v1.15.1-0.20250407062114-3a221613fd4c => /Users/luheng/go/src/github.com/Azure/azapi2azurerm
+# github.com/Azure/aztfmigrate v1.15.1-0.20250408084920-0db194f765f0
 ## explicit; go 1.23.0
 github.com/Azure/aztfmigrate/azurerm
 github.com/Azure/aztfmigrate/azurerm/coverage
@@ -530,4 +530,3 @@ google.golang.org/protobuf/runtime/protoiface
 google.golang.org/protobuf/runtime/protoimpl
 google.golang.org/protobuf/types/descriptorpb
 google.golang.org/protobuf/types/gofeaturespb
-# github.com/Azure/aztfmigrate => /Users/luheng/go/src/github.com/Azure/azapi2azurerm
