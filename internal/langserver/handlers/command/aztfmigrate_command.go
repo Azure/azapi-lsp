@@ -18,6 +18,8 @@ import (
 	lsp "github.com/Azure/azapi-lsp/internal/protocol"
 	"github.com/Azure/azapi-lsp/internal/utils"
 	"github.com/Azure/aztfmigrate/azurerm"
+	"github.com/Azure/aztfmigrate/cmd"
+	"github.com/Azure/aztfmigrate/helper"
 	"github.com/Azure/aztfmigrate/tf"
 	"github.com/Azure/aztfmigrate/types"
 	"github.com/hashicorp/hcl/v2"
@@ -236,7 +238,7 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 		return nil, err
 	}
 
-	if err = os.WriteFile(filepath.Join(tempDir, importFileName), []byte(importConfig(resources)), 0600); err != nil {
+	if err = os.WriteFile(filepath.Join(tempDir, importFileName), []byte(cmd.ImportConfig(resources, helper.FindHclBlock(workingDirectory, "terraform", nil))), 0600); err != nil {
 		return nil, err
 	}
 
@@ -343,53 +345,6 @@ func (c AztfMigrateCommand) Handle(ctx context.Context, arguments []json.RawMess
 	})
 
 	return nil, nil
-}
-
-func importConfig(resources []types.AzureResource) string {
-	const providerConfig = `
-terraform {
-  required_providers {
-    azapi = {
-      source = "Azure/azapi"
-    }
-  }
-}
-
-provider "azurerm" {
-  features {}
-  subscription_id = "%s"
-}
-
-provider "azapi" {
-}
-`
-
-	config := ""
-	for _, r := range resources {
-		config += r.EmptyImportConfig()
-	}
-	subscriptionId := ""
-	for _, r := range resources {
-		switch resource := r.(type) {
-		case *types.AzapiResource:
-			for _, instance := range resource.Instances {
-				if strings.HasPrefix(instance.ResourceId, "/subscriptions/") {
-					subscriptionId = strings.Split(instance.ResourceId, "/")[2]
-					break
-				}
-			}
-		case *types.AzapiUpdateResource:
-			if strings.HasPrefix(resource.Id, "/subscriptions/") {
-				subscriptionId = strings.Split(resource.Id, "/")[2]
-			}
-		}
-		if subscriptionId != "" {
-			break
-		}
-	}
-	config = fmt.Sprintf(providerConfig, subscriptionId) + config
-
-	return config
 }
 
 func reportProgress(ctx context.Context, message string, percentage uint32) {

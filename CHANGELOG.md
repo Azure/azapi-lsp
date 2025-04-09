@@ -2,6 +2,7 @@
 
 ENHANCEMENTS:
 - `azapi` resources/data sources: Update embedded schema to the latest version.
+- Support specifying the provider version used in the migration in the `terraform` block.
 
 
 ## v2.3.0
