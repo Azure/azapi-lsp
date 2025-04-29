@@ -4,6 +4,8 @@ ENHANCEMENTS:
 - `azapi` resources/data sources: Update embedded schema to the latest version.
 - Support specifying the provider version used in the migration in the `terraform` block.
 
+BUG FIXES:
+- Fix a bug that resource group's api-version `2024-07-01` is disabled in the provider.
 
 ## v2.3.0
 
