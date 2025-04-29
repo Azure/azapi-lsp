@@ -10,7 +10,6 @@ import (
 	"sync"
 
 	"github.com/Azure/azapi-lsp/internal/azure/types"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 )
 
 var schema *Schema
@@ -50,17 +49,6 @@ func GetApiVersions(resourceType string) []string {
 				res = append(res, v.ApiVersion)
 			}
 		}
-	}
-
-	// TODO: remove the below codes when Resources RP 2024-07-01 is available
-	if strings.EqualFold(resourceType, arm.ResourceGroupResourceType.String()) {
-		temp := make([]string, 0)
-		for _, v := range res {
-			if v != "2024-07-01" {
-				temp = append(temp, v)
-			}
-		}
-		res = temp
 	}
 
 	sort.Strings(res)
