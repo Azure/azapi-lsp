@@ -225,6 +225,36 @@
         }
       },
       {
+        "label": "sensitive_body",
+        "labelDetails": {},
+        "kind": 10,
+        "detail": "sensitive_body (Optional)",
+        "documentation": {
+          "kind": "markdown",
+          "value": "Type: `dynamic`  \nA dynamic attribute that contains the write-only properties of the request body. This will be merge-patched to the body to construct the actual request body.\n"
+        },
+        "sortText": "0006",
+        "insertTextFormat": 2,
+        "insertTextMode": 2,
+        "textEdit": {
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 2
+            },
+            "end": {
+              "line": 2,
+              "character": 2
+            }
+          },
+          "newText": "sensitive_body = $0"
+        },
+        "command": {
+          "title": "Suggest",
+          "command": "editor.action.triggerSuggest"
+        }
+      },
+      {
         "label": "tags",
         "labelDetails": {},
         "kind": 10,
@@ -233,7 +263,7 @@
           "kind": "markdown",
           "value": "Type: `map<string, string>`  \nA mapping of tags which should be assigned to the azure resource.\n"
         },
-        "sortText": "0006",
+        "sortText": "0007",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -263,7 +293,7 @@
           "kind": "markdown",
           "value": "Type: `list<string> or map<string, string>`  \nThe attribute can accept either a list or a map of path that needs to be exported from response body.\n"
         },
-        "sortText": "0007",
+        "sortText": "0008",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -293,7 +323,7 @@
           "kind": "markdown",
           "value": "Type: `dynamic`  \nWill trigger a replace of the resource when the value changes and is not `null`.\n"
         },
-        "sortText": "0008",
+        "sortText": "0009",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -323,7 +353,7 @@
           "kind": "markdown",
           "value": "Type: `block`  \nConfiguration block for custom retry policy.\n"
         },
-        "sortText": "0009",
+        "sortText": "0010",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -353,7 +383,7 @@
           "kind": "markdown",
           "value": "Type: `bool`  \nWhether enabled the validation on `type` and `body` with embedded schema. Defaults to `true`.\n"
         },
-        "sortText": "0010",
+        "sortText": "0011",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -383,7 +413,7 @@
           "kind": "markdown",
           "value": "Type: `list<string>`  \nA list of ARM resource IDs which are used to avoid create/modify/delete azapi resources at the same time.\n"
         },
-        "sortText": "0011",
+        "sortText": "0012",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -413,7 +443,7 @@
           "kind": "markdown",
           "value": "Type: `bool`  \nWhether ignore incorrect casing returned in `body` to suppress plan-diff. Defaults to `false`.\n"
         },
-        "sortText": "0012",
+        "sortText": "0013",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -443,7 +473,7 @@
           "kind": "markdown",
           "value": "Type: `bool`  \nWhether ignore not returned properties like credentials in `body` to suppress plan-diff. Defaults to `false`.\n"
         },
-        "sortText": "0013",
+        "sortText": "0014",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -473,7 +503,7 @@
           "kind": "markdown",
           "value": "Type: `map<string, string>`  \nA mapping of headers which should be sent with the create request.\n"
         },
-        "sortText": "0014",
+        "sortText": "0015",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -503,7 +533,7 @@
           "kind": "markdown",
           "value": "Type: `map<string, string>`  \nA mapping of headers which should be sent with the update request.\n"
         },
-        "sortText": "0015",
+        "sortText": "0016",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -533,7 +563,7 @@
           "kind": "markdown",
           "value": "Type: `map<string, string>`  \nA mapping of headers which should be sent with the read request.\n"
         },
-        "sortText": "0016",
+        "sortText": "0017",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -563,7 +593,7 @@
           "kind": "markdown",
           "value": "Type: `map<string, string>`  \nA mapping of headers which should be sent with the delete request.\n"
         },
-        "sortText": "0017",
+        "sortText": "0018",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -593,7 +623,7 @@
           "kind": "markdown",
           "value": "Type: `map<string, list<string>>`  \nA mapping of query parameters which should be sent with the create request.\n"
         },
-        "sortText": "0018",
+        "sortText": "0019",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -623,7 +653,7 @@
           "kind": "markdown",
           "value": "Type: `map<string, list<string>>`  \nA mapping of query parameters which should be sent with the update request.\n"
         },
-        "sortText": "0019",
+        "sortText": "0020",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -653,7 +683,7 @@
           "kind": "markdown",
           "value": "Type: `map<string, list<string>>`  \nA mapping of query parameters which should be sent with the read request.\n"
         },
-        "sortText": "0020",
+        "sortText": "0021",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {
@@ -683,7 +713,7 @@
           "kind": "markdown",
           "value": "Type: `map<string, list<string>>`  \nA mapping of query parameters which should be sent with the delete request.\n"
         },
-        "sortText": "0021",
+        "sortText": "0022",
         "insertTextFormat": 2,
         "insertTextMode": 2,
         "textEdit": {

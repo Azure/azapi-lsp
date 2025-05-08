@@ -416,3 +416,23 @@ func fixEmptyValueRange(hclNode *HclNode) {
 		}
 	}
 }
+
+func CombineHclNodes(a, b *HclNode) *HclNode {
+	if a == nil && b == nil {
+		return nil
+	}
+	if a == nil {
+		return b
+	}
+	if b == nil {
+		return a
+	}
+	for k, v := range b.Children {
+		if _, ok := a.Children[k]; !ok {
+			a.Children[k] = v
+		} else {
+			a.Children[k] = CombineHclNodes(a.Children[k], v)
+		}
+	}
+	return a
+}
