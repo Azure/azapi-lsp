@@ -75,6 +75,11 @@ func ValidateBlock(src []byte, block *hclsyntax.Block) hcl.Diagnostics {
 			hclNode = parser.BuildHclNode(tokens)
 		}
 	}
+	if sensitiveBodyAttribute := parser.AttributeWithName(block, "sensitive_body"); sensitiveBodyAttribute != nil {
+		tokens, _ := hclsyntax.LexExpression(src[sensitiveBodyAttribute.Expr.Range().Start.Byte:sensitiveBodyAttribute.Expr.Range().End.Byte], "", sensitiveBodyAttribute.Expr.Range().Start)
+		sensitiveHclNode := parser.BuildHclNode(tokens)
+		hclNode = parser.CombineHclNodes(hclNode, sensitiveHclNode)
+	}
 	if attribute == nil || hclNode == nil {
 		return nil
 	}

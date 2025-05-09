@@ -126,6 +126,16 @@ func init() {
 				},
 
 				{
+					Name:                  "sensitive_body",
+					Modifier:              "Optional",
+					Type:                  "dynamic",
+					CompletionNewText:     "sensitive_body = $0",
+					Description:           "A dynamic attribute that contains the write-only properties of the request body. This will be merge-patched to the body to construct the actual request body.",
+					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{dynamicPlaceholderCandidate()}),
+					GenericCandidatesFunc: bodyCandidates,
+				},
+
+				{
 					Name:              "tags",
 					Modifier:          "Optional",
 					Type:              "map<string, string>",
@@ -293,6 +303,16 @@ func init() {
 					Type:                  "dynamic",
 					Description:           "An HCL object that contains the request body used to create and update azure resource.",
 					CompletionNewText:     `body = $0`,
+					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{dynamicPlaceholderCandidate()}),
+					GenericCandidatesFunc: bodyCandidates,
+				},
+
+				{
+					Name:                  "sensitive_body",
+					Modifier:              "Optional",
+					Type:                  "dynamic",
+					CompletionNewText:     "sensitive_body = $0",
+					Description:           "A dynamic attribute that contains the write-only properties of the request body. This will be merge-patched to the body to construct the actual request body.",
 					ValueCandidatesFunc:   FixedValueCandidatesFunc([]lsp.CompletionItem{dynamicPlaceholderCandidate()}),
 					GenericCandidatesFunc: bodyCandidates,
 				},

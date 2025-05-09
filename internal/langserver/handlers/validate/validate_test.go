@@ -153,3 +153,15 @@ func TestValidation_payload_missingRequiredPropertyInArrayItem(t *testing.T) {
 		}
 	}
 }
+
+func TestValidation_sensitiveBody(t *testing.T) {
+	config, err := os.ReadFile(fmt.Sprintf("../testdata/%s/main.tf", t.Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	_, diag := ValidateFile(config, "main.tf")
+	if len(diag) != 0 {
+		t.Errorf("expect no diagnostics, but got %v", diag)
+	}
+}
