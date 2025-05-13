@@ -4,6 +4,7 @@ ENHANCEMENTS:
 - `azapi` resources/data sources: Update embedded schema to the latest version.
 - Support specifying the provider version used in the migration in the `terraform` block.
 - `azapi_resource`, `azapi_update_resource` resources: Support `sensitive_body` field, which is used to specify the write-only properties in the request body.
+- Update bicep types to https://github.com/ms-henglu/bicep-types-az/commit/0ce6ee9ce836e6847eaa92a6ac4ecd7ef4b89d0b
 
 BUG FIXES:
 - Fix a bug that resource group's api-version `2024-07-01` is disabled in the provider.
