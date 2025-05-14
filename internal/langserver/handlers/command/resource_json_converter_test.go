@@ -48,7 +48,7 @@ func Test_ParseResourceJson(t *testing.T) {
     "etag": "\"1b004b62-0000-0100-0000-6699fe0e0000\""
 }`,
 			expected: `resource "azapi_resource" "workspace" {
-  type      = "Microsoft.OperationalInsights/workspaces@2023-09-01"
+  type      = "Microsoft.OperationalInsights/workspaces@2025-02-01"
   parent_id = "/subscriptions/000000/resourceGroups/acctestRG-240719134659555592"
   name      = "acctestLAW-240719134659555592"
   location  = "eastus"

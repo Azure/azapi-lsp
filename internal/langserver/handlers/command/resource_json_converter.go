@@ -17,13 +17,14 @@ import (
 )
 
 type resourceModel struct {
-	Type      string            `json:"type"`
-	Name      string            `json:"name"`
-	Location  string            `json:"location"`
-	ID        string            `json:"id"`
-	Tags      map[string]string `json:"tags"`
-	Identity  *identityModel    `json:"identity"`
-	DependsOn []string          `json:"dependsOn"`
+	Type       string            `json:"type"`
+	Name       string            `json:"name"`
+	APIVersion string            `json:"apiVersion"`
+	Location   string            `json:"location"`
+	ID         string            `json:"id"`
+	Tags       map[string]string `json:"tags"`
+	Identity   *identityModel    `json:"identity"`
+	DependsOn  []string          `json:"dependsOn"`
 }
 
 type identityModel struct {
@@ -107,21 +108,24 @@ func ParseResourceJson(content string) (*hclwrite.Block, error) {
 		parentId = "/subscriptions/${var.subscriptionId}/resourceGroups/${var.resourceGroupName}"
 	}
 
-	apiVersions := azure.GetApiVersions(model.Type)
-	apiVersion := "TODO"
-	if len(apiVersions) > 0 {
-		apiVersion = apiVersions[len(apiVersions)-1]
+	if model.APIVersion == "" {
+		apiVersions := azure.GetApiVersions(model.Type)
+		apiVersion := "TODO"
+		if len(apiVersions) > 0 {
+			apiVersion = apiVersions[len(apiVersions)-1]
+		}
+		model.APIVersion = apiVersion
 	}
 
 	label := pluralizeClient.Singular(LastSegment(model.Type))
 	block.SetLabels([]string{"azapi_resource", label})
-	block.Body().SetAttributeValue("type", cty.StringVal(fmt.Sprintf("%s@%s", model.Type, apiVersion)))
+	block.Body().SetAttributeValue("type", cty.StringVal(fmt.Sprintf("%s@%s", model.Type, model.APIVersion)))
 	block.Body().SetAttributeValue("parent_id", cty.StringVal(parentId))
 
 	nameValue := model.Name[strings.LastIndex(model.Name, "/")+1:]
 	block.Body().SetAttributeValue("name", cty.StringVal(nameValue))
 
-	def, _ := azure.GetResourceDefinition(model.Type, apiVersion)
+	def, _ := azure.GetResourceDefinition(model.Type, model.APIVersion)
 	if model.Location != "" && (def == nil || canResourceHaveProperty(def, "location")) {
 		block.Body().SetAttributeValue("location", cty.StringVal(model.Location))
 	}
