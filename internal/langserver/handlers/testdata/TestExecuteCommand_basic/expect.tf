@@ -1,17 +1,17 @@
 /*
 Note: This is a generated HCL content from the JSON input which is based on the latest API version available.
 To import the resource, please run the following command:
-terraform import azapi_resource.managedCluster /subscriptions/0000000/resourcegroups/acctestRG-aks-240626160102776968/providers/Microsoft.ContainerService/managedClusters/acctestaks240626160102776968?api-version=2025-02-02-preview
+terraform import azapi_resource.managedCluster /subscriptions/0000000/resourcegroups/acctestRG-aks-240626160102776968/providers/Microsoft.ContainerService/managedClusters/acctestaks240626160102776968?api-version=2025-04-02-preview
 
 Or add the below config:
 import {
-  id = "/subscriptions/0000000/resourcegroups/acctestRG-aks-240626160102776968/providers/Microsoft.ContainerService/managedClusters/acctestaks240626160102776968?api-version=2025-02-02-preview"
+  id = "/subscriptions/0000000/resourcegroups/acctestRG-aks-240626160102776968/providers/Microsoft.ContainerService/managedClusters/acctestaks240626160102776968?api-version=2025-04-02-preview"
   to = azapi_resource.managedCluster
 }
 */
 
 resource "azapi_resource" "managedCluster" {
-  type      = "Microsoft.ContainerService/managedClusters@2025-02-02-preview"
+  type      = "Microsoft.ContainerService/managedClusters@2025-04-02-preview"
   parent_id = "/subscriptions/0000000/resourceGroups/acctestRG-aks-240626160102776968"
   name      = "acctestaks240626160102776968"
   location  = "eastus"

@@ -2,6 +2,11 @@
 
 Experimental version of [terraform-provider-azapi](https://github.com/Azure/terraform-provider-azapi) language server.
 
+## ⚠️ Notice
+
+⚠️ This project has been deprecated and archived. All the features of this project have been merged into the [ms-terraform-lsp](https://github.com/Azure/ms-terraform-lsp).
+
+
 ## What is LSP
 
 Read more about the Language Server Protocol at https://microsoft.github.io/language-server-protocol/
